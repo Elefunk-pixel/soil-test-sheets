@@ -4,12 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-6">
+<meta name="sts-build" content="2026.10.29-7">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
 <body>
 
+<script>try{document.addEventListener("DOMContentLoaded",function(){try{if(!document.documentElement.hasAttribute("data-app"))return;var d=document.createElement("div");d.style.cssText="position:fixed;top:0;padding-top:env(safe-area-inset-top,0px);visibility:hidden";document.body.appendChild(d);var v=parseFloat(getComputedStyle(d).paddingTop)||0;d.remove();if(v<8)document.documentElement.style.setProperty("--sat","34px");}catch(e){}});}catch(e){}</script>
 <script>try{if(window.__TAURI__||window.__TAURI_INTERNALS__||(window.top!==window&&window.top.__STS_LOADER__)||/index\.html/.test(location.pathname))document.documentElement.setAttribute('data-app','')}catch(e){}</script>
 <script>try{var __s=localStorage.getItem('mdd-lab-skin-v1');if(__s)document.documentElement.setAttribute('data-skin',__s)}catch(e){}</script>
 <style>
@@ -219,7 +220,7 @@
 
 *{box-sizing:border-box}
 body{background:var(--bg); color:var(--ink); font:16px/1.45 var(--font-body); padding-block:0 72px}
-body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top, 0px); z-index:16; background:var(--surface)}
+body::before{content:""; position:fixed; inset:0 0 auto; height:var(--sat, env(safe-area-inset-top, 0px)); z-index:16; background:var(--surface)}
 .view{padding-top:26px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px))}
 .wrap{max-width:900px; margin:0 auto; display:flex; flex-direction:column; gap:52px}
 h1,h2{font-family:var(--font-display); margin:0; text-wrap:balance; letter-spacing:.005em}
@@ -263,7 +264,7 @@ button.warn{border-color:var(--warn); color:var(--warn)}
 .how.int > div{margin:0 0 8px 0}
 
 /* ---------- app bar ---------- */
-.appbar{position:sticky; top:env(safe-area-inset-top, 0px); z-index:15; background:var(--surface);
+.appbar{position:sticky; top:var(--sat, env(safe-area-inset-top, 0px)); z-index:15; background:var(--surface);
   border-bottom:1px solid var(--line); box-shadow:0 2px 10px color-mix(in srgb, var(--ink) 7%, transparent)}
 .bar-inner{max-width:1100px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; gap:8px 8px;
   padding-block:8px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px))}
@@ -359,7 +360,7 @@ input.switch:checked::before{transform:translateX(18px); background:var(--on-acc
 .chip.na{color:var(--muted); border-color:var(--line); background:var(--surface-2)}
 .chip.big{font-size:13px; padding:7px 12px}
 
-.sec{display:flex; flex-direction:column; gap:16px; scroll-margin-top:calc(var(--barh, 64px) + env(safe-area-inset-top, 0px) + 14px)}
+.sec{display:flex; flex-direction:column; gap:16px; scroll-margin-top:calc(var(--barh, 64px) + var(--sat, env(safe-area-inset-top, 0px)) + 14px)}
 .sechead{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:4px 12px;
   padding-bottom:10px; border-bottom:3px solid var(--accent2)}
 .sechead .hint{font-size:13px}
@@ -545,6 +546,10 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
 .ph-form label{display:flex; flex-direction:column; gap:3px; font-size:12px; color:var(--muted); flex:1 1 160px}
 .ph-form input{min-height:40px; font-size:15px}
 .ph-pick select{background:var(--accent-soft)}
+.ph-pop{position:absolute; left:0; right:0; top:100%; z-index:30; margin-top:2px; max-height:260px; overflow:auto; background:var(--surface); border:1px solid var(--line); border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.ph-pop[hidden]{display:none}
+.ph-opt{display:block; width:100%; text-align:left; min-height:44px; padding:10px 12px; border:0; border-bottom:1px solid var(--line); background:transparent; color:var(--ink); font-size:15px; border-radius:0; overflow-wrap:anywhere}
+.ph-opt:last-child{border-bottom:0}
 .ph-empty{font-size:13px; color:var(--muted); padding:4px 0}
 
 @media (prefers-reduced-motion:no-preference){ button{transition:border-color .15s, background-color .15s} }
@@ -630,7 +635,6 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
   </div>
 </header>
 
-<datalist id="ph-list"></datalist>
 <!-- ======================= PROJECTS ======================= -->
 <main class="view" id="view-projects" hidden>
 <div class="wrap">
@@ -678,7 +682,7 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
   <section class="sec" id="f-sec-setup">
     <div class="sechead"><h2>Test details</h2></div>
     <div class="grid">
-      <div class="f" style="grid-column:1/-1"><label for="f-m-job">Job / project</label><input id="f-m-job" data-fm="job" type="text" autocomplete="off" list="ph-list" data-hpick placeholder="Type, or pick a saved project"></div>
+      <div class="f" style="grid-column:1/-1"><label for="f-m-job">Job / project</label><input id="f-m-job" data-fm="job" type="text" autocomplete="off" data-hpick placeholder="Type, or pick a saved project"></div>
       <div class="f"><label for="f-m-ours">Our test request</label><input id="f-m-ours" data-fm="ours" type="text" autocomplete="off"></div>
       <div class="f"><label for="f-m-client">Client test request</label><input id="f-m-client" data-fm="client" type="text" autocomplete="off"></div>
       <div class="f"><label for="f-m-date">Date</label><input id="f-m-date" data-fm="date" type="date"></div>
@@ -802,7 +806,7 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
   <section class="sec" id="sec-setup">
     <div class="sechead"><h2>Test details</h2></div>
     <div class="grid">
-      <div class="f" style="grid-column:1/-1"><label for="meta-job">Job / project</label><input id="meta-job" data-meta="job" type="text" autocomplete="off" list="ph-list" data-hpick placeholder="Type, or pick a saved project"></div>
+      <div class="f" style="grid-column:1/-1"><label for="meta-job">Job / project</label><input id="meta-job" data-meta="job" type="text" autocomplete="off" data-hpick placeholder="Type, or pick a saved project"></div>
       <div class="f"><label for="meta-ours">Our test request</label><input id="meta-ours" data-meta="ours" type="text" autocomplete="off"></div>
       <div class="f"><label for="meta-client">Client test request</label><input id="meta-client" data-meta="client" type="text" autocomplete="off"></div>
       <div class="f"><label for="meta-sample">Sample ID</label><input id="meta-sample" data-meta="sample" type="text" autocomplete="off"></div>
@@ -2425,17 +2429,34 @@ const Integration=(function(){
     }));
     const dl=document.getElementById('ph-list'); if(dl) dl.innerHTML=o;
   }
-  document.addEventListener('focusin',e=>{ if(e.target.matches&&e.target.matches('[data-hpick]')) fillPicks(); });
-  document.addEventListener('change',e=>{
-    const inp=e.target; if(!inp.matches||!inp.matches('[data-hpick]')) return;
-    const loc=pickMap[inp.value]; if(!loc) return;
+  function popFor(inp){ const f=inp.closest('.f'); if(!f) return null; f.style.position='relative'; let pop=f.querySelector('.ph-pop'); if(!pop){ pop=document.createElement('div'); pop.className='ph-pop'; pop.hidden=true; f.appendChild(pop); } return pop; }
+  function showPop(inp,filt){
+    fillPicks(); const pop=popFor(inp); if(!pop) return;
+    const q=(inp.value||'').toLowerCase(), all=Object.keys(pickMap);
+    const list=(!filt||!q)?all:all.filter(k=>k.toLowerCase().indexOf(q)>=0);
+    if(!list.length){ pop.hidden=true; return; }
+    pop.innerHTML=list.map(k=>'<button type="button" class="ph-opt" data-hv="'+esc(k)+'">'+esc(k)+'</button>').join('');
+    pop.hidden=false;
+  }
+  function hidePops(){ document.querySelectorAll('.ph-pop').forEach(x=>x.hidden=true); }
+  function applyPick(inp,val){
+    const loc=pickMap[val]; if(!loc) return;
     const p=findP(loc.p), r=findR(p,loc.r), c=findC(r,loc.c); if(!p||!r) return;
     const pre=inp.id.replace('-job','');
     const set=(k,v)=>{ const el=document.getElementById(pre+'-'+k); if(el){ el.value=v; el.dispatchEvent(new Event('input',{bubbles:true})); el.dispatchEvent(new Event('change',{bubbles:true})); } };
     set('job',pLab(p)); set('ours',r.no||''); set('client',c?(c.no||''):'');
     H.active={p:p.id,r:r.id,c:c?c.id:null}; persist();
     toast('Filled from '+pathLab(H.active)+'. Saves go here.');
-  });
+  }
+  document.addEventListener('focusin',e=>{ if(e.target.matches&&e.target.matches('[data-hpick]')) showPop(e.target); });
+  document.addEventListener('click',e=>{ if(e.target.matches&&e.target.matches('[data-hpick]')) showPop(e.target); });
+  document.addEventListener('input',e=>{ if(e.target.matches&&e.target.matches('[data-hpick]')) showPop(e.target,true); });
+  document.addEventListener('pointerdown',e=>{
+    const o=e.target.closest&&e.target.closest('.ph-opt');
+    if(o){ e.preventDefault(); const inp=o.closest('.f').querySelector('[data-hpick]'); applyPick(inp,o.dataset.hv); hidePops(); return; }
+    if(!(e.target.matches&&e.target.matches('[data-hpick]'))) hidePops();
+  },true);
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') hidePops(); });
   fillPicks();
 
 })();
