@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-1">
+<meta name="sts-build" content="2026.10.29-6">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -517,6 +517,36 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
   .bar-actions{order:3; flex:1 1 0; min-width:0; margin-left:6px; padding-left:12px; border-left:1px solid var(--line)}
   .menu-wrap.settings{order:4; margin-left:0}
 }
+
+/* ---- Projects (hierarchy) ---- */
+.ph-top{display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:10px 12px}
+.ph-top .lbl{font-size:13px; color:var(--muted)}
+.ph-proj{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:12px 14px; display:flex; flex-direction:column; gap:10px}
+.ph-h{display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px}
+.ph-h .ph-t{flex:1 1 200px; min-width:0; display:flex; flex-direction:column}
+.ph-h .ph-t b{font:700 17px/1.2 var(--font-display); color:var(--ink); overflow-wrap:anywhere}
+.ph-h .ph-t span{font-size:13px; color:var(--muted); overflow-wrap:anywhere}
+.ph-n{font-size:12px; color:var(--muted); white-space:nowrap}
+.ph-a{display:flex; flex-wrap:wrap; gap:6px}
+.ph-tog{min-width:40px; min-height:40px; padding:0; font-size:18px}
+.ph-kids{display:flex; flex-direction:column; gap:10px; padding-left:12px; border-left:2px solid var(--line)}
+.ph-req{border:1px solid var(--line); border-radius:8px; padding:10px 12px; display:flex; flex-direction:column; gap:8px; background:var(--bg)}
+.ph-cli{border:1px dashed var(--line); border-radius:8px; padding:8px 10px; display:flex; flex-direction:column; gap:6px; background:var(--surface)}
+.ph-kind{font:700 11px/1 var(--font-body); letter-spacing:.06em; text-transform:uppercase; color:var(--accent)}
+.ph-act{outline:2px solid var(--accent); outline-offset:1px}
+.ph-test{display:flex; flex-wrap:wrap; align-items:center; gap:6px 10px; padding:6px 0; border-top:1px solid var(--line)}
+.ph-test:first-of-type{border-top:0}
+.ph-test .tl{flex:1 1 180px; min-width:0; display:flex; flex-direction:column}
+.ph-test .tl b{font-size:14px; overflow-wrap:anywhere}
+.ph-test .tl span{font-size:12px; color:var(--muted)}
+.ph-tag{display:inline-block; font:700 10px/1 var(--font-body); letter-spacing:.06em; padding:3px 6px; border-radius:4px; background:var(--accent-soft); color:var(--ink); margin-right:6px}
+.ph-test select{max-width:100%; min-height:36px; font-size:13px}
+.ph-form{display:flex; flex-wrap:wrap; gap:8px; align-items:flex-end; padding:8px; border:1px solid var(--line); border-radius:8px; background:var(--accent-soft)}
+.ph-form label{display:flex; flex-direction:column; gap:3px; font-size:12px; color:var(--muted); flex:1 1 160px}
+.ph-form input{min-height:40px; font-size:15px}
+.ph-pick select{background:var(--accent-soft)}
+.ph-empty{font-size:13px; color:var(--muted); padding:4px 0}
+
 @media (prefers-reduced-motion:no-preference){ button{transition:border-color .15s, background-color .15s} }
 @media (prefers-reduced-motion:reduce){ input.switch::before{transition:none} }
 </style>
@@ -534,6 +564,10 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
         <svg class="caret" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
       </button>
       <div class="menu" id="menu-testing" role="menu" aria-label="Testing programs" hidden>
+                <button type="button" class="mi" role="menuitemradio" data-view="projects" aria-checked="false">
+          <svg viewBox="0 0 24 24"><path d="M4 5h6M4 12h6M4 19h6M10 5v14M10 12h10M10 19h10M10 5h10"/></svg>
+          <span><b>Projects</b><small>Project, our request, client request, tests</small></span>
+        </button>
         <div class="menu-h">Field</div>
         <button type="button" class="mi" role="menuitemradio" data-view="fdn" aria-checked="false">
           <svg viewBox="0 0 24 24"><rect x="5" y="3.5" width="14" height="9" rx="2"/><path d="M9 7.5h6M12 12.5v8M9 20.5h6"/></svg>
@@ -559,6 +593,10 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
       <button type="button" class="barbtn primary" id="btn-save" data-act="save"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg><span class="bl">Save</span></button>
       <button type="button" class="barbtn" id="btn-saved" data-act="toggle-saved"><svg viewBox="0 0 24 24"><path d="M3 6.5h6l2 2h10V19H3z"/></svg><span class="bl">Saved</span></button>
       <button type="button" class="barbtn" id="btn-copy" data-act="copy"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span class="bl">Copy</span></button>
+    </div>
+
+    <div class="bar-actions" id="acts-projects" role="toolbar" aria-label="Project actions" hidden>
+      <button type="button" class="barbtn primary" data-act="p-addproj"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span class="bl">Add project</span></button>
     </div>
 
     <div class="menu-wrap settings">
@@ -592,6 +630,25 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
   </div>
 </header>
 
+<datalist id="ph-list"></datalist>
+<!-- ======================= PROJECTS ======================= -->
+<main class="view" id="view-projects" hidden>
+<div class="wrap">
+  <header class="top">
+    <div class="titlebar">
+      <span class="eyebrow">Tracking · project · our request · client request</span>
+      <h1>Projects</h1>
+      <span class="draftnote">Saved on this device. Our test request is the parent; client requests sit under it, and saved tests sit under those.</span>
+    </div>
+  </header>
+  <section class="sec" aria-label="Projects">
+    <div class="ph-top" id="ph-active"></div>
+    <div id="ph-tree"></div>
+    <div id="ph-unfiled"></div>
+  </section>
+</div>
+</main>
+
 <!-- ======================= FDN TEST ======================= -->
 <main class="view" id="view-fdn" hidden>
 <div class="wrap">
@@ -617,6 +674,22 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
       <textarea id="f-copybox" rows="10" readonly></textarea>
     </div>
   </header>
+
+  <section class="sec" id="f-sec-setup">
+    <div class="sechead"><h2>Test details</h2></div>
+    <div class="grid">
+      <div class="f" style="grid-column:1/-1"><label for="f-m-job">Job / project</label><input id="f-m-job" data-fm="job" type="text" autocomplete="off" list="ph-list" data-hpick placeholder="Type, or pick a saved project"></div>
+      <div class="f"><label for="f-m-ours">Our test request</label><input id="f-m-ours" data-fm="ours" type="text" autocomplete="off"></div>
+      <div class="f"><label for="f-m-client">Client test request</label><input id="f-m-client" data-fm="client" type="text" autocomplete="off"></div>
+      <div class="f"><label for="f-m-date">Date</label><input id="f-m-date" data-fm="date" type="date"></div>
+      <div class="f"><label for="f-m-by">Tested by</label><input id="f-m-by" data-fm="by" type="text" autocomplete="off"></div>
+      <div class="f span2"><label for="f-m-material">Material / layer</label><input id="f-m-material" data-fm="material" type="text" autocomplete="off"></div>
+      <div class="f"><label for="f-m-gauge">Gauge serial no.</label><input id="f-m-gauge" class="num" data-fm="gauge" type="text" autocomplete="off"></div>
+      <div class="f"><label for="f-m-depth">Test depth (mm)</label><input id="f-m-depth" class="num" data-fm="depth" inputmode="decimal" autocomplete="off"></div>
+      <div class="f w2"><label for="f-m-dstd">Density std count</label><input id="f-m-dstd" class="num" data-fm="dstd" inputmode="numeric" autocomplete="off"></div>
+      <div class="f w2"><label for="f-m-mstd">Moisture std count</label><input id="f-m-mstd" class="num" data-fm="mstd" inputmode="numeric" autocomplete="off"></div>
+    </div>
+  </section>
 
   <section class="sec" id="f-sec-results" aria-label="FDN results">
     <div class="sechead"><h2>Results</h2><span class="hint">Updates as you type</span></div>
@@ -665,20 +738,6 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
       <div class="formula">converted wet density = wet density ÷ (1 + added % ÷ 100)<br>dry density = wet density ÷ (1 + w ÷ 100)<br>density ratio = dry density ÷ MDD × 100<br>moisture vs OMC = w − OMC</div>
       <div class="hint">Density ratio is shown and checked against the minimum to 0.1%.</div>
     </details>
-  </section>
-
-  <section class="sec" id="f-sec-setup">
-    <div class="sechead"><h2>Test details</h2></div>
-    <div class="grid">
-      <div class="f span2"><label for="f-m-job">Job / project</label><input id="f-m-job" data-fm="job" type="text" autocomplete="off"></div>
-      <div class="f"><label for="f-m-date">Date</label><input id="f-m-date" data-fm="date" type="date"></div>
-      <div class="f"><label for="f-m-by">Tested by</label><input id="f-m-by" data-fm="by" type="text" autocomplete="off"></div>
-      <div class="f span2"><label for="f-m-material">Material / layer</label><input id="f-m-material" data-fm="material" type="text" autocomplete="off"></div>
-      <div class="f"><label for="f-m-gauge">Gauge serial no.</label><input id="f-m-gauge" class="num" data-fm="gauge" type="text" autocomplete="off"></div>
-      <div class="f"><label for="f-m-depth">Test depth (mm)</label><input id="f-m-depth" class="num" data-fm="depth" inputmode="decimal" autocomplete="off"></div>
-      <div class="f w2"><label for="f-m-dstd">Density std count</label><input id="f-m-dstd" class="num" data-fm="dstd" inputmode="numeric" autocomplete="off"></div>
-      <div class="f w2"><label for="f-m-mstd">Moisture std count</label><input id="f-m-mstd" class="num" data-fm="mstd" inputmode="numeric" autocomplete="off"></div>
-    </div>
   </section>
 
   <section class="sec" id="f-sec-loc">
@@ -740,6 +799,25 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
     </div>
   </header>
 
+  <section class="sec" id="sec-setup">
+    <div class="sechead"><h2>Test details</h2></div>
+    <div class="grid">
+      <div class="f" style="grid-column:1/-1"><label for="meta-job">Job / project</label><input id="meta-job" data-meta="job" type="text" autocomplete="off" list="ph-list" data-hpick placeholder="Type, or pick a saved project"></div>
+      <div class="f"><label for="meta-ours">Our test request</label><input id="meta-ours" data-meta="ours" type="text" autocomplete="off"></div>
+      <div class="f"><label for="meta-client">Client test request</label><input id="meta-client" data-meta="client" type="text" autocomplete="off"></div>
+      <div class="f"><label for="meta-sample">Sample ID</label><input id="meta-sample" data-meta="sample" type="text" autocomplete="off"></div>
+      <div class="f"><label for="meta-date">Date</label><input id="meta-date" data-meta="date" type="date"></div>
+      <div class="f span2"><label for="meta-by">Tested by</label><input id="meta-by" data-meta="by" type="text" autocomplete="off"></div>
+      <div class="f span2"><label for="meta-method">Method</label>
+        <select id="meta-method" data-meta="method">
+          <option value="std">Standard (AS 1289.5.1.1)</option>
+          <option value="mod">Modified (AS 1289.5.2.1)</option>
+        </select></div>
+      <div class="f w2"><label for="meta-vol">Mould volume (cm³)</label><input id="meta-vol" class="num" data-meta="vol" inputmode="decimal" autocomplete="off"></div>
+      <div class="f w2"><label for="meta-mass">Mould mass (g)</label><input id="meta-mass" class="num" data-meta="mass" inputmode="decimal" placeholder="e.g. 4210" autocomplete="off"></div>
+    </div>
+  </section>
+
   <section class="sec" id="sec-results" aria-label="Results">
    <div class="sechead"><h2>Results</h2><span class="hint">Updates as you type</span></div>
    <div class="results" id="results">
@@ -786,23 +864,6 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
       <div class="hint">The sample moisture is not part of the curve. With an estimated OMC, Fill added % spreads the points evenly either side of it and works out how much water each one needs. You can still change any added % by hand.</div>
       <div class="formula">w = (tin + wet − tin + dry) ÷ (tin + dry − tin) × 100<br>added % for a point = its target w − sample w</div>
     </details>
-  </section>
-
-  <section class="sec" id="sec-setup">
-    <div class="sechead"><h2>Test details</h2></div>
-    <div class="grid">
-      <div class="f span2"><label for="meta-job">Job / project</label><input id="meta-job" data-meta="job" type="text" autocomplete="off"></div>
-      <div class="f"><label for="meta-sample">Sample ID</label><input id="meta-sample" data-meta="sample" type="text" autocomplete="off"></div>
-      <div class="f"><label for="meta-date">Date</label><input id="meta-date" data-meta="date" type="date"></div>
-      <div class="f span2"><label for="meta-by">Tested by</label><input id="meta-by" data-meta="by" type="text" autocomplete="off"></div>
-      <div class="f span2"><label for="meta-method">Method</label>
-        <select id="meta-method" data-meta="method">
-          <option value="std">Standard (AS 1289.5.1.1)</option>
-          <option value="mod">Modified (AS 1289.5.2.1)</option>
-        </select></div>
-      <div class="f w2"><label for="meta-vol">Mould volume (cm³)</label><input id="meta-vol" class="num" data-meta="vol" inputmode="decimal" autocomplete="off"></div>
-      <div class="f w2"><label for="meta-mass">Mould mass (g)</label><input id="meta-mass" class="num" data-meta="mass" inputmode="decimal" placeholder="e.g. 4210" autocomplete="off"></div>
-    </div>
   </section>
 
   <section class="sec" id="sec-comp">
@@ -1234,7 +1295,7 @@ const Integration=(function(){
 
   function blank(){
     return {example:false, savedId:null,
-      meta:{job:'',sample:'',date:today(),by:'',method:'std',vol:'1000',mass:'',batch:'',estomc:'',step:'2'},
+      meta:{ours:'',client:'',job:'',sample:'',date:today(),by:'',method:'std',vol:'1000',mass:'',batch:'',estomc:'',step:'2'},
       nat:{id:'',wet:'',dry:'',tare:''},
       add:['','','','',''],
       ms:['','','','',''],
@@ -1321,7 +1382,7 @@ const Integration=(function(){
   }
   function fillMeta(){
     const m=state.meta;
-    ['job','sample','date','by','method','vol','mass','batch','estomc','step'].forEach(k=>{ $('meta-'+k).value=m[k]==null?'':m[k]; });
+    ['ours','client','job','sample','date','by','method','vol','mass','batch','estomc','step'].forEach(k=>{ $('meta-'+k).value=m[k]==null?'':m[k]; });
   }
 
   /* ---------- chart ---------- */
@@ -1533,7 +1594,7 @@ const Integration=(function(){
     const idx=list.findIndex(x=>x.id===id);
     const rec={id,savedAt:Date.now(),data:snap};
     if(idx>=0) list[idx]=rec; else list.push(rec);
-    if(writeLS(LS_SAVED,list)){ writeLS(LS_DRAFT,state); renderSaved(); toast('Saved on this device'); Snd.play('save'); }
+    if(writeLS(LS_SAVED,list)){ writeLS(LS_DRAFT,state); renderSaved(); toast('Saved on this device'); Snd.play('save'); if(window.STS_HIER_ONSAVE) STS_HIER_ONSAVE('mdd',id); }
     else{ toast('This browser would not let the page save'); Snd.play('warn'); }
   }
   function loadAll(s){
@@ -1682,13 +1743,18 @@ const Integration=(function(){
   $('exbanner').hidden=!state.example;
   renderSaved();
   update();
+  window.STS_API=window.STS_API||{};
+  window.STS_API.mdd={view:'compaction', list:getSaved,
+    label:it=>it.data.meta.sample||'Untitled sample',
+    sub:it=>fmtDate(it.data.meta.date),
+    load:id=>{ const it=getSaved().find(x=>x.id===id); if(!it) return false; const s=JSON.parse(JSON.stringify(it.data)); s.savedId=it.id; s.example=false; loadAll(s); return true; }};
 })();
 
 /* ======================= FDN TEST ======================= */
 (function(){
   const LS_DRAFT='fdn-draft-v1', LS_SAVED='fdn-tests-v1', LS_XREF='fdn-xref-v1';
   const MAXT=40, LABW=112, COLW=94;
-  const META=['job','date','by','material','gauge','depth','layer','dstd','mstd','mdd','omc','spec','ref'];
+  const META=['ours','client','job','date','by','material','gauge','depth','layer','dstd','mstd','mdd','omc','spec','ref'];
   const TKEYS=['sid','fid','lot','time','loc1','loc2','loc3','loc4','wet','dry','gw','dc','mc','ow'];
   const LOC_ROWS=[
     {k:'fid',label:'Field ID',ph:'FD-101'},
@@ -1716,7 +1782,7 @@ const Integration=(function(){
 
   function blank(){
     return {example:false, savedId:null,
-      meta:{job:'',date:today(),by:'',material:'',gauge:'',depth:'150',layer:'',dstd:'',mstd:'',mdd:'',omc:'',spec:'95',ref:'',xref:xrefPref},
+      meta:{ours:'',client:'',job:'',date:today(),by:'',material:'',gauge:'',depth:'150',layer:'',dstd:'',mstd:'',mdd:'',omc:'',spec:'95',ref:'',xref:xrefPref},
       tests:[emptyTest(),emptyTest(),emptyTest()]};
   }
   function example(){
@@ -2015,7 +2081,7 @@ const Integration=(function(){
     const idx=list.findIndex(x=>x.id===id);
     const rec={id,savedAt:Date.now(),data:snap};
     if(idx>=0) list[idx]=rec; else list.push(rec);
-    if(writeLS(LS_SAVED,list)){ writeLS(LS_DRAFT,state); renderSaved(); toast('Saved on this device'); Snd.play('save'); }
+    if(writeLS(LS_SAVED,list)){ writeLS(LS_DRAFT,state); renderSaved(); toast('Saved on this device'); Snd.play('save'); if(window.STS_HIER_ONSAVE) STS_HIER_ONSAVE('fdn',id); }
     else{ toast('This browser would not let the page save'); Snd.play('warn'); }
   }
   function loadAll(s){
@@ -2026,6 +2092,7 @@ const Integration=(function(){
   function summary(){
     const c=lastC||fdnCompute(state), m=state.meta, xr=m.xref!==false, L=[];
     L.push('FDN test: '+lotsText(state.tests)+(m.job?' · '+m.job:''));
+    if(m.ours) L.push('Our test request: '+m.ours); if(m.client) L.push('Client test request: '+m.client);
     const line2=[fmtDate(m.date),m.by?'Tested by '+m.by:'',m.gauge?'Gauge '+m.gauge:'',m.depth?m.depth+' mm depth':''].filter(Boolean).join(' · ');
     if(line2) L.push(line2);
     if(m.material) L.push('Material: '+m.material);
@@ -2148,11 +2215,234 @@ const Integration=(function(){
   $('f-exbanner').hidden=!state.example;
   renderSaved();
   update();
+  window.STS_API=window.STS_API||{};
+  window.STS_API.fdn={view:'fdn', list:getSaved,
+    label:it=>{ const d=fixCopy(it.data); return lotsText(d.tests)+(d.meta.job?' · '+d.meta.job:''); },
+    sub:it=>fmtDate(fixCopy(it.data).meta.date),
+    load:id=>{ const it=getSaved().find(x=>x.id===id); if(!it) return false; const s=JSON.parse(JSON.stringify(it.data)); s.savedId=it.id; s.example=false; loadAll(s); return true; }};
+})();
+
+
+/* ======================= PROJECTS (hierarchy) ======================= */
+(function(){
+  const LS='sts-hier-v1';
+  let H=readLS(LS);
+  if(!H||!Array.isArray(H.projects)) H={v:1,projects:[],links:{},active:null};
+  if(!H.links) H.links={};
+  const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+  const persist=()=>{ if(!writeLS(LS,H)) toast('This browser would not let the page save'); };
+  let edit=null, confirmDel=null, confirmT=null;
+  const TAG={fdn:'FDN',mdd:'MDD'};
+  const API=()=>window.STS_API||{};
+
+  const findP=id=>H.projects.find(x=>x.id===id);
+  const findR=(p,id)=>p&&p.reqs.find(x=>x.id===id);
+  const findC=(r,id)=>r&&r.clients.find(x=>x.id===id);
+  const pLab=p=>(p.no||'')+(p.no&&p.name?' · ':'')+(p.name||'')||'Untitled project';
+  const rLab=r=>'Our request '+(r.no||'(no number)');
+  const cLab=c=>'Client request '+(c.no||'(no number)');
+  function pathLab(loc){
+    const p=findP(loc.p), r=findR(p,loc.r), c=findC(r,loc.c);
+    if(!p||!r) return '';
+    return (p.no||p.name||'Project')+' › '+(r.no||'our request')+(c?' › '+(c.no||'client request'):'');
+  }
+  function validLoc(l){ if(!l) return null; const p=findP(l.p), r=findR(p,l.r); if(!p||!r) return null; if(l.c&&!findC(r,l.c)) return null; return {p:l.p,r:l.r,c:l.c||null}; }
+
+  function allTests(){
+    const out=[]; const a=API();
+    ['fdn','mdd'].forEach(t=>{ if(!a[t]) return; a[t].list().forEach(it=>out.push({key:t+':'+it.id,type:t,id:it.id,label:a[t].label(it),sub:a[t].sub(it),savedAt:it.savedAt||0})); });
+    return out;
+  }
+  function locOf(key){ return validLoc(H.links[key]); }
+  function testsAt(all,loc){ return all.filter(t=>{ const l=locOf(t.key); return l&&l.p===loc.p&&l.r===loc.r&&(l.c||null)===(loc.c||null); }); }
+  function countUnder(all,pred){ return all.filter(t=>{ const l=locOf(t.key); return l&&pred(l); }).length; }
+
+  function moveOptions(sel){
+    let o='<option value="">Move to…</option><option value="-">Unfiled</option>';
+    H.projects.forEach(p=>p.reqs.forEach(r=>{
+      const v=p.id+'|'+r.id+'|';
+      o+='<option value="'+esc(v)+'"'+(sel===v?' disabled':'')+'>'+esc((p.no||p.name||'Project')+' › '+(r.no||'our request'))+'</option>';
+      r.clients.forEach(c=>{ const v2=v+c.id; o+='<option value="'+esc(v2)+'"'+(sel===v2?' disabled':'')+'>'+esc((p.no||p.name||'Project')+' › '+(r.no||'our request')+' › '+(c.no||'client request'))+'</option>'; });
+    }));
+    return o;
+  }
+  function testRow(t,loc){
+    const sel=loc?(loc.p+'|'+loc.r+'|'+(loc.c||'')):'';
+    return '<div class="ph-test"><div class="tl"><b><span class="ph-tag">'+TAG[t.type]+'</span>'+esc(t.label)+'</b><span>'+esc(t.sub||'')+'</span></div>'
+      +'<button type="button" class="slim" data-act="p-open" data-key="'+esc(t.key)+'">Open</button>'
+      +'<select data-pmove="'+esc(t.key)+'" aria-label="Move test">'+moveOptions(sel)+'</select></div>';
+  }
+  function form(kind){
+    const lab={proj:['Project number','Project name'],req:['Our request number','Notes'],cli:['Client request number','Notes']}[kind];
+    const e=edit;
+    return '<div class="ph-form"><label>'+lab[0]+'<input id="ph-f1" type="text" autocomplete="off" value="'+esc(e.v1||'')+'"></label>'
+      +'<label>'+lab[1]+'<input id="ph-f2" type="text" autocomplete="off" value="'+esc(e.v2||'')+'"></label>'
+      +'<button type="button" class="slim" data-act="p-fsave">Save</button><button type="button" class="slim" data-act="p-fcancel">Cancel</button></div>';
+  }
+  const isEdit=(kind,mode,pid,rid,cid)=>edit&&edit.kind===kind&&edit.mode===mode&&edit.pid===(pid||null)&&edit.rid===(rid||null)&&edit.cid===(cid||null);
+  const delBtn=(key,label)=>'<button type="button" class="slim" data-act="p-del" data-dk="'+esc(key)+'">'+(confirmDel===key?'Tap again to delete':label||'Delete')+'</button>';
+  const isActive=(p,r,c)=>H.active&&H.active.p===p&&H.active.r===r&&(H.active.c||null)===(c||null);
+
+  function render(){
+    const tree=$('ph-tree'); if(!tree) return;
+    const all=allTests();
+    H.active=validLoc(H.active);
+    $('ph-active').innerHTML=H.active
+      ?'<span class="lbl">New saves go to:</span><b>'+esc(pathLab(H.active))+'</b><button type="button" class="slim" data-act="p-clear">Stop filing new saves here</button>'
+      :'<span class="lbl">No request is active. Tap “Set active” on a request below and every FDN or compaction test you save is filed there automatically.</span>';
+    if(!H.projects.length&&!(edit&&edit.kind==='proj')){
+      tree.innerHTML='<div class="banner">No projects yet. Tap <b>Add project</b> at the top to start: project number and name, then our request, then the client’s request.</div>';
+    } else {
+      let h='';
+      if(edit&&edit.kind==='proj'&&edit.mode==='add') h+=form('proj');
+      H.projects.forEach(p=>{
+        const n=countUnder(all,l=>l.p===p.id);
+        h+='<section class="ph-proj"><div class="ph-h"><button type="button" class="slim ph-tog" data-act="p-tog" data-pid="'+p.id+'" aria-label="Expand or collapse">'+(p.open===false?'▸':'▾')+'</button>'
+          +'<div class="ph-t"><b>'+esc(p.no||p.name||'Untitled project')+'</b><span>'+esc(p.no&&p.name?p.name:'')+'</span></div><span class="ph-n">'+n+(n===1?' test':' tests')+'</span>'
+          +'<div class="ph-a"><button type="button" class="slim" data-act="p-addreq" data-pid="'+p.id+'">+ Our request</button>'
+          +'<button type="button" class="slim" data-act="p-ren" data-pid="'+p.id+'">Edit</button>'+delBtn('p:'+p.id)+'</div></div>';
+        if(isEdit('proj','ren',p.id)) h+=form('proj');
+        if(p.open!==false){
+          h+='<div class="ph-kids">';
+          if(isEdit('req','add',p.id)) h+=form('req');
+          if(!p.reqs.length&&!isEdit('req','add',p.id)) h+='<div class="ph-empty">No requests yet. Tap + Our request.</div>';
+          p.reqs.forEach(r=>{
+            const nr=countUnder(all,l=>l.r===r.id&&l.p===p.id);
+            const loc={p:p.id,r:r.id,c:null}, direct=testsAt(all,loc);
+            h+='<div class="ph-req'+(isActive(p.id,r.id,null)?' ph-act':'')+'"><div class="ph-h"><div class="ph-t"><span class="ph-kind">Our request (parent)</span><b>'+esc(r.no||'(no number)')+'</b><span>'+esc(r.note||'')+'</span></div><span class="ph-n">'+nr+(nr===1?' test':' tests')+'</span>'
+              +'<div class="ph-a"><button type="button" class="slim" data-act="p-active" data-pid="'+p.id+'" data-rid="'+r.id+'">'+(isActive(p.id,r.id,null)?'Active ✓':'Set active')+'</button>'
+              +'<button type="button" class="slim" data-act="p-addcli" data-pid="'+p.id+'" data-rid="'+r.id+'">+ Client request</button>'
+              +'<button type="button" class="slim" data-act="p-ren" data-pid="'+p.id+'" data-rid="'+r.id+'">Edit</button>'+delBtn('r:'+r.id)+'</div></div>';
+            if(isEdit('req','ren',p.id,r.id)) h+=form('req');
+            if(isEdit('cli','add',p.id,r.id)) h+=form('cli');
+            if(direct.length) h+='<div>'+direct.map(t=>testRow(t,loc)).join('')+'</div>';
+            r.clients.forEach(c=>{
+              const cl={p:p.id,r:r.id,c:c.id}, ts=testsAt(all,cl);
+              h+='<div class="ph-cli'+(isActive(p.id,r.id,c.id)?' ph-act':'')+'"><div class="ph-h"><div class="ph-t"><span class="ph-kind">Client request</span><b>'+esc(c.no||'(no number)')+'</b><span>'+esc(c.note||'')+'</span></div><span class="ph-n">'+ts.length+(ts.length===1?' test':' tests')+'</span>'
+                +'<div class="ph-a"><button type="button" class="slim" data-act="p-active" data-pid="'+p.id+'" data-rid="'+r.id+'" data-cid="'+c.id+'">'+(isActive(p.id,r.id,c.id)?'Active ✓':'Set active')+'</button>'
+                +'<button type="button" class="slim" data-act="p-ren" data-pid="'+p.id+'" data-rid="'+r.id+'" data-cid="'+c.id+'">Edit</button>'+delBtn('c:'+c.id)+'</div></div>';
+              if(isEdit('cli','ren',p.id,r.id,c.id)) h+=form('cli');
+              h+=ts.length?ts.map(t=>testRow(t,cl)).join(''):'<div class="ph-empty">No tests filed here yet.</div>';
+              h+='</div>';
+            });
+            h+='</div>';
+          });
+          h+='</div>';
+        }
+        h+='</section>';
+      });
+      tree.innerHTML=h;
+    }
+    const un=all.filter(t=>!locOf(t.key)).sort((a,b)=>b.savedAt-a.savedAt);
+    $('ph-unfiled').innerHTML=un.length
+      ?'<section class="saved"><h2>Unfiled saved tests ('+un.length+')</h2><div>'+un.map(t=>testRow(t,null)).join('')+'</div><div class="hint">Use “Move to…” to file a test under one of your requests.</div></section>'
+      :'';
+    const f1=$('ph-f1'); if(f1&&edit&&!edit.focused){ edit.focused=true; f1.focus({preventScroll:true}); }
+  }
+
+  function toggleDel(key,fn){
+    if(confirmDel===key){ clearTimeout(confirmT); confirmDel=null; fn(); persist(); render(); toast('Deleted. Saved tests were not deleted.'); }
+    else{ confirmDel=key; clearTimeout(confirmT); confirmT=setTimeout(()=>{ confirmDel=null; render(); },3000); render(); }
+  }
+  function relink(key,locStr){
+    if(locStr==='-'){ delete H.links[key]; }
+    else{ const a=locStr.split('|'); H.links[key]={p:a[0],r:a[1],c:a[2]||null}; }
+    persist(); render(); toast(locStr==='-'?'Moved to unfiled':'Filed');
+  }
+
+  document.addEventListener('change',e=>{
+    const sel=e.target.closest&&e.target.closest('[data-pmove]'); if(!sel||!sel.value) return;
+    relink(sel.dataset.pmove,sel.value);
+  });
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Enter'&&e.target&&(e.target.id==='ph-f1'||e.target.id==='ph-f2')){ e.preventDefault(); const b=document.querySelector('[data-act="p-fsave"]'); if(b) b.click(); }
+  });
+  document.addEventListener('click',e=>{
+    const b=e.target.closest&&e.target.closest('button[data-act^="p-"]'); if(!b) return;
+    const act=b.dataset.act, pid=b.dataset.pid, rid=b.dataset.rid, cid=b.dataset.cid;
+    if(act==='p-addproj'){ edit={kind:'proj',mode:'add',pid:null,rid:null,cid:null,v1:'',v2:''}; render(); window.scrollTo(0,0); }
+    else if(act==='p-tog'){ const p=findP(pid); if(p){ p.open=p.open===false; persist(); render(); } }
+    else if(act==='p-addreq'){ const p=findP(pid); if(p){ p.open=true; edit={kind:'req',mode:'add',pid,rid:null,cid:null,v1:'',v2:''}; render(); } }
+    else if(act==='p-addcli'){ edit={kind:'cli',mode:'add',pid,rid,cid:null,v1:'',v2:''}; render(); }
+    else if(act==='p-ren'){
+      const p=findP(pid), r=findR(p,rid), c=findC(r,cid);
+      if(c) edit={kind:'cli',mode:'ren',pid,rid,cid,v1:c.no||'',v2:c.note||''};
+      else if(r) edit={kind:'req',mode:'ren',pid,rid,cid:null,v1:r.no||'',v2:r.note||''};
+      else if(p) edit={kind:'proj',mode:'ren',pid,rid:null,cid:null,v1:p.no||'',v2:p.name||''};
+      render();
+    }
+    else if(act==='p-fcancel'){ edit=null; render(); }
+    else if(act==='p-fsave'){
+      const v1=($('ph-f1').value||'').trim(), v2=($('ph-f2').value||'').trim(), e0=edit;
+      if(!v1&&!v2){ toast('Enter a number or a name first'); return; }
+      if(e0.kind==='proj'){
+        if(e0.mode==='add') H.projects.unshift({id:uid(),no:v1,name:v2,open:true,reqs:[]});
+        else{ const p=findP(e0.pid); if(p){ p.no=v1; p.name=v2; } }
+      } else if(e0.kind==='req'){
+        const p=findP(e0.pid); if(!p) return;
+        if(e0.mode==='add') p.reqs.push({id:uid(),no:v1,note:v2,clients:[]});
+        else{ const r=findR(p,e0.rid); if(r){ r.no=v1; r.note=v2; } }
+      } else {
+        const r=findR(findP(e0.pid),e0.rid); if(!r) return;
+        if(e0.mode==='add') r.clients.push({id:uid(),no:v1,note:v2});
+        else{ const c=findC(r,e0.cid); if(c){ c.no=v1; c.note=v2; } }
+      }
+      edit=null; persist(); render(); Snd.play('save'); toast('Saved');
+    }
+    else if(act==='p-active'){ H.active={p:pid,r:rid,c:cid||null}; persist(); render(); toast('New saves will be filed under '+pathLab(H.active)); }
+    else if(act==='p-clear'){ H.active=null; persist(); render(); }
+    else if(act==='p-del'){
+      const k=b.dataset.dk, kind=k[0], id=k.slice(2);
+      toggleDel(k,()=>{
+        if(kind==='p') H.projects=H.projects.filter(x=>x.id!==id);
+        else if(kind==='r') H.projects.forEach(p=>{ p.reqs=p.reqs.filter(x=>x.id!==id); });
+        else H.projects.forEach(p=>p.reqs.forEach(r=>{ r.clients=r.clients.filter(x=>x.id!==id); }));
+      });
+    }
+    else if(act==='p-open'){
+      const key=b.dataset.key, t=key.split(':')[0], id=key.slice(t.length+1), a=API()[t];
+      if(a&&a.load(id)){ App.go(a.view); toast('Loaded'); } else toast('That test is no longer saved');
+    }
+  });
+
+  window.STS_HIER_ONSAVE=function(type,id){
+    const key=type+':'+id;
+    if(locOf(key)) return;            // already filed: keep where it is
+    const act=validLoc(H.active); if(!act) return;
+    H.links[key]=act; persist();
+    toast('Filed under '+pathLab(act));
+  };
+  App.onShow.projects=render;
+
+  /* fill test details from a saved project: type freely, or pick from the list */
+  let pickMap={};
+  function fillPicks(){
+    pickMap={}; let o='';
+    H.projects.forEach(p=>p.reqs.forEach(r=>{
+      const base=pLab(p)+' › '+(r.no||'our request');
+      pickMap[base]={p:p.id,r:r.id,c:null}; o+='<option value="'+esc(base)+'">';
+      r.clients.forEach(c=>{ const l=base+' › '+(c.no||'client request'); pickMap[l]={p:p.id,r:r.id,c:c.id}; o+='<option value="'+esc(l)+'">'; });
+    }));
+    const dl=document.getElementById('ph-list'); if(dl) dl.innerHTML=o;
+  }
+  document.addEventListener('focusin',e=>{ if(e.target.matches&&e.target.matches('[data-hpick]')) fillPicks(); });
+  document.addEventListener('change',e=>{
+    const inp=e.target; if(!inp.matches||!inp.matches('[data-hpick]')) return;
+    const loc=pickMap[inp.value]; if(!loc) return;
+    const p=findP(loc.p), r=findR(p,loc.r), c=findC(r,loc.c); if(!p||!r) return;
+    const pre=inp.id.replace('-job','');
+    const set=(k,v)=>{ const el=document.getElementById(pre+'-'+k); if(el){ el.value=v; el.dispatchEvent(new Event('input',{bubbles:true})); el.dispatchEvent(new Event('change',{bubbles:true})); } };
+    set('job',pLab(p)); set('ours',r.no||''); set('client',c?(c.no||''):'');
+    H.active={p:p.id,r:r.id,c:c?c.id:null}; persist();
+    toast('Filled from '+pathLab(H.active)+'. Saves go here.');
+  });
+  fillPicks();
+
 })();
 
 /* ======================= menus, settings, routing ======================= */
 (function(){
-  const VIEWS={fdn:'FDN test', compaction:'Lab compaction'};
+  const VIEWS={fdn:'FDN test', compaction:'Lab compaction', projects:'Projects'};
   const LS_VIEW='soil-app-view-v1';
 
   function menuBtn(m){ return document.querySelector('[data-menu="'+m.id+'"]'); }
