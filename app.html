@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-10">
+<meta name="sts-build" content="2026.10.29-11">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -577,6 +577,10 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
 :root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) .mi{border-radius:10px}
 @media (max-width:520px){ :root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) .sec{padding:14px 12px; border-radius:14px} :root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) .view{padding-left:max(10px, env(safe-area-inset-left, 0px)); padding-right:max(10px, env(safe-area-inset-right, 0px))} }
 :root[data-skin="pixel"] .toast,:root[data-skin="hill"] .toast{color:#FFF8E7}
+.grid{align-items:stretch}
+.grid>.f{display:flex; flex-direction:column}
+.grid>.f>input,.grid>.f>select{margin-top:auto}
+.grid>.f>label{min-height:2.4em; display:flex; align-items:flex-end}
 .ph-req{background:var(--surface); color:var(--ink)}
 .ph-cli{background:var(--surface-2); color:var(--ink)}
 .ph-kind{color:var(--accent2,var(--accent))}
