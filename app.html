@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-11">
+<meta name="sts-build" content="2026.10.29-12">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -581,6 +581,11 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
 .grid>.f{display:flex; flex-direction:column}
 .grid>.f>input,.grid>.f>select{margin-top:auto}
 .grid>.f>label{min-height:2.4em; display:flex; align-items:flex-end}
+:root[data-skin="hill"] .sec>.results .kpi,:root[data-skin="hill"] .results .kpi{background-image:none; background-color:#E9E1C8; border:2px solid var(--ink); padding:8px 10px}
+:root[data-skin="hill"] .chartbox{background:#F4EEDB; border:2px solid var(--ink); padding:6px}
+:root[data-skin="hill"] .chartbox svg text{fill:#2A241B}
+:root[data-skin="hill"] .chartbox svg line,:root[data-skin="hill"] .chartbox svg .gl{stroke-opacity:.55}
+:root[data-skin="hill"] .kpi .lab,:root[data-skin="hill"] .kpi .sub,:root[data-skin="hill"] .kpi .val .u{color:#4A402F}
 .ph-req{background:var(--surface); color:var(--ink)}
 .ph-cli{background:var(--surface-2); color:var(--ink)}
 .ph-kind{color:var(--accent2,var(--accent))}
