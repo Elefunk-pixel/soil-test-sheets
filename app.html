@@ -4,12 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.28-4">
+<meta name="sts-build" content="2026.10.29-1">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
 <body>
 
+<script>try{if(window.__TAURI__||window.__TAURI_INTERNALS__||(window.top!==window&&window.top.__STS_LOADER__)||/index\.html/.test(location.pathname))document.documentElement.setAttribute('data-app','')}catch(e){}</script>
 <script>try{var __s=localStorage.getItem('mdd-lab-skin-v1');if(__s)document.documentElement.setAttribute('data-skin',__s)}catch(e){}</script>
 <style>
 /* Layout: a sticky app bar (Testing menu, program actions, settings) over one worksheet column per program. */
@@ -102,7 +103,7 @@
   --col-in:#EBCFA0; --field:#F3DDB6; --calc:#FBEBD0; --result:#FFFAEE; --hi:rgba(255,255,255,.6);
   --font-display:'Press Start 2P','Courier New',monospace;
   --font-body:'Pixelify Sans','Courier New',ui-monospace,monospace;
-  --font-mono:'Pixelify Sans','Courier New',ui-monospace,monospace;
+  --font-mono:'VT323','Pixelify Sans','Courier New',ui-monospace,monospace;
   color-scheme:light;
 }
 :root[data-skin="pixel"]{
@@ -112,6 +113,8 @@
 :root[data-skin="pixel"]::before{content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
   background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='100' height='100' shape-rendering='crispEdges'%3E%3Crect x='42' y='20' width='1' height='1' fill='%23FFF4D6' opacity='0.7'/%3E%3Crect x='84' y='7' width='1' height='1' fill='%23FFF4D6' opacity='0.9'/%3E%3Crect x='69' y='13' width='1' height='1' fill='%23FFF4D6' opacity='0.7'/%3E%3Crect x='75' y='8' width='1' height='1' fill='%23FFF4D6' opacity='0.5'/%3E%3Crect x='28' y='5' width='1' height='1' fill='%23FFF4D6' opacity='0.9'/%3E%3Crect x='56' y='54' width='1' height='1' fill='%23FFF4D6' opacity='0.9'/%3E%3Crect x='31' y='12' width='1' height='1' fill='%23FFF4D6' opacity='0.5'/%3E%3Crect x='55' y='8' width='1' height='1' fill='%23FFF4D6' opacity='0.5'/%3E%3Crect x='16' y='29' width='1' height='1' fill='%23FFF4D6' opacity='0.5'/%3E%3Crect x='81' y='75' width='1' height='1' fill='%23FFF4D6' opacity='0.9'/%3E%3Crect x='74' y='75' width='1' height='1' fill='%23FFF4D6' opacity='0.7'/%3E%3Crect x='7' y='29' width='1' height='1' fill='%23FFF4D6' opacity='0.9'/%3E%3Crect x='72' y='18' width='1' height='1' fill='%23FFF4D6' opacity='0.7'/%3E%3Crect x='54' y='19' width='1' height='1' fill='%23FFF4D6' opacity='0.5'/%3E%3Crect x='16' y='74' width='1' height='1' fill='%23FFF4D6' opacity='0.7'/%3E%3Crect x='72' y='88' width='1' height='1' fill='%23FFF4D6' opacity='0.9'/%3E%3Crect x='14' y='75' width='1' height='1' fill='%23FFF4D6' opacity='0.5'/%3E%3Crect x='82' y='25' width='1' height='1' fill='%23FFF4D6' opacity='0.7'/%3E%3Crect x='13' y='71' width='1' height='1' fill='%23FFF4D6' opacity='0.5'/%3E%3Crect x='9' y='73' width='1' height='1' fill='%23FFF4D6' opacity='0.9'/%3E%3Crect x='80' y='27' width='1' height='1' fill='%23FFF4D6' opacity='0.7'/%3E%3Crect x='88' y='69' width='1' height='1' fill='%23FFF4D6' opacity='0.7'/%3E%3Crect x='41' y='60' width='1' height='1' fill='%23FFF4D6' opacity='0.5'/%3E%3Crect x='59' y='47' width='1' height='1' fill='%23FFF4D6' opacity='0.7'/%3E%3Crect x='32' y='24' width='1' height='1' fill='%23FFF4D6' opacity='0.5'/%3E%3Crect x='32' y='11' width='1' height='1' fill='%23FFF4D6' opacity='0.5'/%3E%3Cg fill='%23FFFFFF'%3E%3Crect x='20' y='29' width='1' height='3'/%3E%3Crect x='19' y='30' width='3' height='1'/%3E%3C/g%3E%3Cg fill='%23FFFFFF'%3E%3Crect x='72' y='11' width='1' height='3'/%3E%3Crect x='71' y='12' width='3' height='1'/%3E%3C/g%3E%3Cg fill='%23FFFFFF'%3E%3Crect x='48' y='69' width='1' height='3'/%3E%3Crect x='47' y='70' width='3' height='1'/%3E%3C/g%3E%3C/svg%3E") 0 0/300px 300px; image-rendering:pixelated;
   }
+:root[data-skin="pixel"]:not([data-app])::before{animation:pxtwinkle 3.2s steps(2,end) infinite}
+@keyframes pxtwinkle{0%{opacity:1}50%{opacity:.72}100%{opacity:1}}
 :root[data-skin="pixel"] body::after{content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; image-rendering:pixelated;
   background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 16' width='64' height='16' shape-rendering='crispEdges'%3E%3Crect x='0' y='11' width='1' height='5' fill='%23241A55'/%3E%3Crect x='1' y='11' width='1' height='5' fill='%23241A55'/%3E%3Crect x='2' y='11' width='1' height='5' fill='%23241A55'/%3E%3Crect x='3' y='11' width='1' height='5' fill='%23241A55'/%3E%3Crect x='4' y='11' width='1' height='5' fill='%23241A55'/%3E%3Crect x='5' y='10' width='1' height='6' fill='%23241A55'/%3E%3Crect x='6' y='10' width='1' height='6' fill='%23241A55'/%3E%3Crect x='7' y='10' width='1' height='6' fill='%23241A55'/%3E%3Crect x='8' y='10' width='1' height='6' fill='%23241A55'/%3E%3Crect x='9' y='10' width='1' height='6' fill='%23241A55'/%3E%3Crect x='10' y='10' width='1' height='6' fill='%23241A55'/%3E%3Crect x='11' y='11' width='1' height='5' fill='%23241A55'/%3E%3Crect x='12' y='11' width='1' height='5' fill='%23241A55'/%3E%3Crect x='13' y='11' width='1' height='5' fill='%23241A55'/%3E%3Crect x='14' y='12' width='1' height='4' fill='%23241A55'/%3E%3Crect x='15' y='12' width='1' height='4' fill='%23241A55'/%3E%3Crect x='16' y='13' width='1' height='3' fill='%23241A55'/%3E%3Crect x='17' y='13' width='1' height='3' fill='%23241A55'/%3E%3Crect x='18' y='14' width='1' height='2' fill='%23241A55'/%3E%3Crect x='19' y='14' width='1' height='2' fill='%23241A55'/%3E%3Crect x='20' y='14' width='1' height='2' fill='%23241A55'/%3E%3Crect x='21' y='14' width='1' height='2' fill='%23241A55'/%3E%3Crect x='22' y='14' width='1' height='2' fill='%23241A55'/%3E%3Crect x='23' y='14' width='1' height='2' fill='%23241A55'/%3E%3Crect x='24' y='14' width='1' height='2' fill='%23241A55'/%3E%3Crect x='25' y='14' width='1' height='2' fill='%23241A55'/%3E%3Crect x='26' y='13' width='1' height='3' fill='%23241A55'/%3E%3Crect x='27' y='13' width='1' height='3' fill='%23241A55'/%3E%3Crect x='28' y='12' width='1' height='4' fill='%23241A55'/%3E%3Crect x='29' y='12' width='1' height='4' fill='%23241A55'/%3E%3Crect x='30' y='12' width='1' height='4' fill='%23241A55'/%3E%3Crect x='31' y='11' width='1' height='5' fill='%23241A55'/%3E%3Crect x='32' y='11' width='1' height='5' fill='%23241A55'/%3E%3Crect x='33' y='11' width='1' height='5' fill='%23241A55'/%3E%3Crect x='34' y='11' width='1' height='5' fill='%23241A55'/%3E%3Crect x='35' y='11' width='1' height='5' fill='%23241A55'/%3E%3Crect x='36' y='11' width='1' height='5' fill='%23241A55'/%3E%3Crect x='37' y='12' width='1' height='4' fill='%23241A55'/%3E%3Crect x='38' y='12' width='1' height='4' fill='%23241A55'/%3E%3Crect x='39' y='12' width='1' height='4' fill='%23241A55'/%3E%3Crect x='40' y='12' width='1' height='4' fill='%23241A55'/%3E%3Crect x='41' y='12' width='1' height='4' fill='%23241A55'/%3E%3Crect x='42' y='12' width='1' height='4' fill='%23241A55'/%3E%3Crect x='43' y='11' width='1' height='5' fill='%23241A55'/%3E%3Crect x='44' y='11' width='1' height='5' fill='%23241A55'/%3E%3Crect x='45' y='11' width='1' height='5' fill='%23241A55'/%3E%3Crect x='46' y='10' width='1' height='6' fill='%23241A55'/%3E%3Crect x='47' y='10' width='1' height='6' fill='%23241A55'/%3E%3Crect x='48' y='9' width='1' height='7' fill='%23241A55'/%3E%3Crect x='49' y='9' width='1' height='7' fill='%23241A55'/%3E%3Crect x='50' y='8' width='1' height='8' fill='%23241A55'/%3E%3Crect x='51' y='8' width='1' height='8' fill='%23241A55'/%3E%3Crect x='52' y='8' width='1' height='8' fill='%23241A55'/%3E%3Crect x='53' y='8' width='1' height='8' fill='%23241A55'/%3E%3Crect x='54' y='8' width='1' height='8' fill='%23241A55'/%3E%3Crect x='55' y='8' width='1' height='8' fill='%23241A55'/%3E%3Crect x='56' y='8' width='1' height='8' fill='%23241A55'/%3E%3Crect x='57' y='8' width='1' height='8' fill='%23241A55'/%3E%3Crect x='58' y='9' width='1' height='7' fill='%23241A55'/%3E%3Crect x='59' y='9' width='1' height='7' fill='%23241A55'/%3E%3Crect x='60' y='10' width='1' height='6' fill='%23241A55'/%3E%3Crect x='61' y='10' width='1' height='6' fill='%23241A55'/%3E%3Crect x='62' y='10' width='1' height='6' fill='%23241A55'/%3E%3Crect x='63' y='11' width='1' height='5' fill='%23241A55'/%3E%3C/svg%3E") repeat-x left bottom/384px 96px, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 16' width='64' height='16' shape-rendering='crispEdges'%3E%3Crect x='0' y='5' width='1' height='11' fill='%236A3F8C'/%3E%3Crect x='1' y='5' width='1' height='11' fill='%236A3F8C'/%3E%3Crect x='2' y='5' width='1' height='11' fill='%236A3F8C'/%3E%3Crect x='3' y='5' width='1' height='11' fill='%236A3F8C'/%3E%3Crect x='4' y='5' width='1' height='11' fill='%236A3F8C'/%3E%3Crect x='5' y='5' width='1' height='11' fill='%236A3F8C'/%3E%3Crect x='6' y='5' width='1' height='11' fill='%236A3F8C'/%3E%3Crect x='7' y='6' width='1' height='10' fill='%236A3F8C'/%3E%3Crect x='8' y='6' width='1' height='10' fill='%236A3F8C'/%3E%3Crect x='9' y='6' width='1' height='10' fill='%236A3F8C'/%3E%3Crect x='10' y='6' width='1' height='10' fill='%236A3F8C'/%3E%3Crect x='11' y='6' width='1' height='10' fill='%236A3F8C'/%3E%3Crect x='12' y='6' width='1' height='10' fill='%236A3F8C'/%3E%3Crect x='13' y='6' width='1' height='10' fill='%236A3F8C'/%3E%3Crect x='14' y='6' width='1' height='10' fill='%236A3F8C'/%3E%3Crect x='15' y='6' width='1' height='10' fill='%236A3F8C'/%3E%3Crect x='16' y='6' width='1' height='10' fill='%236A3F8C'/%3E%3Crect x='17' y='6' width='1' height='10' fill='%236A3F8C'/%3E%3Crect x='18' y='6' width='1' height='10' fill='%236A3F8C'/%3E%3Crect x='19' y='6' width='1' height='10' fill='%236A3F8C'/%3E%3Crect x='20' y='6' width='1' height='10' fill='%236A3F8C'/%3E%3Crect x='21' y='6' width='1' height='10' fill='%236A3F8C'/%3E%3Crect x='22' y='6' width='1' height='10' fill='%236A3F8C'/%3E%3Crect x='23' y='7' width='1' height='9' fill='%236A3F8C'/%3E%3Crect x='24' y='7' width='1' height='9' fill='%236A3F8C'/%3E%3Crect x='25' y='8' width='1' height='8' fill='%236A3F8C'/%3E%3Crect x='26' y='8' width='1' height='8' fill='%236A3F8C'/%3E%3Crect x='27' y='9' width='1' height='7' fill='%236A3F8C'/%3E%3Crect x='28' y='10' width='1' height='6' fill='%236A3F8C'/%3E%3Crect x='29' y='10' width='1' height='6' fill='%236A3F8C'/%3E%3Crect x='30' y='11' width='1' height='5' fill='%236A3F8C'/%3E%3Crect x='31' y='11' width='1' height='5' fill='%236A3F8C'/%3E%3Crect x='32' y='11' width='1' height='5' fill='%236A3F8C'/%3E%3Crect x='33' y='11' width='1' height='5' fill='%236A3F8C'/%3E%3Crect x='34' y='11' width='1' height='5' fill='%236A3F8C'/%3E%3Crect x='35' y='11' width='1' height='5' fill='%236A3F8C'/%3E%3Crect x='36' y='11' width='1' height='5' fill='%236A3F8C'/%3E%3Crect x='37' y='11' width='1' height='5' fill='%236A3F8C'/%3E%3Crect x='38' y='11' width='1' height='5' fill='%236A3F8C'/%3E%3Crect x='39' y='10' width='1' height='6' fill='%236A3F8C'/%3E%3Crect x='40' y='10' width='1' height='6' fill='%236A3F8C'/%3E%3Crect x='41' y='10' width='1' height='6' fill='%236A3F8C'/%3E%3Crect x='42' y='10' width='1' height='6' fill='%236A3F8C'/%3E%3Crect x='43' y='10' width='1' height='6' fill='%236A3F8C'/%3E%3Crect x='44' y='10' width='1' height='6' fill='%236A3F8C'/%3E%3Crect x='45' y='10' width='1' height='6' fill='%236A3F8C'/%3E%3Crect x='46' y='10' width='1' height='6' fill='%236A3F8C'/%3E%3Crect x='47' y='10' width='1' height='6' fill='%236A3F8C'/%3E%3Crect x='48' y='10' width='1' height='6' fill='%236A3F8C'/%3E%3Crect x='49' y='10' width='1' height='6' fill='%236A3F8C'/%3E%3Crect x='50' y='10' width='1' height='6' fill='%236A3F8C'/%3E%3Crect x='51' y='10' width='1' height='6' fill='%236A3F8C'/%3E%3Crect x='52' y='10' width='1' height='6' fill='%236A3F8C'/%3E%3Crect x='53' y='10' width='1' height='6' fill='%236A3F8C'/%3E%3Crect x='54' y='10' width='1' height='6' fill='%236A3F8C'/%3E%3Crect x='55' y='9' width='1' height='7' fill='%236A3F8C'/%3E%3Crect x='56' y='9' width='1' height='7' fill='%236A3F8C'/%3E%3Crect x='57' y='8' width='1' height='8' fill='%236A3F8C'/%3E%3Crect x='58' y='8' width='1' height='8' fill='%236A3F8C'/%3E%3Crect x='59' y='7' width='1' height='9' fill='%236A3F8C'/%3E%3Crect x='60' y='6' width='1' height='10' fill='%236A3F8C'/%3E%3Crect x='61' y='6' width='1' height='10' fill='%236A3F8C'/%3E%3Crect x='62' y='5' width='1' height='11' fill='%236A3F8C'/%3E%3Crect x='63' y='5' width='1' height='11' fill='%236A3F8C'/%3E%3C/svg%3E") repeat-x 96px bottom/384px 96px, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12' width='24' height='12' shape-rendering='crispEdges'%3E%3Crect x='9' y='0' width='1' height='1' fill='%23FFF3B0'/%3E%3Crect x='10' y='0' width='1' height='1' fill='%23FFF3B0'/%3E%3Crect x='11' y='0' width='1' height='1' fill='%23FFF3B0'/%3E%3Crect x='12' y='0' width='1' height='1' fill='%23FFF3B0'/%3E%3Crect x='13' y='0' width='1' height='1' fill='%23FFF3B0'/%3E%3Crect x='14' y='0' width='1' height='1' fill='%23FFF3B0'/%3E%3Crect x='6' y='1' width='1' height='1' fill='%23FFEA94'/%3E%3Crect x='7' y='1' width='1' height='1' fill='%23FFEA94'/%3E%3Crect x='8' y='1' width='1' height='1' fill='%23FFEA94'/%3E%3Crect x='9' y='1' width='1' height='1' fill='%23FFEA94'/%3E%3Crect x='10' y='1' width='1' height='1' fill='%23FFEA94'/%3E%3Crect x='11' y='1' width='1' height='1' fill='%23FFEA94'/%3E%3Crect x='12' y='1' width='1' height='1' fill='%23FFEA94'/%3E%3Crect x='13' y='1' width='1' height='1' fill='%23FFEA94'/%3E%3Crect x='14' y='1' width='1' height='1' fill='%23FFEA94'/%3E%3Crect x='15' y='1' width='1' height='1' fill='%23FFEA94'/%3E%3Crect x='16' y='1' width='1' height='1' fill='%23FFEA94'/%3E%3Crect x='17' y='1' width='1' height='1' fill='%23FFEA94'/%3E%3Crect x='5' y='2' width='1' height='1' fill='%23FFDC7A'/%3E%3Crect x='6' y='2' width='1' height='1' fill='%23FFDC7A'/%3E%3Crect x='7' y='2' width='1' height='1' fill='%23FFDC7A'/%3E%3Crect x='8' y='2' width='1' height='1' fill='%23FFDC7A'/%3E%3Crect x='9' y='2' width='1' height='1' fill='%23FFDC7A'/%3E%3Crect x='10' y='2' width='1' height='1' fill='%23FFDC7A'/%3E%3Crect x='11' y='2' width='1' height='1' fill='%23FFDC7A'/%3E%3Crect x='12' y='2' width='1' height='1' fill='%23FFDC7A'/%3E%3Crect x='13' y='2' width='1' height='1' fill='%23FFDC7A'/%3E%3Crect x='14' y='2' width='1' height='1' fill='%23FFDC7A'/%3E%3Crect x='15' y='2' width='1' height='1' fill='%23FFDC7A'/%3E%3Crect x='16' y='2' width='1' height='1' fill='%23FFDC7A'/%3E%3Crect x='17' y='2' width='1' height='1' fill='%23FFDC7A'/%3E%3Crect x='18' y='2' width='1' height='1' fill='%23FFDC7A'/%3E%3Crect x='4' y='3' width='1' height='1' fill='%23FFCB62'/%3E%3Crect x='5' y='3' width='1' height='1' fill='%23FFCB62'/%3E%3Crect x='6' y='3' width='1' height='1' fill='%23FFCB62'/%3E%3Crect x='7' y='3' width='1' height='1' fill='%23FFCB62'/%3E%3Crect x='8' y='3' width='1' height='1' fill='%23FFCB62'/%3E%3Crect x='9' y='3' width='1' height='1' fill='%23FFCB62'/%3E%3Crect x='10' y='3' width='1' height='1' fill='%23FFCB62'/%3E%3Crect x='11' y='3' width='1' height='1' fill='%23FFCB62'/%3E%3Crect x='12' y='3' width='1' height='1' fill='%23FFCB62'/%3E%3Crect x='13' y='3' width='1' height='1' fill='%23FFCB62'/%3E%3Crect x='14' y='3' width='1' height='1' fill='%23FFCB62'/%3E%3Crect x='15' y='3' width='1' height='1' fill='%23FFCB62'/%3E%3Crect x='16' y='3' width='1' height='1' fill='%23FFCB62'/%3E%3Crect x='17' y='3' width='1' height='1' fill='%23FFCB62'/%3E%3Crect x='18' y='3' width='1' height='1' fill='%23FFCB62'/%3E%3Crect x='19' y='3' width='1' height='1' fill='%23FFCB62'/%3E%3Crect x='3' y='4' width='1' height='1' fill='%23FFB84F'/%3E%3Crect x='4' y='4' width='1' height='1' fill='%23FFB84F'/%3E%3Crect x='5' y='4' width='1' height='1' fill='%23FFB84F'/%3E%3Crect x='6' y='4' width='1' height='1' fill='%23FFB84F'/%3E%3Crect x='7' y='4' width='1' height='1' fill='%23FFB84F'/%3E%3Crect x='8' y='4' width='1' height='1' fill='%23FFB84F'/%3E%3Crect x='9' y='4' width='1' height='1' fill='%23FFB84F'/%3E%3Crect x='10' y='4' width='1' height='1' fill='%23FFB84F'/%3E%3Crect x='11' y='4' width='1' height='1' fill='%23FFB84F'/%3E%3Crect x='12' y='4' width='1' height='1' fill='%23FFB84F'/%3E%3Crect x='13' y='4' width='1' height='1' fill='%23FFB84F'/%3E%3Crect x='14' y='4' width='1' height='1' fill='%23FFB84F'/%3E%3Crect x='15' y='4' width='1' height='1' fill='%23FFB84F'/%3E%3Crect x='16' y='4' width='1' height='1' fill='%23FFB84F'/%3E%3Crect x='17' y='4' width='1' height='1' fill='%23FFB84F'/%3E%3Crect x='18' y='4' width='1' height='1' fill='%23FFB84F'/%3E%3Crect x='19' y='4' width='1' height='1' fill='%23FFB84F'/%3E%3Crect x='20' y='4' width='1' height='1' fill='%23FFB84F'/%3E%3Crect x='2' y='5' width='1' height='1' fill='%23FFA444'/%3E%3Crect x='3' y='5' width='1' height='1' fill='%23FFA444'/%3E%3Crect x='4' y='5' width='1' height='1' fill='%23FFA444'/%3E%3Crect x='5' y='5' width='1' height='1' fill='%23FFA444'/%3E%3Crect x='6' y='5' width='1' height='1' fill='%23FFA444'/%3E%3Crect x='7' y='5' width='1' height='1' fill='%23FFA444'/%3E%3Crect x='8' y='5' width='1' height='1' fill='%23FFA444'/%3E%3Crect x='9' y='5' width='1' height='1' fill='%23FFA444'/%3E%3Crect x='10' y='5' width='1' height='1' fill='%23FFA444'/%3E%3Crect x='11' y='5' width='1' height='1' fill='%23FFA444'/%3E%3Crect x='12' y='5' width='1' height='1' fill='%23FFA444'/%3E%3Crect x='13' y='5' width='1' height='1' fill='%23FFA444'/%3E%3Crect x='14' y='5' width='1' height='1' fill='%23FFA444'/%3E%3Crect x='15' y='5' width='1' height='1' fill='%23FFA444'/%3E%3Crect x='16' y='5' width='1' height='1' fill='%23FFA444'/%3E%3Crect x='17' y='5' width='1' height='1' fill='%23FFA444'/%3E%3Crect x='18' y='5' width='1' height='1' fill='%23FFA444'/%3E%3Crect x='19' y='5' width='1' height='1' fill='%23FFA444'/%3E%3Crect x='20' y='5' width='1' height='1' fill='%23FFA444'/%3E%3Crect x='21' y='5' width='1' height='1' fill='%23FFA444'/%3E%3Crect x='1' y='6' width='1' height='1' fill='%23FF8F3C'/%3E%3Crect x='2' y='6' width='1' height='1' fill='%23FF8F3C'/%3E%3Crect x='3' y='6' width='1' height='1' fill='%23FF8F3C'/%3E%3Crect x='4' y='6' width='1' height='1' fill='%23FF8F3C'/%3E%3Crect x='5' y='6' width='1' height='1' fill='%23FF8F3C'/%3E%3Crect x='6' y='6' width='1' height='1' fill='%23FF8F3C'/%3E%3Crect x='7' y='6' width='1' height='1' fill='%23FF8F3C'/%3E%3Crect x='8' y='6' width='1' height='1' fill='%23FF8F3C'/%3E%3Crect x='9' y='6' width='1' height='1' fill='%23FF8F3C'/%3E%3Crect x='10' y='6' width='1' height='1' fill='%23FF8F3C'/%3E%3Crect x='11' y='6' width='1' height='1' fill='%23FF8F3C'/%3E%3Crect x='12' y='6' width='1' height='1' fill='%23FF8F3C'/%3E%3Crect x='13' y='6' width='1' height='1' fill='%23FF8F3C'/%3E%3Crect x='14' y='6' width='1' height='1' fill='%23FF8F3C'/%3E%3Crect x='15' y='6' width='1' height='1' fill='%23FF8F3C'/%3E%3Crect x='16' y='6' width='1' height='1' fill='%23FF8F3C'/%3E%3Crect x='17' y='6' width='1' height='1' fill='%23FF8F3C'/%3E%3Crect x='18' y='6' width='1' height='1' fill='%23FF8F3C'/%3E%3Crect x='19' y='6' width='1' height='1' fill='%23FF8F3C'/%3E%3Crect x='20' y='6' width='1' height='1' fill='%23FF8F3C'/%3E%3Crect x='21' y='6' width='1' height='1' fill='%23FF8F3C'/%3E%3Crect x='22' y='6' width='1' height='1' fill='%23FF8F3C'/%3E%3Crect x='1' y='7' width='1' height='1' fill='%23FF7A36'/%3E%3Crect x='2' y='7' width='1' height='1' fill='%23FF7A36'/%3E%3Crect x='3' y='7' width='1' height='1' fill='%23FF7A36'/%3E%3Crect x='4' y='7' width='1' height='1' fill='%23FF7A36'/%3E%3Crect x='5' y='7' width='1' height='1' fill='%23FF7A36'/%3E%3Crect x='6' y='7' width='1' height='1' fill='%23FF7A36'/%3E%3Crect x='7' y='7' width='1' height='1' fill='%23FF7A36'/%3E%3Crect x='8' y='7' width='1' height='1' fill='%23FF7A36'/%3E%3Crect x='9' y='7' width='1' height='1' fill='%23FF7A36'/%3E%3Crect x='10' y='7' width='1' height='1' fill='%23FF7A36'/%3E%3Crect x='11' y='7' width='1' height='1' fill='%23FF7A36'/%3E%3Crect x='12' y='7' width='1' height='1' fill='%23FF7A36'/%3E%3Crect x='13' y='7' width='1' height='1' fill='%23FF7A36'/%3E%3Crect x='14' y='7' width='1' height='1' fill='%23FF7A36'/%3E%3Crect x='15' y='7' width='1' height='1' fill='%23FF7A36'/%3E%3Crect x='16' y='7' width='1' height='1' fill='%23FF7A36'/%3E%3Crect x='17' y='7' width='1' height='1' fill='%23FF7A36'/%3E%3Crect x='18' y='7' width='1' height='1' fill='%23FF7A36'/%3E%3Crect x='19' y='7' width='1' height='1' fill='%23FF7A36'/%3E%3Crect x='20' y='7' width='1' height='1' fill='%23FF7A36'/%3E%3Crect x='21' y='7' width='1' height='1' fill='%23FF7A36'/%3E%3Crect x='22' y='7' width='1' height='1' fill='%23FF7A36'/%3E%3Crect x='0' y='9' width='1' height='1' fill='%23E9573E'/%3E%3Crect x='1' y='9' width='1' height='1' fill='%23E9573E'/%3E%3Crect x='2' y='9' width='1' height='1' fill='%23E9573E'/%3E%3Crect x='3' y='9' width='1' height='1' fill='%23E9573E'/%3E%3Crect x='4' y='9' width='1' height='1' fill='%23E9573E'/%3E%3Crect x='5' y='9' width='1' height='1' fill='%23E9573E'/%3E%3Crect x='6' y='9' width='1' height='1' fill='%23E9573E'/%3E%3Crect x='7' y='9' width='1' height='1' fill='%23E9573E'/%3E%3Crect x='8' y='9' width='1' height='1' fill='%23E9573E'/%3E%3Crect x='9' y='9' width='1' height='1' fill='%23E9573E'/%3E%3Crect x='10' y='9' width='1' height='1' fill='%23E9573E'/%3E%3Crect x='11' y='9' width='1' height='1' fill='%23E9573E'/%3E%3Crect x='12' y='9' width='1' height='1' fill='%23E9573E'/%3E%3Crect x='13' y='9' width='1' height='1' fill='%23E9573E'/%3E%3Crect x='14' y='9' width='1' height='1' fill='%23E9573E'/%3E%3Crect x='15' y='9' width='1' height='1' fill='%23E9573E'/%3E%3Crect x='16' y='9' width='1' height='1' fill='%23E9573E'/%3E%3Crect x='17' y='9' width='1' height='1' fill='%23E9573E'/%3E%3Crect x='18' y='9' width='1' height='1' fill='%23E9573E'/%3E%3Crect x='19' y='9' width='1' height='1' fill='%23E9573E'/%3E%3Crect x='20' y='9' width='1' height='1' fill='%23E9573E'/%3E%3Crect x='21' y='9' width='1' height='1' fill='%23E9573E'/%3E%3Crect x='22' y='9' width='1' height='1' fill='%23E9573E'/%3E%3Crect x='23' y='9' width='1' height='1' fill='%23E9573E'/%3E%3Crect x='0' y='11' width='1' height='1' fill='%23C8404A'/%3E%3Crect x='1' y='11' width='1' height='1' fill='%23C8404A'/%3E%3Crect x='2' y='11' width='1' height='1' fill='%23C8404A'/%3E%3Crect x='3' y='11' width='1' height='1' fill='%23C8404A'/%3E%3Crect x='4' y='11' width='1' height='1' fill='%23C8404A'/%3E%3Crect x='5' y='11' width='1' height='1' fill='%23C8404A'/%3E%3Crect x='6' y='11' width='1' height='1' fill='%23C8404A'/%3E%3Crect x='7' y='11' width='1' height='1' fill='%23C8404A'/%3E%3Crect x='8' y='11' width='1' height='1' fill='%23C8404A'/%3E%3Crect x='9' y='11' width='1' height='1' fill='%23C8404A'/%3E%3Crect x='10' y='11' width='1' height='1' fill='%23C8404A'/%3E%3Crect x='11' y='11' width='1' height='1' fill='%23C8404A'/%3E%3Crect x='12' y='11' width='1' height='1' fill='%23C8404A'/%3E%3Crect x='13' y='11' width='1' height='1' fill='%23C8404A'/%3E%3Crect x='14' y='11' width='1' height='1' fill='%23C8404A'/%3E%3Crect x='15' y='11' width='1' height='1' fill='%23C8404A'/%3E%3Crect x='16' y='11' width='1' height='1' fill='%23C8404A'/%3E%3Crect x='17' y='11' width='1' height='1' fill='%23C8404A'/%3E%3Crect x='18' y='11' width='1' height='1' fill='%23C8404A'/%3E%3Crect x='19' y='11' width='1' height='1' fill='%23C8404A'/%3E%3Crect x='20' y='11' width='1' height='1' fill='%23C8404A'/%3E%3Crect x='21' y='11' width='1' height='1' fill='%23C8404A'/%3E%3Crect x='22' y='11' width='1' height='1' fill='%23C8404A'/%3E%3Crect x='23' y='11' width='1' height='1' fill='%23C8404A'/%3E%3C/svg%3E") no-repeat 74% calc(100% - 38px)/192px 96px}
 :root[data-skin="pixel"] :where(button,input,select,textarea,.tblwrap,.results,.saved,.banner,.toast,.menu,.chip,.xref,.sec,.igrp,.iv,.swatch,.kpi,.how){border-radius:0}
@@ -137,10 +140,82 @@
 :root[data-skin="pixel"] :where(input:not([type="checkbox"]),select,textarea){border:2px solid var(--ink)}
 :root[data-skin="pixel"] .appbar{background:var(--surface); border-bottom:4px solid var(--accent); box-shadow:0 4px 0 #0B1544}
 :root[data-skin="pixel"] .banner{background:var(--accent-soft)}
-:root[data-skin="pixel"] .kpi .val{font-weight:700}
+:root[data-skin="pixel"] .kpi .val{font-weight:400}
+:root[data-skin="pixel"] :where(input,td,.val,.num,.mono,select){font-family:var(--font-mono); font-weight:400; font-size-adjust:0.5; font-synthesis:none}
 :root[data-skin="pixel"] .hb-thumb{border-radius:0}
 @media (prefers-reduced-motion:no-preference){
 }
+
+
+:root[data-skin="hill"] :where(button,input,select,textarea,.tblwrap,.results,.saved,.banner,.toast,.menu,.chip,.xref,.sec,.igrp,.iv,.swatch,.kpi,.how){border-radius:0}
+:root[data-skin="hill"] h1,:root[data-skin="hill"] h2{font-weight:400; text-transform:none; letter-spacing:0}
+:root[data-skin="hill"] h1{font-size:18px; line-height:1.4; color:#FFE9B8}
+:root[data-skin="hill"] .titlebar{background:#0B1544; border:3px solid #FFE9B8; box-shadow:5px 5px 0 rgba(8,16,56,.55); padding:14px 16px}
+:root[data-skin="hill"] .titlebar .eyebrow,:root[data-skin="hill"] .titlebar .draftnote{color:#9FB3F0}
+:root[data-skin="hill"] .sec{background:var(--surface); border:3px solid var(--ink); box-shadow:5px 5px 0 rgba(8,16,56,.55); padding:0 14px 14px; gap:14px}
+:root[data-skin="hill"] .sechead{margin:0 -14px; padding:10px 14px; background:#0B1544; border:0; border-bottom:3px solid var(--ink); align-items:center}
+:root[data-skin="hill"] .sechead h2{font-size:13px; line-height:1.5; color:#FFE9B8}
+:root[data-skin="hill"] .sechead .hint{color:#9FB3F0}
+:root[data-skin="hill"] .sec > .results{border:0; box-shadow:none; background:transparent; padding:0}
+:root[data-skin="hill"] :where(.results,.saved,.banner,.xref,.menu){border:3px solid var(--ink); box-shadow:5px 5px 0 rgba(8,16,56,.45)}
+:root[data-skin="hill"] .sec > .results{border:0; box-shadow:none}
+:root[data-skin="hill"] .tblwrap{border:2px solid var(--ink); box-shadow:none}
+:root[data-skin="hill"] .igrp{border:2px solid var(--ink)}
+:root[data-skin="hill"] .iv{border:2px solid var(--ink)}
+:root[data-skin="hill"] button{border:2px solid var(--ink); background:var(--surface); color:var(--ink); box-shadow:3px 3px 0 var(--ink); font-weight:600}
+:root[data-skin="hill"] button:active{transform:translate(3px,3px); box-shadow:0 0 0 var(--ink)}
+:root[data-skin="hill"] button.primary{background:var(--accent); color:#fff}
+:root[data-skin="hill"] button.quiet,:root[data-skin="hill"] td button.x,:root[data-skin="hill"] .barbtn.ghost{border-color:transparent; box-shadow:none; background:transparent}
+:root[data-skin="hill"] .barbtn.ghost[aria-expanded="true"]{border-color:var(--ink); background:var(--accent-soft)}
+:root[data-skin="hill"] :where(input:not([type="checkbox"]),select,textarea){border:2px solid var(--ink)}
+:root[data-skin="hill"] .appbar{background:var(--surface); border-bottom:4px solid var(--accent); box-shadow:0 4px 0 #0B1544}
+:root[data-skin="hill"] .banner{background:var(--accent-soft)}
+:root[data-skin="hill"] .kpi .val{font-weight:400}
+:root[data-skin="hill"] :where(input,td,.val,.num,.mono,select){font-family:var(--font-mono); font-weight:400; font-size-adjust:0.5; font-synthesis:none}
+:root[data-skin="hill"] .hb-thumb{border-radius:0}
+@media (prefers-reduced-motion:no-preference){
+}
+
+
+/* ---------- Fogged town look: stained paper, dried blood, grey fog, pixel type ---------- */
+:root[data-skin="hill"]{
+  --bg:#77746B; --surface:#D7CDB1; --surface-2:#C8BC9B; --ink:#221C15; --muted:#5C5342; --line:#A09373;
+  --accent:#7E1710; --accent2:#46564E; --accent-soft:#D6BCA0; --on-accent:#F1E7CF;
+  --ochre:#8A6A2B; --warn:#8B1A12; --good:#4A5C38; --input-bg:#E4DABF; --input-line:#2A241B;
+  --col-in:#CDBF9B; --field:#D3C6A4; --calc:#DDD2B5; --result:#E6DCC1; --hi:rgba(255,255,255,.25);
+  --font-display:'Press Start 2P','Courier New',monospace;
+  --font-body:'Pixelify Sans','Courier New',ui-monospace,monospace;
+  --font-mono:'VT323','Pixelify Sans','Courier New',ui-monospace,monospace;
+  color-scheme:light;
+  background:linear-gradient(180deg,#4F4E49 0%,#77746B 35%,#9C998B 70%,#B3B0A0 100%) fixed;
+}
+:root[data-skin="hill"] body{background:transparent; font-size:17px}
+:root[data-skin="hill"]::before{content:""; position:fixed; inset:-10%; z-index:-2; pointer-events:none;
+  background:radial-gradient(ellipse 60% 35% at 20% 30%,rgba(235,232,220,.30),transparent 70%),radial-gradient(ellipse 70% 30% at 80% 60%,rgba(235,232,220,.26),transparent 70%),radial-gradient(ellipse 80% 25% at 40% 90%,rgba(235,232,220,.28),transparent 70%)}
+:root[data-skin="hill"]:not([data-app])::before{animation:hfog 22s ease-in-out infinite alternate}
+@keyframes hfog{from{transform:translateX(-4%)}to{transform:translateX(4%)}}
+:root[data-skin="hill"] body::after{content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.5; background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 .1  0 0 0 0 .08  0 0 0 0 .05  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23n%29'/%3E%3C/svg%3E"); background-size:220px}
+:root[data-skin="hill"] :where(.sec,.results,.saved,.banner,.xref,.menu,.kpi,.how,.igrp,.iv,.piano){background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='b' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012' numOctaves='4' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .38  0 0 0 0 .27  0 0 0 0 .12  0 0 0 1.1 -.42'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23b%29'/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 .1  0 0 0 0 .08  0 0 0 0 .05  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23n%29'/%3E%3C/svg%3E"); background-size:300px,220px; background-blend-mode:multiply}
+:root[data-skin="hill"] .sec{background-color:var(--surface); background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 52' width='104' height='104' shape-rendering='crispEdges'%3E%3Cg fill='%231E0302'%3E%3Crect x='18' y='6' width='1' height='1'/%3E%3Crect x='42' y='8' width='1' height='1'/%3E%3Crect x='31' y='10' width='1' height='1'/%3E%3Crect x='33' y='10' width='1' height='1'/%3E%3Crect x='39' y='12' width='1' height='1'/%3E%3Crect x='45' y='13' width='1' height='1'/%3E%3Crect x='37' y='14' width='1' height='1'/%3E%3Crect x='41' y='14' width='1' height='1'/%3E%3Crect x='13' y='15' width='1' height='1'/%3E%3Crect x='36' y='15' width='1' height='1'/%3E%3Crect x='40' y='15' width='1' height='1'/%3E%3Crect x='39' y='16' width='1' height='1'/%3E%3Crect x='38' y='17' width='1' height='1'/%3E%3Crect x='37' y='19' width='1' height='1'/%3E%3Crect x='36' y='20' width='1' height='1'/%3E%3Crect x='41' y='20' width='1' height='1'/%3E%3Crect x='34' y='21' width='1' height='1'/%3E%3Crect x='43' y='23' width='1' height='1'/%3E%3Crect x='49' y='23' width='1' height='1'/%3E%3Crect x='40' y='24' width='1' height='1'/%3E%3Crect x='42' y='24' width='1' height='1'/%3E%3Crect x='4' y='25' width='1' height='1'/%3E%3Crect x='11' y='25' width='1' height='1'/%3E%3Crect x='39' y='25' width='1' height='1'/%3E%3Crect x='36' y='27' width='1' height='1'/%3E%3Crect x='41' y='35' width='1' height='1'/%3E%3Crect x='40' y='36' width='1' height='1'/%3E%3Crect x='45' y='36' width='1' height='1'/%3E%3Crect x='29' y='37' width='1' height='1'/%3E%3Crect x='28' y='39' width='1' height='1'/%3E%3Crect x='27' y='41' width='1' height='1'/%3E%3Crect x='17' y='44' width='1' height='1'/%3E%3Crect x='36' y='45' width='1' height='1'/%3E%3C/g%3E%3Cg fill='%233A0605'%3E%3Crect x='42' y='7' width='1' height='1'/%3E%3Crect x='41' y='8' width='1' height='1'/%3E%3Crect x='38' y='12' width='1' height='1'/%3E%3Crect x='45' y='12' width='1' height='1'/%3E%3Crect x='37' y='13' width='1' height='1'/%3E%3Crect x='44' y='13' width='1' height='1'/%3E%3Crect x='35' y='16' width='1' height='1'/%3E%3Crect x='28' y='17' width='1' height='1'/%3E%3Crect x='29' y='18' width='1' height='1'/%3E%3Crect x='37' y='18' width='1' height='1'/%3E%3Crect x='35' y='20' width='1' height='1'/%3E%3Crect x='33' y='22' width='1' height='1'/%3E%3Crect x='49' y='22' width='1' height='1'/%3E%3Crect x='35' y='23' width='1' height='1'/%3E%3Crect x='41' y='23' width='1' height='1'/%3E%3Crect x='48' y='23' width='1' height='1'/%3E%3Crect x='9' y='25' width='2' height='1'/%3E%3Crect x='13' y='25' width='1' height='1'/%3E%3Crect x='37' y='25' width='2' height='1'/%3E%3Crect x='14' y='26' width='3' height='1'/%3E%3Crect x='36' y='26' width='1' height='1'/%3E%3Crect x='35' y='27' width='1' height='1'/%3E%3Crect x='34' y='28' width='1' height='1'/%3E%3Crect x='34' y='29' width='1' height='1'/%3E%3Crect x='17' y='30' width='1' height='1'/%3E%3Crect x='35' y='30' width='1' height='1'/%3E%3Crect x='18' y='31' width='2' height='1'/%3E%3Crect x='30' y='31' width='2' height='1'/%3E%3Crect x='37' y='31' width='1' height='1'/%3E%3Crect x='20' y='32' width='4' height='1'/%3E%3Crect x='29' y='32' width='1' height='1'/%3E%3Crect x='32' y='32' width='2' height='1'/%3E%3Crect x='36' y='32' width='1' height='1'/%3E%3Crect x='38' y='32' width='1' height='1'/%3E%3Crect x='24' y='33' width='1' height='1'/%3E%3Crect x='29' y='33' width='1' height='1'/%3E%3Crect x='34' y='33' width='2' height='1'/%3E%3Crect x='38' y='33' width='1' height='1'/%3E%3Crect x='40' y='33' width='1' height='1'/%3E%3Crect x='25' y='34' width='2' height='1'/%3E%3Crect x='29' y='34' width='1' height='1'/%3E%3Crect x='36' y='34' width='3' height='1'/%3E%3Crect x='40' y='34' width='2' height='1'/%3E%3Crect x='29' y='35' width='1' height='1'/%3E%3Crect x='39' y='35' width='1' height='1'/%3E%3Crect x='45' y='35' width='1' height='1'/%3E%3Crect x='28' y='36' width='2' height='1'/%3E%3Crect x='39' y='36' width='1' height='1'/%3E%3Crect x='44' y='36' width='1' height='1'/%3E%3Crect x='27' y='37' width='1' height='1'/%3E%3Crect x='28' y='38' width='1' height='1'/%3E%3C/g%3E%3Cg fill='%235E0A07'%3E%3Crect x='35' y='15' width='1' height='1'/%3E%3Crect x='35' y='17' width='1' height='1'/%3E%3Crect x='27' y='18' width='2' height='1'/%3E%3Crect x='34' y='18' width='3' height='1'/%3E%3Crect x='26' y='19' width='4' height='1'/%3E%3Crect x='32' y='19' width='5' height='1'/%3E%3Crect x='25' y='20' width='10' height='1'/%3E%3Crect x='24' y='21' width='10' height='1'/%3E%3Crect x='23' y='22' width='10' height='1'/%3E%3Crect x='21' y='23' width='13' height='1'/%3E%3Crect x='20' y='24' width='16' height='1'/%3E%3Crect x='19' y='25' width='18' height='1'/%3E%3Crect x='17' y='26' width='19' height='1'/%3E%3Crect x='18' y='27' width='17' height='1'/%3E%3Crect x='18' y='28' width='16' height='1'/%3E%3Crect x='18' y='29' width='16' height='1'/%3E%3Crect x='18' y='30' width='17' height='1'/%3E%3Crect x='20' y='31' width='10' height='1'/%3E%3Crect x='32' y='31' width='4' height='1'/%3E%3Crect x='24' y='32' width='5' height='1'/%3E%3Crect x='34' y='32' width='2' height='1'/%3E%3Crect x='25' y='33' width='4' height='1'/%3E%3Crect x='36' y='33' width='1' height='1'/%3E%3Crect x='27' y='34' width='2' height='1'/%3E%3Crect x='28' y='35' width='1' height='1'/%3E%3C/g%3E%3Cg fill='%237C1109'%3E%3Crect x='36' y='17' width='1' height='1'/%3E%3Crect x='30' y='19' width='1' height='1'/%3E%3Crect x='34' y='23' width='1' height='1'/%3E%3Crect x='36' y='24' width='1' height='1'/%3E%3Crect x='17' y='27' width='1' height='1'/%3E%3Crect x='36' y='31' width='1' height='1'/%3E%3Crect x='37' y='33' width='1' height='1'/%3E%3Crect x='39' y='34' width='1' height='1'/%3E%3Crect x='27' y='35' width='1' height='1'/%3E%3C/g%3E%3Cg fill='%23A02315'%3E%3Crect x='41' y='7' width='1' height='1'/%3E%3Crect x='44' y='12' width='1' height='1'/%3E%3Crect x='35' y='14' width='2' height='1'/%3E%3Crect x='34' y='15' width='1' height='1'/%3E%3Crect x='39' y='15' width='1' height='1'/%3E%3Crect x='34' y='16' width='1' height='1'/%3E%3Crect x='27' y='17' width='1' height='1'/%3E%3Crect x='34' y='17' width='1' height='1'/%3E%3Crect x='37' y='17' width='1' height='1'/%3E%3Crect x='26' y='18' width='1' height='1'/%3E%3Crect x='32' y='18' width='2' height='1'/%3E%3Crect x='25' y='19' width='1' height='1'/%3E%3Crect x='31' y='19' width='1' height='1'/%3E%3Crect x='24' y='20' width='1' height='1'/%3E%3Crect x='23' y='21' width='1' height='1'/%3E%3Crect x='21' y='22' width='2' height='1'/%3E%3Crect x='48' y='22' width='1' height='1'/%3E%3Crect x='20' y='23' width='1' height='1'/%3E%3Crect x='40' y='23' width='1' height='1'/%3E%3Crect x='19' y='24' width='1' height='1'/%3E%3Crect x='37' y='24' width='3' height='1'/%3E%3Crect x='15' y='25' width='4' height='1'/%3E%3Crect x='17' y='28' width='1' height='1'/%3E%3Crect x='17' y='29' width='1' height='1'/%3E%3Crect x='44' y='35' width='1' height='1'/%3E%3Crect x='27' y='36' width='1' height='1'/%3E%3C/g%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='b' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012' numOctaves='4' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .38  0 0 0 0 .27  0 0 0 0 .12  0 0 0 1.1 -.42'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23b%29'/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 .1  0 0 0 0 .08  0 0 0 0 .05  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23n%29'/%3E%3C/svg%3E"); background-size:96px,300px,220px; background-repeat:no-repeat,repeat,repeat; background-position:right -22px bottom -20px,0 0,0 0; border-color:#2A241B}
+:root[data-skin="hill"] .sechead{background:#1E1913; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 30' width='72' height='60' shape-rendering='crispEdges'%3E%3Cg fill='%232B0403'%3E%3Crect x='25' y='2' width='1' height='1'/%3E%3Crect x='35' y='2' width='1' height='1'/%3E%3Crect x='6' y='3' width='1' height='1'/%3E%3Crect x='14' y='3' width='1' height='1'/%3E%3Crect x='33' y='3' width='1' height='1'/%3E%3Crect x='19' y='8' width='1' height='1'/%3E%3Crect x='18' y='9' width='1' height='1'/%3E%3Crect x='14' y='15' width='1' height='1'/%3E%3Crect x='13' y='16' width='1' height='1'/%3E%3Crect x='30' y='16' width='1' height='1'/%3E%3Crect x='4' y='17' width='1' height='1'/%3E%3Crect x='29' y='17' width='1' height='1'/%3E%3Crect x='3' y='18' width='1' height='1'/%3E%3Crect x='10' y='20' width='1' height='1'/%3E%3Crect x='9' y='21' width='1' height='1'/%3E%3Crect x='24' y='22' width='1' height='1'/%3E%3Crect x='23' y='23' width='1' height='1'/%3E%3C/g%3E%3Cg fill='%234D0806'%3E%3Crect x='35' y='0' width='1' height='1'/%3E%3Crect x='0' y='1' width='1' height='1'/%3E%3Crect x='4' y='1' width='1' height='1'/%3E%3Crect x='7' y='1' width='1' height='1'/%3E%3Crect x='15' y='1' width='1' height='1'/%3E%3Crect x='19' y='1' width='2' height='1'/%3E%3Crect x='26' y='1' width='1' height='1'/%3E%3Crect x='30' y='1' width='1' height='1'/%3E%3Crect x='35' y='1' width='1' height='1'/%3E%3Crect x='3' y='2' width='1' height='1'/%3E%3Crect x='5' y='2' width='2' height='1'/%3E%3Crect x='10' y='2' width='2' height='1'/%3E%3Crect x='14' y='2' width='1' height='1'/%3E%3Crect x='18' y='2' width='1' height='1'/%3E%3Crect x='24' y='2' width='1' height='1'/%3E%3Crect x='27' y='2' width='1' height='1'/%3E%3Crect x='29' y='2' width='1' height='1'/%3E%3Crect x='31' y='2' width='2' height='1'/%3E%3Crect x='34' y='2' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3Crect x='9' y='3' width='1' height='1'/%3E%3Crect x='18' y='3' width='1' height='1'/%3E%3Crect x='21' y='3' width='1' height='1'/%3E%3Crect x='23' y='3' width='1' height='1'/%3E%3Crect x='29' y='3' width='1' height='1'/%3E%3Crect x='3' y='4' width='1' height='1'/%3E%3Crect x='9' y='4' width='1' height='1'/%3E%3Crect x='13' y='4' width='1' height='1'/%3E%3Crect x='18' y='4' width='1' height='1'/%3E%3Crect x='23' y='4' width='1' height='1'/%3E%3Crect x='29' y='4' width='1' height='1'/%3E%3Crect x='3' y='5' width='1' height='1'/%3E%3Crect x='9' y='5' width='1' height='1'/%3E%3Crect x='13' y='5' width='1' height='1'/%3E%3Crect x='18' y='5' width='1' height='1'/%3E%3Crect x='23' y='5' width='1' height='1'/%3E%3Crect x='29' y='5' width='1' height='1'/%3E%3Crect x='3' y='6' width='1' height='1'/%3E%3Crect x='9' y='6' width='1' height='1'/%3E%3Crect x='13' y='6' width='1' height='1'/%3E%3Crect x='18' y='6' width='1' height='1'/%3E%3Crect x='23' y='6' width='1' height='1'/%3E%3Crect x='29' y='6' width='1' height='1'/%3E%3Crect x='3' y='7' width='1' height='1'/%3E%3Crect x='9' y='7' width='1' height='1'/%3E%3Crect x='13' y='7' width='1' height='1'/%3E%3Crect x='18' y='7' width='1' height='1'/%3E%3Crect x='23' y='7' width='1' height='1'/%3E%3Crect x='29' y='7' width='1' height='1'/%3E%3Crect x='3' y='8' width='1' height='1'/%3E%3Crect x='9' y='8' width='1' height='1'/%3E%3Crect x='13' y='8' width='1' height='1'/%3E%3Crect x='15' y='8' width='1' height='1'/%3E%3Crect x='23' y='8' width='1' height='1'/%3E%3Crect x='29' y='8' width='1' height='1'/%3E%3Crect x='3' y='9' width='1' height='1'/%3E%3Crect x='9' y='9' width='1' height='1'/%3E%3Crect x='13' y='9' width='1' height='1'/%3E%3Crect x='16' y='9' width='2' height='1'/%3E%3Crect x='23' y='9' width='1' height='1'/%3E%3Crect x='29' y='9' width='1' height='1'/%3E%3Crect x='3' y='10' width='1' height='1'/%3E%3Crect x='9' y='10' width='1' height='1'/%3E%3Crect x='13' y='10' width='1' height='1'/%3E%3Crect x='23' y='10' width='1' height='1'/%3E%3Crect x='29' y='10' width='1' height='1'/%3E%3Crect x='3' y='11' width='1' height='1'/%3E%3Crect x='9' y='11' width='1' height='1'/%3E%3Crect x='13' y='11' width='1' height='1'/%3E%3Crect x='23' y='11' width='1' height='1'/%3E%3Crect x='29' y='11' width='1' height='1'/%3E%3Crect x='3' y='12' width='1' height='1'/%3E%3Crect x='9' y='12' width='1' height='1'/%3E%3Crect x='13' y='12' width='1' height='1'/%3E%3Crect x='23' y='12' width='1' height='1'/%3E%3Crect x='29' y='12' width='1' height='1'/%3E%3Crect x='3' y='13' width='1' height='1'/%3E%3Crect x='9' y='13' width='1' height='1'/%3E%3Crect x='13' y='13' width='1' height='1'/%3E%3Crect x='23' y='13' width='1' height='1'/%3E%3Crect x='29' y='13' width='1' height='1'/%3E%3Crect x='3' y='14' width='1' height='1'/%3E%3Crect x='9' y='14' width='1' height='1'/%3E%3Crect x='13' y='14' width='1' height='1'/%3E%3Crect x='23' y='14' width='1' height='1'/%3E%3Crect x='29' y='14' width='1' height='1'/%3E%3Crect x='3' y='15' width='1' height='1'/%3E%3Crect x='9' y='15' width='1' height='1'/%3E%3Crect x='11' y='15' width='1' height='1'/%3E%3Crect x='23' y='15' width='1' height='1'/%3E%3Crect x='29' y='15' width='1' height='1'/%3E%3Crect x='3' y='16' width='1' height='1'/%3E%3Crect x='9' y='16' width='1' height='1'/%3E%3Crect x='12' y='16' width='1' height='1'/%3E%3Crect x='23' y='16' width='1' height='1'/%3E%3Crect x='27' y='16' width='1' height='1'/%3E%3Crect x='0' y='17' width='1' height='1'/%3E%3Crect x='9' y='17' width='1' height='1'/%3E%3Crect x='23' y='17' width='1' height='1'/%3E%3Crect x='28' y='17' width='1' height='1'/%3E%3Crect x='1' y='18' width='2' height='1'/%3E%3Crect x='9' y='18' width='1' height='1'/%3E%3Crect x='23' y='18' width='1' height='1'/%3E%3Crect x='9' y='19' width='1' height='1'/%3E%3Crect x='23' y='19' width='1' height='1'/%3E%3Crect x='7' y='20' width='1' height='1'/%3E%3Crect x='23' y='20' width='1' height='1'/%3E%3Crect x='8' y='21' width='1' height='1'/%3E%3Crect x='23' y='21' width='1' height='1'/%3E%3Crect x='21' y='22' width='1' height='1'/%3E%3Crect x='22' y='23' width='1' height='1'/%3E%3C/g%3E%3Cg fill='%237A0F0B'%3E%3Crect x='1' y='1' width='3' height='1'/%3E%3Crect x='5' y='1' width='2' height='1'/%3E%3Crect x='8' y='1' width='7' height='1'/%3E%3Crect x='16' y='1' width='3' height='1'/%3E%3Crect x='21' y='1' width='5' height='1'/%3E%3Crect x='27' y='1' width='3' height='1'/%3E%3Crect x='31' y='1' width='4' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='9' y='2' width='1' height='1'/%3E%3Crect x='12' y='2' width='2' height='1'/%3E%3Crect x='17' y='2' width='1' height='1'/%3E%3Crect x='22' y='2' width='2' height='1'/%3E%3Crect x='28' y='2' width='1' height='1'/%3E%3Crect x='33' y='2' width='1' height='1'/%3E%3Crect x='2' y='3' width='1' height='1'/%3E%3Crect x='13' y='3' width='1' height='1'/%3E%3Crect x='17' y='3' width='1' height='1'/%3E%3Crect x='22' y='3' width='1' height='1'/%3E%3Crect x='2' y='4' width='1' height='1'/%3E%3Crect x='17' y='4' width='1' height='1'/%3E%3Crect x='2' y='5' width='1' height='1'/%3E%3Crect x='17' y='5' width='1' height='1'/%3E%3Crect x='2' y='6' width='1' height='1'/%3E%3Crect x='17' y='6' width='1' height='1'/%3E%3Crect x='2' y='7' width='1' height='1'/%3E%3Crect x='17' y='7' width='1' height='1'/%3E%3Crect x='2' y='8' width='1' height='1'/%3E%3Crect x='16' y='8' width='3' height='1'/%3E%3Crect x='2' y='9' width='1' height='1'/%3E%3Crect x='2' y='10' width='1' height='1'/%3E%3Crect x='2' y='11' width='1' height='1'/%3E%3Crect x='2' y='12' width='1' height='1'/%3E%3Crect x='2' y='13' width='1' height='1'/%3E%3Crect x='2' y='14' width='1' height='1'/%3E%3Crect x='2' y='15' width='1' height='1'/%3E%3Crect x='12' y='15' width='2' height='1'/%3E%3Crect x='2' y='16' width='1' height='1'/%3E%3Crect x='28' y='16' width='2' height='1'/%3E%3Crect x='1' y='17' width='3' height='1'/%3E%3Crect x='8' y='20' width='2' height='1'/%3E%3Crect x='22' y='22' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23A5190F'%3E%3Crect x='1' y='2' width='1' height='1'/%3E%3Crect x='8' y='2' width='1' height='1'/%3E%3Crect x='16' y='2' width='1' height='1'/%3E%3Crect x='21' y='2' width='1' height='1'/%3E%3Crect x='12' y='3' width='1' height='1'/%3E%3Crect x='28' y='3' width='1' height='1'/%3E%3Crect x='22' y='4' width='1' height='1'/%3E%3C/g%3E%3Cg fill='%23C9362A'%3E%3Crect x='0' y='0' width='35' height='1'/%3E%3Crect x='1' y='3' width='1' height='1'/%3E%3Crect x='8' y='3' width='1' height='1'/%3E%3Crect x='16' y='3' width='1' height='1'/%3E%3Crect x='1' y='4' width='1' height='1'/%3E%3Crect x='8' y='4' width='1' height='1'/%3E%3Crect x='12' y='4' width='1' height='1'/%3E%3Crect x='16' y='4' width='1' height='1'/%3E%3Crect x='28' y='4' width='1' height='1'/%3E%3Crect x='1' y='5' width='1' height='1'/%3E%3Crect x='8' y='5' width='1' height='1'/%3E%3Crect x='12' y='5' width='1' height='1'/%3E%3Crect x='16' y='5' width='1' height='1'/%3E%3Crect x='22' y='5' width='1' height='1'/%3E%3Crect x='28' y='5' width='1' height='1'/%3E%3Crect x='1' y='6' width='1' height='1'/%3E%3Crect x='8' y='6' width='1' height='1'/%3E%3Crect x='12' y='6' width='1' height='1'/%3E%3Crect x='16' y='6' width='1' height='1'/%3E%3Crect x='22' y='6' width='1' height='1'/%3E%3Crect x='28' y='6' width='1' height='1'/%3E%3Crect x='1' y='7' width='1' height='1'/%3E%3Crect x='8' y='7' width='1' height='1'/%3E%3Crect x='12' y='7' width='1' height='1'/%3E%3Crect x='16' y='7' width='1' height='1'/%3E%3Crect x='22' y='7' width='1' height='1'/%3E%3Crect x='28' y='7' width='1' height='1'/%3E%3Crect x='1' y='8' width='1' height='1'/%3E%3Crect x='8' y='8' width='1' height='1'/%3E%3Crect x='12' y='8' width='1' height='1'/%3E%3Crect x='22' y='8' width='1' height='1'/%3E%3Crect x='28' y='8' width='1' height='1'/%3E%3Crect x='1' y='9' width='1' height='1'/%3E%3Crect x='8' y='9' width='1' height='1'/%3E%3Crect x='12' y='9' width='1' height='1'/%3E%3Crect x='22' y='9' width='1' height='1'/%3E%3Crect x='28' y='9' width='1' height='1'/%3E%3Crect x='1' y='10' width='1' height='1'/%3E%3Crect x='8' y='10' width='1' height='1'/%3E%3Crect x='12' y='10' width='1' height='1'/%3E%3Crect x='22' y='10' width='1' height='1'/%3E%3Crect x='28' y='10' width='1' height='1'/%3E%3Crect x='1' y='11' width='1' height='1'/%3E%3Crect x='8' y='11' width='1' height='1'/%3E%3Crect x='12' y='11' width='1' height='1'/%3E%3Crect x='22' y='11' width='1' height='1'/%3E%3Crect x='28' y='11' width='1' height='1'/%3E%3Crect x='1' y='12' width='1' height='1'/%3E%3Crect x='8' y='12' width='1' height='1'/%3E%3Crect x='12' y='12' width='1' height='1'/%3E%3Crect x='22' y='12' width='1' height='1'/%3E%3Crect x='28' y='12' width='1' height='1'/%3E%3Crect x='1' y='13' width='1' height='1'/%3E%3Crect x='8' y='13' width='1' height='1'/%3E%3Crect x='12' y='13' width='1' height='1'/%3E%3Crect x='22' y='13' width='1' height='1'/%3E%3Crect x='28' y='13' width='1' height='1'/%3E%3Crect x='1' y='14' width='1' height='1'/%3E%3Crect x='8' y='14' width='1' height='1'/%3E%3Crect x='12' y='14' width='1' height='1'/%3E%3Crect x='22' y='14' width='1' height='1'/%3E%3Crect x='28' y='14' width='1' height='1'/%3E%3Crect x='1' y='15' width='1' height='1'/%3E%3Crect x='8' y='15' width='1' height='1'/%3E%3Crect x='22' y='15' width='1' height='1'/%3E%3Crect x='28' y='15' width='1' height='1'/%3E%3Crect x='1' y='16' width='1' height='1'/%3E%3Crect x='8' y='16' width='1' height='1'/%3E%3Crect x='22' y='16' width='1' height='1'/%3E%3Crect x='8' y='17' width='1' height='1'/%3E%3Crect x='22' y='17' width='1' height='1'/%3E%3Crect x='8' y='18' width='1' height='1'/%3E%3Crect x='22' y='18' width='1' height='1'/%3E%3Crect x='8' y='19' width='1' height='1'/%3E%3Crect x='22' y='19' width='1' height='1'/%3E%3Crect x='22' y='20' width='1' height='1'/%3E%3Crect x='22' y='21' width='1' height='1'/%3E%3C/g%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px top 0; background-size:72px 60px; border-bottom-color:#7E1710}
+:root[data-skin="hill"] .sechead h2{color:#CFC3A1}
+:root[data-skin="hill"] .sechead .hint{color:#968B73; padding-right:80px}
+:root[data-skin="hill"] h1{color:#D9CDAE}
+:root[data-skin="hill"] .titlebar{background:#1E1913; border-color:#7E1710; box-shadow:5px 5px 0 rgba(0,0,0,.5); background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 30' width='72' height='60' shape-rendering='crispEdges'%3E%3Cg fill='%232B0403'%3E%3Crect x='25' y='2' width='1' height='1'/%3E%3Crect x='35' y='2' width='1' height='1'/%3E%3Crect x='6' y='3' width='1' height='1'/%3E%3Crect x='14' y='3' width='1' height='1'/%3E%3Crect x='33' y='3' width='1' height='1'/%3E%3Crect x='19' y='8' width='1' height='1'/%3E%3Crect x='18' y='9' width='1' height='1'/%3E%3Crect x='14' y='15' width='1' height='1'/%3E%3Crect x='13' y='16' width='1' height='1'/%3E%3Crect x='30' y='16' width='1' height='1'/%3E%3Crect x='4' y='17' width='1' height='1'/%3E%3Crect x='29' y='17' width='1' height='1'/%3E%3Crect x='3' y='18' width='1' height='1'/%3E%3Crect x='10' y='20' width='1' height='1'/%3E%3Crect x='9' y='21' width='1' height='1'/%3E%3Crect x='24' y='22' width='1' height='1'/%3E%3Crect x='23' y='23' width='1' height='1'/%3E%3C/g%3E%3Cg fill='%234D0806'%3E%3Crect x='35' y='0' width='1' height='1'/%3E%3Crect x='0' y='1' width='1' height='1'/%3E%3Crect x='4' y='1' width='1' height='1'/%3E%3Crect x='7' y='1' width='1' height='1'/%3E%3Crect x='15' y='1' width='1' height='1'/%3E%3Crect x='19' y='1' width='2' height='1'/%3E%3Crect x='26' y='1' width='1' height='1'/%3E%3Crect x='30' y='1' width='1' height='1'/%3E%3Crect x='35' y='1' width='1' height='1'/%3E%3Crect x='3' y='2' width='1' height='1'/%3E%3Crect x='5' y='2' width='2' height='1'/%3E%3Crect x='10' y='2' width='2' height='1'/%3E%3Crect x='14' y='2' width='1' height='1'/%3E%3Crect x='18' y='2' width='1' height='1'/%3E%3Crect x='24' y='2' width='1' height='1'/%3E%3Crect x='27' y='2' width='1' height='1'/%3E%3Crect x='29' y='2' width='1' height='1'/%3E%3Crect x='31' y='2' width='2' height='1'/%3E%3Crect x='34' y='2' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3Crect x='9' y='3' width='1' height='1'/%3E%3Crect x='18' y='3' width='1' height='1'/%3E%3Crect x='21' y='3' width='1' height='1'/%3E%3Crect x='23' y='3' width='1' height='1'/%3E%3Crect x='29' y='3' width='1' height='1'/%3E%3Crect x='3' y='4' width='1' height='1'/%3E%3Crect x='9' y='4' width='1' height='1'/%3E%3Crect x='13' y='4' width='1' height='1'/%3E%3Crect x='18' y='4' width='1' height='1'/%3E%3Crect x='23' y='4' width='1' height='1'/%3E%3Crect x='29' y='4' width='1' height='1'/%3E%3Crect x='3' y='5' width='1' height='1'/%3E%3Crect x='9' y='5' width='1' height='1'/%3E%3Crect x='13' y='5' width='1' height='1'/%3E%3Crect x='18' y='5' width='1' height='1'/%3E%3Crect x='23' y='5' width='1' height='1'/%3E%3Crect x='29' y='5' width='1' height='1'/%3E%3Crect x='3' y='6' width='1' height='1'/%3E%3Crect x='9' y='6' width='1' height='1'/%3E%3Crect x='13' y='6' width='1' height='1'/%3E%3Crect x='18' y='6' width='1' height='1'/%3E%3Crect x='23' y='6' width='1' height='1'/%3E%3Crect x='29' y='6' width='1' height='1'/%3E%3Crect x='3' y='7' width='1' height='1'/%3E%3Crect x='9' y='7' width='1' height='1'/%3E%3Crect x='13' y='7' width='1' height='1'/%3E%3Crect x='18' y='7' width='1' height='1'/%3E%3Crect x='23' y='7' width='1' height='1'/%3E%3Crect x='29' y='7' width='1' height='1'/%3E%3Crect x='3' y='8' width='1' height='1'/%3E%3Crect x='9' y='8' width='1' height='1'/%3E%3Crect x='13' y='8' width='1' height='1'/%3E%3Crect x='15' y='8' width='1' height='1'/%3E%3Crect x='23' y='8' width='1' height='1'/%3E%3Crect x='29' y='8' width='1' height='1'/%3E%3Crect x='3' y='9' width='1' height='1'/%3E%3Crect x='9' y='9' width='1' height='1'/%3E%3Crect x='13' y='9' width='1' height='1'/%3E%3Crect x='16' y='9' width='2' height='1'/%3E%3Crect x='23' y='9' width='1' height='1'/%3E%3Crect x='29' y='9' width='1' height='1'/%3E%3Crect x='3' y='10' width='1' height='1'/%3E%3Crect x='9' y='10' width='1' height='1'/%3E%3Crect x='13' y='10' width='1' height='1'/%3E%3Crect x='23' y='10' width='1' height='1'/%3E%3Crect x='29' y='10' width='1' height='1'/%3E%3Crect x='3' y='11' width='1' height='1'/%3E%3Crect x='9' y='11' width='1' height='1'/%3E%3Crect x='13' y='11' width='1' height='1'/%3E%3Crect x='23' y='11' width='1' height='1'/%3E%3Crect x='29' y='11' width='1' height='1'/%3E%3Crect x='3' y='12' width='1' height='1'/%3E%3Crect x='9' y='12' width='1' height='1'/%3E%3Crect x='13' y='12' width='1' height='1'/%3E%3Crect x='23' y='12' width='1' height='1'/%3E%3Crect x='29' y='12' width='1' height='1'/%3E%3Crect x='3' y='13' width='1' height='1'/%3E%3Crect x='9' y='13' width='1' height='1'/%3E%3Crect x='13' y='13' width='1' height='1'/%3E%3Crect x='23' y='13' width='1' height='1'/%3E%3Crect x='29' y='13' width='1' height='1'/%3E%3Crect x='3' y='14' width='1' height='1'/%3E%3Crect x='9' y='14' width='1' height='1'/%3E%3Crect x='13' y='14' width='1' height='1'/%3E%3Crect x='23' y='14' width='1' height='1'/%3E%3Crect x='29' y='14' width='1' height='1'/%3E%3Crect x='3' y='15' width='1' height='1'/%3E%3Crect x='9' y='15' width='1' height='1'/%3E%3Crect x='11' y='15' width='1' height='1'/%3E%3Crect x='23' y='15' width='1' height='1'/%3E%3Crect x='29' y='15' width='1' height='1'/%3E%3Crect x='3' y='16' width='1' height='1'/%3E%3Crect x='9' y='16' width='1' height='1'/%3E%3Crect x='12' y='16' width='1' height='1'/%3E%3Crect x='23' y='16' width='1' height='1'/%3E%3Crect x='27' y='16' width='1' height='1'/%3E%3Crect x='0' y='17' width='1' height='1'/%3E%3Crect x='9' y='17' width='1' height='1'/%3E%3Crect x='23' y='17' width='1' height='1'/%3E%3Crect x='28' y='17' width='1' height='1'/%3E%3Crect x='1' y='18' width='2' height='1'/%3E%3Crect x='9' y='18' width='1' height='1'/%3E%3Crect x='23' y='18' width='1' height='1'/%3E%3Crect x='9' y='19' width='1' height='1'/%3E%3Crect x='23' y='19' width='1' height='1'/%3E%3Crect x='7' y='20' width='1' height='1'/%3E%3Crect x='23' y='20' width='1' height='1'/%3E%3Crect x='8' y='21' width='1' height='1'/%3E%3Crect x='23' y='21' width='1' height='1'/%3E%3Crect x='21' y='22' width='1' height='1'/%3E%3Crect x='22' y='23' width='1' height='1'/%3E%3C/g%3E%3Cg fill='%237A0F0B'%3E%3Crect x='1' y='1' width='3' height='1'/%3E%3Crect x='5' y='1' width='2' height='1'/%3E%3Crect x='8' y='1' width='7' height='1'/%3E%3Crect x='16' y='1' width='3' height='1'/%3E%3Crect x='21' y='1' width='5' height='1'/%3E%3Crect x='27' y='1' width='3' height='1'/%3E%3Crect x='31' y='1' width='4' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='9' y='2' width='1' height='1'/%3E%3Crect x='12' y='2' width='2' height='1'/%3E%3Crect x='17' y='2' width='1' height='1'/%3E%3Crect x='22' y='2' width='2' height='1'/%3E%3Crect x='28' y='2' width='1' height='1'/%3E%3Crect x='33' y='2' width='1' height='1'/%3E%3Crect x='2' y='3' width='1' height='1'/%3E%3Crect x='13' y='3' width='1' height='1'/%3E%3Crect x='17' y='3' width='1' height='1'/%3E%3Crect x='22' y='3' width='1' height='1'/%3E%3Crect x='2' y='4' width='1' height='1'/%3E%3Crect x='17' y='4' width='1' height='1'/%3E%3Crect x='2' y='5' width='1' height='1'/%3E%3Crect x='17' y='5' width='1' height='1'/%3E%3Crect x='2' y='6' width='1' height='1'/%3E%3Crect x='17' y='6' width='1' height='1'/%3E%3Crect x='2' y='7' width='1' height='1'/%3E%3Crect x='17' y='7' width='1' height='1'/%3E%3Crect x='2' y='8' width='1' height='1'/%3E%3Crect x='16' y='8' width='3' height='1'/%3E%3Crect x='2' y='9' width='1' height='1'/%3E%3Crect x='2' y='10' width='1' height='1'/%3E%3Crect x='2' y='11' width='1' height='1'/%3E%3Crect x='2' y='12' width='1' height='1'/%3E%3Crect x='2' y='13' width='1' height='1'/%3E%3Crect x='2' y='14' width='1' height='1'/%3E%3Crect x='2' y='15' width='1' height='1'/%3E%3Crect x='12' y='15' width='2' height='1'/%3E%3Crect x='2' y='16' width='1' height='1'/%3E%3Crect x='28' y='16' width='2' height='1'/%3E%3Crect x='1' y='17' width='3' height='1'/%3E%3Crect x='8' y='20' width='2' height='1'/%3E%3Crect x='22' y='22' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23A5190F'%3E%3Crect x='1' y='2' width='1' height='1'/%3E%3Crect x='8' y='2' width='1' height='1'/%3E%3Crect x='16' y='2' width='1' height='1'/%3E%3Crect x='21' y='2' width='1' height='1'/%3E%3Crect x='12' y='3' width='1' height='1'/%3E%3Crect x='28' y='3' width='1' height='1'/%3E%3Crect x='22' y='4' width='1' height='1'/%3E%3C/g%3E%3Cg fill='%23C9362A'%3E%3Crect x='0' y='0' width='35' height='1'/%3E%3Crect x='1' y='3' width='1' height='1'/%3E%3Crect x='8' y='3' width='1' height='1'/%3E%3Crect x='16' y='3' width='1' height='1'/%3E%3Crect x='1' y='4' width='1' height='1'/%3E%3Crect x='8' y='4' width='1' height='1'/%3E%3Crect x='12' y='4' width='1' height='1'/%3E%3Crect x='16' y='4' width='1' height='1'/%3E%3Crect x='28' y='4' width='1' height='1'/%3E%3Crect x='1' y='5' width='1' height='1'/%3E%3Crect x='8' y='5' width='1' height='1'/%3E%3Crect x='12' y='5' width='1' height='1'/%3E%3Crect x='16' y='5' width='1' height='1'/%3E%3Crect x='22' y='5' width='1' height='1'/%3E%3Crect x='28' y='5' width='1' height='1'/%3E%3Crect x='1' y='6' width='1' height='1'/%3E%3Crect x='8' y='6' width='1' height='1'/%3E%3Crect x='12' y='6' width='1' height='1'/%3E%3Crect x='16' y='6' width='1' height='1'/%3E%3Crect x='22' y='6' width='1' height='1'/%3E%3Crect x='28' y='6' width='1' height='1'/%3E%3Crect x='1' y='7' width='1' height='1'/%3E%3Crect x='8' y='7' width='1' height='1'/%3E%3Crect x='12' y='7' width='1' height='1'/%3E%3Crect x='16' y='7' width='1' height='1'/%3E%3Crect x='22' y='7' width='1' height='1'/%3E%3Crect x='28' y='7' width='1' height='1'/%3E%3Crect x='1' y='8' width='1' height='1'/%3E%3Crect x='8' y='8' width='1' height='1'/%3E%3Crect x='12' y='8' width='1' height='1'/%3E%3Crect x='22' y='8' width='1' height='1'/%3E%3Crect x='28' y='8' width='1' height='1'/%3E%3Crect x='1' y='9' width='1' height='1'/%3E%3Crect x='8' y='9' width='1' height='1'/%3E%3Crect x='12' y='9' width='1' height='1'/%3E%3Crect x='22' y='9' width='1' height='1'/%3E%3Crect x='28' y='9' width='1' height='1'/%3E%3Crect x='1' y='10' width='1' height='1'/%3E%3Crect x='8' y='10' width='1' height='1'/%3E%3Crect x='12' y='10' width='1' height='1'/%3E%3Crect x='22' y='10' width='1' height='1'/%3E%3Crect x='28' y='10' width='1' height='1'/%3E%3Crect x='1' y='11' width='1' height='1'/%3E%3Crect x='8' y='11' width='1' height='1'/%3E%3Crect x='12' y='11' width='1' height='1'/%3E%3Crect x='22' y='11' width='1' height='1'/%3E%3Crect x='28' y='11' width='1' height='1'/%3E%3Crect x='1' y='12' width='1' height='1'/%3E%3Crect x='8' y='12' width='1' height='1'/%3E%3Crect x='12' y='12' width='1' height='1'/%3E%3Crect x='22' y='12' width='1' height='1'/%3E%3Crect x='28' y='12' width='1' height='1'/%3E%3Crect x='1' y='13' width='1' height='1'/%3E%3Crect x='8' y='13' width='1' height='1'/%3E%3Crect x='12' y='13' width='1' height='1'/%3E%3Crect x='22' y='13' width='1' height='1'/%3E%3Crect x='28' y='13' width='1' height='1'/%3E%3Crect x='1' y='14' width='1' height='1'/%3E%3Crect x='8' y='14' width='1' height='1'/%3E%3Crect x='12' y='14' width='1' height='1'/%3E%3Crect x='22' y='14' width='1' height='1'/%3E%3Crect x='28' y='14' width='1' height='1'/%3E%3Crect x='1' y='15' width='1' height='1'/%3E%3Crect x='8' y='15' width='1' height='1'/%3E%3Crect x='22' y='15' width='1' height='1'/%3E%3Crect x='28' y='15' width='1' height='1'/%3E%3Crect x='1' y='16' width='1' height='1'/%3E%3Crect x='8' y='16' width='1' height='1'/%3E%3Crect x='22' y='16' width='1' height='1'/%3E%3Crect x='8' y='17' width='1' height='1'/%3E%3Crect x='22' y='17' width='1' height='1'/%3E%3Crect x='8' y='18' width='1' height='1'/%3E%3Crect x='22' y='18' width='1' height='1'/%3E%3Crect x='8' y='19' width='1' height='1'/%3E%3Crect x='22' y='19' width='1' height='1'/%3E%3Crect x='22' y='20' width='1' height='1'/%3E%3Crect x='22' y='21' width='1' height='1'/%3E%3C/g%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 18px top 0; background-size:72px 60px}
+:root[data-skin="hill"] .sec:nth-of-type(2n){background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 52' width='104' height='104' shape-rendering='crispEdges'%3E%3Cg fill='%231E0302'%3E%3Crect x='31' y='3' width='1' height='1'/%3E%3Crect x='13' y='6' width='1' height='1'/%3E%3Crect x='39' y='7' width='1' height='1'/%3E%3Crect x='30' y='9' width='1' height='1'/%3E%3Crect x='34' y='9' width='1' height='1'/%3E%3Crect x='15' y='10' width='1' height='1'/%3E%3Crect x='35' y='12' width='1' height='1'/%3E%3Crect x='30' y='14' width='1' height='1'/%3E%3Crect x='8' y='16' width='1' height='1'/%3E%3Crect x='34' y='16' width='1' height='1'/%3E%3Crect x='39' y='17' width='1' height='1'/%3E%3Crect x='48' y='20' width='1' height='1'/%3E%3Crect x='45' y='21' width='1' height='1'/%3E%3Crect x='44' y='22' width='1' height='1'/%3E%3Crect x='51' y='24' width='1' height='1'/%3E%3Crect x='49' y='26' width='1' height='1'/%3E%3Crect x='40' y='27' width='1' height='1'/%3E%3Crect x='8' y='32' width='1' height='1'/%3E%3Crect x='23' y='32' width='1' height='1'/%3E%3Crect x='4' y='33' width='1' height='1'/%3E%3Crect x='22' y='33' width='1' height='1'/%3E%3Crect x='20' y='34' width='1' height='1'/%3E%3Crect x='47' y='34' width='1' height='1'/%3E%3Crect x='19' y='35' width='1' height='1'/%3E%3Crect x='36' y='35' width='1' height='1'/%3E%3Crect x='38' y='35' width='1' height='1'/%3E%3Crect x='18' y='36' width='1' height='1'/%3E%3Crect x='32' y='36' width='1' height='1'/%3E%3Crect x='16' y='37' width='1' height='1'/%3E%3Crect x='15' y='38' width='1' height='1'/%3E%3Crect x='13' y='39' width='1' height='1'/%3E%3Crect x='10' y='40' width='1' height='1'/%3E%3Crect x='9' y='41' width='1' height='1'/%3E%3Crect x='11' y='42' width='1' height='1'/%3E%3Crect x='5' y='44' width='1' height='1'/%3E%3C/g%3E%3Cg fill='%233A0605'%3E%3Crect x='13' y='5' width='1' height='1'/%3E%3Crect x='39' y='6' width='1' height='1'/%3E%3Crect x='38' y='7' width='1' height='1'/%3E%3Crect x='15' y='9' width='1' height='1'/%3E%3Crect x='30' y='11' width='1' height='1'/%3E%3Crect x='35' y='11' width='1' height='1'/%3E%3Crect x='18' y='12' width='1' height='1'/%3E%3Crect x='30' y='12' width='1' height='1'/%3E%3Crect x='17' y='13' width='1' height='1'/%3E%3Crect x='19' y='13' width='1' height='1'/%3E%3Crect x='30' y='13' width='1' height='1'/%3E%3Crect x='34' y='13' width='1' height='1'/%3E%3Crect x='19' y='14' width='1' height='1'/%3E%3Crect x='34' y='14' width='1' height='1'/%3E%3Crect x='18' y='15' width='1' height='1'/%3E%3Crect x='20' y='15' width='1' height='1'/%3E%3Crect x='29' y='15' width='1' height='1'/%3E%3Crect x='34' y='15' width='1' height='1'/%3E%3Crect x='19' y='16' width='1' height='1'/%3E%3Crect x='21' y='16' width='1' height='1'/%3E%3Crect x='29' y='16' width='1' height='1'/%3E%3Crect x='33' y='16' width='1' height='1'/%3E%3Crect x='21' y='17' width='1' height='1'/%3E%3Crect x='32' y='17' width='1' height='1'/%3E%3Crect x='22' y='18' width='1' height='1'/%3E%3Crect x='32' y='18' width='1' height='1'/%3E%3Crect x='23' y='19' width='1' height='1'/%3E%3Crect x='32' y='19' width='1' height='1'/%3E%3Crect x='47' y='19' width='1' height='1'/%3E%3Crect x='32' y='20' width='1' height='1'/%3E%3Crect x='36' y='20' width='1' height='1'/%3E%3Crect x='46' y='20' width='2' height='1'/%3E%3Crect x='42' y='22' width='2' height='1'/%3E%3Crect x='41' y='23' width='1' height='1'/%3E%3Crect x='50' y='23' width='2' height='1'/%3E%3Crect x='47' y='24' width='1' height='1'/%3E%3Crect x='49' y='24' width='1' height='1'/%3E%3Crect x='46' y='25' width='1' height='1'/%3E%3Crect x='49' y='25' width='1' height='1'/%3E%3Crect x='41' y='26' width='8' height='1'/%3E%3Crect x='38' y='27' width='2' height='1'/%3E%3Crect x='37' y='28' width='1' height='1'/%3E%3Crect x='38' y='29' width='1' height='1'/%3E%3Crect x='2' y='30' width='1' height='1'/%3E%3Crect x='6' y='30' width='1' height='1'/%3E%3Crect x='41' y='30' width='1' height='1'/%3E%3Crect x='4' y='31' width='1' height='1'/%3E%3Crect x='9' y='31' width='8' height='1'/%3E%3Crect x='24' y='31' width='2' height='1'/%3E%3Crect x='42' y='31' width='1' height='1'/%3E%3Crect x='44' y='31' width='1' height='1'/%3E%3Crect x='2' y='32' width='3' height='1'/%3E%3Crect x='6' y='32' width='2' height='1'/%3E%3Crect x='39' y='32' width='3' height='1'/%3E%3Crect x='44' y='32' width='1' height='1'/%3E%3Crect x='21' y='33' width='1' height='1'/%3E%3Crect x='26' y='33' width='1' height='1'/%3E%3Crect x='38' y='33' width='1' height='1'/%3E%3Crect x='42' y='33' width='4' height='1'/%3E%3Crect x='47' y='33' width='1' height='1'/%3E%3Crect x='37' y='34' width='2' height='1'/%3E%3Crect x='46' y='34' width='1' height='1'/%3E%3Crect x='17' y='35' width='1' height='1'/%3E%3Crect x='27' y='35' width='3' height='1'/%3E%3Crect x='33' y='35' width='3' height='1'/%3E%3Crect x='16' y='36' width='1' height='1'/%3E%3Crect x='30' y='36' width='2' height='1'/%3E%3Crect x='14' y='38' width='1' height='1'/%3E%3Crect x='11' y='39' width='2' height='1'/%3E%3Crect x='7' y='40' width='2' height='1'/%3E%3Crect x='5' y='43' width='1' height='1'/%3E%3Crect x='4' y='44' width='1' height='1'/%3E%3C/g%3E%3Cg fill='%235E0A07'%3E%3Crect x='18' y='13' width='1' height='1'/%3E%3Crect x='19' y='15' width='1' height='1'/%3E%3Crect x='33' y='15' width='1' height='1'/%3E%3Crect x='20' y='16' width='1' height='1'/%3E%3Crect x='32' y='16' width='1' height='1'/%3E%3Crect x='29' y='17' width='1' height='1'/%3E%3Crect x='31' y='17' width='1' height='1'/%3E%3Crect x='21' y='18' width='1' height='1'/%3E%3Crect x='29' y='18' width='3' height='1'/%3E%3Crect x='20' y='19' width='3' height='1'/%3E%3Crect x='28' y='19' width='4' height='1'/%3E%3Crect x='19' y='20' width='5' height='1'/%3E%3Crect x='27' y='20' width='5' height='1'/%3E%3Crect x='43' y='20' width='3' height='1'/%3E%3Crect x='18' y='21' width='15' height='1'/%3E%3Crect x='36' y='21' width='1' height='1'/%3E%3Crect x='40' y='21' width='5' height='1'/%3E%3Crect x='17' y='22' width='25' height='1'/%3E%3Crect x='16' y='23' width='25' height='1'/%3E%3Crect x='14' y='24' width='28' height='1'/%3E%3Crect x='13' y='25' width='33' height='1'/%3E%3Crect x='13' y='26' width='28' height='1'/%3E%3Crect x='12' y='27' width='26' height='1'/%3E%3Crect x='12' y='28' width='25' height='1'/%3E%3Crect x='11' y='29' width='27' height='1'/%3E%3Crect x='9' y='30' width='30' height='1'/%3E%3Crect x='8' y='31' width='1' height='1'/%3E%3Crect x='17' y='31' width='7' height='1'/%3E%3Crect x='26' y='31' width='16' height='1'/%3E%3Crect x='18' y='32' width='5' height='1'/%3E%3Crect x='27' y='32' width='12' height='1'/%3E%3Crect x='17' y='33' width='4' height='1'/%3E%3Crect x='27' y='33' width='11' height='1'/%3E%3Crect x='16' y='34' width='4' height='1'/%3E%3Crect x='28' y='34' width='9' height='1'/%3E%3Crect x='15' y='35' width='2' height='1'/%3E%3Crect x='18' y='35' width='1' height='1'/%3E%3Crect x='30' y='35' width='3' height='1'/%3E%3Crect x='14' y='36' width='2' height='1'/%3E%3Crect x='13' y='37' width='3' height='1'/%3E%3Crect x='11' y='38' width='3' height='1'/%3E%3Crect x='10' y='39' width='1' height='1'/%3E%3Crect x='9' y='40' width='1' height='1'/%3E%3C/g%3E%3Cg fill='%237C1109'%3E%3Crect x='18' y='14' width='1' height='1'/%3E%3Crect x='20' y='17' width='1' height='1'/%3E%3Crect x='30' y='17' width='1' height='1'/%3E%3Crect x='24' y='20' width='1' height='1'/%3E%3Crect x='33' y='21' width='1' height='1'/%3E%3Crect x='37' y='21' width='1' height='1'/%3E%3Crect x='42' y='24' width='1' height='1'/%3E%3Crect x='48' y='25' width='1' height='1'/%3E%3Crect x='39' y='30' width='1' height='1'/%3E%3Crect x='3' y='31' width='1' height='1'/%3E%3Crect x='7' y='31' width='1' height='1'/%3E%3Crect x='17' y='32' width='1' height='1'/%3E%3Crect x='26' y='32' width='1' height='1'/%3E%3Crect x='43' y='32' width='1' height='1'/%3E%3Crect x='27' y='34' width='1' height='1'/%3E%3C/g%3E%3Cg fill='%23A02315'%3E%3Crect x='38' y='6' width='1' height='1'/%3E%3Crect x='17' y='12' width='1' height='1'/%3E%3Crect x='29' y='12' width='1' height='1'/%3E%3Crect x='34' y='12' width='1' height='1'/%3E%3Crect x='29' y='13' width='1' height='1'/%3E%3Crect x='29' y='14' width='1' height='1'/%3E%3Crect x='32' y='14' width='2' height='1'/%3E%3Crect x='28' y='15' width='1' height='1'/%3E%3Crect x='32' y='15' width='1' height='1'/%3E%3Crect x='28' y='16' width='1' height='1'/%3E%3Crect x='31' y='16' width='1' height='1'/%3E%3Crect x='28' y='17' width='1' height='1'/%3E%3Crect x='20' y='18' width='1' height='1'/%3E%3Crect x='28' y='18' width='1' height='1'/%3E%3Crect x='19' y='19' width='1' height='1'/%3E%3Crect x='27' y='19' width='1' height='1'/%3E%3Crect x='43' y='19' width='4' height='1'/%3E%3Crect x='18' y='20' width='1' height='1'/%3E%3Crect x='25' y='20' width='2' height='1'/%3E%3Crect x='40' y='20' width='3' height='1'/%3E%3Crect x='17' y='21' width='1' height='1'/%3E%3Crect x='34' y='21' width='2' height='1'/%3E%3Crect x='38' y='21' width='2' height='1'/%3E%3Crect x='16' y='22' width='1' height='1'/%3E%3Crect x='14' y='23' width='2' height='1'/%3E%3Crect x='13' y='24' width='1' height='1'/%3E%3Crect x='43' y='24' width='4' height='1'/%3E%3Crect x='48' y='24' width='1' height='1'/%3E%3Crect x='12' y='25' width='1' height='1'/%3E%3Crect x='12' y='26' width='1' height='1'/%3E%3Crect x='11' y='27' width='1' height='1'/%3E%3Crect x='11' y='28' width='1' height='1'/%3E%3Crect x='8' y='29' width='3' height='1'/%3E%3Crect x='8' y='30' width='1' height='1'/%3E%3Crect x='40' y='30' width='1' height='1'/%3E%3Crect x='6' y='31' width='1' height='1'/%3E%3Crect x='16' y='33' width='1' height='1'/%3E%3Crect x='46' y='33' width='1' height='1'/%3E%3Crect x='15' y='34' width='1' height='1'/%3E%3Crect x='14' y='35' width='1' height='1'/%3E%3Crect x='13' y='36' width='1' height='1'/%3E%3Crect x='11' y='37' width='2' height='1'/%3E%3Crect x='10' y='38' width='1' height='1'/%3E%3Crect x='9' y='39' width='1' height='1'/%3E%3Crect x='4' y='43' width='1' height='1'/%3E%3C/g%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='b' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012' numOctaves='4' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .38  0 0 0 0 .27  0 0 0 0 .12  0 0 0 1.1 -.42'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23b%29'/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 .1  0 0 0 0 .08  0 0 0 0 .05  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23n%29'/%3E%3C/svg%3E"); background-position:left -26px bottom -22px,0 0,0 0}
+:root[data-skin="hill"] .sec:nth-of-type(3n){background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 52' width='104' height='104' shape-rendering='crispEdges'%3E%3Cg fill='%231E0302'%3E%3Crect x='26' y='6' width='1' height='1'/%3E%3Crect x='20' y='10' width='1' height='1'/%3E%3Crect x='21' y='13' width='1' height='1'/%3E%3Crect x='32' y='13' width='1' height='1'/%3E%3Crect x='14' y='15' width='1' height='1'/%3E%3Crect x='41' y='21' width='1' height='1'/%3E%3Crect x='37' y='23' width='1' height='1'/%3E%3Crect x='2' y='24' width='1' height='1'/%3E%3Crect x='35' y='24' width='1' height='1'/%3E%3Crect x='33' y='25' width='1' height='1'/%3E%3Crect x='48' y='27' width='1' height='1'/%3E%3Crect x='34' y='29' width='1' height='1'/%3E%3Crect x='24' y='30' width='1' height='1'/%3E%3Crect x='37' y='30' width='1' height='1'/%3E%3Crect x='22' y='31' width='1' height='1'/%3E%3Crect x='14' y='32' width='1' height='1'/%3E%3Crect x='18' y='32' width='1' height='1'/%3E%3Crect x='32' y='32' width='1' height='1'/%3E%3Crect x='31' y='34' width='1' height='1'/%3E%3Crect x='31' y='38' width='1' height='1'/%3E%3Crect x='22' y='41' width='1' height='1'/%3E%3Crect x='28' y='46' width='1' height='1'/%3E%3C/g%3E%3Cg fill='%233A0605'%3E%3Crect x='20' y='9' width='1' height='1'/%3E%3Crect x='19' y='10' width='1' height='1'/%3E%3Crect x='20' y='14' width='1' height='1'/%3E%3Crect x='22' y='15' width='1' height='1'/%3E%3Crect x='21' y='16' width='1' height='1'/%3E%3Crect x='23' y='16' width='1' height='1'/%3E%3Crect x='22' y='17' width='2' height='1'/%3E%3Crect x='25' y='17' width='1' height='1'/%3E%3Crect x='16' y='18' width='1' height='1'/%3E%3Crect x='23' y='18' width='1' height='1'/%3E%3Crect x='25' y='18' width='1' height='1'/%3E%3Crect x='17' y='19' width='1' height='1'/%3E%3Crect x='19' y='19' width='1' height='1'/%3E%3Crect x='26' y='19' width='1' height='1'/%3E%3Crect x='17' y='20' width='1' height='1'/%3E%3Crect x='21' y='20' width='1' height='1'/%3E%3Crect x='28' y='20' width='1' height='1'/%3E%3Crect x='41' y='20' width='1' height='1'/%3E%3Crect x='18' y='21' width='1' height='1'/%3E%3Crect x='30' y='21' width='1' height='1'/%3E%3Crect x='40' y='21' width='1' height='1'/%3E%3Crect x='19' y='22' width='1' height='1'/%3E%3Crect x='30' y='22' width='1' height='1'/%3E%3Crect x='20' y='23' width='1' height='1'/%3E%3Crect x='30' y='23' width='1' height='1'/%3E%3Crect x='35' y='23' width='1' height='1'/%3E%3Crect x='21' y='24' width='1' height='1'/%3E%3Crect x='34' y='24' width='1' height='1'/%3E%3Crect x='32' y='25' width='1' height='1'/%3E%3Crect x='31' y='26' width='1' height='1'/%3E%3Crect x='31' y='27' width='1' height='1'/%3E%3Crect x='34' y='28' width='1' height='1'/%3E%3Crect x='25' y='29' width='1' height='1'/%3E%3Crect x='33' y='29' width='1' height='1'/%3E%3Crect x='36' y='29' width='1' height='1'/%3E%3Crect x='23' y='30' width='1' height='1'/%3E%3Crect x='26' y='30' width='1' height='1'/%3E%3Crect x='32' y='30' width='1' height='1'/%3E%3Crect x='19' y='31' width='3' height='1'/%3E%3Crect x='27' y='31' width='1' height='1'/%3E%3Crect x='32' y='31' width='1' height='1'/%3E%3Crect x='31' y='33' width='1' height='1'/%3E%3Crect x='28' y='34' width='3' height='1'/%3E%3Crect x='31' y='37' width='1' height='1'/%3E%3Crect x='30' y='38' width='1' height='1'/%3E%3C/g%3E%3Cg fill='%235E0A07'%3E%3Crect x='22' y='16' width='1' height='1'/%3E%3Crect x='25' y='19' width='1' height='1'/%3E%3Crect x='24' y='20' width='3' height='1'/%3E%3Crect x='19' y='21' width='3' height='1'/%3E%3Crect x='23' y='21' width='6' height='1'/%3E%3Crect x='20' y='22' width='10' height='1'/%3E%3Crect x='21' y='23' width='9' height='1'/%3E%3Crect x='22' y='24' width='9' height='1'/%3E%3Crect x='33' y='24' width='1' height='1'/%3E%3Crect x='23' y='25' width='9' height='1'/%3E%3Crect x='22' y='26' width='9' height='1'/%3E%3Crect x='20' y='27' width='11' height='1'/%3E%3Crect x='19' y='28' width='13' height='1'/%3E%3Crect x='19' y='29' width='6' height='1'/%3E%3Crect x='26' y='29' width='7' height='1'/%3E%3Crect x='19' y='30' width='4' height='1'/%3E%3Crect x='27' y='30' width='5' height='1'/%3E%3Crect x='28' y='31' width='4' height='1'/%3E%3Crect x='29' y='32' width='3' height='1'/%3E%3Crect x='29' y='33' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%237C1109'%3E%3Crect x='21' y='15' width='1' height='1'/%3E%3Crect x='24' y='19' width='1' height='1'/%3E%3Crect x='20' y='20' width='1' height='1'/%3E%3Crect x='27' y='20' width='1' height='1'/%3E%3Crect x='22' y='21' width='1' height='1'/%3E%3Crect x='29' y='21' width='1' height='1'/%3E%3Crect x='31' y='24' width='1' height='1'/%3E%3Crect x='22' y='25' width='1' height='1'/%3E%3Crect x='32' y='28' width='1' height='1'/%3E%3Crect x='28' y='32' width='1' height='1'/%3E%3C/g%3E%3Cg fill='%23A02315'%3E%3Crect x='19' y='9' width='1' height='1'/%3E%3Crect x='20' y='13' width='1' height='1'/%3E%3Crect x='23' y='19' width='1' height='1'/%3E%3Crect x='19' y='20' width='1' height='1'/%3E%3Crect x='23' y='20' width='1' height='1'/%3E%3Crect x='40' y='20' width='1' height='1'/%3E%3Crect x='33' y='23' width='2' height='1'/%3E%3Crect x='32' y='24' width='1' height='1'/%3E%3Crect x='20' y='26' width='2' height='1'/%3E%3Crect x='19' y='27' width='1' height='1'/%3E%3Crect x='18' y='28' width='1' height='1'/%3E%3Crect x='33' y='28' width='1' height='1'/%3E%3Crect x='18' y='29' width='1' height='1'/%3E%3Crect x='18' y='30' width='1' height='1'/%3E%3Crect x='18' y='31' width='1' height='1'/%3E%3Crect x='28' y='33' width='1' height='1'/%3E%3Crect x='30' y='37' width='1' height='1'/%3E%3C/g%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='b' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012' numOctaves='4' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .38  0 0 0 0 .27  0 0 0 0 .12  0 0 0 1.1 -.42'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23b%29'/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 .1  0 0 0 0 .08  0 0 0 0 .05  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23n%29'/%3E%3C/svg%3E"); background-position:right 30% bottom -34px,0 0,0 0}
+:root[data-skin="hill"] .titlebar{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 30' width='72' height='60' shape-rendering='crispEdges'%3E%3Cg fill='%232B0403'%3E%3Crect x='25' y='2' width='1' height='1'/%3E%3Crect x='35' y='2' width='1' height='1'/%3E%3Crect x='6' y='3' width='1' height='1'/%3E%3Crect x='14' y='3' width='1' height='1'/%3E%3Crect x='33' y='3' width='1' height='1'/%3E%3Crect x='19' y='8' width='1' height='1'/%3E%3Crect x='18' y='9' width='1' height='1'/%3E%3Crect x='14' y='15' width='1' height='1'/%3E%3Crect x='13' y='16' width='1' height='1'/%3E%3Crect x='30' y='16' width='1' height='1'/%3E%3Crect x='4' y='17' width='1' height='1'/%3E%3Crect x='29' y='17' width='1' height='1'/%3E%3Crect x='3' y='18' width='1' height='1'/%3E%3Crect x='10' y='20' width='1' height='1'/%3E%3Crect x='9' y='21' width='1' height='1'/%3E%3Crect x='24' y='22' width='1' height='1'/%3E%3Crect x='23' y='23' width='1' height='1'/%3E%3C/g%3E%3Cg fill='%234D0806'%3E%3Crect x='35' y='0' width='1' height='1'/%3E%3Crect x='0' y='1' width='1' height='1'/%3E%3Crect x='4' y='1' width='1' height='1'/%3E%3Crect x='7' y='1' width='1' height='1'/%3E%3Crect x='15' y='1' width='1' height='1'/%3E%3Crect x='19' y='1' width='2' height='1'/%3E%3Crect x='26' y='1' width='1' height='1'/%3E%3Crect x='30' y='1' width='1' height='1'/%3E%3Crect x='35' y='1' width='1' height='1'/%3E%3Crect x='3' y='2' width='1' height='1'/%3E%3Crect x='5' y='2' width='2' height='1'/%3E%3Crect x='10' y='2' width='2' height='1'/%3E%3Crect x='14' y='2' width='1' height='1'/%3E%3Crect x='18' y='2' width='1' height='1'/%3E%3Crect x='24' y='2' width='1' height='1'/%3E%3Crect x='27' y='2' width='1' height='1'/%3E%3Crect x='29' y='2' width='1' height='1'/%3E%3Crect x='31' y='2' width='2' height='1'/%3E%3Crect x='34' y='2' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3Crect x='9' y='3' width='1' height='1'/%3E%3Crect x='18' y='3' width='1' height='1'/%3E%3Crect x='21' y='3' width='1' height='1'/%3E%3Crect x='23' y='3' width='1' height='1'/%3E%3Crect x='29' y='3' width='1' height='1'/%3E%3Crect x='3' y='4' width='1' height='1'/%3E%3Crect x='9' y='4' width='1' height='1'/%3E%3Crect x='13' y='4' width='1' height='1'/%3E%3Crect x='18' y='4' width='1' height='1'/%3E%3Crect x='23' y='4' width='1' height='1'/%3E%3Crect x='29' y='4' width='1' height='1'/%3E%3Crect x='3' y='5' width='1' height='1'/%3E%3Crect x='9' y='5' width='1' height='1'/%3E%3Crect x='13' y='5' width='1' height='1'/%3E%3Crect x='18' y='5' width='1' height='1'/%3E%3Crect x='23' y='5' width='1' height='1'/%3E%3Crect x='29' y='5' width='1' height='1'/%3E%3Crect x='3' y='6' width='1' height='1'/%3E%3Crect x='9' y='6' width='1' height='1'/%3E%3Crect x='13' y='6' width='1' height='1'/%3E%3Crect x='18' y='6' width='1' height='1'/%3E%3Crect x='23' y='6' width='1' height='1'/%3E%3Crect x='29' y='6' width='1' height='1'/%3E%3Crect x='3' y='7' width='1' height='1'/%3E%3Crect x='9' y='7' width='1' height='1'/%3E%3Crect x='13' y='7' width='1' height='1'/%3E%3Crect x='18' y='7' width='1' height='1'/%3E%3Crect x='23' y='7' width='1' height='1'/%3E%3Crect x='29' y='7' width='1' height='1'/%3E%3Crect x='3' y='8' width='1' height='1'/%3E%3Crect x='9' y='8' width='1' height='1'/%3E%3Crect x='13' y='8' width='1' height='1'/%3E%3Crect x='15' y='8' width='1' height='1'/%3E%3Crect x='23' y='8' width='1' height='1'/%3E%3Crect x='29' y='8' width='1' height='1'/%3E%3Crect x='3' y='9' width='1' height='1'/%3E%3Crect x='9' y='9' width='1' height='1'/%3E%3Crect x='13' y='9' width='1' height='1'/%3E%3Crect x='16' y='9' width='2' height='1'/%3E%3Crect x='23' y='9' width='1' height='1'/%3E%3Crect x='29' y='9' width='1' height='1'/%3E%3Crect x='3' y='10' width='1' height='1'/%3E%3Crect x='9' y='10' width='1' height='1'/%3E%3Crect x='13' y='10' width='1' height='1'/%3E%3Crect x='23' y='10' width='1' height='1'/%3E%3Crect x='29' y='10' width='1' height='1'/%3E%3Crect x='3' y='11' width='1' height='1'/%3E%3Crect x='9' y='11' width='1' height='1'/%3E%3Crect x='13' y='11' width='1' height='1'/%3E%3Crect x='23' y='11' width='1' height='1'/%3E%3Crect x='29' y='11' width='1' height='1'/%3E%3Crect x='3' y='12' width='1' height='1'/%3E%3Crect x='9' y='12' width='1' height='1'/%3E%3Crect x='13' y='12' width='1' height='1'/%3E%3Crect x='23' y='12' width='1' height='1'/%3E%3Crect x='29' y='12' width='1' height='1'/%3E%3Crect x='3' y='13' width='1' height='1'/%3E%3Crect x='9' y='13' width='1' height='1'/%3E%3Crect x='13' y='13' width='1' height='1'/%3E%3Crect x='23' y='13' width='1' height='1'/%3E%3Crect x='29' y='13' width='1' height='1'/%3E%3Crect x='3' y='14' width='1' height='1'/%3E%3Crect x='9' y='14' width='1' height='1'/%3E%3Crect x='13' y='14' width='1' height='1'/%3E%3Crect x='23' y='14' width='1' height='1'/%3E%3Crect x='29' y='14' width='1' height='1'/%3E%3Crect x='3' y='15' width='1' height='1'/%3E%3Crect x='9' y='15' width='1' height='1'/%3E%3Crect x='11' y='15' width='1' height='1'/%3E%3Crect x='23' y='15' width='1' height='1'/%3E%3Crect x='29' y='15' width='1' height='1'/%3E%3Crect x='3' y='16' width='1' height='1'/%3E%3Crect x='9' y='16' width='1' height='1'/%3E%3Crect x='12' y='16' width='1' height='1'/%3E%3Crect x='23' y='16' width='1' height='1'/%3E%3Crect x='27' y='16' width='1' height='1'/%3E%3Crect x='0' y='17' width='1' height='1'/%3E%3Crect x='9' y='17' width='1' height='1'/%3E%3Crect x='23' y='17' width='1' height='1'/%3E%3Crect x='28' y='17' width='1' height='1'/%3E%3Crect x='1' y='18' width='2' height='1'/%3E%3Crect x='9' y='18' width='1' height='1'/%3E%3Crect x='23' y='18' width='1' height='1'/%3E%3Crect x='9' y='19' width='1' height='1'/%3E%3Crect x='23' y='19' width='1' height='1'/%3E%3Crect x='7' y='20' width='1' height='1'/%3E%3Crect x='23' y='20' width='1' height='1'/%3E%3Crect x='8' y='21' width='1' height='1'/%3E%3Crect x='23' y='21' width='1' height='1'/%3E%3Crect x='21' y='22' width='1' height='1'/%3E%3Crect x='22' y='23' width='1' height='1'/%3E%3C/g%3E%3Cg fill='%237A0F0B'%3E%3Crect x='1' y='1' width='3' height='1'/%3E%3Crect x='5' y='1' width='2' height='1'/%3E%3Crect x='8' y='1' width='7' height='1'/%3E%3Crect x='16' y='1' width='3' height='1'/%3E%3Crect x='21' y='1' width='5' height='1'/%3E%3Crect x='27' y='1' width='3' height='1'/%3E%3Crect x='31' y='1' width='4' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='9' y='2' width='1' height='1'/%3E%3Crect x='12' y='2' width='2' height='1'/%3E%3Crect x='17' y='2' width='1' height='1'/%3E%3Crect x='22' y='2' width='2' height='1'/%3E%3Crect x='28' y='2' width='1' height='1'/%3E%3Crect x='33' y='2' width='1' height='1'/%3E%3Crect x='2' y='3' width='1' height='1'/%3E%3Crect x='13' y='3' width='1' height='1'/%3E%3Crect x='17' y='3' width='1' height='1'/%3E%3Crect x='22' y='3' width='1' height='1'/%3E%3Crect x='2' y='4' width='1' height='1'/%3E%3Crect x='17' y='4' width='1' height='1'/%3E%3Crect x='2' y='5' width='1' height='1'/%3E%3Crect x='17' y='5' width='1' height='1'/%3E%3Crect x='2' y='6' width='1' height='1'/%3E%3Crect x='17' y='6' width='1' height='1'/%3E%3Crect x='2' y='7' width='1' height='1'/%3E%3Crect x='17' y='7' width='1' height='1'/%3E%3Crect x='2' y='8' width='1' height='1'/%3E%3Crect x='16' y='8' width='3' height='1'/%3E%3Crect x='2' y='9' width='1' height='1'/%3E%3Crect x='2' y='10' width='1' height='1'/%3E%3Crect x='2' y='11' width='1' height='1'/%3E%3Crect x='2' y='12' width='1' height='1'/%3E%3Crect x='2' y='13' width='1' height='1'/%3E%3Crect x='2' y='14' width='1' height='1'/%3E%3Crect x='2' y='15' width='1' height='1'/%3E%3Crect x='12' y='15' width='2' height='1'/%3E%3Crect x='2' y='16' width='1' height='1'/%3E%3Crect x='28' y='16' width='2' height='1'/%3E%3Crect x='1' y='17' width='3' height='1'/%3E%3Crect x='8' y='20' width='2' height='1'/%3E%3Crect x='22' y='22' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23A5190F'%3E%3Crect x='1' y='2' width='1' height='1'/%3E%3Crect x='8' y='2' width='1' height='1'/%3E%3Crect x='16' y='2' width='1' height='1'/%3E%3Crect x='21' y='2' width='1' height='1'/%3E%3Crect x='12' y='3' width='1' height='1'/%3E%3Crect x='28' y='3' width='1' height='1'/%3E%3Crect x='22' y='4' width='1' height='1'/%3E%3C/g%3E%3Cg fill='%23C9362A'%3E%3Crect x='0' y='0' width='35' height='1'/%3E%3Crect x='1' y='3' width='1' height='1'/%3E%3Crect x='8' y='3' width='1' height='1'/%3E%3Crect x='16' y='3' width='1' height='1'/%3E%3Crect x='1' y='4' width='1' height='1'/%3E%3Crect x='8' y='4' width='1' height='1'/%3E%3Crect x='12' y='4' width='1' height='1'/%3E%3Crect x='16' y='4' width='1' height='1'/%3E%3Crect x='28' y='4' width='1' height='1'/%3E%3Crect x='1' y='5' width='1' height='1'/%3E%3Crect x='8' y='5' width='1' height='1'/%3E%3Crect x='12' y='5' width='1' height='1'/%3E%3Crect x='16' y='5' width='1' height='1'/%3E%3Crect x='22' y='5' width='1' height='1'/%3E%3Crect x='28' y='5' width='1' height='1'/%3E%3Crect x='1' y='6' width='1' height='1'/%3E%3Crect x='8' y='6' width='1' height='1'/%3E%3Crect x='12' y='6' width='1' height='1'/%3E%3Crect x='16' y='6' width='1' height='1'/%3E%3Crect x='22' y='6' width='1' height='1'/%3E%3Crect x='28' y='6' width='1' height='1'/%3E%3Crect x='1' y='7' width='1' height='1'/%3E%3Crect x='8' y='7' width='1' height='1'/%3E%3Crect x='12' y='7' width='1' height='1'/%3E%3Crect x='16' y='7' width='1' height='1'/%3E%3Crect x='22' y='7' width='1' height='1'/%3E%3Crect x='28' y='7' width='1' height='1'/%3E%3Crect x='1' y='8' width='1' height='1'/%3E%3Crect x='8' y='8' width='1' height='1'/%3E%3Crect x='12' y='8' width='1' height='1'/%3E%3Crect x='22' y='8' width='1' height='1'/%3E%3Crect x='28' y='8' width='1' height='1'/%3E%3Crect x='1' y='9' width='1' height='1'/%3E%3Crect x='8' y='9' width='1' height='1'/%3E%3Crect x='12' y='9' width='1' height='1'/%3E%3Crect x='22' y='9' width='1' height='1'/%3E%3Crect x='28' y='9' width='1' height='1'/%3E%3Crect x='1' y='10' width='1' height='1'/%3E%3Crect x='8' y='10' width='1' height='1'/%3E%3Crect x='12' y='10' width='1' height='1'/%3E%3Crect x='22' y='10' width='1' height='1'/%3E%3Crect x='28' y='10' width='1' height='1'/%3E%3Crect x='1' y='11' width='1' height='1'/%3E%3Crect x='8' y='11' width='1' height='1'/%3E%3Crect x='12' y='11' width='1' height='1'/%3E%3Crect x='22' y='11' width='1' height='1'/%3E%3Crect x='28' y='11' width='1' height='1'/%3E%3Crect x='1' y='12' width='1' height='1'/%3E%3Crect x='8' y='12' width='1' height='1'/%3E%3Crect x='12' y='12' width='1' height='1'/%3E%3Crect x='22' y='12' width='1' height='1'/%3E%3Crect x='28' y='12' width='1' height='1'/%3E%3Crect x='1' y='13' width='1' height='1'/%3E%3Crect x='8' y='13' width='1' height='1'/%3E%3Crect x='12' y='13' width='1' height='1'/%3E%3Crect x='22' y='13' width='1' height='1'/%3E%3Crect x='28' y='13' width='1' height='1'/%3E%3Crect x='1' y='14' width='1' height='1'/%3E%3Crect x='8' y='14' width='1' height='1'/%3E%3Crect x='12' y='14' width='1' height='1'/%3E%3Crect x='22' y='14' width='1' height='1'/%3E%3Crect x='28' y='14' width='1' height='1'/%3E%3Crect x='1' y='15' width='1' height='1'/%3E%3Crect x='8' y='15' width='1' height='1'/%3E%3Crect x='22' y='15' width='1' height='1'/%3E%3Crect x='28' y='15' width='1' height='1'/%3E%3Crect x='1' y='16' width='1' height='1'/%3E%3Crect x='8' y='16' width='1' height='1'/%3E%3Crect x='22' y='16' width='1' height='1'/%3E%3Crect x='8' y='17' width='1' height='1'/%3E%3Crect x='22' y='17' width='1' height='1'/%3E%3Crect x='8' y='18' width='1' height='1'/%3E%3Crect x='22' y='18' width='1' height='1'/%3E%3Crect x='8' y='19' width='1' height='1'/%3E%3Crect x='22' y='19' width='1' height='1'/%3E%3Crect x='22' y='20' width='1' height='1'/%3E%3Crect x='22' y='21' width='1' height='1'/%3E%3C/g%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 52' width='104' height='104' shape-rendering='crispEdges'%3E%3Cg fill='%231E0302'%3E%3Crect x='26' y='6' width='1' height='1'/%3E%3Crect x='20' y='10' width='1' height='1'/%3E%3Crect x='21' y='13' width='1' height='1'/%3E%3Crect x='32' y='13' width='1' height='1'/%3E%3Crect x='14' y='15' width='1' height='1'/%3E%3Crect x='41' y='21' width='1' height='1'/%3E%3Crect x='37' y='23' width='1' height='1'/%3E%3Crect x='2' y='24' width='1' height='1'/%3E%3Crect x='35' y='24' width='1' height='1'/%3E%3Crect x='33' y='25' width='1' height='1'/%3E%3Crect x='48' y='27' width='1' height='1'/%3E%3Crect x='34' y='29' width='1' height='1'/%3E%3Crect x='24' y='30' width='1' height='1'/%3E%3Crect x='37' y='30' width='1' height='1'/%3E%3Crect x='22' y='31' width='1' height='1'/%3E%3Crect x='14' y='32' width='1' height='1'/%3E%3Crect x='18' y='32' width='1' height='1'/%3E%3Crect x='32' y='32' width='1' height='1'/%3E%3Crect x='31' y='34' width='1' height='1'/%3E%3Crect x='31' y='38' width='1' height='1'/%3E%3Crect x='22' y='41' width='1' height='1'/%3E%3Crect x='28' y='46' width='1' height='1'/%3E%3C/g%3E%3Cg fill='%233A0605'%3E%3Crect x='20' y='9' width='1' height='1'/%3E%3Crect x='19' y='10' width='1' height='1'/%3E%3Crect x='20' y='14' width='1' height='1'/%3E%3Crect x='22' y='15' width='1' height='1'/%3E%3Crect x='21' y='16' width='1' height='1'/%3E%3Crect x='23' y='16' width='1' height='1'/%3E%3Crect x='22' y='17' width='2' height='1'/%3E%3Crect x='25' y='17' width='1' height='1'/%3E%3Crect x='16' y='18' width='1' height='1'/%3E%3Crect x='23' y='18' width='1' height='1'/%3E%3Crect x='25' y='18' width='1' height='1'/%3E%3Crect x='17' y='19' width='1' height='1'/%3E%3Crect x='19' y='19' width='1' height='1'/%3E%3Crect x='26' y='19' width='1' height='1'/%3E%3Crect x='17' y='20' width='1' height='1'/%3E%3Crect x='21' y='20' width='1' height='1'/%3E%3Crect x='28' y='20' width='1' height='1'/%3E%3Crect x='41' y='20' width='1' height='1'/%3E%3Crect x='18' y='21' width='1' height='1'/%3E%3Crect x='30' y='21' width='1' height='1'/%3E%3Crect x='40' y='21' width='1' height='1'/%3E%3Crect x='19' y='22' width='1' height='1'/%3E%3Crect x='30' y='22' width='1' height='1'/%3E%3Crect x='20' y='23' width='1' height='1'/%3E%3Crect x='30' y='23' width='1' height='1'/%3E%3Crect x='35' y='23' width='1' height='1'/%3E%3Crect x='21' y='24' width='1' height='1'/%3E%3Crect x='34' y='24' width='1' height='1'/%3E%3Crect x='32' y='25' width='1' height='1'/%3E%3Crect x='31' y='26' width='1' height='1'/%3E%3Crect x='31' y='27' width='1' height='1'/%3E%3Crect x='34' y='28' width='1' height='1'/%3E%3Crect x='25' y='29' width='1' height='1'/%3E%3Crect x='33' y='29' width='1' height='1'/%3E%3Crect x='36' y='29' width='1' height='1'/%3E%3Crect x='23' y='30' width='1' height='1'/%3E%3Crect x='26' y='30' width='1' height='1'/%3E%3Crect x='32' y='30' width='1' height='1'/%3E%3Crect x='19' y='31' width='3' height='1'/%3E%3Crect x='27' y='31' width='1' height='1'/%3E%3Crect x='32' y='31' width='1' height='1'/%3E%3Crect x='31' y='33' width='1' height='1'/%3E%3Crect x='28' y='34' width='3' height='1'/%3E%3Crect x='31' y='37' width='1' height='1'/%3E%3Crect x='30' y='38' width='1' height='1'/%3E%3C/g%3E%3Cg fill='%235E0A07'%3E%3Crect x='22' y='16' width='1' height='1'/%3E%3Crect x='25' y='19' width='1' height='1'/%3E%3Crect x='24' y='20' width='3' height='1'/%3E%3Crect x='19' y='21' width='3' height='1'/%3E%3Crect x='23' y='21' width='6' height='1'/%3E%3Crect x='20' y='22' width='10' height='1'/%3E%3Crect x='21' y='23' width='9' height='1'/%3E%3Crect x='22' y='24' width='9' height='1'/%3E%3Crect x='33' y='24' width='1' height='1'/%3E%3Crect x='23' y='25' width='9' height='1'/%3E%3Crect x='22' y='26' width='9' height='1'/%3E%3Crect x='20' y='27' width='11' height='1'/%3E%3Crect x='19' y='28' width='13' height='1'/%3E%3Crect x='19' y='29' width='6' height='1'/%3E%3Crect x='26' y='29' width='7' height='1'/%3E%3Crect x='19' y='30' width='4' height='1'/%3E%3Crect x='27' y='30' width='5' height='1'/%3E%3Crect x='28' y='31' width='4' height='1'/%3E%3Crect x='29' y='32' width='3' height='1'/%3E%3Crect x='29' y='33' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%237C1109'%3E%3Crect x='21' y='15' width='1' height='1'/%3E%3Crect x='24' y='19' width='1' height='1'/%3E%3Crect x='20' y='20' width='1' height='1'/%3E%3Crect x='27' y='20' width='1' height='1'/%3E%3Crect x='22' y='21' width='1' height='1'/%3E%3Crect x='29' y='21' width='1' height='1'/%3E%3Crect x='31' y='24' width='1' height='1'/%3E%3Crect x='22' y='25' width='1' height='1'/%3E%3Crect x='32' y='28' width='1' height='1'/%3E%3Crect x='28' y='32' width='1' height='1'/%3E%3C/g%3E%3Cg fill='%23A02315'%3E%3Crect x='19' y='9' width='1' height='1'/%3E%3Crect x='20' y='13' width='1' height='1'/%3E%3Crect x='23' y='19' width='1' height='1'/%3E%3Crect x='19' y='20' width='1' height='1'/%3E%3Crect x='23' y='20' width='1' height='1'/%3E%3Crect x='40' y='20' width='1' height='1'/%3E%3Crect x='33' y='23' width='2' height='1'/%3E%3Crect x='32' y='24' width='1' height='1'/%3E%3Crect x='20' y='26' width='2' height='1'/%3E%3Crect x='19' y='27' width='1' height='1'/%3E%3Crect x='18' y='28' width='1' height='1'/%3E%3Crect x='33' y='28' width='1' height='1'/%3E%3Crect x='18' y='29' width='1' height='1'/%3E%3Crect x='18' y='30' width='1' height='1'/%3E%3Crect x='18' y='31' width='1' height='1'/%3E%3Crect x='28' y='33' width='1' height='1'/%3E%3Crect x='30' y='37' width='1' height='1'/%3E%3C/g%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 18px top 0,right -24px bottom -30px; background-size:72px 60px,104px 104px}
+:root[data-skin="hill"] .titlebar .eyebrow,:root[data-skin="hill"] .titlebar .draftnote{color:#968B73}
+:root[data-skin="hill"] .appbar{background:#2A241B; border-bottom:4px solid #7E1710; box-shadow:0 4px 0 #120E0A; color:#D7CDB1}
+:root[data-skin="hill"] .menu{color:var(--ink)}
+:root[data-skin="hill"] .appbar .bt,:root[data-skin="hill"] .appbar .barbtn.ghost{color:#D7CDB1}
+:root[data-skin="hill"] .appbar .barbtn.ghost[aria-expanded="true"]{color:#221C15}
+:root[data-skin="hill"] button{box-shadow:3px 3px 0 #120E0A; border-color:#2A241B; background:#CFC3A3}
+:root[data-skin="hill"] button.primary{background:#7E1710; color:#F1E7CF; border-color:#120E0A}
+:root[data-skin="hill"] .kpi .val{color:#7E1710}
+:root[data-skin="hill"] .pk{background:#D7CDB1; border:3px solid #2A241B; box-shadow:0 4px 0 #120E0A}
+:root[data-skin="hill"]:not([data-app]) .kpi .val{animation:hflick 7s steps(1,end) infinite}
+@keyframes hflick{0%,92%,96%,100%{opacity:1}93%{opacity:.55}95%{opacity:.85}}
 
 *{box-sizing:border-box}
 body{background:var(--bg); color:var(--ink); font:16px/1.45 var(--font-body); padding-block:0 72px}
@@ -179,6 +254,8 @@ button.warn{border-color:var(--warn); color:var(--warn)}
 .iv{display:flex; align-items:center; justify-content:space-between; gap:12px; width:100%; min-height:44px; padding:8px 12px; text-align:left;
   background:var(--surface-2); border:1px solid var(--line); border-radius:8px; color:var(--ink)}
 .iv .il{font:600 13px/1.2 var(--font-body); color:var(--muted)}
+.iv .ilw{display:flex; flex-direction:column; gap:3px; min-width:0}
+.iv .ic{font:600 11.5px/1.1 var(--font-mono); color:var(--accent)}
 .iv .ivv{font:500 15px/1.2 var(--font-mono); color:var(--ink); text-align:right; overflow-wrap:anywhere}
 .iv:hover:not(:disabled){border-color:var(--accent)}
 .iv.empty .ivv{color:var(--muted)}
@@ -216,6 +293,14 @@ button.warn{border-color:var(--warn); color:var(--warn)}
 .mi svg{width:22px; height:22px; flex:none; margin-top:1px; fill:none; stroke:var(--accent); stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round}
 .mi b{display:block; font:600 15px/1.2 var(--font-body)}
 .mi small{display:block; font:400 12.5px/1.3 var(--font-body); color:var(--muted); margin-top:3px}
+.piano{margin:6px 10px 10px; padding:10px; border:1px solid var(--line,rgba(0,0,0,.2)); border-radius:9px; background:var(--surface-2,rgba(0,0,0,.04))}
+.piano .pk-h{font:600 12px/1 var(--font-body); letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:8px}
+.pk-row{display:flex; gap:6px}
+.pk{flex:1; height:96px; display:flex; align-items:flex-end; justify-content:center; padding:0 0 8px; background:#fff; color:#222; border:1px solid #888; border-radius:0 0 7px 7px; box-shadow:0 3px 0 #888; touch-action:manipulation; -webkit-user-select:none; user-select:none}
+.pk i{font:600 14px/1 var(--font-body); font-style:normal}
+.pk.on,.pk:active{transform:translateY(3px); box-shadow:0 0 0 #888; background:var(--accent-soft,#cde)}
+:root[data-skin="matrix"] .pk{background:#072812; color:#00FF41; border-color:#00FF41; box-shadow:0 3px 0 #00FF41}
+:root[data-skin="pixel"] .pk{border-radius:0; border:3px solid #0B1544; box-shadow:0 4px 0 #0B1544}
 .setrow{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px; border-radius:7px}
 .setrow b{display:block; font:600 15px/1.2 var(--font-body)}
 .setrow small{display:block; font:400 12.5px/1.3 var(--font-body); color:var(--muted); margin-top:3px}
@@ -490,6 +575,11 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
           <button type="button" class="swatch" data-skin-pick="retro"><span class="pv"><i style="background:#C0C0C0"></i><i style="background:#000080"></i><i style="background:#FFFFE1"></i></span>Old computer</button>
           <button type="button" class="swatch" data-skin-pick="cream"><span class="pv"><i style="background:#F3E9D2"></i><i style="background:#B3262E"></i><i style="background:#1E3A8A"></i></span>Cream, red and blue</button>
           <button type="button" class="swatch" data-skin-pick="pixel"><span class="pv"><i style="background:#1F4FBF"></i><i style="background:#E79DBB"></i><i style="background:#FF9F3D"></i></span>Pixel sunset</button>
+          <button type="button" class="swatch" data-skin-pick="hill"><span class="pv"><i style="background:#77746B"></i><i style="background:#D7CDB1"></i><i style="background:#7E1710"></i></span>Foggy town</button>
+        </div>
+        <div class="piano" id="piano" hidden role="group" aria-label="Piano">
+          <div class="pk-h">Secret piano</div>
+          <div class="pk-row"><button type="button" class="pk" data-note="523.25" aria-label="C"><i>C</i></button><button type="button" class="pk" data-note="587.33" aria-label="D"><i>D</i></button><button type="button" class="pk" data-note="659.25" aria-label="E"><i>E</i></button><button type="button" class="pk" data-note="783.99" aria-label="G"><i>G</i></button><button type="button" class="pk" data-note="880" aria-label="A"><i>A</i></button></div>
         </div>
         <div class="setrow upd" id="set-upd" hidden>
           <span><b>App updates</b><small id="upd-ver"></small></span>
@@ -572,7 +662,7 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
       <div class="f"><label for="f-m-ref">Compaction sample</label><input id="f-m-ref" data-fm="ref" type="text" autocomplete="off"></div>
     </div>
     <details class="how"><summary>How the results are worked out</summary>
-      <div class="formula">dry density = wet density ÷ (1 + w ÷ 100)<br>density ratio = dry density ÷ MDD × 100<br>moisture vs OMC = w − OMC</div>
+      <div class="formula">converted wet density = wet density ÷ (1 + added % ÷ 100)<br>dry density = wet density ÷ (1 + w ÷ 100)<br>density ratio = dry density ÷ MDD × 100<br>moisture vs OMC = w − OMC</div>
       <div class="hint">Density ratio is shown and checked against the minimum to 0.1%.</div>
     </details>
   </section>
@@ -659,9 +749,10 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
     </div>
     <div class="statusline"><span id="c-status"></span><span class="grow"></span>
       <button type="button" class="slim" id="btn-to-fdn" data-act="to-fdn" hidden>Use in FDN test</button></div>
-    <div class="kpis">
+    <div class="kpis kpis3">
       <div class="kpi"><span class="lab">Maximum dry density</span><span class="val" id="k-mdd">–</span><span class="sub" id="k-mdd-sub">t/m³, to 0.01</span></div>
       <div class="kpi"><span class="lab">Optimum moisture content</span><span class="val" id="k-omc">–</span><span class="sub" id="k-omc-sub">%, to nearest 0.5</span></div>
+      <div class="kpi"><span class="lab">Max converted wet density</span><span class="val" id="k-mwd">–</span><span class="sub" id="k-mwd-sub">Wet density ÷ (1 + added % ÷ 100)</span></div>
     </div>
     <div class="chartbox" id="chart"></div>
     <div class="legend" id="legend">
@@ -797,7 +888,8 @@ function compute(s){
     const target=(add!==null&&nat.w!==null)?nat.w+add:null;
     const water=(bw!==null&&add!==null)?(nat.w!==null?bw/(1+nat.w/100):bw)*add/100:null;
     const off=(w!==null&&target!==null)?w-target:null;
-    return {i,ms,wm,rho,w,n:ws.length,rd,odd,bw,add,target,water,off};
+    const cwd=(rho!==null&&add!==null)?rho/(1+add/100):null;   // wet density with the added water taken back off
+    return {i,ms,wm,rho,cwd,w,n:ws.length,rd,odd,bw,add,target,water,off};
   });
   const pts=points.filter(p=>p.rd!==null);
   let res=null;
@@ -912,22 +1004,57 @@ const Snd=(function(){
     if(ctx.state==='suspended'){ try{ ctx.resume(); }catch(e){} }
     return ctx;
   }
-  function voice(){ const s=document.documentElement.getAttribute('data-skin'); return s==='matrix'?'matrix':(s==='retro'?'retro':(s==='pixel'?'chip':'soft')); }
+  function voice(){ const s=document.documentElement.getAttribute('data-skin'); return s==='hill'?'hill':s==='matrix'?'matrix':(s==='retro'?'retro':(s==='pixel'?'chip':'soft')); }
   function tone(f,d,o){
     o=o||{}; const c=ensure(); if(!c) return;
     const v=voice(), t0=c.currentTime+(o.at||0)+0.005, mult=v==='matrix'?1.5:1;
     const osc=c.createOscillator(), g=c.createGain(), flt=c.createBiquadFilter();
-    osc.type=(v==='retro'||v==='chip')?'square':(v==='matrix'?'sawtooth':'sine');
-    const vol=(v==='soft'?0.16:0.055)*(o.vol||1);
+    osc.type=(v==='retro'||v==='chip')?'square':((v==='matrix'||v==='hill')?(v==='hill'?'triangle':'sawtooth'):'sine');
+    const vol=(v==='soft'?0.16:(v==='hill'?0.14:0.055))*(o.vol||1);
     osc.frequency.setValueAtTime(f*mult,t0);
     if(o.to) osc.frequency.exponentialRampToValueAtTime(o.to*mult,t0+d);
-    flt.type='lowpass'; flt.frequency.value=v==='soft'?5000:3200;
+    flt.type='lowpass'; flt.frequency.value=v==='soft'?5000:(v==='hill'?1400:3200);
     g.gain.setValueAtTime(0.0001,t0);
     g.gain.exponentialRampToValueAtTime(vol,t0+0.006);
     g.gain.exponentialRampToValueAtTime(0.0001,t0+d);
     osc.connect(flt); flt.connect(g); g.connect(c.destination);
     osc.start(t0); osc.stop(t0+d+0.03);
   }
+  // Foggy-town voice: radio static, dull metal knocks, low industrial drones, uneasy minor intervals
+  let nbuf=null;
+  function noise(d,vol,fc,q,at){
+    const c=ensure(); if(!c) return;
+    if(!nbuf){ nbuf=c.createBuffer(1,c.sampleRate,c.sampleRate); const a=nbuf.getChannelData(0); for(let i=0;i<a.length;i++) a[i]=Math.random()*2-1; }
+    const t0=c.currentTime+(at||0)+0.005, src=c.createBufferSource(), bp=c.createBiquadFilter(), g=c.createGain();
+    src.buffer=nbuf; src.loop=true; bp.type='bandpass'; bp.frequency.value=fc||2000; bp.Q.value=q||0.7;
+    g.gain.setValueAtTime(0.0001,t0); g.gain.exponentialRampToValueAtTime(vol,t0+0.004); g.gain.exponentialRampToValueAtTime(0.0001,t0+d);
+    src.connect(bp); bp.connect(g); g.connect(c.destination); src.start(t0); src.stop(t0+d+0.03);
+  }
+  function clang(f,d,vol,at){
+    const c=ensure(); if(!c) return;
+    [1,2.76,5.4,8.93].forEach((m,i)=>{
+      const t0=c.currentTime+(at||0)+0.005, o=c.createOscillator(), g=c.createGain();
+      o.type='sine'; o.frequency.value=f*m; const v=(vol||.1)/(1+i*1.6);
+      g.gain.setValueAtTime(v,t0); g.gain.exponentialRampToValueAtTime(0.0001,t0+d/(1+i*.7));
+      o.connect(g); g.connect(c.destination); o.start(t0); o.stop(t0+d+0.05);
+    });
+  }
+  function drone(f,d,vol,at,to){ tone(f,d,{vol:vol||1,at:at||0,to:to}); tone(f*1.0595,d,{vol:(vol||1)*.7,at:at||0,to:to&&to*1.0595}); }
+  const HFX={
+    click(){ noise(.05,.12,900,1.2); clang(180,.18,.05); },
+    key(){ const n=Date.now(); if(n-lastKey<45) return; lastKey=n; noise(.02,.07,3200,2); },
+    add(){ clang(150,.35,.07); },
+    remove(){ clang(110,.4,.07); noise(.12,.05,600,1); },
+    save(){ drone(110,1.1,1.2); drone(164.8,1.4,.9,.25); clang(220,.9,.05,.1); },
+    copy(){ noise(.07,.1,2400,3); noise(.05,.08,1500,3,.08); },
+    warn(){ noise(.25,.16,500,.8); drone(73.4,.5,1.2); },
+    sweep(){ noise(.5,.12,300,.6); tone(70,.5,{to:150,vol:1.2}); },
+    toggle(){ noise(.03,.1,1800,2); },
+    open(){ tone(90,.3,{to:130,vol:.9}); noise(.2,.05,700,1); },
+    close(){ tone(130,.25,{to:80,vol:.8}); noise(.15,.04,500,1); },
+    result(){ drone(98,1.6,1.2); drone(147,1.8,.8,.3); clang(196,1.2,.05,.15); },
+    fail(){ drone(55,.9,1.5,0,45); noise(.45,.14,400,.7); clang(90,.8,.08,.1); }
+  };
   const FX={
     click(){ tone(700,.05,{to:520,vol:.9}); },
     key(){ const n=Date.now(); if(n-lastKey<45) return; lastKey=n; tone(1500+Math.random()*400,.025,{vol:.45}); },
@@ -944,12 +1071,20 @@ const Snd=(function(){
     fail(){ tone(392,.14,{vol:1.1}); tone(311,.24,{at:.13,vol:1.1}); }
   };
   return {
-    play(name){ if(!on) return; const f=FX[name]; if(f) f(); },
+    note(f){ if(voice()==='hill'){ clang(f/2,1.4,.08); tone(f,1.1,{vol:.7}); } else tone(f,.9,{vol:1.6}); },
+    play(name){ if(!on) return; const f=(voice()==='hill'&&HFX[name])||FX[name]; if(f) f(); },
     isOn(){ return on; },
     set(v){ on=v; try{ localStorage.setItem('mdd-lab-sound-v1',v?'on':'off'); }catch(e){} }
   };
 })();
 ['pointerdown','keydown'].forEach(ev=>document.addEventListener(ev,()=>{ App.acted=true; },{capture:true,once:true}));
+// secret: tap the word "Settings" five times to find the piano
+(function(){
+  const h=document.querySelector('#menu-settings .menu-h'), pi=document.getElementById('piano'); if(!h||!pi) return;
+  let n=0,t=0;
+  h.addEventListener('click',()=>{ const now=Date.now(); n=(now-t<900)?n+1:1; t=now; if(n>=5){ n=0; pi.hidden=!pi.hidden; if(!pi.hidden) Snd.note(783.99); } });
+  pi.addEventListener('pointerdown',e=>{ const b=e.target.closest('.pk'); if(!b) return; Snd.note(+b.dataset.note); b.classList.add('on'); setTimeout(()=>b.classList.remove('on'),140); });
+})();
 document.addEventListener('toggle',e=>{ if(e.target&&e.target.tagName==='DETAILS') Snd.play('toggle'); },true);
 // Enter (or Next on a phone keyboard) moves down the same column, like a spreadsheet
 document.addEventListener('keydown',e=>{
@@ -1059,14 +1194,14 @@ const Integration=(function(){
     function render(ctx){
       lastCtx=ctx;
       const g=groupsFor(target,ctx); if(!g) return;
-      const s=target+'|'+(g.note||'')+'|'+g.groups.map(x=>x.title+'~'+(x.xkey||'')+'~'+x.items.map(i=>i.label).join(',')).join('#');
+      const s=target+'|'+(g.note||'')+'|'+g.groups.map(x=>x.title+'~'+(x.xkey||'')+'~'+x.items.map(i=>i.label+(i.cell?'@'+i.cell:'')).join(',')).join('#');
       if(s!==sig){
         sig=s;
         body.innerHTML=(g.note?'<p class="int-note">'+esc(g.note)+'</p>':'')+g.groups.map(x=>
           '<div class="igrp"><div class="ig-h"><h3>'+esc(x.title)+'</h3><span class="gs">'+esc(x.sub||'')+'</span>'
           +'<button type="button" class="slim" data-icopyall>Copy all</button></div>'
           +(x.extra?'<div class="ig-x">'+x.extra+'</div>':'')
-          +'<div class="ig-b">'+x.items.map(i=>'<button type="button" class="iv" data-icopy><span class="il">'+esc(i.label)+'</span><span class="ivv"></span></button>').join('')+'</div></div>').join('');
+          +'<div class="ig-b">'+x.items.map(i=>'<button type="button" class="iv" data-icopy><span class="ilw"><span class="il">'+esc(i.label)+'</span>'+(i.cell?'<span class="ic">'+esc(i.cell)+'</span>':'')+'</span><span class="ivv"></span></button>').join('')+'</div></div>').join('');
       }
       // extra inputs follow the page state (only touched when different, so typing is never disturbed)
       const gEls=body.querySelectorAll('.igrp'); g.groups.forEach((x,gi)=>{ if(x.fill&&gEls[gi]) x.fill(gEls[gi]); });
@@ -1083,7 +1218,7 @@ const Integration=(function(){
     if(b.hasAttribute('data-icopy')){ if(b.dataset.v) copyText(b.dataset.v,'Copied '+b.dataset.v); }
     else if(b.hasAttribute('data-icopyall')){
       const grp=b.closest('.igrp'); const lines=[];
-      grp.querySelectorAll('.iv').forEach(x=>{ if(x.dataset.v) lines.push(x.querySelector('.il').textContent+': '+x.dataset.v); });
+      grp.querySelectorAll('.iv').forEach(x=>{ if(x.dataset.v) { const ce=x.querySelector('.ic'); lines.push(x.querySelector('.il').textContent+(ce?' ['+ce.textContent+']':'')+': '+x.dataset.v); } });
       if(lines.length) copyText(lines.join('\n'),'Copied '+lines.length+' values'); else toast('Nothing to copy yet');
     }
   });
@@ -1137,4 +1272,1000 @@ const Integration=(function(){
 
   const METHOD={std:'Standard (AS 1289.5.1.1)',mod:'Modified (AS 1289.5.2.1)'};
 
-  /* ---------- tables ----
+  /* ---------- tables ---------- */
+  /* ---------- tables, read top to bottom: one column per point / tin ---------- */
+  const LABW=118, PCOLW=82, TCOLW=82;
+  const inp=(id,data,label,val,extra)=>'<td><input id="'+id+'" '+data+' autocomplete="off" aria-label="'+label+'" value="'+esc(val)+'"'+(extra||' inputmode="decimal"')+'></td>';
+  const calc=(id,cls)=>'<td class="calc'+(cls?' '+cls:'')+'" id="'+id+'"></td>';
+  function buildComp(){
+    const P=i=>'Point '+(i+1);
+    txBuild($('comp-table'),{n:state.ms.length,labW:LABW,colW:PCOLW,corner:'Point',
+      head:i=>'<span class="tn">'+(i+1)+'</span>',
+      rows:[
+        {tag:'Mixing',label:'Added',unit:'%',cell:i=>inp('padd-'+i,'data-add="'+i+'"',P(i)+' moisture to add, percent',state.add[i])},
+        {label:'Water to add',unit:'g',cell:i=>calc('pwa-'+i,'res')},
+        {tag:'Mould',label:'Mould + wet soil',unit:'g',sep:true,cell:i=>inp('ms-'+i,'data-ms="'+i+'"',P(i)+' mould plus wet soil mass, grams',state.ms[i])},
+        {label:'Wet density',unit:'t/m³',cell:i=>calc('rho-'+i)},
+        {label:'Converted wet density',unit:'t/m³',cell:i=>calc('cwd-'+i)},
+        {tag:'Result',label:'Moisture',unit:'%',sep:true,cell:i=>calc('w-'+i)},
+        {label:'Dry density',unit:'t/m³',cell:i=>calc('rd-'+i,'res')}]});
+  }
+  function buildMoist(){
+    const T=i=>'Tin '+(i+1);
+    txBuild($('moist-table'),{n:state.tins.length,labW:LABW,colW:TCOLW,corner:'Tin',
+      head:i=>'<span class="tn">'+(i+1)+'</span><small id="mt-h-'+i+'"></small><button type="button" class="x" data-act="rm-tin" data-i="'+i+'" aria-label="Remove tin '+(i+1)+'">×</button>',
+      rows:[
+        {label:'Point',cell:i=>{ let o=''; for(let p=1;p<=state.ms.length;p++) o+='<option value="'+p+'"'+(+state.tins[i].pt===p?' selected':'')+'>'+p+'</option>';
+          return '<td><select id="mt-'+i+'-pt" data-tin="'+i+'.pt" aria-label="'+T(i)+' point number">'+o+'</select></td>'; }},
+        {label:'Tin no.',cell:i=>inp('mt-'+i+'-id','class="txt" data-tin="'+i+'.id"',T(i)+' tin number',state.tins[i].id,' type="text"')},
+        {label:'Tin wt',unit:'g',sep:true,cell:i=>inp('mt-'+i+'-tare','data-tin="'+i+'.tare"',T(i)+' tin mass, grams',state.tins[i].tare)},
+        {label:'Tin + wet',unit:'g',cell:i=>inp('mt-'+i+'-wet','data-tin="'+i+'.wet"',T(i)+' tin plus wet soil, grams',state.tins[i].wet)},
+        {label:'Tin + dry',unit:'g',cell:i=>inp('mt-'+i+'-dry','data-tin="'+i+'.dry"',T(i)+' tin plus dry soil, grams',state.tins[i].dry)},
+        {label:'Water',unit:'g',sep:true,cell:i=>calc('mwa-'+i)},
+        {label:'Dry soil',unit:'g',cell:i=>calc('mso-'+i)},
+        {label:'Moisture',unit:'%',cell:i=>calc('mw-'+i,'res')}]});
+  }
+  function buildNat(){
+    const t=state.nat, S='Sample moisture';
+    txBuild($('nat-table'),{n:1,labW:LABW,colW:120,corner:'Sample',
+      head:()=>'<span class="tn">Tin</span>',
+      rows:[
+        {label:'Tin no.',cell:()=>inp('nat-id','class="txt" data-nat="id"',S+' tin number',t.id,' type="text"')},
+        {label:'Tin wt',unit:'g',sep:true,cell:()=>inp('nat-tare','data-nat="tare"',S+' tin mass, grams',t.tare)},
+        {label:'Tin + wet',unit:'g',cell:()=>inp('nat-wet','data-nat="wet"',S+' tin plus wet soil, grams',t.wet)},
+        {label:'Tin + dry',unit:'g',cell:()=>inp('nat-dry','data-nat="dry"',S+' tin plus dry soil, grams',t.dry)},
+        {label:'Water',unit:'g',sep:true,cell:()=>calc('nat-water')},
+        {label:'Dry soil',unit:'g',cell:()=>calc('nat-soil')},
+        {label:'Moisture',unit:'%',cell:()=>calc('nat-w','res')}]});
+    $('nat-table').classList.add('single');
+  }
+  function fillMeta(){
+    const m=state.meta;
+    ['job','sample','date','by','method','vol','mass','batch','estomc','step'].forEach(k=>{ $('meta-'+k).value=m[k]==null?'':m[k]; });
+  }
+
+  /* ---------- chart ---------- */
+  function drawChart(c){
+    const box=$('chart');
+    lastChart=c;
+    if(!c||!c.pts.length){ box.innerHTML='<div class="empty">Enter mould and moisture readings to plot the curve.</div>'; return; }
+    const W=Math.max(280,Math.floor(box.clientWidth||320)); lastW=W;
+    const H=Math.min(420,Math.max(270,Math.round(W*0.74)));
+    const m={l:48,r:14,t:16,b:42};
+    const ws=c.pts.map(p=>p.w), ds=c.pts.map(p=>p.rd);
+    let xs=Math.floor(Math.min.apply(null,ws)-1), xe=Math.ceil(Math.max.apply(null,ws)+1);
+    if(xe-xs<4){ xs-=1; xe+=1; }
+    const xstep=Math.max(1,niceStep(xe-xs,8));
+    xs=Math.floor(xs/xstep)*xstep; xe=Math.ceil(xe/xstep)*xstep;
+    let ys=Math.floor((Math.min.apply(null,ds)-0.05)*20)/20, ye=Math.ceil((Math.max.apply(null,ds)+0.07)*20)/20;
+    const ystep=Math.max(0.05,niceStep(ye-ys,6));
+    ys=Math.floor(ys/ystep+1e-9)*ystep; ye=Math.ceil(ye/ystep-1e-9)*ystep;
+    const pw=W-m.l-m.r, ph=H-m.t-m.b;
+    const sx=x=>m.l+(x-xs)/(xe-xs)*pw, sy=y=>H-m.b-(y-ys)/(ye-ys)*ph;
+    let s='<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Compaction curve: dry density against moisture content">';
+    s+='<g class="ax">';
+    for(let i=0,nx=Math.min(40,Math.round((xe-xs)/xstep));i<=nx;i++){
+      const x=xs+i*xstep, px=sx(x).toFixed(1);
+      s+='<line class="gridline" x1="'+px+'" y1="'+m.t+'" x2="'+px+'" y2="'+(H-m.b)+'"/><text x="'+px+'" y="'+(H-m.b+16)+'" text-anchor="middle">'+x+'</text>';
+    }
+    for(let k=0,ny=Math.min(40,Math.round((ye-ys)/ystep));k<=ny;k++){
+      const y=ys+k*ystep, py=sy(y).toFixed(1);
+      s+='<line class="gridline" x1="'+m.l+'" y1="'+py+'" x2="'+(W-m.r)+'" y2="'+py+'"/><text x="'+(m.l-6)+'" y="'+(+py+4)+'" text-anchor="end">'+y.toFixed(2)+'</text>';
+    }
+    s+='<line class="axline" x1="'+m.l+'" y1="'+(H-m.b)+'" x2="'+(W-m.r)+'" y2="'+(H-m.b)+'"/><line class="axline" x1="'+m.l+'" y1="'+m.t+'" x2="'+m.l+'" y2="'+(H-m.b)+'"/>';
+    s+='<text class="title" x="'+(m.l+pw/2)+'" y="'+(H-6)+'" text-anchor="middle">Moisture content (%)</text>';
+    s+='<text class="title" transform="translate(12 '+(m.t+ph/2)+') rotate(-90)" text-anchor="middle">Dry density (t/m³)</text></g>';
+    const sorted=c.pts.slice().sort((a,b)=>a.w-b.w);
+    s+='<polyline class="conn" points="'+sorted.map(p=>sx(p.w).toFixed(1)+','+sy(p.rd).toFixed(1)).join(' ')+'"/>';
+    if(c.res&&c.res.q){
+      const q=c.res.q, a=c.res.set[0].w, b=c.res.set[c.res.set.length-1].w; let d=''; const N=48;
+      for(let i=0;i<=N;i++){ const w=a+(b-a)*i/N, t=w-q.xm; d+=(i?'L':'M')+sx(w).toFixed(1)+' '+sy(q.a*t*t+q.b*t+q.c).toFixed(1); }
+      s+='<path class="fit" d="'+d+'"/>';
+    }
+    if(c.res){
+      const px=sx(c.res.omc), py=sy(c.res.mdd);
+      s+='<line class="guide" x1="'+px.toFixed(1)+'" y1="'+py.toFixed(1)+'" x2="'+px.toFixed(1)+'" y2="'+(H-m.b)+'"/>';
+      s+='<line class="guide" x1="'+m.l+'" y1="'+py.toFixed(1)+'" x2="'+px.toFixed(1)+'" y2="'+py.toFixed(1)+'"/>';
+    }
+    c.pts.forEach(p=>{ s+='<circle class="ptc" cx="'+sx(p.w).toFixed(1)+'" cy="'+sy(p.rd).toFixed(1)+'" r="4.5"/>'; });
+    if(c.res){
+      const px=sx(c.res.omc), py=sy(c.res.mdd);
+      s+='<path class="peakmark" d="M'+px.toFixed(1)+' '+(py-7).toFixed(1)+' L'+(px+6).toFixed(1)+' '+py.toFixed(1)+' L'+px.toFixed(1)+' '+(py+7).toFixed(1)+' L'+(px-6).toFixed(1)+' '+py.toFixed(1)+' Z"/>';
+      const lx=Math.min(Math.max(px,m.l+54),W-m.r-54);
+      s+='<text class="lbl" x="'+lx.toFixed(1)+'" y="'+Math.max(py-14,m.t+10).toFixed(1)+'" text-anchor="middle">MDD '+c.res.mdd.toFixed(2)+'</text>';
+      const ox=Math.min(Math.max(px,m.l+34),W-m.r-34);
+      s+='<text class="lbl" x="'+ox.toFixed(1)+'" y="'+(H-m.b-7)+'" text-anchor="middle">OMC '+c.res.omc.toFixed(1)+'%</text>';
+    }
+    s+='</svg>';
+    box.innerHTML=s;
+  }
+
+  /* ---------- update ---------- */
+  let lastCompute=null;
+  const CInt=Integration.make('c-int',(target,c)=>{
+    const mt=state.meta, ddmmyyyy=iso=>{ const p=String(iso||'').split('-'); return p.length===3?p[2]+'/'+p[1]+'/'+p[0]:''; };
+    const f1=v=>v===null||v===undefined?'':(Math.round(v*10)/10).toFixed(1);
+    const groups=[];
+    const COL=['C','E','G','I','K'];            // point columns on the TF1 sheet (each is a merged pair, e.g. C:D)
+    const LOCKED5=(i,row)=>i===4&&(row===40||row===41||row===52||row===53||row===54); // point 5 cells are locked in the sheet
+    const cl=(i,row)=>i<5?COL[i]+row+(LOCKED5(i,row)?' (locked in sheet)':''):'no column on sheet';
+    groups.push({title:'Worksheet header',sub:'Top of the TF1 sheet',xkey:'h',items:[
+      {label:'Sample number',val:mt.sample,cell:'L4 (fills from TF2)'},{label:'Date tested',val:ddmmyyyy(mt.date),cell:'L5'},{label:'Tested by',val:mt.by,cell:'L6'}]});
+    groups.push({title:'Mould',sub:'Same for every point',xkey:'m',items:[
+      {label:'Mass of mould (g)',val:mt.mass,cell:'C45 (points 2 to 5 copy it)'},{label:'Volume of mould (cm³)',val:mt.vol,cell:'auto from mould in L11'}]});
+    groups.push({title:'Field moisture',sub:'The single-tin sample moisture',xkey:'n',items:[
+      {label:'Container number',val:state.nat.id,cell:'L24'},{label:'Tin weight (g)',val:state.nat.tare,cell:'L25'},
+      {label:'Wet mass (g)',val:state.nat.wet,cell:'L26'},{label:'Dry mass (g)',val:state.nat.dry,cell:'Moistures sheet D2'}]});
+    c.points.forEach((p,i)=>{
+      groups.push({title:'Point '+(i+1),sub:'Mass of sample, water and mould',xkey:'p'+i,items:[
+        {label:'Mass of sample (g)',val:mt.batch,cell:cl(i,40)},
+        {label:'Water added (%)',val:state.add[i]!==''&&state.add[i]!=null?String(state.add[i]).trim()+'%':'',cell:cl(i,41)},
+        {label:'Water added (g)',val:f1(p.water),cell:'auto (row 42)'},
+        {label:'Mass of mould and wet soil (g)',val:state.ms[i],cell:i<5?COL[i]+'43':'no column on sheet'}]});
+    });
+    state.tins.forEach((t,i)=>{
+      const pi=(t.pt||i+1)-1;
+      groups.push({title:'Tin '+(i+1)+(t.id?' · '+t.id:''),sub:'Point '+t.pt+' moisture',xkey:'t'+i,items:[
+        {label:'Container number',val:t.id,cell:cl(pi,52)},{label:'Tin weight (g)',val:t.tare,cell:cl(pi,53)},
+        {label:'Wet mass (g)',val:t.wet,cell:cl(pi,54)},{label:'Dry mass (g)',val:t.dry,cell:pi<5?'Moistures sheet D'+(4+pi):'no column on sheet'}]});
+    });
+    return {note:'Cell addresses are for the TF1 (1) tab of the thebossapp Excel workbook (use TF1 (2) to (6) for further samples). Tap a value to copy it, click the named cell in Excel and paste. Paste one cell at a time: the sheet uses merged cells. Dry masses go on the Moistures sheet, not TF1. Equipment, material description and the other dropdowns stay in Excel. Wet and dry mass are tin plus soil, as weighed.',groups};
+  });
+  function update(){
+    const c=compute(state); CInt.render(c);
+    $('pt-count').textContent=state.ms.length+' points';
+    $('tin-count').textContent=state.tins.length+(state.tins.length===1?' tin':' tins');
+    $('wbasis').textContent=c.nat.w!==null?('Uses the sample moisture content of '+c.nat.w.toFixed(1)+'%. 1 g of water is 1 mL.'):'No sample moisture content yet, so the batch is treated as dry soil. 1 g of water is 1 mL.';
+    c.points.forEach((p,i)=>{
+      $('pwa-'+i).innerHTML=p.water===null?'–':Math.round(p.water)+(p.target!==null?'<small class="src tg">→ '+p.target.toFixed(1)+'%</small>':'');
+      $('rho-'+i).textContent=f(p.rho,3);
+      $('cwd-'+i).textContent=f(p.cwd,3);
+      const wc=$('w-'+i);
+      wc.innerHTML=p.w===null?'–':f(p.w,1)+(p.n>1?'<small class="src">'+p.n+' tins</small>':'');
+      wc.classList.toggle('bad',p.off!==null&&Math.abs(p.off)>=1.5);
+      const rc=$('rd-'+i); rc.textContent=p.odd?'check':f(p.rd,3); rc.classList.toggle('bad',p.odd);
+    });
+    // totals strip under the table
+    { const bw=num(state.meta.batch), n=state.ms.length, tw=c.points.reduce((a,p)=>a+(p.water||0),0), any=c.points.some(p=>p.water!==null);
+      let ft='';
+      if(bw===null) ft='Enter the batch per point in the mix plan to work out the water.';
+      else{
+        ft='<span>Total water <b>'+(any?Math.round(tw).toLocaleString('en-AU')+' g':'–')+'</b></span>';
+        ft+='<span>Soil needed <b>'+(+(bw*n/1000).toFixed(2))+' kg</b> ('+n+' × '+(+bw.toFixed(0))+' g)</span>';
+      }
+      $('comp-foot').innerHTML=ft; }
+    // mix plan preview
+    { const est=num(state.meta.estomc), step=num(state.meta.step), n=state.ms.length;
+      let ph='';
+      if(est!==null){
+        const st=step===null?2:step, tg=[]; for(let i=0;i<n;i++) tg.push(+(est+(i-(n-1)/2)*st).toFixed(1));
+        ph=(n===5?'Five':n)+' points centred on '+est+'%: '+tg.slice(0,-1).join(', ')+' and '+tg[tg.length-1]+'%.';
+        if(c.nat.w===null) ph+=' Enter the sample moisture to fill the added %.';
+        else if(tg[0]<c.nat.w) ph+=' The driest target is below the sample moisture, so that point needs air-drying first.';
+      }else ph='Enter an estimated OMC to spread the points either side of it.';
+      $('plan-hint').textContent=ph; }
+    // status chips and the hand-off to FDN
+    { const ch=(cls,t)=>'<span class="chip '+cls+'">'+t+'</span>';
+      let sh='';
+      if(c.res) sh=(c.res.edge?ch('fail','Peak not bracketed'):ch('pass','Peak bracketed'))+' '+ch('na',c.pts.length+' points');
+      else sh=ch('na',c.pts.length?'Needs 3 points':'No points yet');
+      $('c-status').innerHTML=sh; $('btn-to-fdn').hidden=!c.res; }
+    state.tins.forEach((t,i)=>{ const h=$('mt-h-'+i); if(h) h.textContent='Pt '+t.pt+(String(t.id||'').trim()?' · '+String(t.id).trim():''); });
+    c.rows.forEach((r,i)=>{
+      $('mwa-'+i).textContent=g(r.water);
+      $('mso-'+i).textContent=g(r.soil);
+      const cell=$('mw-'+i);
+      cell.textContent=r.bad?'check':f(r.w,1);
+      cell.classList.toggle('bad',r.bad);
+    });
+    $('nat-water').textContent=g(c.nat.water);
+    $('nat-soil').textContent=g(c.nat.soil);
+    $('nat-w').textContent=c.nat.bad?'check':f(c.nat.w,1);
+    $('nat-w').classList.toggle('bad',c.nat.bad);
+    const mt=state.meta;
+    $('r-id').textContent=(mt.sample||'Untitled sample')+(mt.job?' · '+mt.job:'');
+    $('r-sub').textContent=[METHOD[mt.method]||'',fmtDate(mt.date),mt.by?('Tested by '+mt.by):''].filter(Boolean).join(' · ');
+    if(c.res){
+      $('k-mdd').innerHTML=c.res.mdd.toFixed(2)+'<span class="u">t/m³</span>';
+      $('k-omc').innerHTML=roundHalf(c.res.omc).toFixed(1)+'<span class="u">%</span>';
+      $('k-mdd-sub').textContent='Peak of the curve, '+Math.round(c.res.mdd*1000)+' kg/m³';
+      $('k-omc-sub').textContent='To nearest 0.5. Unrounded '+c.res.omc.toFixed(1)+'%';
+    }else{
+      $('k-mdd').textContent='–'; $('k-omc').textContent='–';
+      $('k-mdd-sub').textContent='Needs three points with density and moisture';
+      $('k-omc-sub').textContent='%, to nearest 0.5';
+    }
+    const cpk=c.points.filter(p=>p.cwd!==null).reduce((b,p)=>(b===null||p.cwd>b.cwd)?p:b,null);
+    if(cpk){ $('k-mwd').innerHTML=cpk.cwd.toFixed(3)+'<span class="u">t/m³</span>'; $('k-mwd-sub').textContent='Peak added moisture '+cpk.add.toFixed(1)+'% (point '+(cpk.i+1)+')'; }
+    else{ $('k-mwd').textContent='–'; $('k-mwd-sub').textContent='Needs added moisture and a wet density'; }
+    const fl=[];
+    if(c.nat.w===null&&c.points.some(p=>p.water!==null)) fl.push(['','Water to add is worked out on the batch as dry soil. Enter the sample moisture content to correct for the natural moisture.']);
+    if(c.nat.bad) fl.push(['bad','Sample moisture: tin + dry must be heavier than the tin, and tin + wet must not be lighter than tin + dry.']);
+    c.rows.forEach((r,i)=>{ if(r.bad) fl.push(['bad','Tin '+(i+1)+': tin + dry must be heavier than the tin, and tin + wet must not be lighter than tin + dry.']); });
+    c.points.forEach((p,i)=>{
+      if(p.odd) fl.push(['bad','Point '+(i+1)+' has a dry density that cannot be right, so it is left off the curve. Check the mould + wet soil mass and the moisture content.']);
+      if(p.ms!==null&&p.w===null) fl.push(['','Point '+(i+1)+' has a mass but no moisture content yet.']);
+      if(p.ms!==null&&p.rho===null&&c.mass!==null) fl.push(['bad','Point '+(i+1)+': mould + wet soil must be heavier than the empty mould.']);
+      if(p.rho!==null&&!p.odd&&(p.rho<1.0||p.rho>2.8)) fl.push(['','Point '+(i+1)+' has a wet density of '+p.rho.toFixed(3)+' t/m³, which is unusual. Check the mould mass and volume.']);
+      if(p.off!==null&&Math.abs(p.off)>=1.5) fl.push(['','Point '+(i+1)+' came out at '+p.w.toFixed(1)+'%, '+Math.abs(p.off).toFixed(1)+'% '+(p.off>0?'wetter':'drier')+' than its '+p.target.toFixed(1)+'% target.']);
+    });
+    if(c.res&&!c.res.edge){
+      const dry=c.pts.filter(p=>p.w<c.res.omc).length, wet=c.pts.filter(p=>p.w>c.res.omc).length;
+      if(dry<2||wet<2) fl.push(['','Only one point is '+(dry<2?'dry':'wet')+' of the peak. Another point on that side would firm up the curve.']);
+    }
+    if(c.res&&c.res.edge) fl.push(['','The highest dry density is the '+(c.res.edge==='dry'?'driest':'wettest')+' point, so the peak is not bracketed. Add a point on the '+c.res.edge+' side. The highest measured point is reported for now.']);
+    else if(c.res&&c.res.method==='max') fl.push(['','A curve could not be fitted around the peak, so the highest measured point is reported.']);
+    if(c.pts.length>0&&c.pts.length<5) fl.push(['','Fewer than five points. Five or more gives a better defined peak.']);
+    $('flags').innerHTML=fl.map(x=>'<li class="'+x[0]+'">'+esc(x[1])+'</li>').join('');
+    drawChart(c);
+    lastCompute=c;
+    const rk=c.res?(c.res.mdd.toFixed(2)+'|'+roundHalf(c.res.omc)):'';
+    if(rk!==resKey){
+      resKey=rk;
+      if(rk&&App.acted){ clearTimeout(chimeT); chimeT=setTimeout(()=>Snd.play('result'),650); }
+    }
+  }
+
+  /* ---------- persistence ---------- */
+  let draftTimer=null;
+  function scheduleDraft(){ clearTimeout(draftTimer); draftTimer=setTimeout(()=>{ if(writeLS(LS_DRAFT,state)) $('c-draftnote').textContent='Draft autosaved at '+stamp(); },400); }
+  function refresh(){ update(); scheduleDraft(); }
+  function getSaved(){ const v=readLS(LS_SAVED); return Array.isArray(v)?v:[]; }
+
+  function renderSaved(){
+    const list=getSaved();
+    setBtnLabel($('btn-saved'),'Saved'+(list.length?' ('+list.length+')':''));
+    if(!list.length){ $('savedlist').innerHTML='<li><span class="muted small">Nothing saved yet. Tap Save to keep this test.</span></li>'; return; }
+    $('savedlist').innerHTML=list.slice().sort((a,b)=>b.savedAt-a.savedAt).map(it=>{
+      const c=compute(it.data);
+      const bits=[(METHOD[it.data.meta.method]||'').split(' (')[0],fmtDate(it.data.meta.date),c.res?('MDD '+c.res.mdd.toFixed(2)+' · OMC '+roundHalf(c.res.omc).toFixed(1)+'%'):'No result yet'].filter(Boolean).join(' · ');
+      return '<li><div class="si"><strong>'+esc(it.data.meta.sample||'Untitled sample')+'</strong><span>'+esc(bits)+'</span></div>'
+        +'<div class="sa"><button type="button" data-act="load" data-id="'+esc(it.id)+'">Load</button>'
+        +'<button type="button" data-act="del" data-id="'+esc(it.id)+'">Delete</button></div></li>';
+    }).join('');
+  }
+  function saveCurrent(){
+    const list=getSaved();
+    const snap=JSON.parse(JSON.stringify(state)); snap.example=false;
+    let id=state.savedId;
+    if(!id||!list.some(x=>x.id===id)) id=Date.now().toString(36);
+    snap.savedId=id; state.savedId=id; state.example=false; $('exbanner').hidden=true;
+    const idx=list.findIndex(x=>x.id===id);
+    const rec={id,savedAt:Date.now(),data:snap};
+    if(idx>=0) list[idx]=rec; else list.push(rec);
+    if(writeLS(LS_SAVED,list)){ writeLS(LS_DRAFT,state); renderSaved(); toast('Saved on this device'); Snd.play('save'); }
+    else{ toast('This browser would not let the page save'); Snd.play('warn'); }
+  }
+  function loadAll(s){
+    state=fix(s); buildNat(); buildComp(); buildMoist(); fillMeta(); $('exbanner').hidden=!state.example; update(); writeLS(LS_DRAFT,state);
+  }
+
+  /* ---------- summary ---------- */
+  function summary(){
+    const c=lastCompute||compute(state), mt=state.meta;
+    const L=[];
+    L.push('MDD compaction: '+(mt.sample||'Untitled sample'));
+    if(mt.job) L.push('Job: '+mt.job);
+    L.push((METHOD[mt.method]||'')+(mt.date?' · '+fmtDate(mt.date):'')+(mt.by?' · '+mt.by:''));
+    L.push('Mould '+(mt.vol||'?')+' cm³, '+(mt.mass||'?')+' g'+(mt.batch?' · Batch '+mt.batch+' g per point':''));
+    if(c.nat.w!==null) L.push('Sample moisture content '+c.nat.w.toFixed(1)+'%');
+    if(c.res) L.push('MDD '+c.res.mdd.toFixed(2)+' t/m³ · OMC '+roundHalf(c.res.omc).toFixed(1)+'% (unrounded '+c.res.omc.toFixed(1)+'%)'+(c.res.edge?' · peak not bracketed':''));
+    else L.push('MDD and OMC: not enough points yet');
+    { const cp=c.points.filter(p=>p.cwd!==null).reduce((b,p)=>(b===null||p.cwd>b.cwd)?p:b,null); if(cp) L.push('Max converted wet density '+cp.cwd.toFixed(3)+' t/m³ · Peak added moisture '+cp.add.toFixed(1)+'%'); }
+    L.push('');
+    L.push('Pt  Add %  Water g  Target  w %    Wet t/m³  Conv wet  Dry t/m³');
+    c.points.forEach((p,i)=>{ L.push(String(i+1).padEnd(4)+f(p.add,1).padEnd(7)+(p.water===null?'–':String(Math.round(p.water))).padEnd(9)+f(p.target,1).padEnd(8)+f(p.w,1).padEnd(7)+f(p.rho,3).padEnd(10)+f(p.cwd,3).padEnd(10)+f(p.rd,3)); });
+    return L.join('\n');
+  }
+  function doCopy(){
+    const text=summary();
+    const fallback=()=>{ const b=$('copybox'); $('copyfallback').hidden=false; b.value=text; b.focus(); b.select(); };
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(()=>{ $('copyfallback').hidden=true; toast('Summary copied'); Snd.play('copy'); },fallback);
+      }else fallback();
+    }catch(e){ fallback(); }
+  }
+
+  /* ---------- events ---------- */
+  function onEdit(e){
+    const t=e.target; if(!t||!t.dataset) return;
+    if(t.dataset.meta){ state.meta[t.dataset.meta]=t.value; }
+    else if(t.dataset.nat){ state.nat[t.dataset.nat]=t.value; }
+    else if(t.dataset.add!==undefined){ state.add[+t.dataset.add]=t.value; }
+    else if(t.dataset.ms!==undefined){ state.ms[+t.dataset.ms]=t.value; }
+    else if(t.dataset.tin){ const p=t.dataset.tin.split('.'); state.tins[+p[0]][p[1]]=(p[1]==='pt'?+t.value:t.value); }
+    else return;
+    if(e.type==='input'&&t.tagName==='INPUT') Snd.play('key');
+    else if(e.type==='change'&&t.tagName==='SELECT') Snd.play('click');
+    exampleOffC();
+    refresh();
+  }
+  function exampleOffC(){ if(state.example){ state.example=false; $('exbanner').hidden=true; } }
+  function toEnd(id){ requestAnimationFrame(()=>{ const s=$(id); if(s) s.scrollLeft=s.scrollWidth; }); }
+  document.addEventListener('input',onEdit);
+  document.addEventListener('change',onEdit);
+
+  let pendingNew=null, pendingDel=null;
+  document.addEventListener('click',e=>{
+    const b=e.target.closest&&e.target.closest('button[data-act]'); if(!b) return;
+    const act=b.dataset.act;
+    if(act.indexOf('f-')===0) return;
+    if(act==='new') Snd.play(pendingNew?'sweep':'warn');
+    else if(act==='del') Snd.play(pendingDel&&pendingDel.id===b.dataset.id?'remove':'warn');
+    else if(act==='add-pt'||act==='add-tin') Snd.play('add');
+    else if(act==='rm-pt'||act==='rm-tin') Snd.play('remove');
+    else if(act==='toggle-saved') Snd.play($('savedpanel').hidden?'open':'close');
+    else if(act!=='save'&&act!=='copy'&&act!=='plan'&&act!=='to-fdn') Snd.play('click');
+    if(act==='plan'){
+      const c=compute(state), est=num(state.meta.estomc), st0=num(state.meta.step), st=st0===null?2:st0, n=state.ms.length;
+      if(c.nat.w===null){ Snd.play('warn'); toast('Enter the sample moisture first'); return; }
+      if(est===null){ Snd.play('warn'); toast('Enter an estimated OMC'); $('meta-estomc').focus(); return; }
+      let low=0;
+      state.add=state.add.map((v,i)=>{ let a=roundHalf(est+(i-(n-1)/2)*st-c.nat.w); if(a<0){ low++; a=0; } return String(+a.toFixed(1)); });
+      exampleOffC(); buildComp(); refresh(); Snd.play('add');
+      toast(low?('Filled. '+low+(low===1?' point is':' points are')+' drier than the sample, so set to 0%'):'Filled added % for '+n+' points');
+      return;
+    }
+    if(act==='to-fdn'){
+      const c=lastCompute||compute(state);
+      if(!c.res||!App.fdn||!App.go) return;
+      App.fdn.useRef(c.res.mdd.toFixed(2), roundHalf(c.res.omc).toFixed(1), state.meta.sample||'');
+      Snd.play('sweep'); App.go('fdn');
+      toast('Sent MDD '+c.res.mdd.toFixed(2)+' and OMC '+roundHalf(c.res.omc).toFixed(1)+'% to the FDN test');
+      return;
+    }
+    if(act==='new'){
+      if(pendingNew){ clearTimeout(pendingNew); pendingNew=null; setBtnLabel(b,'New'); b.classList.remove('warn'); loadAll(blank()); toast('Started a new compaction'); }
+      else{ setBtnLabel(b,'Clear?'); b.classList.add('warn'); pendingNew=setTimeout(()=>{ pendingNew=null; setBtnLabel(b,'New'); b.classList.remove('warn'); },3000); }
+    }
+    else if(act==='save') saveCurrent();
+    else if(act==='toggle-saved'){ const p=$('savedpanel'); p.hidden=!p.hidden; if(!p.hidden) renderSaved(); }
+    else if(act==='copy') doCopy();
+    else if(act==='jump'){ const el=$(b.dataset.to); if(el) el.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'start'}); }
+    else if(act==='add-pt'){
+      if(state.ms.length>=MAXPT){ toast('Ten points is the limit'); return; }
+      state.ms.push(''); state.add.push('');
+      state.tins.push({pt:state.ms.length,id:'',wet:'',dry:'',tare:''});
+      buildComp(); buildMoist(); refresh(); toEnd('c-comp-scroll'); toEnd('c-tin-scroll');
+    }
+    else if(act==='rm-pt'){
+      if(state.ms.length<=MINPT){ toast('Keep at least three points'); return; }
+      state.ms.pop(); state.add.pop(); const n=state.ms.length;
+      // drop the removed point's empty tins; keep any with readings on the new last point
+      const blankTin=t=>!['id','wet','dry','tare'].some(k=>String(t[k]==null?'':t[k]).trim()!=='');
+      let moved=0;
+      state.tins=state.tins.filter(t=>!(+t.pt>n&&blankTin(t)));
+      state.tins.forEach(t=>{ if(+t.pt>n){ t.pt=n; moved++; } });
+      if(!state.tins.length) state.tins.push({pt:1,id:'',wet:'',dry:'',tare:''});
+      buildComp(); buildMoist(); refresh();
+      if(moved) toast('Moved '+moved+(moved===1?' tin':' tins')+' with readings to point '+n);
+    }
+    else if(act==='add-tin'){
+      const last=state.tins[state.tins.length-1];
+      state.tins.push({pt:last?+last.pt:1,id:'',wet:'',dry:'',tare:''});
+      buildMoist(); refresh(); toEnd('c-tin-scroll');
+      const el=$('mt-'+(state.tins.length-1)+'-id'); if(el) setTimeout(()=>el.focus({preventScroll:true}),30);
+    }
+    else if(act==='rm-tin'){
+      if(state.tins.length<=1){ toast('Keep at least one row'); return; }
+      state.tins.splice(+b.dataset.i,1); buildMoist(); refresh();
+    }
+    else if(act==='load'){
+      const it=getSaved().find(x=>x.id===b.dataset.id);
+      if(it){ const s=JSON.parse(JSON.stringify(it.data)); s.savedId=it.id; s.example=false; loadAll(s); toast('Loaded '+(s.meta.sample||'test')); window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'}); }
+    }
+    else if(act==='del'){
+      const id=b.dataset.id;
+      if(pendingDel&&pendingDel.id===id){
+        clearTimeout(pendingDel.t); pendingDel=null;
+        const list=getSaved().filter(x=>x.id!==id); writeLS(LS_SAVED,list);
+        if(state.savedId===id) state.savedId=null;
+        renderSaved(); toast('Deleted');
+      }else{
+        if(pendingDel){ clearTimeout(pendingDel.t); }
+        b.textContent='Delete?'; b.classList.add('warn');
+        pendingDel={id,t:setTimeout(()=>{ pendingDel=null; renderSaved(); },3000)};
+      }
+    }
+  });
+
+  if('ResizeObserver' in window){
+    new ResizeObserver(()=>{ const w=Math.floor($('chart').clientWidth||0); if(w&&w!==lastW&&lastChart) drawChart(lastChart); }).observe($('chart'));
+  }
+  App.onShow.compaction=()=>{ if(lastChart) drawChart(lastChart); };
+
+  if(!storageOK){ $('btn-save').hidden=true; $('btn-saved').hidden=true; $('c-draftnote').textContent='This browser will not keep a draft. Copy the summary before you close the page.'; }
+  buildNat(); buildComp(); buildMoist(); fillMeta();
+  attachHBar($('c-comp-scroll'),{unit:'Points',colW:PCOLW,labW:LABW,count:()=>state.ms.length});
+  attachHBar($('c-tin-scroll'),{unit:'Tins',colW:TCOLW,labW:LABW,count:()=>state.tins.length});
+  $('exbanner').hidden=!state.example;
+  renderSaved();
+  update();
+})();
+
+/* ======================= FDN TEST ======================= */
+(function(){
+  const LS_DRAFT='fdn-draft-v1', LS_SAVED='fdn-tests-v1', LS_XREF='fdn-xref-v1';
+  const MAXT=40, LABW=112, COLW=94;
+  const META=['job','date','by','material','gauge','depth','layer','dstd','mstd','mdd','omc','spec','ref'];
+  const TKEYS=['sid','fid','lot','time','loc1','loc2','loc3','loc4','wet','dry','gw','dc','mc','ow'];
+  const LOC_ROWS=[
+    {k:'fid',label:'Field ID',ph:'FD-101'},
+    {k:'lot',label:'Lot no.',ph:'4'},
+    {k:'time',label:'Time',type:'time'},
+    {k:'loc1',label:'Location 1',ph:'CH 1250'},
+    {k:'loc2',label:'Location 2',ph:'2.5 L'},
+    {k:'loc3',label:'Location 3',ph:'Layer 1'},
+    {k:'loc4',label:'Location 4',ph:''}];
+  const GAUGE_ROWS=[
+    {k:'wet',label:'Wet density',unit:'t/m³',im:'decimal'},
+    {k:'dry',label:'Dry density',unit:'t/m³',im:'decimal'},
+    {k:'gw',label:'Moisture',unit:'%',im:'decimal'},
+    {k:'dc',label:'Density count',unit:'',im:'numeric'},
+    {k:'mc',label:'Moisture count',unit:'',im:'numeric'},
+    {k:'ow',label:'Oven moisture',unit:'% · optional',im:'decimal',sep:true}];
+  const RES_ROWS=[
+    {k:'w',label:'Moisture used',unit:'%'},
+    {k:'dry',label:'Dry density',unit:'t/m³',res:true},
+    {k:'dr',label:'Density ratio',unit:'%',res:true,xr:true},
+    {k:'dv',label:'vs OMC',unit:'%',xr:true},
+    {k:'pass',label:'Result',xr:true,c:true}];
+  const emptyTest=()=>{ const o={}; TKEYS.forEach(k=>{ o[k]=''; }); return o; };
+  let xrefPref=true; try{ xrefPref=localStorage.getItem(LS_XREF)!=='off'; }catch(e){}
+
+  function blank(){
+    return {example:false, savedId:null,
+      meta:{job:'',date:today(),by:'',material:'',gauge:'',depth:'150',layer:'',dstd:'',mstd:'',mdd:'',omc:'',spec:'95',ref:'',xref:xrefPref},
+      tests:[emptyTest(),emptyTest(),emptyTest()]};
+  }
+  function example(){
+    let sn=0; const T=(fid,time,l1,l2,wet,dry,gw,dc,mc,ow)=>({sid:'S/00'+(1430+(sn++)),fid,lot:'4',time,loc1:l1,loc2:l2,loc3:'Layer 1',loc4:'',wet,dry,gw,dc,mc,ow:ow||''});
+    return {example:true, savedId:null,
+      meta:{job:'Example: subgrade, Lot 4',date:today(),by:'',material:'Subgrade',gauge:'38211',depth:'150',layer:'200',dstd:'2847',mstd:'681',mdd:'1.92',omc:'11.5',spec:'95',ref:'S-0142',xref:xrefPref},
+      tests:[
+        T('FD-101','08:40','CH 1250','2.5 L','2.112','1.913','10.4','1842','171'),
+        T('FD-102','08:52','CH 1300','1.0 R','2.085','1.875','11.2','1876','183'),
+        T('FD-103','09:05','CH 1350','3.0 L','2.046','1.822','12.3','1921','196'),
+        T('FD-104','09:17','CH 1400','0.5 R','2.130','1.921','10.9','1798','178'),
+        T('FD-105','09:29','CH 1450','2.0 L','2.098','1.911','9.8','1830','160'),
+        T('FD-106','09:41','CH 1500','1.5 R','2.071','1.856','11.6','1859','189','11.9')]};
+  }
+  function valid(s){ return s&&s.meta&&Array.isArray(s.tests)&&s.tests.length>=1; }
+  // also brings older sheets (one location box, one lot for the sheet) into the new shape
+  function fix(s){
+    const b=blank().meta; for(const k in b){ if(s.meta[k]===undefined) s.meta[k]=b[k]; }
+    const lot=s.meta.lot;
+    s.tests=s.tests.map(t=>{ const o=Object.assign(emptyTest(),t); if(t.loc!==undefined&&!o.loc1) o.loc1=t.loc; if(!o.lot&&lot) o.lot=lot; delete o.loc; return o; });
+    delete s.meta.lot;
+    s.meta.xref=s.meta.xref!==false;
+    return s;
+  }
+  const fixCopy=d=>fix(JSON.parse(JSON.stringify(d)));
+
+  let state=readLS(LS_DRAFT);
+  state=valid(state)?fix(state):example();
+  let lastC=null, lastXr=true, lastW=0, statKey=null, chimeT=null, pickCache=[];
+
+  function lotsText(tests){
+    const lots=[]; tests.forEach(t=>{ const v=String(t.lot||'').trim(); if(v&&lots.indexOf(v)<0) lots.push(v); });
+    return lots.length===0?'No lot yet':(lots.length===1?'Lot '+lots[0]:'Lots '+lots.join(', '));
+  }
+
+  /* ---------- tables: one column per test, read top to bottom ---------- */
+  function cols(){ return '<colgroup><col style="width:'+LABW+'px">'+('<col style="width:'+COLW+'px">').repeat(state.tests.length)+'</colgroup>'; }
+  function head(x,removable){
+    let h='<thead><tr><th class="rl corner" scope="col">Test</th>';
+    state.tests.forEach((t,i)=>{
+      h+='<th class="tc" scope="col"><span class="tn">'+(i+1)+'</span><small id="f-h'+x+'-'+i+'"></small>'
+        +(removable?'<button type="button" class="x" data-act="f-rm" data-i="'+i+'" aria-label="Remove test '+(i+1)+'">×</button>':'')+'</th>';
+    });
+    return h+'</tr></thead>';
+  }
+  function finish(id,h){ const t=$(id); t.innerHTML=h+'</tbody>'; t.style.width=(LABW+state.tests.length*COLW)+'px'; tagCols(t); }
+  function buildLoc(){
+    let h=cols()+head('l',true)+'<tbody>';
+    LOC_ROWS.forEach(r=>{
+      h+='<tr><th class="rl" scope="row">'+r.label+'</th>';
+      state.tests.forEach((t,i)=>{
+        h+='<td><input id="f-t-'+i+'-'+r.k+'" '+(r.type==='time'?'type="text" inputmode="numeric" pattern="[0-9:.]*" maxlength="5" placeholder="hh:mm" class="tm"':'type="text" class="txt"')+' data-ft="'+i+'.'+r.k+'" autocomplete="off"'
+          +' aria-label="Test '+(i+1)+' '+r.label.toLowerCase()+'"'+(r.ph&&i===0?' placeholder="'+esc(r.ph)+'"':'')+' value="'+esc(t[r.k])+'"></td>';
+      });
+      h+='</tr>';
+    });
+    finish('f-loc-table',h);
+  }
+  function buildGauge(){
+    let h=cols()+head('g',false)+'<tbody>';
+    GAUGE_ROWS.forEach(r=>{
+      h+='<tr'+(r.sep?' class="sep"':'')+'><th class="rl" scope="row">'+r.label+(r.unit?'<small>'+r.unit+'</small>':'')+'</th>';
+      state.tests.forEach((t,i)=>{
+        h+='<td><input id="f-t-'+i+'-'+r.k+'" data-ft="'+i+'.'+r.k+'" inputmode="'+r.im+'" autocomplete="off" aria-label="Test '+(i+1)+' '+r.label.toLowerCase()+'" value="'+esc(t[r.k])+'"></td>';
+      });
+      h+='</tr>';
+    });
+    finish('f-read-table',h);
+  }
+  function buildRes(){
+    let h=cols()+head('r',false)+'<tbody>';
+    RES_ROWS.forEach(r=>{
+      h+='<tr'+(r.xr?' class="xr"':'')+'><th class="rl" scope="row">'+r.label+(r.unit?'<small>'+r.unit+'</small>':'')+'</th>';
+      state.tests.forEach((t,i)=>{ h+='<td class="calc'+(r.res?' res':'')+(r.c?' c':'')+'" id="f-r'+r.k+'-'+i+'"></td>'; });
+      h+='</tr>';
+    });
+    finish('f-res-table',h);
+  }
+  function buildTables(){ buildLoc(); buildGauge(); buildRes(); }
+  function fillMeta(){ META.forEach(k=>{ const el=$('f-m-'+k); if(el) el.value=state.meta[k]==null?'':state.meta[k]; }); }
+
+  // the three tables scroll sideways together so a test's column stays lined up
+  const scrollers=['f-loc-scroll','f-gauge-scroll','f-res-scroll'].map(id=>$(id));
+  let syncing=false;
+  scrollers.forEach(sc=>sc.addEventListener('scroll',()=>{
+    if(syncing) return; syncing=true;
+    scrollers.forEach(o=>{ if(o!==sc) o.scrollLeft=sc.scrollLeft; });
+    requestAnimationFrame(()=>{ syncing=false; });
+  },{passive:true}));
+
+  /* ---------- reference picker ---------- */
+  function choices(){
+    const out=[];
+    try{
+      if(App.compaction){ const st=App.compaction.state(), c=compute(st); if(c.res) out.push({label:'Current sheet', sample:st.meta.sample||'Untitled sample', mdd:c.res.mdd, omc:c.res.omc}); }
+    }catch(e){}
+    const saved=readLS('mdd-lab-tests-v1');
+    if(Array.isArray(saved)) saved.slice().sort((a,b)=>b.savedAt-a.savedAt).forEach(it=>{
+      try{ const c=compute(it.data); if(c.res) out.push({label:'Saved', sample:it.data.meta.sample||'Untitled sample', mdd:c.res.mdd, omc:c.res.omc}); }catch(e){}
+    });
+    return out;
+  }
+  function buildPick(){
+    pickCache=choices();
+    let h='<option value="">'+(pickCache.length?'Choose a compaction…':'No compaction results yet')+'</option>';
+    pickCache.forEach((o,i)=>{ h+='<option value="'+i+'">'+esc(o.label+': '+o.sample+' · '+o.mdd.toFixed(2)+' t/m³ · '+roundHalf(o.omc).toFixed(1)+'%')+'</option>'; });
+    $('f-pick').innerHTML=h;
+  }
+  $('f-pick').addEventListener('focus',buildPick);
+  $('f-pick').addEventListener('pointerdown',()=>{ if(document.activeElement!==$('f-pick')) buildPick(); });
+  $('f-pick').addEventListener('change',e=>{
+    const o=pickCache[+e.target.value]; e.target.value='';
+    if(!o) return;
+    state.meta.mdd=o.mdd.toFixed(2); state.meta.omc=roundHalf(o.omc).toFixed(1); state.meta.ref=o.sample;
+    exampleOff(); fillMeta(); refresh(); toast('Filled from '+o.sample); Snd.play('add');
+  });
+
+  /* ---------- chart: density ratio (cross-reference on) or dry density (off) ---------- */
+  function drawF(c,xr){
+    const box=$('f-chart'); lastC=c; lastXr=xr;
+    const val=r=>xr?r.dr:r.dry;
+    const pts=c.rows.filter(r=>val(r)!==null);
+    if(!pts.length){
+      box.innerHTML='<div class="empty">'+(xr?(c.mdd?'Enter gauge readings to plot density ratios.':'Enter the MDD and gauge readings to plot density ratios.'):'Enter gauge readings to plot dry densities.')+'</div>';
+      return;
+    }
+    const spec=xr?c.spec:null;
+    const W=Math.max(280,Math.floor(box.clientWidth||320)); lastW=W;
+    const H=W<500?236:270, m={l:xr?46:52,r:spec!==null?50:16,t:24,b:40};
+    const vals=pts.map(val); if(spec!==null) vals.push(spec);
+    const pad=xr?1.5:0.03;
+    const lo=Math.min.apply(null,vals)-pad, hi=Math.max.apply(null,vals)+pad;
+    const step=Math.max(xr?0.5:0.01,niceStep(hi-lo,5));
+    const ys=Math.floor(lo/step+1e-9)*step, ye=Math.ceil(hi/step-1e-9)*step;
+    const n=c.rows.length, pw=W-m.l-m.r, ph=H-m.t-m.b;
+    const sx=i=>m.l+(i+0.5)/n*pw, sy=v=>H-m.b-(v-ys)/(ye-ys)*ph;
+    const dec=step<0.1?2:(step<1?1:0);
+    let s='<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+(xr?'Density ratio for each test against the specified minimum':'Dry density for each test')+'">';
+    s+='<g class="ax">';
+    for(let k=0,ny=Math.min(40,Math.round((ye-ys)/step));k<=ny;k++){
+      const y=ys+k*step, py=sy(y).toFixed(1);
+      s+='<line class="gridline" x1="'+m.l+'" y1="'+py+'" x2="'+(W-m.r)+'" y2="'+py+'"/><text x="'+(m.l-6)+'" y="'+(+py+4)+'" text-anchor="end">'+y.toFixed(dec)+'</text>';
+    }
+    const every=Math.max(1,Math.ceil(n/14));
+    for(let i=0;i<n;i+=every){ s+='<text x="'+sx(i).toFixed(1)+'" y="'+(H-m.b+16)+'" text-anchor="middle">'+(i+1)+'</text>'; }
+    s+='<line class="axline" x1="'+m.l+'" y1="'+(H-m.b)+'" x2="'+(W-m.r)+'" y2="'+(H-m.b)+'"/>';
+    s+='<text class="title" x="'+(m.l+pw/2)+'" y="'+(H-6)+'" text-anchor="middle">Test</text>';
+    s+='<text class="title" transform="translate(12 '+(m.t+ph/2)+') rotate(-90)" text-anchor="middle">'+(xr?'Density ratio (%)':'Dry density (t/m³)')+'</text></g>';
+    if(spec!==null){
+      const py=sy(spec);
+      pts.forEach(r=>{ s+='<line class="stem '+(r.pass?'pass':'fail')+'" x1="'+sx(r.i).toFixed(1)+'" y1="'+py.toFixed(1)+'" x2="'+sx(r.i).toFixed(1)+'" y2="'+sy(r.dr).toFixed(1)+'"/>'; });
+      s+='<line class="specline" x1="'+m.l+'" y1="'+py.toFixed(1)+'" x2="'+(W-m.r)+'" y2="'+py.toFixed(1)+'"/>';
+      s+='<text class="lbl" x="'+(W-m.r+5)+'" y="'+(py-3).toFixed(1)+'" text-anchor="start">Min</text>';
+      s+='<text class="lbl" x="'+(W-m.r+5)+'" y="'+(py+11).toFixed(1)+'" text-anchor="start">'+(+spec.toFixed(1))+'%</text>';
+    }
+    pts.forEach(r=>{
+      const v=val(r), cx=sx(r.i), cy=sy(v), cls=xr?(r.pass===false?'dotf':'dotp'):'dotn';
+      s+='<circle class="'+cls+'" cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="5.5"/>';
+      if(n<=12){ const below=xr&&r.pass===false; s+='<text class="lbl" x="'+cx.toFixed(1)+'" y="'+(below?cy+19:cy-10).toFixed(1)+'" text-anchor="middle">'+v.toFixed(xr?1:3)+'</text>'; }
+    });
+    s+='</svg>';
+    box.innerHTML=s;
+  }
+
+  /* ---------- update ---------- */
+  const chip=(cls,t)=>'<span class="chip '+cls+'">'+t+'</span>';
+  function vsOMC(dv){ if(dv===null) return '–'; if(Math.abs(dv)<0.05) return 'at OMC'; return Math.abs(dv).toFixed(1)+(dv<0?' dry':' wet'); }
+  const DSRC={gauge:'gauge',oven:'oven w',calc:'worked out'};
+  const FInt=Integration.make('f-int',(target,c)=>{
+    const mt=state.meta, d3=v=>{ const x=dens(v); return x===null?'':x.toFixed(3); }, s1=v=>{ const x=num(v); return x===null?'':x.toFixed(1); };
+    const groups=[];
+    groups.push({title:'Nuclear densometer settings',sub:'Same for every sample on this sheet',xkey:'s',
+      extra:'<label for="f-int-layer">Layer depth (mm)</label><input id="f-int-layer" class="num" data-fm="layer" inputmode="decimal" autocomplete="off">',
+      fill:el=>{ const i=el.querySelector('#f-int-layer'), v=mt.layer||''; if(i&&i.value!==v) i.value=v; },
+      items:[{label:'Nuclear densometer',val:mt.gauge},{label:'Layer depth',val:mt.layer},
+        {label:'Test depth',val:num(mt.depth)!==null?num(mt.depth)+'mm':''},{label:'Density spec',val:num(mt.spec)!==null?num(mt.spec)+'%':''},
+        {label:'Standard DC',val:mt.dstd},{label:'Standard MC',val:mt.mstd}]});
+    state.tests.forEach((t,i)=>{
+      groups.push({title:'Test '+(i+1)+(t.fid?' · '+t.fid:''),sub:'One sample in thebossapp',xkey:'t'+i,
+        extra:'<label for="f-int-sid-'+i+'">Sample number</label><input id="f-int-sid-'+i+'" type="text" class="txt" data-ft="'+i+'.sid" autocomplete="off" placeholder="S/061473">',
+        fill:el=>{ const x=el.querySelector('input'), v=t.sid||''; if(x&&x.value!==v) x.value=v; },
+        items:[{label:'Sample number',val:t.sid},{label:'Lot number',val:t.lot},
+          {label:'Location 1',val:t.loc1},{label:'Location 2',val:t.loc2},{label:'Location 3',val:t.loc3},{label:'Location 4',val:t.loc4},
+          {label:'DC',val:t.dc},{label:'MC',val:t.mc},{label:'Wet density',val:d3(t.wet)},{label:'Moisture percent',val:s1(t.gw)},{label:'Time sampled',val:t.time}]});
+    });
+    return {note:'Laid out in the order of the thebossapp Nuclear Densometers form, one test per sample. Tap a value to copy it, or Copy all for the whole group. Equipment and the spec dropdowns are picked in thebossapp. Dry density and density ratio are worked out there from the linked compaction sample.',groups};
+  });
+  function update(){
+    const c=fdnCompute(state); lastC=c; FInt.render(c);
+    const mt=state.meta, xr=mt.xref!==false, n=state.tests.length;
+    $('f-count').textContent=$('f-count2').textContent=n+(n===1?' test':' tests');
+    // column headers carry the field ID (or first location) so every table stays referenced
+    state.tests.forEach((t,i)=>{ const sub=String(t.fid||t.loc1||'').trim(); ['l','g','r'].forEach(x=>{ const el=$('f-h'+x+'-'+i); if(el) el.textContent=sub; }); });
+    // cross-reference on or off
+    $('f-xref').checked=xr;
+    $('f-xref-sub').textContent=xr?'On: shows density ratio and pass or fail against the lab MDD and OMC':'Off: records field density and moisture only';
+    $('f-sec-ref').hidden=!xr; $('f-jump-ref').hidden=!xr; $('f-legend').hidden=!xr;
+    document.querySelectorAll('#f-res-table tr.xr').forEach(tr=>{ tr.hidden=!xr; });
+
+    c.rows.forEach((r,i)=>{
+      $('f-rw-'+i).innerHTML=r.w===null?'–':r.w.toFixed(1)+(r.src==='oven'?'<small class="src">oven</small>':'');
+      const rd=$('f-rdry-'+i);
+      rd.innerHTML=r.odd?'check':(r.dry===null?'–':r.dry.toFixed(3)+'<small class="src">'+DSRC[r.dsrc]+'</small>');
+      rd.classList.toggle('bad',r.odd);
+      const rr=$('f-rdr-'+i); rr.textContent=fx(r.dr,1); rr.classList.toggle('bad',r.pass===false);
+      $('f-rdv-'+i).textContent=vsOMC(r.dv);
+      $('f-rpass-'+i).innerHTML=r.pass===null?(r.dr!==null?chip('na','No min'):'–'):(r.pass?chip('pass','Pass'):chip('fail','Fail'));
+    });
+    $('f-mdd-hint').textContent=c.mdd?(c.mdd.toFixed(3)+' t/m³ = '+Math.round(c.mdd*1000)+' kg/m³'):'Type t/m³ or kg/m³';
+    $('f-r-id').textContent=lotsText(state.tests)+(mt.job?' · '+mt.job:'');
+    $('f-r-sub').textContent=[mt.material,fmtDate(mt.date),mt.depth?mt.depth+' mm depth':'',mt.by?'Tested by '+mt.by:''].filter(Boolean).join(' · ');
+
+    const todo=c.rows.filter(r=>r.hasReading&&r.dry===null).length;
+    const lc=$('f-lot-chip');
+    let lcls='na', ltxt='Incomplete', lsub='';
+    if(!xr){
+      ltxt='Recording only';
+      lsub=c.dsum?(c.dsum.n+' of '+n+' tests worked out'):'Enter wet density and moisture, or the gauge dry density';
+    }else if(c.sum){
+      if(c.spec===null){ ltxt='No minimum set'; lsub=c.sum.n+' tests worked out'; }
+      else if(c.sum.pass===c.sum.n){ lcls='pass'; ltxt='All pass'; lsub=c.sum.n+' of '+c.sum.n+' tests at or above '+(+c.spec.toFixed(1))+'%'; }
+      else { lcls='fail'; ltxt=(c.sum.n-c.sum.pass)+' below minimum'; lsub=c.sum.pass+' of '+c.sum.n+' tests at or above '+(+c.spec.toFixed(1))+'%'; }
+    }else lsub=c.mdd?'Enter gauge readings for at least one test':'Enter the MDD to work out density ratios';
+    if(todo) lsub+=(lsub?' · ':'')+todo+(todo===1?' test':' tests')+' still to fill in';
+    lc.className='chip big '+lcls; lc.textContent=ltxt; $('f-lot-text').textContent=lsub;
+
+    const K=(k,lab,val,sub)=>{ $('f-k-'+k+'-lab').textContent=lab; $('f-k-'+k).innerHTML=val; $('f-k-'+k+'-sub').textContent=sub; };
+    if(xr){
+      if(c.sum){
+        const mr=c.rows[c.sum.minI];
+        K('min','Lowest density ratio',c.sum.min.toFixed(1)+'<span class="u">%</span>','Test '+(c.sum.minI+1)+(mr.fid?' · '+mr.fid:(mr.place?' · '+mr.place:'')));
+        K('mean','Mean density ratio',c.sum.mean.toFixed(1)+'<span class="u">%</span>','Over '+c.sum.n+(c.sum.n===1?' test':' tests'));
+        K('pass','Tests passing',c.sum.pass===null?'–':(c.sum.pass+'<span class="u">/ '+c.sum.n+'</span>'),c.spec!==null?'Minimum '+(+c.spec.toFixed(1))+'%':'Set a minimum to check');
+      }else{ K('min','Lowest density ratio','–',''); K('mean','Mean density ratio','–',''); K('pass','Tests passing','–',''); }
+    }else{
+      if(c.dsum){
+        K('min','Tests worked out',c.dsum.n+'<span class="u">/ '+n+'</span>','');
+        K('mean','Mean dry density',c.dsum.mean.toFixed(3),'t/m³ · '+Math.round(c.dsum.mean*1000)+' kg/m³');
+        K('pass','Mean moisture',c.dsum.meanW===null?'–':c.dsum.meanW.toFixed(1)+'<span class="u">%</span>','');
+      }else{ K('min','Tests worked out','–',''); K('mean','Mean dry density','–',''); K('pass','Mean moisture','–',''); }
+    }
+
+    const fl=[];
+    if(xr){
+      if(c.mddRaw===null) fl.push(['','Enter the MDD and OMC from the lab compaction, or pick one from Fill from a lab compaction.']);
+      else if(!c.mdd) fl.push(['bad','The MDD looks wrong. Type it in t/m³ (1.92) or kg/m³ (1920).']);
+      if(c.mdd&&c.spec===null) fl.push(['','Enter the minimum density ratio to check each test.']);
+      if(c.mdd&&c.omc===null) fl.push(['','Enter the OMC to see how far each test is from optimum.']);
+    }
+    c.rows.forEach(r=>{
+      const n1=r.i+1, who='Test '+n1+(r.fid?' ('+r.fid+')':'');
+      if(r.odd) fl.push(['bad',who+' gives a dry density that cannot be right. Check the densities and moisture.']);
+      else if(r.hasReading&&r.dry===null) fl.push(['',who+' needs a wet density and moisture, or the gauge dry density.']);
+      if(r.ddGap!==null&&Math.abs(r.ddGap)>=0.005) fl.push(['',who+': the gauge dry density '+r.gdry.toFixed(3)+' does not match wet density and moisture ('+(r.gdry-r.ddGap).toFixed(3)+'). Check the readings were copied correctly.']);
+      if(xr&&r.pass===false) fl.push(['bad',who+' is below the '+(+c.spec.toFixed(1))+'% minimum at '+r.dr.toFixed(1)+'%.']);
+      if(r.diff!==null&&Math.abs(r.diff)>=2) fl.push(['',who+': oven and gauge moisture differ by '+Math.abs(r.diff).toFixed(1)+'%. Check the gauge moisture correction.']);
+    });
+    $('f-flags').innerHTML=fl.map(x=>'<li class="'+x[0]+'">'+esc(x[1])+'</li>').join('');
+    drawF(c,xr);
+    const key=xr?c.rows.map(r=>r.pass===null?'-':(r.pass?'p':'f')).join(''):'';
+    if(statKey!==null&&key!==statKey&&App.acted&&xr){
+      let fxName=null;
+      for(let i=0;i<key.length;i++){ if(key[i]!==(statKey[i]||'-')&&key[i]!=='-'){ fxName=key[i]==='p'?'result':'fail'; } }
+      if(fxName){ clearTimeout(chimeT); chimeT=setTimeout(()=>Snd.play(fxName),650); }
+    }
+    statKey=key;
+  }
+
+  /* ---------- persistence ---------- */
+  let draftTimer=null;
+  function scheduleDraft(){ clearTimeout(draftTimer); draftTimer=setTimeout(()=>{ if(writeLS(LS_DRAFT,state)) $('f-draftnote').textContent='Draft autosaved at '+stamp(); },400); }
+  function refresh(){ update(); scheduleDraft(); }
+  App.fdn={useRef(mdd,omc,ref){ state.meta.mdd=mdd; state.meta.omc=omc; state.meta.ref=ref; state.meta.xref=true; exampleOff(); fillMeta(); statKey=null; refresh(); }};
+  function exampleOff(){ if(state.example){ state.example=false; $('f-exbanner').hidden=true; } }
+  function getSaved(){ const v=readLS(LS_SAVED); return Array.isArray(v)?v:[]; }
+  function renderSaved(){
+    const list=getSaved();
+    setBtnLabel($('f-btn-saved'),'Saved'+(list.length?' ('+list.length+')':''));
+    if(!list.length){ $('f-savedlist').innerHTML='<li><span class="muted small">Nothing saved yet. Tap Save to keep this sheet.</span></li>'; return; }
+    $('f-savedlist').innerHTML=list.slice().sort((a,b)=>b.savedAt-a.savedAt).map(it=>{
+      const d=fixCopy(it.data), c=fdnCompute(d), m=d.meta;
+      const res=m.xref&&c.sum?(c.sum.n+(c.sum.n===1?' test':' tests')+(c.sum.pass!==null?' · '+c.sum.pass+' pass':'')+' · lowest '+c.sum.min.toFixed(1)+'%')
+        :(c.dsum?(c.dsum.n+(c.dsum.n===1?' test':' tests')+' · mean dry density '+c.dsum.mean.toFixed(3)):'No results yet');
+      const bits=[fmtDate(m.date),res].filter(Boolean).join(' · ');
+      return '<li><div class="si"><strong>'+esc(lotsText(d.tests)+(m.job?' · '+m.job:''))+'</strong><span>'+esc(bits)+'</span></div>'
+        +'<div class="sa"><button type="button" data-act="f-load" data-id="'+esc(it.id)+'">Load</button>'
+        +'<button type="button" data-act="f-del" data-id="'+esc(it.id)+'">Delete</button></div></li>';
+    }).join('');
+  }
+  function saveCurrent(){
+    const list=getSaved();
+    const snap=JSON.parse(JSON.stringify(state)); snap.example=false;
+    let id=state.savedId;
+    if(!id||!list.some(x=>x.id===id)) id=Date.now().toString(36);
+    snap.savedId=id; state.savedId=id; exampleOff();
+    const idx=list.findIndex(x=>x.id===id);
+    const rec={id,savedAt:Date.now(),data:snap};
+    if(idx>=0) list[idx]=rec; else list.push(rec);
+    if(writeLS(LS_SAVED,list)){ writeLS(LS_DRAFT,state); renderSaved(); toast('Saved on this device'); Snd.play('save'); }
+    else{ toast('This browser would not let the page save'); Snd.play('warn'); }
+  }
+  function loadAll(s){
+    state=fix(s); statKey=null; buildTables(); fillMeta(); $('f-exbanner').hidden=!state.example; update(); writeLS(LS_DRAFT,state);
+  }
+
+  /* ---------- summary ---------- */
+  function summary(){
+    const c=lastC||fdnCompute(state), m=state.meta, xr=m.xref!==false, L=[];
+    L.push('FDN test: '+lotsText(state.tests)+(m.job?' · '+m.job:''));
+    const line2=[fmtDate(m.date),m.by?'Tested by '+m.by:'',m.gauge?'Gauge '+m.gauge:'',m.depth?m.depth+' mm depth':''].filter(Boolean).join(' · ');
+    if(line2) L.push(line2);
+    if(m.material) L.push('Material: '+m.material);
+    if(m.dstd||m.mstd) L.push('Standard counts: density '+(m.dstd||'?')+', moisture '+(m.mstd||'?'));
+    if(xr){
+      L.push('Reference: MDD '+(c.mdd?c.mdd.toFixed(2)+' t/m³':'?')+', OMC '+(c.omc!==null?c.omc.toFixed(1)+'%':'?')+(m.ref?' ('+m.ref+')':'')+' · Minimum density ratio '+(c.spec!==null?(+c.spec.toFixed(1))+'%':'not set'));
+      if(c.sum) L.push('Result: '+(c.sum.pass!==null?c.sum.pass+' of '+c.sum.n+' pass · ':'')+'lowest '+c.sum.min.toFixed(1)+'% (test '+(c.sum.minI+1)+') · mean '+c.sum.mean.toFixed(1)+'%');
+    }else if(c.dsum) L.push('Worked out: '+c.dsum.n+' tests · mean dry density '+c.dsum.mean.toFixed(3)+' t/m³'+(c.dsum.meanW!==null?' · mean moisture '+c.dsum.meanW.toFixed(1)+'%':''));
+    L.push('');
+    L.push('No  Field ID  Lot   Time   Location                   WD     DD     w %    DC     MC     '+(xr?'DR %   Result':''));
+    c.rows.forEach(r=>{
+      const t=state.tests[r.i];
+      let line=String(r.i+1).padEnd(4)+(r.fid||'–').slice(0,9).padEnd(10)+(r.lot||'–').slice(0,5).padEnd(6)+(r.time||'–').padEnd(7)+(r.place||'–').slice(0,26).padEnd(27)
+        +fx(r.wet,3).padEnd(7)+fx(r.dry,3).padEnd(7)+(r.w===null?'–':r.w.toFixed(1)+(r.src==='oven'?'o':'')).padEnd(7)
+        +String(t.dc||'–').padEnd(7)+String(t.mc||'–').padEnd(7);
+      if(xr) line+=fx(r.dr,1).padEnd(7)+(r.pass===null?'–':(r.pass?'Pass':'Fail'));
+      L.push(line);
+    });
+    if(c.rows.some(r=>r.src==='oven')) L.push('o = oven moisture used');
+    return L.join('\n');
+  }
+  function doCopy(){
+    const text=summary();
+    const fallback=()=>{ const b=$('f-copybox'); $('f-copyfallback').hidden=false; b.value=text; b.focus(); b.select(); };
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(()=>{ $('f-copyfallback').hidden=true; toast('Summary copied'); Snd.play('copy'); },fallback);
+      }else fallback();
+    }catch(e){ fallback(); }
+  }
+
+  /* ---------- events ---------- */
+  function onEdit(e){
+    const t=e.target; if(!t||!t.dataset) return;
+    if(t.dataset.fm){ state.meta[t.dataset.fm]=t.value; }
+    else if(t.dataset.ft){ const p=t.dataset.ft.split('.'); state.tests[+p[0]][p[1]]=t.value; }
+    else return;
+    if(e.type==='input'&&t.tagName==='INPUT') Snd.play('key');
+    exampleOff();
+    refresh();
+  }
+  document.addEventListener('input',onEdit);
+  document.addEventListener('change',e=>{ if(e.target&&(e.target.type==='date'||e.target.type==='time')) onEdit(e); });
+  // times are typed as digits (1430 or 14:30 or 9.05) and tidied to hh:mm when you leave the box
+  document.addEventListener('focusout',e=>{
+    const t=e.target; if(!t||!t.dataset||!/\.time$/.test(t.dataset.ft||'')) return;
+    const d=t.value.replace(/\D/g,''); if(!d) return;
+    let h,m;
+    if(d.length<=2){ h=+d; m=0; } else if(d.length===3){ h=+d.slice(0,1); m=+d.slice(1); } else { h=+d.slice(0,2); m=+d.slice(2,4); }
+    if(h>23||m>59) return;
+    const v=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');
+    if(v!==t.value){ t.value=v; onEdit({target:t,type:'change'}); }
+  });
+  $('f-xref').addEventListener('change',e=>{
+    state.meta.xref=e.target.checked; xrefPref=e.target.checked;
+    try{ localStorage.setItem(LS_XREF,xrefPref?'on':'off'); }catch(err){}
+    Snd.play(xrefPref?'open':'close'); statKey=null; exampleOff(); refresh();
+    if(xrefPref) buildPick();
+  });
+
+  function nextId(prev){
+    const m=/^(.*?)(\d+)$/.exec(String(prev||'').trim()); if(!m) return '';
+    const nxt=String(+m[2]+1); return m[1]+(nxt.length<m[2].length?nxt.padStart(m[2].length,'0'):nxt);
+  }
+  function scrollToEnd(){ requestAnimationFrame(()=>{ scrollers.forEach(s=>{ s.scrollLeft=s.scrollWidth; }); }); }
+
+  let pendingNew=null, pendingDel=null;
+  document.addEventListener('click',e=>{
+    const b=e.target.closest&&e.target.closest('button[data-act]'); if(!b) return;
+    const act=b.dataset.act; if(act.indexOf('f-')!==0) return;
+    if(act==='f-new'){
+      if(pendingNew){ clearTimeout(pendingNew); pendingNew=null; setBtnLabel(b,'New'); b.classList.remove('warn'); Snd.play('sweep'); loadAll(blank()); toast('Started a new FDN sheet'); }
+      else{ Snd.play('warn'); setBtnLabel(b,'Clear?'); b.classList.add('warn'); pendingNew=setTimeout(()=>{ pendingNew=null; setBtnLabel(b,'New'); b.classList.remove('warn'); },3000); }
+    }
+    else if(act==='f-save') saveCurrent();
+    else if(act==='f-toggle-saved'){ const p=$('f-savedpanel'); Snd.play(p.hidden?'open':'close'); p.hidden=!p.hidden; if(!p.hidden) renderSaved(); }
+    else if(act==='f-copy') doCopy();
+    else if(act==='f-add'){
+      if(state.tests.length>=MAXT){ toast('Forty tests is the limit'); return; }
+      const last=state.tests[state.tests.length-1], t=emptyTest();
+      if(last){ t.lot=last.lot; t.fid=nextId(last.fid); t.sid=nextId(last.sid); }
+      state.tests.push(t); Snd.play('add'); exampleOff(); buildTables(); refresh(); scrollToEnd();
+      const inGauge=!!b.closest('#f-sec-read'), i=state.tests.length-1;
+      const el=$('f-t-'+i+'-'+(inGauge?'wet':(t.fid?'time':'fid')));
+      if(el) setTimeout(()=>el.focus({preventScroll:true}),30);
+    }
+    else if(act==='f-rm'){
+      if(state.tests.length<=1){ toast('Keep at least one test'); return; }
+      const i=+b.dataset.i, gone=state.tests[i];
+      Snd.play('remove'); state.tests.splice(i,1); statKey=null; buildTables(); refresh();
+      toast('Removed test '+(i+1)+(gone&&gone.fid?' ('+gone.fid+')':''));
+    }
+    else if(act==='f-load'){
+      const it=getSaved().find(x=>x.id===b.dataset.id);
+      if(it){ Snd.play('click'); const s=JSON.parse(JSON.stringify(it.data)); s.savedId=it.id; s.example=false; loadAll(s); toast('Loaded '+lotsText(state.tests).toLowerCase()); window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'}); }
+    }
+    else if(act==='f-del'){
+      const id=b.dataset.id;
+      if(pendingDel&&pendingDel.id===id){
+        Snd.play('remove'); clearTimeout(pendingDel.t); pendingDel=null;
+        writeLS(LS_SAVED,getSaved().filter(x=>x.id!==id));
+        if(state.savedId===id) state.savedId=null;
+        renderSaved(); toast('Deleted');
+      }else{
+        Snd.play('warn'); if(pendingDel) clearTimeout(pendingDel.t);
+        b.textContent='Delete?'; b.classList.add('warn');
+        pendingDel={id,t:setTimeout(()=>{ pendingDel=null; renderSaved(); },3000)};
+      }
+    }
+  });
+
+  if('ResizeObserver' in window){
+    new ResizeObserver(()=>{ const w=Math.floor($('f-chart').clientWidth||0); if(w&&w!==lastW&&lastC) drawF(lastC,lastXr); }).observe($('f-chart'));
+  }
+  App.onShow.fdn=()=>{ buildPick(); if(lastC) drawF(lastC,lastXr); };
+
+  if(!storageOK){ $('f-btn-save').hidden=true; $('f-btn-saved').hidden=true; $('f-draftnote').textContent='This browser will not keep a draft. Copy the summary before you close the page.'; }
+  buildTables(); fillMeta(); buildPick();
+  scrollers.forEach(sc=>attachHBar(sc,{unit:'Tests',colW:COLW,labW:LABW,count:()=>state.tests.length}));
+  $('f-exbanner').hidden=!state.example;
+  renderSaved();
+  update();
+})();
+
+/* ======================= menus, settings, routing ======================= */
+(function(){
+  const VIEWS={fdn:'FDN test', compaction:'Lab compaction'};
+  const LS_VIEW='soil-app-view-v1';
+
+  function menuBtn(m){ return document.querySelector('[data-menu="'+m.id+'"]'); }
+  function closeMenus(except){
+    document.querySelectorAll('.menu').forEach(m=>{ if(m!==except&&!m.hidden){ m.hidden=true; const b=menuBtn(m); if(b) b.setAttribute('aria-expanded','false'); } });
+  }
+  function toggleMenu(id){
+    const m=$(id), b=menuBtn(m), open=m.hidden;
+    closeMenus(m);
+    m.hidden=!open; b.setAttribute('aria-expanded',open?'true':'false');
+    Snd.play(open?'open':'close');
+    if(open){ const first=m.querySelector('[aria-checked="true"],[aria-pressed="true"],button,input'); if(first) first.focus({preventScroll:true}); }
+  }
+
+  function syncSettings(){
+    $('set-sound').checked=Snd.isOn();
+    const cur=document.documentElement.getAttribute('data-skin')||'';
+    document.querySelectorAll('[data-skin-pick]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.skinPick===cur?'true':'false'));
+  }
+  function setSkin(v){
+    const root=document.documentElement;
+    if(v) root.setAttribute('data-skin',v); else root.removeAttribute('data-skin');
+    try{ localStorage.setItem('mdd-lab-skin-v1',v); }catch(e){}
+    syncSettings(); Snd.play('sweep');
+    const fn=App.onShow[App.view]; if(fn) fn();
+  }
+
+  function showView(v){
+    if(!VIEWS[v]) v='fdn';
+    App.view=v;
+    Object.keys(VIEWS).forEach(k=>{ $('view-'+k).hidden=k!==v; $('acts-'+k).hidden=k!==v; });
+    $('bar-current').textContent=VIEWS[v];
+    document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-checked',b.dataset.view===v?'true':'false'));
+    try{ localStorage.setItem(LS_VIEW,v); }catch(e){}
+    closeMenus();
+    const fn=App.onShow[v]; if(fn) requestAnimationFrame(fn);
+  }
+
+  App.go=v=>{ if(location.hash!=='#'+v){ try{ location.hash=v; }catch(err){} } if(App.view!==v) showView(v); window.scrollTo(0,0); };
+
+  document.addEventListener('click',e=>{
+    const mb=e.target.closest&&e.target.closest('[data-menu]');
+    if(mb){ toggleMenu(mb.dataset.menu); return; }
+    const vb=e.target.closest&&e.target.closest('[data-view]');
+    if(vb){
+      const v=vb.dataset.view; Snd.play('sweep');
+      if(location.hash!=='#'+v){ try{ location.hash=v; }catch(err){} }
+      if(App.view!==v) showView(v); else closeMenus();
+      window.scrollTo(0,0);
+      return;
+    }
+    const sb=e.target.closest&&e.target.closest('[data-skin-pick]');
+    if(sb){ setSkin(sb.dataset.skinPick); return; }
+    if(!(e.target.closest&&e.target.closest('.menu-wrap'))) closeMenus();
+  });
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){ const open=document.querySelector('.menu:not([hidden])'); if(open){ closeMenus(); const b=menuBtn(open); if(b) b.focus(); } }
+  });
+  $('set-sound').addEventListener('change',e=>{ Snd.set(e.target.checked); if(e.target.checked) Snd.play('click'); });
+  window.addEventListener('hashchange',()=>{ const h=location.hash.slice(1); if(VIEWS[h]&&h!==App.view) showView(h); });
+
+  // keep section jumps clear of the sticky bar
+  const bar=$('appbar');
+  const setBarH=()=>document.documentElement.style.setProperty('--barh',bar.offsetHeight+'px');
+  if('ResizeObserver' in window) new ResizeObserver(setBarH).observe(bar);
+  setBarH();
+
+  syncSettings();
+  let start=location.hash.slice(1);
+  if(!VIEWS[start]){ try{ start=localStorage.getItem(LS_VIEW)||''; }catch(e){ start=''; } }
+  showView(VIEWS[start]?start:'fdn');
+})();
+/* ======================= APP UPDATES (installed app only) ======================= */
+/* The installed app opens a small loader page. If a newer sheets page was downloaded here it runs that one,
+   otherwise the built-in one. A downloaded page that fails to start is dropped on the next launch. */
+(function(){
+  const box=$('set-upd'); if(!box) return;
+  let inApp=false; try{ const T=window.top; inApp=!!(window.__TAURI__||window.__TAURI_INTERNALS__||window.__STS_APP__||T.__TAURI__||T.__TAURI_INTERNALS__||T.__STS_APP__||T.__STS_LOADER__); }catch(e){}
+  if(!inApp) return;
+  box.hidden=false;
+  const K_HTML='sts-update-html', K_URL='sts-update-url';
+  const m0=document.querySelector('meta[name="sts-build"]'), build=m0?m0.content:'dev';
+  let usingUpdate=false; try{ usingUpdate=!!localStorage.getItem(K_HTML); }catch(e){}
+  const msg=t=>{ $('upd-msg').textContent=t; };
+  $('upd-ver').textContent='Version '+build+(usingUpdate?' (downloaded update)':' (built in)');
+  try{ $('upd-url').value=localStorage.getItem(K_URL)||''; }catch(e){}
+  const restart=()=>{ try{ if(window.top!==window){ window.top.location.reload(); return; } }catch(e){} location.replace(new URL('index.html',location.href).href); };   // back through the loader
+  let busy=false;
+  $('upd-check').addEventListener('click',async()=>{
+    if(busy) return;
+    const url=$('upd-url').value.trim();
+    if(!/^https:\/\/\S+$/i.test(url)){ msg('Type the update address first. It starts with https://'); Snd.play('warn'); return; }
+    try{ localStorage.setItem(K_URL,url); }catch(e){}
+    busy=true; msg('Checking…'); Snd.play('click');
+    try{
+      let r; try{ r=await fetch(url+(url.indexOf('?')<0?'?':'&')+'t='+Date.now(),{cache:'no-store'}); }
+      catch(e){ msg('Could not reach the update address. Check your internet and the address.'); Snd.play('warn'); return; }
+      if(!r.ok){ msg('The update address answered '+r.status+'. Check the address.'); Snd.play('warn'); return; }
+      const t=await r.text(), mm=/<meta name="sts-build" content="([^"]+)"/.exec(t);
+      if(!mm||t.indexOf('id="view-fdn"')<0||t.indexOf('id="view-compaction"')<0){ msg('That address is not the Soil Test Sheets page.'); Snd.play('warn'); return; }
+      if(mm[1]===build){ msg('You already have the newest version ('+build+').'); Snd.play('result'); return; }
+      try{ localStorage.setItem(K_HTML,t); }catch(e){ msg('There was no room to keep the update on this device.'); Snd.play('warn'); return; }
+      msg('Updated to '+mm[1]+'. Restarting…'); Snd.play('save');
+      setTimeout(restart,900);
+    } finally { busy=false; }
+  });
+  $('upd-reset').addEventListener('click',()=>{
+    try{ localStorage.removeItem(K_HTML); localStorage.removeItem('sts-boot-pending'); }catch(e){}
+    msg('Back to the built-in version. Restarting…'); setTimeout(restart,600);
+  });
+})();
+try{ localStorage.removeItem('sts-boot-pending'); }catch(e){}   // reached the end of start-up: the page is healthy
+</script>
+
+</body>
+</html>
