@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-7">
+<meta name="sts-build" content="2026.10.29-8">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -552,6 +552,32 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
 .ph-opt:last-child{border-bottom:0}
 .ph-empty{font-size:13px; color:var(--muted); padding:4px 0}
 
+
+/* ---- Polish pass (default and cream looks; the themed skins keep their own shapes) ---- */
+:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) .wrap{gap:20px}
+:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) .view{padding-top:18px; padding-bottom:40px}
+:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) h1{font-size:32px; letter-spacing:-.005em}
+:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) .sec{background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:16px; gap:14px; box-shadow:0 1px 2px rgba(20,40,35,.06), 0 6px 18px -10px rgba(20,40,35,.18)}
+:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) .sec>.results{border:0; padding:0; background:transparent; box-shadow:none}
+:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) .sechead{border-bottom:0; padding-bottom:0; position:relative; padding-left:12px}
+:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) .sechead::before{content:""; position:absolute; left:0; top:4px; bottom:4px; width:4px; border-radius:2px; background:var(--accent)}
+:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) h2{font-size:22px}
+:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) .appbar{box-shadow:0 1px 0 var(--line), 0 8px 20px -14px rgba(20,40,35,.35)}
+:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) .barbtn{border-radius:10px; min-height:40px}
+:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) button{border-radius:10px}
+:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) button:active{transform:scale(.97)}
+:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) input,:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) select,:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) textarea{border-radius:10px}
+:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) input:focus,:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) select:focus,:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) textarea:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-soft)}
+:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) .saved,:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) .banner,:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) .ph-top,:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) .xref{border-radius:14px}
+:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) .ph-proj{border-radius:16px; box-shadow:0 1px 2px rgba(20,40,35,.06), 0 6px 18px -10px rgba(20,40,35,.18)}
+:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) .ph-req,:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) .ph-cli{border-radius:12px}
+:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) .ph-pop{border-radius:12px}
+:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) .menu{border-radius:14px; box-shadow:0 12px 36px -10px rgba(10,25,20,.45)}
+:root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) .mi{border-radius:10px}
+@media (max-width:520px){ :root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) .sec{padding:14px 12px; border-radius:14px} :root:not([data-skin="retro"]):not([data-skin="pixel"]):not([data-skin="hill"]):not([data-skin="matrix"]) .view{padding-left:max(10px, env(safe-area-inset-left, 0px)); padding-right:max(10px, env(safe-area-inset-right, 0px))} }
+.view#view-projects .sec{background:transparent; border:0; box-shadow:none; padding:0}
+.ph-top .lbl{font-family:var(--font-body)}
+.ph-top{font-family:var(--font-body)}
 @media (prefers-reduced-motion:no-preference){ button{transition:border-color .15s, background-color .15s} }
 @media (prefers-reduced-motion:reduce){ input.switch::before{transition:none} }
 </style>
