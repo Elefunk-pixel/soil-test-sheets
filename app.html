@@ -1,0 +1,2063 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Soil Test Sheets</title>
+<meta name="sts-build" content="2026.10.28-1">
+<link rel="stylesheet" href="fonts.css">
+<style>[hidden]{display:none!important}body{margin:0}</style>
+</head>
+<body>
+
+<script>try{var __s=localStorage.getItem('mdd-lab-skin-v1');if(__s)document.documentElement.setAttribute('data-skin',__s)}catch(e){}</script>
+<style>
+/* Layout: a sticky app bar (Testing menu, program actions, settings) over one worksheet column per program. */
+:root{
+  --bg:#EFF3F1; --surface:#FFFFFF; --surface-2:#E7EDEA; --ink:#16211E; --muted:#587068;
+  --line:#CAD5D0; --accent:#0E5F5B; --accent-soft:#D5EBE8; --on-accent:#FFFFFF;
+  --ochre:#A8620F; --warn:#B3261E; --good:#1F7A3A; --input-bg:#F8FAF9; --input-line:#AEBDB6;
+  --accent2:#0E5F5B; --col-in:#D9E3DF; --field:#E9EFEC; --calc:#F1F5F3; --result:#FFFFFF; --hi:rgba(255,255,255,.75);
+  --font-display:'Barlow Semi Condensed','Arial Narrow',system-ui,sans-serif;
+  --font-body:'Barlow',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1513; --surface:#172120; --surface-2:#1E2B28; --ink:#E4ECE8; --muted:#93A59E;
+    --line:#2C3B37; --accent:#5CC9BF; --accent-soft:#1B3A37; --on-accent:#0B1A18;
+    --ochre:#E0A04A; --warn:#FF8A80; --good:#6FD08C; --input-bg:#111A18; --input-line:#3E524C; color-scheme:dark;
+    --accent2:#5CC9BF; --col-in:#0B110F; --field:#111A18; --calc:#1B2724; --result:#26372F; --hi:rgba(255,255,255,.07);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1513; --surface:#172120; --surface-2:#1E2B28; --ink:#E4ECE8; --muted:#93A59E;
+  --line:#2C3B37; --accent:#5CC9BF; --accent-soft:#1B3A37; --on-accent:#0B1A18;
+  --ochre:#E0A04A; --warn:#FF8A80; --good:#6FD08C; --input-bg:#111A18; --input-line:#3E524C; color-scheme:dark;
+  --accent2:#5CC9BF; --col-in:#0B110F; --field:#111A18; --calc:#1B2724; --result:#26372F; --hi:rgba(255,255,255,.07);
+}
+/* Colour looks chosen in Settings. Each commits to one look and sets every token. */
+:root[data-skin="matrix"]{
+  --bg:#000000; --surface:#04150A; --surface-2:#072812; --ink:#B6FFC2; --muted:#3FBF5A; --line:#0E4A1E;
+  --accent:#00FF41; --accent2:#00FF41; --accent-soft:#06361A; --on-accent:#001A06;
+  --ochre:#C6FF3D; --warn:#FF5C5C; --good:#00FF41; --input-bg:#020B04; --input-line:#14963A;
+  --col-in:#010A03; --field:#04170A; --calc:#082A12; --result:#10501F; --hi:rgba(0,255,65,.08);
+  --font-display:'Share Tech Mono','IBM Plex Mono',ui-monospace,Menlo,monospace;
+  --font-body:'Share Tech Mono','IBM Plex Mono',ui-monospace,Menlo,monospace;
+  --font-mono:'Share Tech Mono','IBM Plex Mono',ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+:root[data-skin="matrix"] h1,:root[data-skin="matrix"] h2{font-weight:400; text-transform:uppercase; letter-spacing:.06em}
+:root[data-skin="matrix"] h2{font-size:24px}
+:root[data-skin="matrix"] h1,:root[data-skin="matrix"] h2,:root[data-skin="matrix"] .kpi .val{text-shadow:0 0 10px rgba(0,255,65,.55)}
+:root[data-skin="matrix"] .chartbox .fit{filter:drop-shadow(0 0 4px rgba(0,255,65,.8))}
+:root[data-skin="matrix"] .appbar{box-shadow:0 1px 0 #00FF41, 0 0 18px rgba(0,255,65,.18)}
+
+:root[data-skin="retro"]{
+  --bg:#C0C0C0; --surface:#C0C0C0; --surface-2:#B0B0B0; --ink:#000000; --muted:#404040; --line:#808080;
+  --accent:#000080; --accent2:#000080; --accent-soft:#D0D0F0; --on-accent:#FFFFFF;
+  --ochre:#800000; --warn:#B00000; --good:#006400; --input-bg:#FFFFFF; --input-line:#808080;
+  --col-in:#A6A6A6; --field:#E6E6E6; --calc:#CFCFCF; --result:#FFFFE1; --hi:rgba(255,255,255,.7);
+  --font-display:Tahoma,'Segoe UI',Verdana,Arial,sans-serif;
+  --font-body:Tahoma,'Segoe UI',Verdana,Arial,sans-serif;
+  --font-mono:'Courier New',Courier,monospace;
+  color-scheme:light;
+}
+:root[data-skin="retro"] :where(button,input,select,textarea,.tblwrap,.results,.saved,.banner,.toast,.menu,.chip,.xref){border-radius:0}
+:root[data-skin="retro"] button{border:2px solid; border-color:#fff #404040 #404040 #fff; background:#C0C0C0; color:#000; box-shadow:inset -1px -1px #808080, inset 1px 1px #dfdfdf}
+:root[data-skin="retro"] button:active{border-color:#404040 #fff #fff #404040; box-shadow:inset 1px 1px #808080}
+:root[data-skin="retro"] button.primary{background:#000080; color:#fff}
+:root[data-skin="retro"] button.quiet,:root[data-skin="retro"] td button.x{border-color:transparent; box-shadow:none; background:transparent; color:#000080}
+:root[data-skin="retro"] td button.x{color:#000}
+:root[data-skin="retro"] :where(input:not([type="checkbox"]),select,textarea){border:2px solid; border-color:#808080 #fff #fff #808080; box-shadow:inset 1px 1px #404040}
+:root[data-skin="retro"] :where(.tblwrap,.results,.saved){border:2px solid; border-color:#fff #404040 #404040 #fff; box-shadow:inset -1px -1px #808080, inset 1px 1px #dfdfdf}
+:root[data-skin="retro"] h1{background:#000080; color:#fff; padding:6px 10px}
+:root[data-skin="retro"] .sechead{border-bottom:0; padding-bottom:0; align-items:center}
+:root[data-skin="retro"] .sechead h2{background:#000080; color:#fff; font-size:18px; padding:5px 10px; flex:1 1 auto}
+:root[data-skin="retro"] .appbar{background:#C0C0C0; border-bottom:2px solid #808080; box-shadow:inset 0 -1px 0 #fff}
+:root[data-skin="retro"] .menu{background:#C0C0C0; border:2px solid; border-color:#fff #404040 #404040 #fff; box-shadow:1px 1px 0 #000}
+:root[data-skin="retro"] .barbtn.ghost{border-color:transparent; box-shadow:none; background:transparent}
+:root[data-skin="retro"] .barbtn.ghost[aria-expanded="true"]{border-color:#404040 #fff #fff #404040; box-shadow:inset 1px 1px #808080}
+:root[data-skin="retro"] .mi,:root[data-skin="retro"] .swatch{border:1px solid transparent; box-shadow:none; background:transparent}
+:root[data-skin="retro"] .mi:hover,:root[data-skin="retro"] .mi[aria-checked="true"]{background:#000080; color:#fff}
+:root[data-skin="retro"] .mi:hover small,:root[data-skin="retro"] .mi[aria-checked="true"] small{color:#fff}
+:root[data-skin="retro"] .swatch[aria-pressed="true"]{border:1px dotted #000}
+
+:root[data-skin="cream"]{
+  --bg:#F3E9D2; --surface:#FBF5E6; --surface-2:#EADFC4; --ink:#1B2A4A; --muted:#6B6A63; --line:#D9CBA8;
+  --accent:#1E3A8A; --accent2:#B3262E; --accent-soft:#DCE3F3; --on-accent:#FFF9EA;
+  --ochre:#B3262E; --warn:#9B1C1C; --good:#2F6B3A; --input-bg:#FFFBF0; --input-line:#C9B98F;
+  --col-in:#E4D6B4; --field:#F0E6CC; --calc:#F6EEDB; --result:#FFFDF6; --hi:rgba(255,255,255,.7);
+  color-scheme:light;
+}
+:root[data-skin="cream"] h1{color:var(--accent)}
+:root[data-skin="cream"] #k-omc{color:var(--accent2)}
+:root[data-skin="cream"] .appbar{border-bottom:2px solid var(--accent2)}
+
+*{box-sizing:border-box}
+body{background:var(--bg); color:var(--ink); font:16px/1.45 var(--font-body); padding-block:0 72px}
+body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top, 0px); z-index:16; background:var(--surface)}
+.view{padding-top:26px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.wrap{max-width:900px; margin:0 auto; display:flex; flex-direction:column; gap:52px}
+h1,h2{font-family:var(--font-display); margin:0; text-wrap:balance; letter-spacing:.005em}
+h1{font-size:30px; line-height:1.05; font-weight:700}
+h2{font-size:28px; line-height:1.05; font-weight:700; letter-spacing:.01em}
+.eyebrow{font:500 12px/1.3 var(--font-mono); letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+button{font:600 14px/1 var(--font-body); cursor:pointer; border-radius:5px; padding:10px 13px; min-height:40px;
+  border:1px solid var(--input-line); background:var(--surface); color:var(--ink)}
+button:hover{border-color:var(--accent)}
+button.primary{background:var(--accent); color:var(--on-accent); border-color:var(--accent)}
+button.quiet{border-color:transparent; background:transparent; color:var(--accent); padding-inline:6px}
+button.warn{border-color:var(--warn); color:var(--warn)}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+
+/* ---------- integration ---------- */
+.int-top{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:4px 0 12px}
+.int-top label{font:600 13px/1.2 var(--font-body); color:var(--muted)}
+.int-top select{min-height:38px; max-width:100%}
+.int-note{font:400 13.5px/1.4 var(--font-body); color:var(--muted); margin:0 0 12px}
+.igrp{border:1px solid var(--line); border-radius:10px; background:var(--surface); padding:10px 12px 12px; margin:0 0 12px}
+.ig-h{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px}
+.ig-h h3{margin:0; font:700 16px/1.2 var(--font-display); letter-spacing:.02em; color:var(--ink)}
+.ig-h .gs{flex:1 1 auto; min-width:0; font:400 12.5px/1.2 var(--font-body); color:var(--muted)}
+.ig-x{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:0 0 8px}
+.ig-x label{font:600 13px/1.2 var(--font-body); color:var(--muted)}
+.ig-x input{min-height:40px; width:11rem; max-width:100%}
+.ig-b{display:grid; grid-template-columns:1fr; gap:6px}
+@media (min-width:560px){ .ig-b{grid-template-columns:1fr 1fr} }
+.iv{display:flex; align-items:center; justify-content:space-between; gap:12px; width:100%; min-height:44px; padding:8px 12px; text-align:left;
+  background:var(--surface-2); border:1px solid var(--line); border-radius:8px; color:var(--ink)}
+.iv .il{font:600 13px/1.2 var(--font-body); color:var(--muted)}
+.iv .ivv{font:500 15px/1.2 var(--font-mono); color:var(--ink); text-align:right; overflow-wrap:anywhere}
+.iv:hover:not(:disabled){border-color:var(--accent)}
+.iv.empty .ivv{color:var(--muted)}
+.iv:disabled{opacity:.6; cursor:default}
+.how.int > div{margin:0 0 8px 0}
+
+/* ---------- app bar ---------- */
+.appbar{position:sticky; top:env(safe-area-inset-top, 0px); z-index:15; background:var(--surface);
+  border-bottom:1px solid var(--line); box-shadow:0 2px 10px color-mix(in srgb, var(--ink) 7%, transparent)}
+.bar-inner{max-width:1100px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; gap:8px 8px;
+  padding-block:8px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.brand{order:0; display:inline-flex; align-items:center; gap:8px; font:700 17px/1 var(--font-display); letter-spacing:.02em; color:var(--ink); white-space:nowrap}
+.brand svg{width:24px; height:24px; flex:none}
+.brand .bt{display:none}
+.menu-wrap{position:relative}
+.menu-wrap.testing{order:1}
+.bar-current{order:2; flex:1 1 0; font:700 17px/1.1 var(--font-display); letter-spacing:.02em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0}
+.menu-wrap.settings{order:3; margin-left:auto; flex:none}
+.menu-wrap.testing{flex:none}
+.bar-actions{order:4; flex:1 1 100%; display:flex; gap:6px; overflow-x:auto; padding:2px}
+.barbtn{display:inline-flex; align-items:center; gap:7px; min-height:36px; padding:7px 11px; border-radius:6px; white-space:nowrap; font:600 14px/1 var(--font-body)}
+.barbtn svg{width:18px; height:18px; flex:none; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+.barbtn.ghost{border-color:transparent; background:transparent}
+.barbtn.ghost:hover,.barbtn.ghost[aria-expanded="true"]{background:var(--surface-2); border-color:var(--line)}
+.barbtn.icon{padding:7px 9px}
+.barbtn .caret{width:14px; height:14px}
+.menu{position:absolute; top:calc(100% + 8px); left:0; z-index:30; min-width:260px; max-width:calc(100vw - 32px);
+  background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:6px;
+  box-shadow:0 12px 32px color-mix(in srgb, var(--ink) 18%, transparent); display:flex; flex-direction:column; gap:2px}
+.menu.right{left:auto; right:0; min-width:min(280px, calc(100vw - 32px))}
+.menu-h{font:600 11px/1.2 var(--font-body); letter-spacing:.08em; text-transform:uppercase; color:var(--muted); padding:8px 10px 4px}
+.mi{display:flex; align-items:flex-start; gap:12px; width:100%; text-align:left; border:0; background:transparent; padding:10px; border-radius:7px; min-height:0; font:inherit; color:var(--ink)}
+.mi:hover{background:var(--surface-2)}
+.mi[aria-checked="true"]{background:var(--accent-soft)}
+.mi svg{width:22px; height:22px; flex:none; margin-top:1px; fill:none; stroke:var(--accent); stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round}
+.mi b{display:block; font:600 15px/1.2 var(--font-body)}
+.mi small{display:block; font:400 12.5px/1.3 var(--font-body); color:var(--muted); margin-top:3px}
+.setrow{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px; border-radius:7px}
+.setrow b{display:block; font:600 15px/1.2 var(--font-body)}
+.setrow small{display:block; font:400 12.5px/1.3 var(--font-body); color:var(--muted); margin-top:3px}
+input.switch{appearance:none; -webkit-appearance:none; flex:none; width:44px; height:26px; padding:0; border-radius:13px; border:1px solid var(--input-line);
+  background:var(--surface-2); position:relative; cursor:pointer; margin:0}
+input.switch::before{content:""; position:absolute; top:2px; left:2px; width:20px; height:20px; border-radius:50%; background:var(--muted); transition:transform .15s}
+input.switch:checked{background:var(--accent); border-color:var(--accent)}
+input.switch:checked::before{transform:translateX(18px); background:var(--on-accent)}
+.upd{flex-direction:column; align-items:stretch; gap:8px; border-top:1px solid var(--line); margin-top:4px}
+.upd input{min-height:40px; width:100%; font-size:14px}
+.upd .ub{display:flex; gap:6px; flex-wrap:wrap}
+.upd .um{font:400 12.5px/1.35 var(--font-body); color:var(--muted); min-height:1.35em}
+.swatches{display:grid; grid-template-columns:1fr 1fr; gap:6px; padding:2px 10px 10px}
+.swatch{display:flex; flex-direction:column; align-items:stretch; gap:6px; padding:6px; min-height:0; border-radius:7px; text-align:left; font:600 13px/1.2 var(--font-body); background:transparent}
+.swatch[aria-pressed="true"]{border-color:var(--accent); box-shadow:0 0 0 1px var(--accent)}
+.swatch .pv{display:flex; height:26px; border-radius:4px; overflow:hidden; border:1px solid var(--line)}
+.swatch .pv i{flex:1}
+
+/* ---------- page parts ---------- */
+.top{display:flex; flex-direction:column; gap:14px}
+.titlebar{display:flex; flex-direction:column; gap:8px}
+.banner{background:var(--accent-soft); border:1px solid var(--line); border-radius:6px; padding:10px 12px; font-size:14px}
+.results{background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:16px; display:flex; flex-direction:column; gap:16px}
+.rhead{display:flex; flex-direction:column; gap:4px}
+.rhead .id{font:600 18px/1.2 var(--font-display)}
+.kpis{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+.kpis3{grid-template-columns:repeat(3,1fr)}
+.kpi{display:flex; flex-direction:column; gap:2px; min-width:0}
+.kpi .lab{font:600 11px/1.2 var(--font-body); letter-spacing:.07em; text-transform:uppercase; color:var(--muted)}
+.kpi .val{font:500 34px/1.1 var(--font-mono); font-variant-numeric:tabular-nums; color:var(--accent)}
+.kpis3 .kpi .val{font-size:28px}
+.kpi .val .u{font-size:14px; color:var(--muted); margin-left:3px}
+.kpi .sub{font-size:13px; color:var(--muted)}
+.lotline{display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px}
+.chartbox{width:100%; min-width:0}
+.chartbox svg{display:block; max-width:100%}
+.chartbox .empty{padding:48px 12px; text-align:center; color:var(--muted); background:var(--surface-2); border-radius:6px}
+.legend{display:flex; flex-wrap:wrap; gap:6px 18px; font-size:13px; color:var(--muted)}
+.legend span{display:inline-flex; align-items:center; gap:7px}
+.legend i{display:inline-block; width:22px; height:0; border-top:2.5px solid var(--accent)}
+.legend i.dot{width:10px; height:10px; border:2px solid var(--accent); border-radius:50%; background:var(--surface)}
+.legend i.dot.pass{background:var(--good); border-color:var(--good)}
+.legend i.dot.fail{background:var(--warn); border-color:var(--warn)}
+.legend i.spec{border-top:1.5px dashed var(--ink)}
+.legend i.conn{border-top:1px dotted var(--muted)}
+.flags{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:6px; font-size:14px}
+.flags:empty{display:none}
+.flags li{padding-left:18px; position:relative}
+.flags li::before{content:""; position:absolute; left:3px; top:.5em; width:7px; height:7px; border-radius:50%; background:var(--ochre)}
+.flags li.bad::before{background:var(--warn)}
+.jump{display:flex; gap:4px; flex-wrap:wrap}
+.chip{display:inline-flex; align-items:center; gap:5px; font:700 11px/1 var(--font-body); letter-spacing:.06em; text-transform:uppercase;
+  padding:4px 8px; border-radius:999px; border:1px solid; white-space:nowrap}
+.chip.pass{color:var(--good); border-color:color-mix(in srgb, var(--good) 45%, transparent); background:color-mix(in srgb, var(--good) 13%, transparent)}
+.chip.fail{color:var(--warn); border-color:color-mix(in srgb, var(--warn) 45%, transparent); background:color-mix(in srgb, var(--warn) 13%, transparent)}
+.chip.na{color:var(--muted); border-color:var(--line); background:var(--surface-2)}
+.chip.big{font-size:13px; padding:7px 12px}
+
+.sec{display:flex; flex-direction:column; gap:16px; scroll-margin-top:calc(var(--barh, 64px) + env(safe-area-inset-top, 0px) + 14px)}
+.sechead{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:4px 12px;
+  padding-bottom:10px; border-bottom:3px solid var(--accent2)}
+.sechead .hint{font-size:13px}
+.how{border-top:1px solid var(--line); margin-top:2px}
+.how summary{cursor:pointer; list-style:none; display:flex; align-items:center; min-height:44px; color:var(--accent); font:600 14px/1.2 var(--font-body)}
+.how summary::-webkit-details-marker{display:none}
+.how summary::before{content:""; flex:none; width:7px; height:7px; margin:0 12px 0 4px; border-right:2px solid currentColor; border-bottom:2px solid currentColor; transform:rotate(-45deg)}
+.how[open] summary::before{transform:rotate(45deg)}
+.how[open]{padding-bottom:6px}
+.how > div{margin:0 0 8px 23px}
+.grid{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+.f{display:flex; flex-direction:column; gap:4px; min-width:0}
+.f.span2{grid-column:span 2}
+.f label,.pick label{font:600 11px/1.2 var(--font-body); letter-spacing:.07em; text-transform:uppercase; color:var(--muted)}
+.pick{display:flex; flex-direction:column; gap:4px}
+input,select{font:16px/1.2 var(--font-body); color:var(--ink); background:var(--input-bg); border:1px solid var(--input-line);
+  border-radius:4px; padding:9px 10px; min-width:0; width:100%}
+input.num,.num{font-family:var(--font-mono); font-variant-numeric:tabular-nums}
+.hint{font-size:12px; color:var(--muted)}
+
+/* tables */
+.tblwrap{overflow-x:auto; border:1px solid var(--line); border-radius:6px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; table-layout:fixed}
+th{font:600 10.5px/1.2 var(--font-body); text-transform:uppercase; letter-spacing:.02em; color:var(--muted);
+  text-align:right; padding:9px 5px 8px 3px; border-bottom:1px solid var(--line); vertical-align:bottom}
+th small{display:block; text-transform:none; letter-spacing:0; font-weight:400; font-family:var(--font-mono); margin-top:2px}
+th.c,td.c{text-align:center}
+th.l{text-align:left; padding-left:6px}
+td{padding:4px; border-bottom:1px solid var(--line); vertical-align:middle}
+tbody tr:last-child td{border-bottom:0}
+td input,td select{text-align:right; padding:8px 5px; font-family:var(--font-mono); font-size:16px}
+td select{text-align:center; padding-inline:2px}
+td input.txt{text-align:left}
+td.calc small.src{display:block; margin:2px 0 0; font-size:10px; letter-spacing:.04em; text-transform:uppercase; white-space:nowrap}
+td.calc small.src.tg{text-transform:none; letter-spacing:0; font-size:10.5px}
+td.calc{font:400 15px/1.2 var(--font-mono); font-variant-numeric:tabular-nums; text-align:right; padding:4px 6px; background:var(--calc)}
+td.calc.res{font-weight:500; color:var(--accent); background:var(--result)}
+td.calc.c{text-align:center}
+/* columns: inputs darkest, calculated lighter, results lightest */
+td.in,th.in{background:var(--col-in)}
+th.calc,td.pt{background:var(--calc)}
+th.res{background:var(--result)}
+td input,td select{background:var(--field)}
+td+td,th+th{border-left:1px solid var(--line); box-shadow:inset 1px 0 0 var(--hi)}
+td.xc,th.xc{background:var(--surface); border-left:0; box-shadow:none}
+td.calc.bad{color:var(--warn)}
+td.calc small{color:var(--muted); font-size:11px; margin-left:3px}
+td.pt{text-align:center; font:500 14px var(--font-mono); color:var(--muted)}
+td button.x{padding:0; min-height:32px; width:28px; border-color:transparent; background:transparent; color:var(--muted); font-size:18px}
+.formula{font:400 12px/1.5 var(--font-mono); color:var(--muted)}
+.subh{margin:10px 0 0; font:700 17px/1.2 var(--font-display); letter-spacing:.02em; color:var(--ink)}
+.tbar{display:flex; align-items:center; justify-content:space-between; gap:8px; padding:6px 8px; background:var(--surface-2); border-bottom:1px solid var(--line)}
+.tbtns{display:flex; gap:6px}
+.tcount{font:500 12px/1 var(--font-mono); letter-spacing:.04em; text-transform:uppercase; color:var(--muted)}
+button.slim{min-height:32px; padding:6px 12px; font-size:13px}
+tr.grp th{text-align:center; font:700 10px/1 var(--font-body); letter-spacing:.12em; padding:7px 4px 6px; background:var(--surface-2); color:var(--muted)}
+tr.grp th.xc{background:var(--surface-2)}
+.tfoot{display:flex; flex-wrap:wrap; gap:4px 18px; padding:8px 10px; border-top:1px solid var(--line); background:var(--surface-2); font:400 12.5px/1.4 var(--font-mono); color:var(--muted)}
+.tfoot b{font-weight:500; color:var(--ink)}
+.draftnote{font-size:12.5px; color:var(--muted)}
+.f.fbtn{justify-content:flex-end}
+.f.fbtn button{width:100%; min-height:41px}
+.statusline{display:flex; flex-wrap:wrap; align-items:center; gap:8px}
+.statusline .grow{flex:1 1 auto}
+/* FDN: lab compaction cross-reference switch */
+.xref{display:flex; align-items:center; gap:12px; padding:12px 14px; background:var(--surface); border:1px solid var(--line); border-radius:8px; cursor:pointer}
+.xref svg{width:22px; height:22px; flex:none; fill:none; stroke:var(--accent); stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+.xref .xt{flex:1 1 auto; min-width:0}
+.xref b{display:block; font:600 15px/1.2 var(--font-body)}
+.xref small{display:block; font-size:12.5px; line-height:1.35; color:var(--muted); margin-top:3px}
+/* FDN tables: one column per test, sticky row labels, sideways scroll */
+.tblwrap.split{overflow:hidden}
+.tscroll{overflow-x:auto; overscroll-behavior-x:contain; scrollbar-width:none}
+.tscroll::-webkit-scrollbar{display:none}
+/* page-drawn scroll bar under wide tables */
+.hbar{display:flex; align-items:center; gap:6px; padding:5px 8px; border-top:1px solid var(--line); background:var(--surface-2)}
+.hb-btn{flex:none; display:inline-grid; place-items:center; width:34px; min-height:30px; padding:0; border-radius:6px}
+.hb-btn svg{width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round}
+.hb-btn:disabled{opacity:.35; cursor:default}
+.hb-btn:disabled:hover{border-color:var(--input-line)}
+.hb-track{position:relative; flex:1 1 auto; min-width:60px; height:26px; cursor:pointer; touch-action:none}
+.hb-track::before{content:""; position:absolute; left:0; right:0; top:50%; height:8px; margin-top:-4px; border-radius:4px; background:color-mix(in srgb, var(--ink) 13%, transparent)}
+.hb-thumb{position:absolute; left:0; top:50%; height:14px; margin-top:-7px; border-radius:7px; background:var(--accent); cursor:grab; touch-action:none}
+.hb-thumb:hover,.hbar.dragging .hb-thumb{box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent)}
+.hbar.dragging .hb-thumb{cursor:grabbing}
+.hb-info{flex:none; min-width:8.2em; text-align:right; font:500 11.5px/1 var(--font-mono); color:var(--muted); white-space:nowrap}
+:root[data-skin="retro"] .hb-track::before{border-radius:0; height:14px; margin-top:-7px; background:repeating-conic-gradient(#C0C0C0 0% 25%, #FFFFFF 0% 50%) 0 0/4px 4px}
+:root[data-skin="retro"] .hb-thumb{border-radius:0; height:14px; background:#C0C0C0; border:2px solid; border-color:#fff #404040 #404040 #fff}
+:root[data-skin="matrix"] .hb-thumb{box-shadow:0 0 8px rgba(0,255,65,.6)}
+table.tx .gtag{display:block; font:700 9.5px/1 var(--font-body); letter-spacing:.12em; color:var(--accent); margin-bottom:3px}
+.tblwrap.fit{width:fit-content; max-width:100%}
+table.tx.single{min-width:0}
+table.tx{min-width:100%}
+table.tx td{padding:4px 3px}
+table.tx th.rl{position:sticky; left:0; z-index:2; text-align:left; vertical-align:middle; background:var(--surface-2); padding:6px 8px; font-size:10.5px; box-shadow:inset -1px 0 0 var(--line)}
+table.tx th.rl.corner{z-index:3; vertical-align:middle}
+table.tx thead th.tc{position:relative; text-align:center; vertical-align:top; background:var(--surface-2); padding:6px 4px}
+table.tx th.tc .tn{display:block; font:600 13px/1.2 var(--font-mono); color:var(--ink)}
+table.tx th.tc small{display:block; min-height:1.3em; font:400 10.5px/1.3 var(--font-body); text-transform:none; letter-spacing:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+table.tx th.tc button.x{position:absolute; top:2px; right:1px; width:22px; min-height:22px; padding:0; font-size:16px}
+table.tx tr.sep > *{border-top:2px solid var(--line)}
+table.tx td input.txt{font-family:var(--font-body); padding-inline:5px}
+table.tx td input.tm{font-family:var(--font-mono); font-size:15px; padding:8px 3px; text-align:left}
+table.tx td input.tm::-webkit-calendar-picker-indicator{display:none}
+.dotn{fill:var(--accent); stroke:var(--surface); stroke-width:2}
+@media (max-width:559px){ .wide-only{display:none} }
+@media (min-width:560px){ .narrow-only{display:none} }
+
+/* saved + toast */
+.saved{background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:14px; display:flex; flex-direction:column; gap:10px}
+.saved ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column}
+.saved li{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px 12px; padding:10px 0; border-top:1px solid var(--line)}
+.saved li:first-child{border-top:0}
+.saved h2{font-size:20px}
+.saved .si{display:flex; flex-direction:column; min-width:0}
+.saved .si span{font-size:13px; color:var(--muted)}
+.saved .sa{display:flex; gap:6px}
+textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); background:var(--input-bg); border:1px solid var(--input-line); border-radius:4px; padding:10px}
+.toast{position:fixed; left:50%; transform:translateX(-50%); bottom:calc(18px + env(safe-area-inset-bottom, 0px)); z-index:40;
+  background:var(--ink); color:var(--bg); padding:10px 16px; border-radius:6px; font-size:14px; max-width:calc(100% - 32px)}
+
+/* chart svg */
+.ax text{fill:var(--muted); font:11px var(--font-mono)}
+.ax .title{font:12px var(--font-body)}
+.gridline{stroke:var(--line); stroke-width:1}
+.axline{stroke:var(--muted); stroke-width:1}
+.fit{stroke:var(--accent); fill:none; stroke-width:2.6}
+.conn{stroke:var(--muted); fill:none; stroke-width:1; stroke-dasharray:2 3}
+.ptc{fill:var(--surface); stroke:var(--accent); stroke-width:2}
+.guide{stroke:var(--ink); stroke-width:1; stroke-dasharray:3 3; opacity:.55}
+.peakmark{fill:var(--accent); stroke:var(--surface); stroke-width:1.5}
+.lbl{fill:var(--ink); font:500 12px var(--font-mono); paint-order:stroke; stroke:var(--surface); stroke-width:3px; stroke-linejoin:round}
+.specline{stroke:var(--ink); stroke-width:1.4; stroke-dasharray:5 4; opacity:.75}
+.stem{stroke-width:2.5; stroke-linecap:round}
+.stem.pass{stroke:color-mix(in srgb, var(--good) 55%, transparent)}
+.stem.fail{stroke:color-mix(in srgb, var(--warn) 55%, transparent)}
+.dotp{fill:var(--good); stroke:var(--surface); stroke-width:2}
+.dotf{fill:var(--warn); stroke:var(--surface); stroke-width:2}
+
+@media (min-width:560px){
+  .grid{grid-template-columns:repeat(4,1fr)}
+  .f.span2,.f.w2{grid-column:span 2}
+  .kpi .val{font-size:44px}
+  .kpis3 .kpi .val{font-size:38px}
+  h1{font-size:36px}
+}
+@media (max-width:559px){ .opt{display:none} }
+@media (min-width:760px){
+  .brand .bt{display:inline}
+  .brand{margin-right:6px}
+}
+/* one-row bar only when there is genuinely room; otherwise the actions drop to their own row and settings stays top right */
+@media (min-width:980px){
+  .bar-current{flex:0 1 auto}
+  .bar-actions{order:3; flex:1 1 0; min-width:0; margin-left:6px; padding-left:12px; border-left:1px solid var(--line)}
+  .menu-wrap.settings{order:4; margin-left:0}
+}
+@media (prefers-reduced-motion:no-preference){ button{transition:border-color .15s, background-color .15s} }
+@media (prefers-reduced-motion:reduce){ input.switch::before{transition:none} }
+</style>
+
+<header class="appbar" id="appbar">
+  <div class="bar-inner">
+    <span class="brand" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3.5" width="18" height="4.5" rx="1.2" fill="var(--accent)"/><rect x="3" y="9.75" width="18" height="4.5" rx="1.2" fill="var(--ochre)"/><rect x="3" y="16" width="18" height="4.5" rx="1.2" fill="var(--muted)"/></svg>
+      <span class="bt">Soil Test Sheets</span>
+    </span>
+    <div class="menu-wrap testing">
+      <button type="button" class="barbtn ghost" id="btn-testing" data-menu="menu-testing" aria-haspopup="true" aria-expanded="false" aria-controls="menu-testing">
+        <svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
+        Testing
+        <svg class="caret" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="menu" id="menu-testing" role="menu" aria-label="Testing programs" hidden>
+        <div class="menu-h">Field</div>
+        <button type="button" class="mi" role="menuitemradio" data-view="fdn" aria-checked="false">
+          <svg viewBox="0 0 24 24"><rect x="5" y="3.5" width="14" height="9" rx="2"/><path d="M9 7.5h6M12 12.5v8M9 20.5h6"/></svg>
+          <span><b>FDN test</b><small>Field density, nuclear gauge</small></span>
+        </button>
+        <div class="menu-h">Lab</div>
+        <button type="button" class="mi" role="menuitemradio" data-view="compaction" aria-checked="false">
+          <svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="6" ry="2.5"/><path d="M6 6v11.5c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5V6"/></svg>
+          <span><b>Lab compaction</b><small>MDD and OMC from a compaction curve</small></span>
+        </button>
+      </div>
+    </div>
+    <span class="bar-current" id="bar-current"></span>
+
+    <div class="bar-actions" id="acts-fdn" role="toolbar" aria-label="FDN test actions">
+      <button type="button" class="barbtn" id="f-btn-new" data-act="f-new"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span class="bl">New</span></button>
+      <button type="button" class="barbtn primary" id="f-btn-save" data-act="f-save"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg><span class="bl">Save</span></button>
+      <button type="button" class="barbtn" id="f-btn-saved" data-act="f-toggle-saved"><svg viewBox="0 0 24 24"><path d="M3 6.5h6l2 2h10V19H3z"/></svg><span class="bl">Saved</span></button>
+      <button type="button" class="barbtn" id="f-btn-copy" data-act="f-copy"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span class="bl">Copy</span></button>
+    </div>
+    <div class="bar-actions" id="acts-compaction" role="toolbar" aria-label="Lab compaction actions" hidden>
+      <button type="button" class="barbtn" id="btn-new" data-act="new"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span class="bl">New</span></button>
+      <button type="button" class="barbtn primary" id="btn-save" data-act="save"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg><span class="bl">Save</span></button>
+      <button type="button" class="barbtn" id="btn-saved" data-act="toggle-saved"><svg viewBox="0 0 24 24"><path d="M3 6.5h6l2 2h10V19H3z"/></svg><span class="bl">Saved</span></button>
+      <button type="button" class="barbtn" id="btn-copy" data-act="copy"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span class="bl">Copy</span></button>
+    </div>
+
+    <div class="menu-wrap settings">
+      <button type="button" class="barbtn ghost icon" id="btn-settings" data-menu="menu-settings" aria-haspopup="true" aria-expanded="false" aria-controls="menu-settings" aria-label="Settings">
+        <svg viewBox="0 0 24 24"><path d="M19.13 10.03 L21.49 10.55 L21.49 13.45 L19.13 13.97 L18.44 15.65 L19.73 17.69 L17.69 19.73 L15.65 18.44 L13.97 19.13 L13.45 21.49 L10.55 21.49 L10.03 19.13 L8.35 18.44 L6.31 19.73 L4.27 17.69 L5.56 15.65 L4.87 13.97 L2.51 13.45 L2.51 10.55 L4.87 10.03 L5.56 8.35 L4.27 6.31 L6.31 4.27 L8.35 5.56 L10.03 4.87 L10.55 2.51 L13.45 2.51 L13.97 4.87 L15.65 5.56 L17.69 4.27 L19.73 6.31 L18.44 8.35Z"/><circle cx="12" cy="12" r="3.2"/></svg>
+      </button>
+      <div class="menu right" id="menu-settings" role="dialog" aria-label="Settings" hidden>
+        <div class="menu-h">Settings</div>
+        <label class="setrow" for="set-sound"><span><b>Sound effects</b><small>Clicks, chimes and alerts</small></span><input type="checkbox" class="switch" id="set-sound" role="switch"></label>
+        <div class="setrow" style="padding-bottom:4px"><span><b>Colours</b><small>Changes the whole app</small></span></div>
+        <div class="swatches" role="group" aria-label="Colours">
+          <button type="button" class="swatch" data-skin-pick=""><span class="pv"><i style="background:#EFF3F1"></i><i style="background:#0E5F5B"></i><i style="background:#FFFFFF"></i></span>Default</button>
+          <button type="button" class="swatch" data-skin-pick="matrix"><span class="pv"><i style="background:#000000"></i><i style="background:#00FF41"></i><i style="background:#072812"></i></span>Matrix</button>
+          <button type="button" class="swatch" data-skin-pick="retro"><span class="pv"><i style="background:#C0C0C0"></i><i style="background:#000080"></i><i style="background:#FFFFE1"></i></span>Old computer</button>
+          <button type="button" class="swatch" data-skin-pick="cream"><span class="pv"><i style="background:#F3E9D2"></i><i style="background:#B3262E"></i><i style="background:#1E3A8A"></i></span>Cream, red and blue</button>
+        </div>
+        <div class="setrow upd" id="set-upd" hidden>
+          <span><b>App updates</b><small id="upd-ver"></small></span>
+          <input id="upd-url" type="url" inputmode="url" autocomplete="off" placeholder="Update address (https://…/app.html)" aria-label="Update address">
+          <div class="ub"><button type="button" class="slim" id="upd-check">Check for updates</button><button type="button" class="slim" id="upd-reset">Use built-in version</button></div>
+          <span class="um" id="upd-msg" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ======================= FDN TEST ======================= -->
+<main class="view" id="view-fdn" hidden>
+<div class="wrap">
+  <header class="top">
+    <div class="titlebar">
+      <span class="eyebrow">Field density · nuclear gauge · AS 1289.5.8.1</span>
+      <h1>FDN test</h1>
+      <span class="draftnote" id="f-draftnote">Autosaves on this device as you type</span>
+    </div>
+    <label class="xref" for="f-xref">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h13M13 4l4 4-4 4M20 16H7M11 12l-4 4 4 4"/></svg>
+      <span class="xt"><b>Cross-reference lab compaction</b><small id="f-xref-sub"></small></span>
+      <input type="checkbox" class="switch" id="f-xref" role="switch">
+    </label>
+    <div class="banner" id="f-exbanner" hidden>Example data is loaded so you can see how the sheet works. Edit any cell to make it yours, or tap New to start clean.</div>
+    <section class="saved" id="f-savedpanel" hidden aria-label="Saved FDN tests">
+      <h2>Saved FDN tests</h2>
+      <ul id="f-savedlist"></ul>
+      <div class="hint">Saved on this device and browser only.</div>
+    </section>
+    <div id="f-copyfallback" hidden>
+      <label class="hint" for="f-copybox">Your browser blocked copying. Select the text below and copy it.</label>
+      <textarea id="f-copybox" rows="10" readonly></textarea>
+    </div>
+  </header>
+
+  <section class="sec" id="f-sec-results" aria-label="FDN results">
+    <div class="sechead"><h2>Results</h2><span class="hint">Updates as you type</span></div>
+    <div class="results">
+      <div class="rhead">
+        <span class="id" id="f-r-id"></span>
+        <span class="muted small" id="f-r-sub"></span>
+      </div>
+      <div class="lotline"><span class="chip big na" id="f-lot-chip">Incomplete</span><span class="small muted" id="f-lot-text"></span></div>
+      <div class="kpis kpis3">
+        <div class="kpi"><span class="lab" id="f-k-min-lab">Lowest density ratio</span><span class="val" id="f-k-min">–</span><span class="sub" id="f-k-min-sub"></span></div>
+        <div class="kpi"><span class="lab" id="f-k-mean-lab">Mean density ratio</span><span class="val" id="f-k-mean">–</span><span class="sub" id="f-k-mean-sub"></span></div>
+        <div class="kpi"><span class="lab" id="f-k-pass-lab">Tests passing</span><span class="val" id="f-k-pass">–</span><span class="sub" id="f-k-pass-sub"></span></div>
+      </div>
+      <div class="chartbox" id="f-chart"></div>
+      <div class="legend" id="f-legend">
+        <span><i class="dot pass"></i>Pass</span>
+        <span><i class="dot fail"></i>Below minimum</span>
+        <span><i class="spec"></i>Minimum density ratio</span>
+      </div>
+      <ul class="flags" id="f-flags"></ul>
+      <div class="jump">
+        <button type="button" class="quiet" data-act="jump" data-to="f-sec-ref" id="f-jump-ref">Reference</button>
+        <button type="button" class="quiet" data-act="jump" data-to="f-sec-setup">Test details</button>
+        <button type="button" class="quiet" data-act="jump" data-to="f-sec-loc">Locations</button>
+        <button type="button" class="quiet" data-act="jump" data-to="f-sec-read">Gauge readings</button>
+        <button type="button" class="quiet" data-act="jump" data-to="f-sec-res">Test results</button>
+        <button type="button" class="quiet" data-act="jump" data-to="f-sec-int">Integration</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="f-sec-ref">
+    <div class="sechead"><h2>Lab compaction reference</h2><span class="hint">MDD, OMC and specification</span></div>
+    <div class="pick">
+      <label for="f-pick">Fill from a lab compaction</label>
+      <select id="f-pick"></select>
+    </div>
+    <div class="grid">
+      <div class="f"><label for="f-m-mdd">MDD (t/m³)</label><input id="f-m-mdd" class="num" data-fm="mdd" inputmode="decimal" autocomplete="off"><span class="hint" id="f-mdd-hint"></span></div>
+      <div class="f"><label for="f-m-omc">OMC (%)</label><input id="f-m-omc" class="num" data-fm="omc" inputmode="decimal" autocomplete="off"></div>
+      <div class="f"><label for="f-m-spec">Min density ratio (%)</label><input id="f-m-spec" class="num" data-fm="spec" inputmode="decimal" autocomplete="off"></div>
+      <div class="f"><label for="f-m-ref">Compaction sample</label><input id="f-m-ref" data-fm="ref" type="text" autocomplete="off"></div>
+    </div>
+    <details class="how"><summary>How the results are worked out</summary>
+      <div class="formula">dry density = wet density ÷ (1 + w ÷ 100)<br>density ratio = dry density ÷ MDD × 100<br>moisture vs OMC = w − OMC</div>
+      <div class="hint">Density ratio is shown and checked against the minimum to 0.1%.</div>
+    </details>
+  </section>
+
+  <section class="sec" id="f-sec-setup">
+    <div class="sechead"><h2>Test details</h2></div>
+    <div class="grid">
+      <div class="f span2"><label for="f-m-job">Job / project</label><input id="f-m-job" data-fm="job" type="text" autocomplete="off"></div>
+      <div class="f"><label for="f-m-date">Date</label><input id="f-m-date" data-fm="date" type="date"></div>
+      <div class="f"><label for="f-m-by">Tested by</label><input id="f-m-by" data-fm="by" type="text" autocomplete="off"></div>
+      <div class="f span2"><label for="f-m-material">Material / layer</label><input id="f-m-material" data-fm="material" type="text" autocomplete="off"></div>
+      <div class="f"><label for="f-m-gauge">Gauge serial no.</label><input id="f-m-gauge" class="num" data-fm="gauge" type="text" autocomplete="off"></div>
+      <div class="f"><label for="f-m-depth">Test depth (mm)</label><input id="f-m-depth" class="num" data-fm="depth" inputmode="decimal" autocomplete="off"></div>
+      <div class="f w2"><label for="f-m-dstd">Density std count</label><input id="f-m-dstd" class="num" data-fm="dstd" inputmode="numeric" autocomplete="off"></div>
+      <div class="f w2"><label for="f-m-mstd">Moisture std count</label><input id="f-m-mstd" class="num" data-fm="mstd" inputmode="numeric" autocomplete="off"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="f-sec-loc">
+    <div class="sechead"><h2>Locations</h2><span class="hint">One column per test</span></div>
+    <div class="tblwrap split">
+      <div class="tbar"><span class="tcount" id="f-count"></span>
+        <span class="tbtns"><button type="button" class="slim" data-act="f-add">Add test</button></span></div>
+      <div class="tscroll" id="f-loc-scroll"><table class="tx" id="f-loc-table" aria-label="Test locations"></table></div>
+    </div>
+    <details class="how"><summary>About this table</summary>
+      <div class="hint">Each column is one test. Fill it top to bottom: Enter moves down the column, then on to the next test. The test number at the top of each column links it to its gauge readings and results below. Scroll sideways to see more tests; the three tables scroll together.</div>
+    </details>
+  </section>
+
+  <section class="sec" id="f-sec-read">
+    <div class="sechead"><h2>Gauge readings</h2><span class="hint">Off the gauge display</span></div>
+    <div class="tblwrap split">
+      <div class="tbar"><span class="tcount" id="f-count2"></span>
+        <span class="tbtns"><button type="button" class="slim" data-act="f-add">Add test</button></span></div>
+      <div class="tscroll" id="f-gauge-scroll"><table class="tx" id="f-read-table" aria-label="Gauge readings"></table></div>
+    </div>
+    <details class="how"><summary>About this table</summary>
+      <div class="hint">Densities can be typed in t/m³ (2.105) or kg/m³ (2105). Dry density is optional: leave it blank and it is worked out from wet density and moisture, or enter the gauge's figure and the page checks it against them. Oven moisture is optional too; where you enter it, the dry density is worked out again with it.</div>
+    </details>
+  </section>
+
+  <section class="sec" id="f-sec-res">
+    <div class="sechead"><h2>Test results</h2><span class="hint">Calculated for each test</span></div>
+    <div class="tblwrap split"><div class="tscroll" id="f-res-scroll"><table class="tx" id="f-res-table" aria-label="Calculated results for each test"></table></div></div>
+  </section>
+
+  <section class="sec" id="f-sec-int">
+    <div class="sechead"><h2>Integration</h2><span class="hint">Copy results across to other systems</span></div>
+    <details class="how int" id="f-int-det"><summary>Open integration</summary>
+      <div id="f-int"></div>
+    </details>
+  </section>
+</div>
+</main>
+
+<!-- ======================= LAB COMPACTION ======================= -->
+<main class="view" id="view-compaction" hidden>
+<div class="wrap">
+  <header class="top">
+    <div class="titlebar">
+      <span class="eyebrow">MDD and OMC · AS 1289.5.1.1 / 5.2.1</span>
+      <h1>Lab compaction</h1>
+      <span class="draftnote" id="c-draftnote">Autosaves on this device as you type</span>
+    </div>
+    <div class="banner" id="exbanner" hidden>Example data is loaded so you can see how the sheet works. Edit any cell to make it yours, or tap New to start clean.</div>
+    <section class="saved" id="savedpanel" hidden aria-label="Saved compaction tests">
+      <h2>Saved compaction tests</h2>
+      <ul id="savedlist"></ul>
+      <div class="hint">Saved on this device and browser only.</div>
+    </section>
+    <div id="copyfallback" hidden>
+      <label class="hint" for="copybox">Your browser blocked copying. Select the text below and copy it.</label>
+      <textarea id="copybox" rows="9" readonly></textarea>
+    </div>
+  </header>
+
+  <section class="sec" id="sec-results" aria-label="Results">
+   <div class="sechead"><h2>Results</h2><span class="hint">Updates as you type</span></div>
+   <div class="results" id="results">
+    <div class="rhead">
+      <span class="id" id="r-id">Untitled sample</span>
+      <span class="muted small" id="r-sub"></span>
+    </div>
+    <div class="statusline"><span id="c-status"></span><span class="grow"></span>
+      <button type="button" class="slim" id="btn-to-fdn" data-act="to-fdn" hidden>Use in FDN test</button></div>
+    <div class="kpis">
+      <div class="kpi"><span class="lab">Maximum dry density</span><span class="val" id="k-mdd">–</span><span class="sub" id="k-mdd-sub">t/m³, to 0.01</span></div>
+      <div class="kpi"><span class="lab">Optimum moisture content</span><span class="val" id="k-omc">–</span><span class="sub" id="k-omc-sub">%, to nearest 0.5</span></div>
+    </div>
+    <div class="chartbox" id="chart"></div>
+    <div class="legend" id="legend">
+      <span><i class="dot"></i>Test points</span>
+      <span><i class="conn"></i>Point to point</span>
+      <span><i></i>Fitted curve</span>
+    </div>
+    <ul class="flags" id="flags"></ul>
+    <div class="jump">
+      <button type="button" class="quiet" data-act="jump" data-to="sec-nat">Mix plan</button>
+      <button type="button" class="quiet" data-act="jump" data-to="sec-setup">Test details</button>
+      <button type="button" class="quiet" data-act="jump" data-to="sec-comp">Compaction points</button>
+      <button type="button" class="quiet" data-act="jump" data-to="sec-moist">Moisture tins</button>
+      <button type="button" class="quiet" data-act="jump" data-to="sec-int">Integration</button>
+    </div>
+   </div>
+  </section>
+
+  <section class="sec" id="sec-nat">
+    <div class="sechead"><h2>Sample moisture and mix plan</h2><span class="hint">One tin, whole sample</span></div>
+    <div class="tblwrap fit"><table id="nat-table" aria-label="Sample moisture content, single tin"></table></div>
+    <h3 class="subh">Mix plan</h3>
+    <div class="grid">
+      <div class="f"><label for="meta-batch">Batch per point (g)</label><input id="meta-batch" class="num" data-meta="batch" inputmode="decimal" autocomplete="off" placeholder="e.g. 2500"></div>
+      <div class="f"><label for="meta-estomc">Estimated OMC (%)</label><input id="meta-estomc" class="num" data-meta="estomc" inputmode="decimal" autocomplete="off"></div>
+      <div class="f"><label for="meta-step">Step between points (%)</label><input id="meta-step" class="num" data-meta="step" inputmode="decimal" autocomplete="off"></div>
+      <div class="f fbtn"><button type="button" id="btn-plan" data-act="plan">Fill added %</button></div>
+    </div>
+    <div class="hint" id="plan-hint"></div>
+    <details class="how"><summary>About this section</summary>
+      <div class="hint">The sample moisture is not part of the curve. With an estimated OMC, Fill added % spreads the points evenly either side of it and works out how much water each one needs. You can still change any added % by hand.</div>
+      <div class="formula">w = (tin + wet − tin + dry) ÷ (tin + dry − tin) × 100<br>added % for a point = its target w − sample w</div>
+    </details>
+  </section>
+
+  <section class="sec" id="sec-setup">
+    <div class="sechead"><h2>Test details</h2></div>
+    <div class="grid">
+      <div class="f span2"><label for="meta-job">Job / project</label><input id="meta-job" data-meta="job" type="text" autocomplete="off"></div>
+      <div class="f"><label for="meta-sample">Sample ID</label><input id="meta-sample" data-meta="sample" type="text" autocomplete="off"></div>
+      <div class="f"><label for="meta-date">Date</label><input id="meta-date" data-meta="date" type="date"></div>
+      <div class="f span2"><label for="meta-by">Tested by</label><input id="meta-by" data-meta="by" type="text" autocomplete="off"></div>
+      <div class="f span2"><label for="meta-method">Method</label>
+        <select id="meta-method" data-meta="method">
+          <option value="std">Standard (AS 1289.5.1.1)</option>
+          <option value="mod">Modified (AS 1289.5.2.1)</option>
+        </select></div>
+      <div class="f w2"><label for="meta-vol">Mould volume (cm³)</label><input id="meta-vol" class="num" data-meta="vol" inputmode="decimal" autocomplete="off"></div>
+      <div class="f w2"><label for="meta-mass">Mould mass (g)</label><input id="meta-mass" class="num" data-meta="mass" inputmode="decimal" placeholder="e.g. 4210" autocomplete="off"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="sec-comp">
+    <div class="sechead"><h2>Compaction points</h2><span class="hint">One column per point</span></div>
+    <div class="tblwrap split">
+      <div class="tbar"><span class="tcount" id="pt-count"></span>
+        <span class="tbtns"><button type="button" class="slim" data-act="add-pt">Add point</button><button type="button" class="slim" data-act="rm-pt">Remove last</button></span></div>
+      <div class="tscroll" id="c-comp-scroll"><table id="comp-table" aria-label="Compaction points: water to add and mould readings"></table></div>
+      <div class="tfoot" id="comp-foot"></div>
+    </div>
+    <details class="how"><summary>How this table is worked out</summary>
+      <div class="formula">water to add = dry soil × added % ÷ 100<br>dry soil = batch ÷ (1 + sample w ÷ 100)<br>target w = sample w + added %<br>wet density = (mould + wet soil − mould) ÷ volume<br>dry density = wet density ÷ (1 + w ÷ 100)</div>
+      <div class="hint" id="wbasis"></div>
+      <div class="hint">Moisture is the mean of that point's tins in the moisture table below.</div>
+    </details>
+  </section>
+
+  <section class="sec" id="sec-moist">
+    <div class="sechead"><h2>Moisture tins</h2><span class="hint">Oven-dried, one column per tin</span></div>
+    <div class="tblwrap split">
+      <div class="tbar"><span class="tcount" id="tin-count"></span>
+        <span class="tbtns"><button type="button" class="slim" data-act="add-tin">Add tin</button></span></div>
+      <div class="tscroll" id="c-tin-scroll"><table id="moist-table" aria-label="Moisture content determinations"></table></div>
+    </div>
+    <details class="how"><summary>About this table</summary>
+      <div class="formula">w = (tin + wet − tin + dry) ÷ (tin + dry − tin) × 100</div>
+      <div class="hint">Add a row for a second tin on the same point. The point moisture is the mean of its tins.</div>
+    </details>
+  </section>
+
+  <section class="sec" id="sec-int">
+    <div class="sechead"><h2>Integration</h2><span class="hint">Copy results across to other systems</span></div>
+    <details class="how int" id="c-int-det"><summary>Open integration</summary>
+      <div id="c-int"></div>
+    </details>
+  </section>
+</div>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+/*PURE-START*/
+function num(v){ if(v===null||v===undefined) return null; const s=String(v).trim(); if(s==='') return null; const x=parseFloat(s); return isFinite(x)?x:null; }
+function fitQuad(pts){
+  const n=pts.length; if(n<3) return null;
+  const xm=pts.reduce((s,p)=>s+p.x,0)/n;
+  let S1=0,S2=0,S3=0,S4=0,T0=0,T1=0,T2=0;
+  for(const p of pts){ const x=p.x-xm,y=p.y; S1+=x; S2+=x*x; S3+=x*x*x; S4+=x*x*x*x; T0+=y; T1+=x*y; T2+=x*x*y; }
+  const M=[[S4,S3,S2,T2],[S3,S2,S1,T1],[S2,S1,n,T0]];
+  for(let c=0;c<3;c++){
+    let p=c; for(let r=c+1;r<3;r++) if(Math.abs(M[r][c])>Math.abs(M[p][c])) p=r;
+    if(Math.abs(M[p][c])<1e-12) return null;
+    const t=M[c]; M[c]=M[p]; M[p]=t;
+    for(let r=0;r<3;r++){ if(r===c) continue; const k=M[r][c]/M[c][c]; for(let j=c;j<4;j++) M[r][j]-=k*M[c][j]; }
+  }
+  return {a:M[0][3]/M[0][0], b:M[1][3]/M[1][1], c:M[2][3]/M[2][2], xm};
+}
+function compute(s){
+  const vol=num(s.meta.vol), mass=num(s.meta.mass);
+  const nt=s.nat||{};
+  const nat={water:null,soil:null,w:null,bad:false};
+  { const a=num(nt.wet), b=num(nt.dry), t=num(nt.tare);
+    if(a!==null&&b!==null&&t!==null){ if(b>t&&a>=b){ nat.water=a-b; nat.soil=b-t; nat.w=nat.water/nat.soil*100; } else nat.bad=true; } }
+  const rows=s.tins.map(t=>{
+    const wet=num(t.wet), dry=num(t.dry), tare=num(t.tare);
+    const any=[t.wet,t.dry,t.tare].some(v=>String(v).trim()!=='');
+    let water=null,soil=null,w=null,bad=false;
+    if(wet!==null&&dry!==null&&tare!==null){
+      if(dry>tare&&wet>=dry){ water=wet-dry; soil=dry-tare; w=water/soil*100; } else bad=true;
+    }
+    return {water,soil,w,bad,any};
+  });
+  const points=s.ms.map((v,i)=>{
+    const ms=num(v); let wm=null,rho=null;
+    if(ms!==null&&mass!==null&&vol!==null&&vol>0&&ms>mass){ wm=ms-mass; rho=wm/vol; }
+    const ws=[]; rows.forEach((r,j)=>{ if(+s.tins[j].pt===i+1&&r.w!==null) ws.push(r.w); });
+    const w=ws.length?ws.reduce((a,b)=>a+b,0)/ws.length:null;
+    let rd=(rho!==null&&w!==null)?rho/(1+w/100):null;
+    const odd=rd!==null&&(rd<0.3||rd>4);
+    if(odd) rd=null;
+    // one batch weight for every point (older sheets kept one per point)
+    const bw=num(s.meta.batch!==undefined?s.meta.batch:(s.bw?s.bw[i]:null)), add=num(s.add?s.add[i]:null);
+    const target=(add!==null&&nat.w!==null)?nat.w+add:null;
+    const water=(bw!==null&&add!==null)?(nat.w!==null?bw/(1+nat.w/100):bw)*add/100:null;
+    const off=(w!==null&&target!==null)?w-target:null;
+    return {i,ms,wm,rho,w,n:ws.length,rd,odd,bw,add,target,water,off};
+  });
+  const pts=points.filter(p=>p.rd!==null);
+  let res=null;
+  if(pts.length>=3){
+    const sorted=pts.slice().sort((a,b)=>a.w-b.w);
+    let im=0; sorted.forEach((p,k)=>{ if(p.rd>sorted[im].rd) im=k; });
+    const lo=Math.max(0,im-2), hi=Math.min(sorted.length-1,im+2);
+    const set=sorted.slice(lo,hi+1);
+    const q=fitQuad(set.map(p=>({x:p.w,y:p.rd})));
+    let omc=null,mdd=null,method='fit';
+    if(q&&q.a<0){
+      const xv=q.xm-q.b/(2*q.a);
+      if(xv>=set[0].w&&xv<=set[set.length-1].w){ omc=xv; mdd=q.c-q.b*q.b/(4*q.a); }
+    }
+    if(omc===null){ omc=sorted[im].w; mdd=sorted[im].rd; method='max'; }
+    res={omc,mdd,method,q:method==='fit'?q:null,set,edge:(im===0?'dry':(im===sorted.length-1?'wet':null))};
+  }
+  return {vol,mass,nat,rows,points,pts,res};
+}
+// densities may be typed in t/m³ (2.105) or kg/m³ (2105)
+function dens(v){ const x=num(v); if(x===null) return null; return x>10?x/1000:x; }
+function fdnCompute(s){
+  const m=s.meta, mdd=dens(m.mdd), omc=num(m.omc), spec=num(m.spec);
+  const mddOK=mdd!==null&&mdd>0.3&&mdd<4;
+  const filled=v=>String(v==null?'':v).trim()!=='';
+  const rows=s.tests.map((t,i)=>{
+    const wet=dens(t.wet), gdry=dens(t.dry), gw=num(t.gw), ow=num(t.ow);
+    const w=ow!==null?ow:gw, src=ow!==null?'oven':(gw!==null?'gauge':null);
+    // dry density: re-worked with oven moisture where given, else the gauge figure, else worked out
+    let dry=null, dsrc=null;
+    if(ow!==null&&wet!==null){ dry=wet/(1+ow/100); dsrc='oven'; }
+    else if(ow!==null&&gdry!==null&&gw!==null){ dry=gdry*(1+gw/100)/(1+ow/100); dsrc='oven'; }
+    else if(gdry!==null){ dry=gdry; dsrc='gauge'; }
+    else if(wet!==null&&gw!==null){ dry=wet/(1+gw/100); dsrc='calc'; }
+    if(dry!==null&&!(isFinite(dry)&&dry>0)) dry=null;
+    const odd=dry!==null&&(dry<0.3||dry>4); if(odd) dry=null;
+    const ddGap=(gdry!==null&&wet!==null&&gw!==null)?gdry-wet/(1+gw/100):null;
+    const dr=(dry!==null&&mddOK)?dry/mdd*100:null;
+    const dv=(w!==null&&omc!==null)?w-omc:null;
+    // judged at the precision shown (0.1%), so 99.98 reads and passes as 100.0
+    const pass=(dr!==null&&spec!==null)?Math.round(dr*10)/10>=spec-1e-9:null;
+    const any=['sid','fid','lot','time','loc1','loc2','loc3','loc4','wet','dry','gw','ow','dc','mc'].some(k=>filled(t[k]));
+    const hasReading=['wet','dry','gw','ow'].some(k=>filled(t[k]));
+    const diff=(ow!==null&&gw!==null)?ow-gw:null;
+    const place=[t.loc1,t.loc2,t.loc3,t.loc4].map(v=>String(v==null?'':v).trim()).filter(Boolean).join(' ');
+    return {i,fid:String(t.fid||'').trim(),lot:String(t.lot||'').trim(),time:t.time||'',place,wet,gdry,gw,ow,w,src,dry,dsrc,odd,ddGap,dr,dv,pass,any,hasReading,diff,dc:num(t.dc),mc:num(t.mc)};
+  });
+  const done=rows.filter(r=>r.dr!==null);
+  let sum=null;
+  if(done.length){
+    const v=done.map(r=>r.dr), minR=done.reduce((a,b)=>b.dr<a.dr?b:a);
+    sum={n:done.length,min:minR.dr,minI:minR.i,mean:v.reduce((a,b)=>a+b,0)/v.length,max:Math.max.apply(null,v),
+      pass:spec!==null?done.filter(r=>r.pass).length:null};
+  }
+  const dd=rows.filter(r=>r.dry!==null);
+  let dsum=null;
+  if(dd.length){
+    const ws=dd.filter(r=>r.w!==null).map(r=>r.w);
+    dsum={n:dd.length,mean:dd.reduce((a,r)=>a+r.dry,0)/dd.length,min:Math.min.apply(null,dd.map(r=>r.dry)),
+      meanW:ws.length?ws.reduce((a,b)=>a+b,0)/ws.length:null};
+  }
+  return {mdd:mddOK?mdd:null,mddRaw:mdd,omc,spec,rows,done,sum,dsum};
+}
+/*PURE-END*/
+
+/* ======================= shared shell ======================= */
+const $=id=>document.getElementById(id);
+const App={acted:false, view:null, onShow:{}, compaction:null};
+function readLS(k){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):null; }catch(e){ return null; } }
+function writeLS(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); return true; }catch(e){ return false; } }
+let storageOK=false; try{ localStorage.setItem('__t','1'); localStorage.removeItem('__t'); storageOK=true; }catch(e){}
+const reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function today(){ const d=new Date(); const p=n=>String(n).padStart(2,'0'); return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate()); }
+const esc=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const fx=(v,d)=>v===null||v===undefined?'–':v.toFixed(d);
+function fmtDate(iso){
+  const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(iso||''); if(!m) return '';
+  return new Date(+m[1],+m[2]-1,+m[3]).toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'});
+}
+const roundHalf=x=>Math.round(x*2)/2;
+function niceStep(range,target){ const raw=range/target; if(!(raw>0)) return 1; const p=Math.pow(10,Math.floor(Math.log10(raw))), fr=raw/p; return (fr<=1?1:(fr<=2?2:(fr<=5?5:10)))*p; }
+function setBtnLabel(b,t){ const s=b&&b.querySelector('.bl'); if(s) s.textContent=t; else if(b) b.textContent=t; }
+
+let toastTimer=null;
+function toast(msg){
+  const t=$('toast'); t.textContent=msg; t.hidden=false;
+  clearTimeout(toastTimer); toastTimer=setTimeout(()=>{ t.hidden=true; },2200);
+}
+
+// mark each column as input / calculated / result so headers and cells share a tint
+function tagCols(t){
+  const body=t.tBodies[0]; if(!body||!body.rows.length) return;
+  const first=body.rows[0];
+  body.querySelectorAll('td').forEach(td=>{ if(td.querySelector('input,select')) td.classList.add('in'); });
+  body.querySelectorAll('input').forEach(inp=>{ inp.setAttribute('enterkeyhint','next'); });
+  if(t.classList.contains('tx')) return; // column-per-test tables tint by row, not by header
+  const ths=t.tHead.rows[t.tHead.rows.length-1].cells;
+  for(let i=0;i<ths.length;i++){
+    const td=first.cells[i]; if(!td||ths[i].classList.contains('xc')) continue;
+    if(td.classList.contains('res')) ths[i].classList.add('res');
+    else if(td.classList.contains('calc')||td.classList.contains('pt')) ths[i].classList.add('calc');
+    else ths[i].classList.add('in');
+  }
+}
+
+/* sound, generated in the browser (no files) */
+const Snd=(function(){
+  let ctx=null, on=true, lastKey=0;
+  try{ on=localStorage.getItem('mdd-lab-sound-v1')!=='off'; }catch(e){}
+  function ensure(){
+    if(!ctx){ try{ const A=window.AudioContext||window.webkitAudioContext; if(!A) return null; ctx=new A(); }catch(e){ return null; } }
+    if(ctx.state==='suspended'){ try{ ctx.resume(); }catch(e){} }
+    return ctx;
+  }
+  function voice(){ const s=document.documentElement.getAttribute('data-skin'); return s==='matrix'?'matrix':(s==='retro'?'retro':'soft'); }
+  function tone(f,d,o){
+    o=o||{}; const c=ensure(); if(!c) return;
+    const v=voice(), t0=c.currentTime+(o.at||0)+0.005, mult=v==='matrix'?1.5:1;
+    const osc=c.createOscillator(), g=c.createGain(), flt=c.createBiquadFilter();
+    osc.type=v==='retro'?'square':(v==='matrix'?'sawtooth':'sine');
+    const vol=(v==='soft'?0.16:0.055)*(o.vol||1);
+    osc.frequency.setValueAtTime(f*mult,t0);
+    if(o.to) osc.frequency.exponentialRampToValueAtTime(o.to*mult,t0+d);
+    flt.type='lowpass'; flt.frequency.value=v==='soft'?5000:3200;
+    g.gain.setValueAtTime(0.0001,t0);
+    g.gain.exponentialRampToValueAtTime(vol,t0+0.006);
+    g.gain.exponentialRampToValueAtTime(0.0001,t0+d);
+    osc.connect(flt); flt.connect(g); g.connect(c.destination);
+    osc.start(t0); osc.stop(t0+d+0.03);
+  }
+  const FX={
+    click(){ tone(700,.05,{to:520,vol:.9}); },
+    key(){ const n=Date.now(); if(n-lastKey<45) return; lastKey=n; tone(1500+Math.random()*400,.025,{vol:.45}); },
+    add(){ tone(520,.07); tone(780,.1,{at:.06}); },
+    remove(){ tone(640,.07); tone(400,.11,{at:.06}); },
+    save(){ [523.25,659.25,783.99,1046.5].forEach((f,i)=>tone(f,.2,{at:i*.075})); },
+    copy(){ tone(950,.04); tone(1250,.06,{at:.05}); },
+    warn(){ tone(330,.1,{to:250}); },
+    sweep(){ tone(300,.18,{to:900,vol:.9}); },
+    toggle(){ tone(480,.04,{vol:.7}); },
+    open(){ tone(560,.05,{to:760,vol:.7}); },
+    close(){ tone(700,.05,{to:480,vol:.6}); },
+    result(){ [659.25,880,1318.5].forEach((f,i)=>tone(f,.28,{at:i*.09,vol:1.1})); },
+    fail(){ tone(392,.14,{vol:1.1}); tone(311,.24,{at:.13,vol:1.1}); }
+  };
+  return {
+    play(name){ if(!on) return; const f=FX[name]; if(f) f(); },
+    isOn(){ return on; },
+    set(v){ on=v; try{ localStorage.setItem('mdd-lab-sound-v1',v?'on':'off'); }catch(e){} }
+  };
+})();
+['pointerdown','keydown'].forEach(ev=>document.addEventListener(ev,()=>{ App.acted=true; },{capture:true,once:true}));
+document.addEventListener('toggle',e=>{ if(e.target&&e.target.tagName==='DETAILS') Snd.play('toggle'); },true);
+// Enter (or Next on a phone keyboard) moves down the same column, like a spreadsheet
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Enter'||e.isComposing) return;
+  const t=e.target; if(!t||t.tagName!=='INPUT') return;
+  const td=t.closest('td'); if(!td) return;
+  e.preventDefault();
+  const idx=Array.prototype.indexOf.call(td.parentElement.cells,td);
+  let tr=td.parentElement.nextElementSibling;
+  const go=inp=>{ inp.focus(); try{ inp.select(); }catch(err){} };
+  while(tr){ const c=tr.cells[idx], inp=c&&c.querySelector('input'); if(inp){ go(inp); return; } tr=tr.nextElementSibling; }
+  // column-per-test tables: after the last row, carry on at the top of the next test
+  const table=td.closest('table');
+  if(table&&table.classList.contains('tx')){
+    for(const row of table.tBodies[0].rows){ const c=row.cells[idx+1], inp=c&&c.querySelector('input'); if(inp){ go(inp); return; } }
+  }
+  t.blur();
+});
+function stamp(){ return new Date().toLocaleTimeString('en-AU',{hour:'numeric',minute:'2-digit'}); }
+
+/* Top-to-bottom table: one column per record (test, point or tin), one row per field. */
+function txBuild(table,o){
+  let h='<colgroup><col style="width:'+o.labW+'px">'+('<col style="width:'+o.colW+'px">').repeat(o.n)+'</colgroup>';
+  h+='<thead><tr><th class="rl corner" scope="col">'+o.corner+'</th>';
+  for(let i=0;i<o.n;i++) h+='<th class="tc" scope="col">'+o.head(i)+'</th>';
+  h+='</tr></thead><tbody>';
+  o.rows.forEach(r=>{
+    const cls=[r.cls||'',r.sep?'sep':''].join(' ').trim();
+    h+='<tr'+(cls?' class="'+cls+'"':'')+'><th class="rl" scope="row">'+(r.tag?'<span class="gtag">'+r.tag+'</span>':'')+r.label+(r.unit?'<small>'+r.unit+'</small>':'')+'</th>';
+    for(let i=0;i<o.n;i++) h+=r.cell(i);
+    h+='</tr>';
+  });
+  table.classList.add('tx');
+  table.innerHTML=h+'</tbody>';
+  table.style.width=(o.labW+o.n*o.colW)+'px';
+  tagCols(table);
+}
+
+/* Visible scroll bar for a sideways-scrolling table: arrows, draggable thumb, tap-to-jump track,
+   and a readout of which columns are in view. Phones hide native scroll bars, so this is drawn by the page. */
+function attachHBar(sc,o){
+  const bar=document.createElement('div'); bar.className='hbar'; bar.hidden=true;
+  const chev=d=>'<svg viewBox="0 0 24 24"><path d="'+d+'"/></svg>';
+  bar.innerHTML='<button type="button" class="hb-btn" aria-label="Scroll '+o.unit.toLowerCase()+' left">'+chev('M15 6l-6 6 6 6')+'</button>'
+    +'<div class="hb-track" aria-hidden="true"><div class="hb-thumb"></div></div>'
+    +'<button type="button" class="hb-btn" aria-label="Scroll '+o.unit.toLowerCase()+' right">'+chev('M9 6l6 6-6 6')+'</button>'
+    +'<span class="hb-info" aria-live="polite"></span>';
+  sc.after(bar);
+  const bl=bar.children[0], track=bar.children[1], thumb=track.firstChild, br=bar.children[2], info=bar.children[3];
+  function upd(){
+    const sw=sc.scrollWidth, cw=sc.clientWidth, max=sw-cw;
+    bar.hidden=!(max>1); if(bar.hidden) return;
+    const tw=track.clientWidth, th=Math.max(30,Math.min(tw,tw*cw/sw)), x=(tw-th)*Math.min(1,Math.max(0,sc.scrollLeft/max));
+    thumb.style.width=th+'px'; thumb.style.transform='translateX('+x.toFixed(1)+'px)';
+    bl.disabled=sc.scrollLeft<=1; br.disabled=sc.scrollLeft>=max-1;
+    const n=o.count();
+    // a column counts as in view once at least half of it shows beside the row labels
+    const first=Math.min(n,Math.round(sc.scrollLeft/o.colW)+1);
+    const last=Math.max(first,Math.min(n,Math.floor((sc.scrollLeft+cw-o.labW-o.colW/2)/o.colW)+1));
+    info.textContent=o.unit+' '+(first===last?first:first+'–'+last)+' of '+n;
+  }
+  const go=(left,smooth)=>sc.scrollTo({left:Math.max(0,left),behavior:smooth&&!reduceMotion?'smooth':'auto'});
+  const step=d=>{ go((Math.round(sc.scrollLeft/o.colW)+d)*o.colW,true); Snd.play('toggle'); };
+  bl.addEventListener('click',()=>step(-1));
+  br.addEventListener('click',()=>step(1));
+  let drag=null;
+  thumb.addEventListener('pointerdown',e=>{ e.preventDefault(); e.stopPropagation(); drag={x:e.clientX,s:sc.scrollLeft}; try{ thumb.setPointerCapture(e.pointerId); }catch(err){} bar.classList.add('dragging'); });
+  thumb.addEventListener('pointermove',e=>{
+    if(!drag) return;
+    const max=sc.scrollWidth-sc.clientWidth, room=Math.max(1,track.clientWidth-thumb.offsetWidth);
+    sc.scrollLeft=drag.s+(e.clientX-drag.x)*max/room;
+  });
+  const end=()=>{ if(drag){ drag=null; bar.classList.remove('dragging'); } };
+  thumb.addEventListener('pointerup',end); thumb.addEventListener('pointercancel',end); thumb.addEventListener('lostpointercapture',end);
+  track.addEventListener('pointerdown',e=>{
+    if(e.target===thumb) return;
+    const r=track.getBoundingClientRect(), th=thumb.offsetWidth, max=sc.scrollWidth-sc.clientWidth;
+    go(Math.min(1,Math.max(0,(e.clientX-r.left-th/2)/Math.max(1,r.width-th)))*max,true);
+  });
+  sc.addEventListener('scroll',upd,{passive:true});
+  if('ResizeObserver' in window){ const ro=new ResizeObserver(upd); ro.observe(sc); const t=sc.querySelector('table'); if(t) ro.observe(t); }
+  window.addEventListener('resize',upd);
+  upd();
+  return upd;
+}
+
+/* ======================= INTEGRATION (shared) ======================= */
+/* Each program gives its own groups of values; a target is another system the values are laid out for.
+   To support another soil-testing program later, add it to TARGETS and return its field layout from groupsFor. */
+const Integration=(function(){
+  const TARGETS=[{id:'boss',name:'thebossapp'}];
+  function copyText(text,msg){
+    const done=()=>{ toast(msg||'Copied'); Snd.play('copy'); };
+    const fb=()=>{ try{ const ta=document.createElement('textarea'); ta.value=text; ta.setAttribute('readonly',''); ta.style.cssText='position:fixed;top:0;left:0;opacity:0';
+      document.body.appendChild(ta); ta.select(); const ok=document.execCommand('copy'); document.body.removeChild(ta);
+      if(ok) done(); else toast('Copy was blocked. Select the value and copy it.'); }catch(e){ toast('Copy was blocked'); } };
+    try{ if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done,fb); else fb(); }catch(e){ fb(); }
+  }
+  function make(rootId,groupsFor){
+    const root=document.getElementById(rootId); if(!root) return {render(){}};
+    let target=TARGETS[0].id, sig=null;
+    root.innerHTML='<div class="int-top"><label for="'+rootId+'-t">Send to</label><select id="'+rootId+'-t">'
+      +TARGETS.map(t=>'<option value="'+t.id+'">'+esc(t.name)+'</option>').join('')+'</select></div><div class="int-body"></div>';
+    const body=root.querySelector('.int-body'), sel=root.querySelector('select');
+    sel.addEventListener('change',()=>{ target=sel.value; sig=null; render(lastCtx); });
+    let lastCtx=null;
+    function render(ctx){
+      lastCtx=ctx;
+      const g=groupsFor(target,ctx); if(!g) return;
+      const s=target+'|'+(g.note||'')+'|'+g.groups.map(x=>x.title+'~'+(x.xkey||'')+'~'+x.items.map(i=>i.label).join(',')).join('#');
+      if(s!==sig){
+        sig=s;
+        body.innerHTML=(g.note?'<p class="int-note">'+esc(g.note)+'</p>':'')+g.groups.map(x=>
+          '<div class="igrp"><div class="ig-h"><h3>'+esc(x.title)+'</h3><span class="gs">'+esc(x.sub||'')+'</span>'
+          +'<button type="button" class="slim" data-icopyall>Copy all</button></div>'
+          +(x.extra?'<div class="ig-x">'+x.extra+'</div>':'')
+          +'<div class="ig-b">'+x.items.map(i=>'<button type="button" class="iv" data-icopy><span class="il">'+esc(i.label)+'</span><span class="ivv"></span></button>').join('')+'</div></div>').join('');
+      }
+      // extra inputs follow the page state (only touched when different, so typing is never disturbed)
+      const gEls=body.querySelectorAll('.igrp'); g.groups.forEach((x,gi)=>{ if(x.fill&&gEls[gi]) x.fill(gEls[gi]); });
+      const btns=body.querySelectorAll('.iv'); let k=0;
+      g.groups.forEach(x=>x.items.forEach(i=>{
+        const b=btns[k++]; if(!b) return; const v=i.val==null?'':String(i.val).trim();
+        b.dataset.v=v; b.querySelector('.ivv').textContent=v===''?'–':v; b.disabled=v===''; b.classList.toggle('empty',v==='');
+      }));
+    }
+    return {render};
+  }
+  document.addEventListener('click',e=>{
+    const b=e.target.closest&&e.target.closest('button'); if(!b) return;
+    if(b.hasAttribute('data-icopy')){ if(b.dataset.v) copyText(b.dataset.v,'Copied '+b.dataset.v); }
+    else if(b.hasAttribute('data-icopyall')){
+      const grp=b.closest('.igrp'); const lines=[];
+      grp.querySelectorAll('.iv').forEach(x=>{ if(x.dataset.v) lines.push(x.querySelector('.il').textContent+': '+x.dataset.v); });
+      if(lines.length) copyText(lines.join('\n'),'Copied '+lines.length+' values'); else toast('Nothing to copy yet');
+    }
+  });
+  return {make,copyText};
+})();
+
+/* ======================= LAB COMPACTION ======================= */
+(function(){
+  const LS_DRAFT='mdd-lab-draft-v1', LS_SAVED='mdd-lab-tests-v1';
+  const MAXPT=10, MINPT=3;
+  const f=fx;
+  const g=v=>v===null||v===undefined?'–':String(+v.toFixed(1));
+
+  function blank(){
+    return {example:false, savedId:null,
+      meta:{job:'',sample:'',date:today(),by:'',method:'std',vol:'1000',mass:'',batch:'',estomc:'',step:'2'},
+      nat:{id:'',wet:'',dry:'',tare:''},
+      add:['','','','',''],
+      ms:['','','','',''],
+      tins:[1,2,3,4,5].map(p=>({pt:p,id:'',wet:'',dry:'',tare:''}))};
+  }
+  function example(){
+    return {example:true, savedId:null,
+      meta:{job:'Example: subgrade, Lot 4',sample:'S-0142',date:today(),by:'',method:'std',vol:'1000',mass:'4210',batch:'2500',estomc:'11.5',step:'2'},
+      nat:{id:'N01',wet:'219.3',dry:'211.5',tare:'21.5'},
+      add:['3.5','5.5','7.5','9.5','11.5'],
+      ms:['6168','6280','6364','6351','6312'],
+      tins:[
+        {pt:1,id:'A12',wet:'217.2',dry:'203.4',tare:'21.4'},
+        {pt:2,id:'A07',wet:'215.3',dry:'198.5',tare:'22.0'},
+        {pt:3,id:'B03',wet:'234.1',dry:'212.0',tare:'21.8'},
+        {pt:4,id:'B15',wet:'213.6',dry:'190.7',tare:'22.3'},
+        {pt:5,id:'C09',wet:'219.1',dry:'192.6',tare:'21.6'}]};
+  }
+  function valid(s){ return s&&s.meta&&Array.isArray(s.ms)&&Array.isArray(s.tins)&&s.ms.length>=MINPT&&s.tins.length>=1; }
+  function fix(s){
+    if(!s.nat) s.nat={id:'',wet:'',dry:'',tare:''};
+    if(s.meta.batch===undefined){ const old=Array.isArray(s.bw)?s.bw.find(v=>String(v==null?'':v).trim()!==''):''; s.meta.batch=old||''; }
+    if(s.meta.estomc===undefined) s.meta.estomc='';
+    if(s.meta.step===undefined) s.meta.step='2';
+    delete s.bw;
+    if(!Array.isArray(s.add)) s.add=[];
+    while(s.add.length<s.ms.length) s.add.push(''); s.add.length=s.ms.length;
+    return s;
+  }
+
+  let state=readLS(LS_DRAFT);
+  state=valid(state)?fix(state):example();
+  App.compaction={state:()=>state};
+  let lastChart=null, lastW=0, resKey=null, chimeT=null;
+
+  const METHOD={std:'Standard (AS 1289.5.1.1)',mod:'Modified (AS 1289.5.2.1)'};
+
+  /* ---------- tables ---------- */
+  /* ---------- tables, read top to bottom: one column per point / tin ---------- */
+  const LABW=118, PCOLW=82, TCOLW=82;
+  const inp=(id,data,label,val,extra)=>'<td><input id="'+id+'" '+data+' autocomplete="off" aria-label="'+label+'" value="'+esc(val)+'"'+(extra||' inputmode="decimal"')+'></td>';
+  const calc=(id,cls)=>'<td class="calc'+(cls?' '+cls:'')+'" id="'+id+'"></td>';
+  function buildComp(){
+    const P=i=>'Point '+(i+1);
+    txBuild($('comp-table'),{n:state.ms.length,labW:LABW,colW:PCOLW,corner:'Point',
+      head:i=>'<span class="tn">'+(i+1)+'</span>',
+      rows:[
+        {tag:'Mixing',label:'Added',unit:'%',cell:i=>inp('padd-'+i,'data-add="'+i+'"',P(i)+' moisture to add, percent',state.add[i])},
+        {label:'Water to add',unit:'g',cell:i=>calc('pwa-'+i,'res')},
+        {tag:'Mould',label:'Mould + wet soil',unit:'g',sep:true,cell:i=>inp('ms-'+i,'data-ms="'+i+'"',P(i)+' mould plus wet soil mass, grams',state.ms[i])},
+        {label:'Wet density',unit:'t/m³',cell:i=>calc('rho-'+i)},
+        {tag:'Result',label:'Moisture',unit:'%',sep:true,cell:i=>calc('w-'+i)},
+        {label:'Dry density',unit:'t/m³',cell:i=>calc('rd-'+i,'res')}]});
+  }
+  function buildMoist(){
+    const T=i=>'Tin '+(i+1);
+    txBuild($('moist-table'),{n:state.tins.length,labW:LABW,colW:TCOLW,corner:'Tin',
+      head:i=>'<span class="tn">'+(i+1)+'</span><small id="mt-h-'+i+'"></small><button type="button" class="x" data-act="rm-tin" data-i="'+i+'" aria-label="Remove tin '+(i+1)+'">×</button>',
+      rows:[
+        {label:'Point',cell:i=>{ let o=''; for(let p=1;p<=state.ms.length;p++) o+='<option value="'+p+'"'+(+state.tins[i].pt===p?' selected':'')+'>'+p+'</option>';
+          return '<td><select id="mt-'+i+'-pt" data-tin="'+i+'.pt" aria-label="'+T(i)+' point number">'+o+'</select></td>'; }},
+        {label:'Tin no.',cell:i=>inp('mt-'+i+'-id','class="txt" data-tin="'+i+'.id"',T(i)+' tin number',state.tins[i].id,' type="text"')},
+        {label:'Tin wt',unit:'g',sep:true,cell:i=>inp('mt-'+i+'-tare','data-tin="'+i+'.tare"',T(i)+' tin mass, grams',state.tins[i].tare)},
+        {label:'Tin + wet',unit:'g',cell:i=>inp('mt-'+i+'-wet','data-tin="'+i+'.wet"',T(i)+' tin plus wet soil, grams',state.tins[i].wet)},
+        {label:'Tin + dry',unit:'g',cell:i=>inp('mt-'+i+'-dry','data-tin="'+i+'.dry"',T(i)+' tin plus dry soil, grams',state.tins[i].dry)},
+        {label:'Water',unit:'g',sep:true,cell:i=>calc('mwa-'+i)},
+        {label:'Dry soil',unit:'g',cell:i=>calc('mso-'+i)},
+        {label:'Moisture',unit:'%',cell:i=>calc('mw-'+i,'res')}]});
+  }
+  function buildNat(){
+    const t=state.nat, S='Sample moisture';
+    txBuild($('nat-table'),{n:1,labW:LABW,colW:120,corner:'Sample',
+      head:()=>'<span class="tn">Tin</span>',
+      rows:[
+        {label:'Tin no.',cell:()=>inp('nat-id','class="txt" data-nat="id"',S+' tin number',t.id,' type="text"')},
+        {label:'Tin wt',unit:'g',sep:true,cell:()=>inp('nat-tare','data-nat="tare"',S+' tin mass, grams',t.tare)},
+        {label:'Tin + wet',unit:'g',cell:()=>inp('nat-wet','data-nat="wet"',S+' tin plus wet soil, grams',t.wet)},
+        {label:'Tin + dry',unit:'g',cell:()=>inp('nat-dry','data-nat="dry"',S+' tin plus dry soil, grams',t.dry)},
+        {label:'Water',unit:'g',sep:true,cell:()=>calc('nat-water')},
+        {label:'Dry soil',unit:'g',cell:()=>calc('nat-soil')},
+        {label:'Moisture',unit:'%',cell:()=>calc('nat-w','res')}]});
+    $('nat-table').classList.add('single');
+  }
+  function fillMeta(){
+    const m=state.meta;
+    ['job','sample','date','by','method','vol','mass','batch','estomc','step'].forEach(k=>{ $('meta-'+k).value=m[k]==null?'':m[k]; });
+  }
+
+  /* ---------- chart ---------- */
+  function drawChart(c){
+    const box=$('chart');
+    lastChart=c;
+    if(!c||!c.pts.length){ box.innerHTML='<div class="empty">Enter mould and moisture readings to plot the curve.</div>'; return; }
+    const W=Math.max(280,Math.floor(box.clientWidth||320)); lastW=W;
+    const H=Math.min(420,Math.max(270,Math.round(W*0.74)));
+    const m={l:48,r:14,t:16,b:42};
+    const ws=c.pts.map(p=>p.w), ds=c.pts.map(p=>p.rd);
+    let xs=Math.floor(Math.min.apply(null,ws)-1), xe=Math.ceil(Math.max.apply(null,ws)+1);
+    if(xe-xs<4){ xs-=1; xe+=1; }
+    const xstep=Math.max(1,niceStep(xe-xs,8));
+    xs=Math.floor(xs/xstep)*xstep; xe=Math.ceil(xe/xstep)*xstep;
+    let ys=Math.floor((Math.min.apply(null,ds)-0.05)*20)/20, ye=Math.ceil((Math.max.apply(null,ds)+0.07)*20)/20;
+    const ystep=Math.max(0.05,niceStep(ye-ys,6));
+    ys=Math.floor(ys/ystep+1e-9)*ystep; ye=Math.ceil(ye/ystep-1e-9)*ystep;
+    const pw=W-m.l-m.r, ph=H-m.t-m.b;
+    const sx=x=>m.l+(x-xs)/(xe-xs)*pw, sy=y=>H-m.b-(y-ys)/(ye-ys)*ph;
+    let s='<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Compaction curve: dry density against moisture content">';
+    s+='<g class="ax">';
+    for(let i=0,nx=Math.min(40,Math.round((xe-xs)/xstep));i<=nx;i++){
+      const x=xs+i*xstep, px=sx(x).toFixed(1);
+      s+='<line class="gridline" x1="'+px+'" y1="'+m.t+'" x2="'+px+'" y2="'+(H-m.b)+'"/><text x="'+px+'" y="'+(H-m.b+16)+'" text-anchor="middle">'+x+'</text>';
+    }
+    for(let k=0,ny=Math.min(40,Math.round((ye-ys)/ystep));k<=ny;k++){
+      const y=ys+k*ystep, py=sy(y).toFixed(1);
+      s+='<line class="gridline" x1="'+m.l+'" y1="'+py+'" x2="'+(W-m.r)+'" y2="'+py+'"/><text x="'+(m.l-6)+'" y="'+(+py+4)+'" text-anchor="end">'+y.toFixed(2)+'</text>';
+    }
+    s+='<line class="axline" x1="'+m.l+'" y1="'+(H-m.b)+'" x2="'+(W-m.r)+'" y2="'+(H-m.b)+'"/><line class="axline" x1="'+m.l+'" y1="'+m.t+'" x2="'+m.l+'" y2="'+(H-m.b)+'"/>';
+    s+='<text class="title" x="'+(m.l+pw/2)+'" y="'+(H-6)+'" text-anchor="middle">Moisture content (%)</text>';
+    s+='<text class="title" transform="translate(12 '+(m.t+ph/2)+') rotate(-90)" text-anchor="middle">Dry density (t/m³)</text></g>';
+    const sorted=c.pts.slice().sort((a,b)=>a.w-b.w);
+    s+='<polyline class="conn" points="'+sorted.map(p=>sx(p.w).toFixed(1)+','+sy(p.rd).toFixed(1)).join(' ')+'"/>';
+    if(c.res&&c.res.q){
+      const q=c.res.q, a=c.res.set[0].w, b=c.res.set[c.res.set.length-1].w; let d=''; const N=48;
+      for(let i=0;i<=N;i++){ const w=a+(b-a)*i/N, t=w-q.xm; d+=(i?'L':'M')+sx(w).toFixed(1)+' '+sy(q.a*t*t+q.b*t+q.c).toFixed(1); }
+      s+='<path class="fit" d="'+d+'"/>';
+    }
+    if(c.res){
+      const px=sx(c.res.omc), py=sy(c.res.mdd);
+      s+='<line class="guide" x1="'+px.toFixed(1)+'" y1="'+py.toFixed(1)+'" x2="'+px.toFixed(1)+'" y2="'+(H-m.b)+'"/>';
+      s+='<line class="guide" x1="'+m.l+'" y1="'+py.toFixed(1)+'" x2="'+px.toFixed(1)+'" y2="'+py.toFixed(1)+'"/>';
+    }
+    c.pts.forEach(p=>{ s+='<circle class="ptc" cx="'+sx(p.w).toFixed(1)+'" cy="'+sy(p.rd).toFixed(1)+'" r="4.5"/>'; });
+    if(c.res){
+      const px=sx(c.res.omc), py=sy(c.res.mdd);
+      s+='<path class="peakmark" d="M'+px.toFixed(1)+' '+(py-7).toFixed(1)+' L'+(px+6).toFixed(1)+' '+py.toFixed(1)+' L'+px.toFixed(1)+' '+(py+7).toFixed(1)+' L'+(px-6).toFixed(1)+' '+py.toFixed(1)+' Z"/>';
+      const lx=Math.min(Math.max(px,m.l+54),W-m.r-54);
+      s+='<text class="lbl" x="'+lx.toFixed(1)+'" y="'+Math.max(py-14,m.t+10).toFixed(1)+'" text-anchor="middle">MDD '+c.res.mdd.toFixed(2)+'</text>';
+      const ox=Math.min(Math.max(px,m.l+34),W-m.r-34);
+      s+='<text class="lbl" x="'+ox.toFixed(1)+'" y="'+(H-m.b-7)+'" text-anchor="middle">OMC '+c.res.omc.toFixed(1)+'%</text>';
+    }
+    s+='</svg>';
+    box.innerHTML=s;
+  }
+
+  /* ---------- update ---------- */
+  let lastCompute=null;
+  const CInt=Integration.make('c-int',(target,c)=>{
+    const mt=state.meta, ddmmyyyy=iso=>{ const p=String(iso||'').split('-'); return p.length===3?p[2]+'/'+p[1]+'/'+p[0]:''; };
+    const f1=v=>v===null||v===undefined?'':(Math.round(v*10)/10).toFixed(1);
+    const groups=[];
+    groups.push({title:'Worksheet header',sub:'Top of the TF1 worksheet',xkey:'h',items:[
+      {label:'Sample number',val:mt.sample},{label:'Date tested',val:ddmmyyyy(mt.date)},{label:'Tested by',val:mt.by}]});
+    groups.push({title:'Mould',sub:'Same for every point',xkey:'m',items:[
+      {label:'Mass of mould (g)',val:mt.mass},{label:'Volume of mould (cm³)',val:mt.vol}]});
+    groups.push({title:'Field moisture',sub:'The single-tin sample moisture',xkey:'n',items:[
+      {label:'Container number',val:state.nat.id},{label:'Tin weight (g)',val:state.nat.tare},
+      {label:'Wet mass (g)',val:state.nat.wet},{label:'Dry mass (g)',val:state.nat.dry}]});
+    c.points.forEach((p,i)=>{
+      groups.push({title:'Point '+(i+1),sub:'Mass of sample, water and mould',xkey:'p'+i,items:[
+        {label:'Mass of sample (g)',val:mt.batch},{label:'Water added (%)',val:state.add[i]},
+        {label:'Water added (g)',val:f1(p.water)},{label:'Mass of mould and wet soil (g)',val:state.ms[i]}]});
+    });
+    state.tins.forEach((t,i)=>{
+      groups.push({title:'Tin '+(i+1)+(t.id?' · '+t.id:''),sub:'Point '+t.pt+' moisture',xkey:'t'+i,items:[
+        {label:'Container number',val:t.id},{label:'Tin weight (g)',val:t.tare},{label:'Wet mass (g)',val:t.wet},{label:'Dry mass (g)',val:t.dry}]});
+    });
+    return {note:'Laid out in the order of the thebossapp TF1 worksheet. Tap a value to copy it, or Copy all for the whole group. Equipment, material description and the other dropdowns stay in thebossapp. Wet and dry mass are tin plus soil, as weighed.',groups};
+  });
+  function update(){
+    const c=compute(state); CInt.render(c);
+    $('pt-count').textContent=state.ms.length+' points';
+    $('tin-count').textContent=state.tins.length+(state.tins.length===1?' tin':' tins');
+    $('wbasis').textContent=c.nat.w!==null?('Uses the sample moisture content of '+c.nat.w.toFixed(1)+'%. 1 g of water is 1 mL.'):'No sample moisture content yet, so the batch is treated as dry soil. 1 g of water is 1 mL.';
+    c.points.forEach((p,i)=>{
+      $('pwa-'+i).innerHTML=p.water===null?'–':Math.round(p.water)+(p.target!==null?'<small class="src tg">→ '+p.target.toFixed(1)+'%</small>':'');
+      $('rho-'+i).textContent=f(p.rho,3);
+      const wc=$('w-'+i);
+      wc.innerHTML=p.w===null?'–':f(p.w,1)+(p.n>1?'<small class="src">'+p.n+' tins</small>':'');
+      wc.classList.toggle('bad',p.off!==null&&Math.abs(p.off)>=1.5);
+      const rc=$('rd-'+i); rc.textContent=p.odd?'check':f(p.rd,3); rc.classList.toggle('bad',p.odd);
+    });
+    // totals strip under the table
+    { const bw=num(state.meta.batch), n=state.ms.length, tw=c.points.reduce((a,p)=>a+(p.water||0),0), any=c.points.some(p=>p.water!==null);
+      let ft='';
+      if(bw===null) ft='Enter the batch per point in the mix plan to work out the water.';
+      else{
+        ft='<span>Total water <b>'+(any?Math.round(tw).toLocaleString('en-AU')+' g':'–')+'</b></span>';
+        ft+='<span>Soil needed <b>'+(+(bw*n/1000).toFixed(2))+' kg</b> ('+n+' × '+(+bw.toFixed(0))+' g)</span>';
+      }
+      $('comp-foot').innerHTML=ft; }
+    // mix plan preview
+    { const est=num(state.meta.estomc), step=num(state.meta.step), n=state.ms.length;
+      let ph='';
+      if(est!==null){
+        const st=step===null?2:step, tg=[]; for(let i=0;i<n;i++) tg.push(+(est+(i-(n-1)/2)*st).toFixed(1));
+        ph=(n===5?'Five':n)+' points centred on '+est+'%: '+tg.slice(0,-1).join(', ')+' and '+tg[tg.length-1]+'%.';
+        if(c.nat.w===null) ph+=' Enter the sample moisture to fill the added %.';
+        else if(tg[0]<c.nat.w) ph+=' The driest target is below the sample moisture, so that point needs air-drying first.';
+      }else ph='Enter an estimated OMC to spread the points either side of it.';
+      $('plan-hint').textContent=ph; }
+    // status chips and the hand-off to FDN
+    { const ch=(cls,t)=>'<span class="chip '+cls+'">'+t+'</span>';
+      let sh='';
+      if(c.res) sh=(c.res.edge?ch('fail','Peak not bracketed'):ch('pass','Peak bracketed'))+' '+ch('na',c.pts.length+' points');
+      else sh=ch('na',c.pts.length?'Needs 3 points':'No points yet');
+      $('c-status').innerHTML=sh; $('btn-to-fdn').hidden=!c.res; }
+    state.tins.forEach((t,i)=>{ const h=$('mt-h-'+i); if(h) h.textContent='Pt '+t.pt+(String(t.id||'').trim()?' · '+String(t.id).trim():''); });
+    c.rows.forEach((r,i)=>{
+      $('mwa-'+i).textContent=g(r.water);
+      $('mso-'+i).textContent=g(r.soil);
+      const cell=$('mw-'+i);
+      cell.textContent=r.bad?'check':f(r.w,1);
+      cell.classList.toggle('bad',r.bad);
+    });
+    $('nat-water').textContent=g(c.nat.water);
+    $('nat-soil').textContent=g(c.nat.soil);
+    $('nat-w').textContent=c.nat.bad?'check':f(c.nat.w,1);
+    $('nat-w').classList.toggle('bad',c.nat.bad);
+    const mt=state.meta;
+    $('r-id').textContent=(mt.sample||'Untitled sample')+(mt.job?' · '+mt.job:'');
+    $('r-sub').textContent=[METHOD[mt.method]||'',fmtDate(mt.date),mt.by?('Tested by '+mt.by):''].filter(Boolean).join(' · ');
+    if(c.res){
+      $('k-mdd').innerHTML=c.res.mdd.toFixed(2)+'<span class="u">t/m³</span>';
+      $('k-omc').innerHTML=roundHalf(c.res.omc).toFixed(1)+'<span class="u">%</span>';
+      $('k-mdd-sub').textContent='Peak of the curve, '+Math.round(c.res.mdd*1000)+' kg/m³';
+      $('k-omc-sub').textContent='To nearest 0.5. Unrounded '+c.res.omc.toFixed(1)+'%';
+    }else{
+      $('k-mdd').textContent='–'; $('k-omc').textContent='–';
+      $('k-mdd-sub').textContent='Needs three points with density and moisture';
+      $('k-omc-sub').textContent='%, to nearest 0.5';
+    }
+    const fl=[];
+    if(c.nat.w===null&&c.points.some(p=>p.water!==null)) fl.push(['','Water to add is worked out on the batch as dry soil. Enter the sample moisture content to correct for the natural moisture.']);
+    if(c.nat.bad) fl.push(['bad','Sample moisture: tin + dry must be heavier than the tin, and tin + wet must not be lighter than tin + dry.']);
+    c.rows.forEach((r,i)=>{ if(r.bad) fl.push(['bad','Tin '+(i+1)+': tin + dry must be heavier than the tin, and tin + wet must not be lighter than tin + dry.']); });
+    c.points.forEach((p,i)=>{
+      if(p.odd) fl.push(['bad','Point '+(i+1)+' has a dry density that cannot be right, so it is left off the curve. Check the mould + wet soil mass and the moisture content.']);
+      if(p.ms!==null&&p.w===null) fl.push(['','Point '+(i+1)+' has a mass but no moisture content yet.']);
+      if(p.ms!==null&&p.rho===null&&c.mass!==null) fl.push(['bad','Point '+(i+1)+': mould + wet soil must be heavier than the empty mould.']);
+      if(p.rho!==null&&!p.odd&&(p.rho<1.0||p.rho>2.8)) fl.push(['','Point '+(i+1)+' has a wet density of '+p.rho.toFixed(3)+' t/m³, which is unusual. Check the mould mass and volume.']);
+      if(p.off!==null&&Math.abs(p.off)>=1.5) fl.push(['','Point '+(i+1)+' came out at '+p.w.toFixed(1)+'%, '+Math.abs(p.off).toFixed(1)+'% '+(p.off>0?'wetter':'drier')+' than its '+p.target.toFixed(1)+'% target.']);
+    });
+    if(c.res&&!c.res.edge){
+      const dry=c.pts.filter(p=>p.w<c.res.omc).length, wet=c.pts.filter(p=>p.w>c.res.omc).length;
+      if(dry<2||wet<2) fl.push(['','Only one point is '+(dry<2?'dry':'wet')+' of the peak. Another point on that side would firm up the curve.']);
+    }
+    if(c.res&&c.res.edge) fl.push(['','The highest dry density is the '+(c.res.edge==='dry'?'driest':'wettest')+' point, so the peak is not bracketed. Add a point on the '+c.res.edge+' side. The highest measured point is reported for now.']);
+    else if(c.res&&c.res.method==='max') fl.push(['','A curve could not be fitted around the peak, so the highest measured point is reported.']);
+    if(c.pts.length>0&&c.pts.length<5) fl.push(['','Fewer than five points. Five or more gives a better defined peak.']);
+    $('flags').innerHTML=fl.map(x=>'<li class="'+x[0]+'">'+esc(x[1])+'</li>').join('');
+    drawChart(c);
+    lastCompute=c;
+    const rk=c.res?(c.res.mdd.toFixed(2)+'|'+roundHalf(c.res.omc)):'';
+    if(rk!==resKey){
+      resKey=rk;
+      if(rk&&App.acted){ clearTimeout(chimeT); chimeT=setTimeout(()=>Snd.play('result'),650); }
+    }
+  }
+
+  /* ---------- persistence ---------- */
+  let draftTimer=null;
+  function scheduleDraft(){ clearTimeout(draftTimer); draftTimer=setTimeout(()=>{ if(writeLS(LS_DRAFT,state)) $('c-draftnote').textContent='Draft autosaved at '+stamp(); },400); }
+  function refresh(){ update(); scheduleDraft(); }
+  function getSaved(){ const v=readLS(LS_SAVED); return Array.isArray(v)?v:[]; }
+
+  function renderSaved(){
+    const list=getSaved();
+    setBtnLabel($('btn-saved'),'Saved'+(list.length?' ('+list.length+')':''));
+    if(!list.length){ $('savedlist').innerHTML='<li><span class="muted small">Nothing saved yet. Tap Save to keep this test.</span></li>'; return; }
+    $('savedlist').innerHTML=list.slice().sort((a,b)=>b.savedAt-a.savedAt).map(it=>{
+      const c=compute(it.data);
+      const bits=[(METHOD[it.data.meta.method]||'').split(' (')[0],fmtDate(it.data.meta.date),c.res?('MDD '+c.res.mdd.toFixed(2)+' · OMC '+roundHalf(c.res.omc).toFixed(1)+'%'):'No result yet'].filter(Boolean).join(' · ');
+      return '<li><div class="si"><strong>'+esc(it.data.meta.sample||'Untitled sample')+'</strong><span>'+esc(bits)+'</span></div>'
+        +'<div class="sa"><button type="button" data-act="load" data-id="'+esc(it.id)+'">Load</button>'
+        +'<button type="button" data-act="del" data-id="'+esc(it.id)+'">Delete</button></div></li>';
+    }).join('');
+  }
+  function saveCurrent(){
+    const list=getSaved();
+    const snap=JSON.parse(JSON.stringify(state)); snap.example=false;
+    let id=state.savedId;
+    if(!id||!list.some(x=>x.id===id)) id=Date.now().toString(36);
+    snap.savedId=id; state.savedId=id; state.example=false; $('exbanner').hidden=true;
+    const idx=list.findIndex(x=>x.id===id);
+    const rec={id,savedAt:Date.now(),data:snap};
+    if(idx>=0) list[idx]=rec; else list.push(rec);
+    if(writeLS(LS_SAVED,list)){ writeLS(LS_DRAFT,state); renderSaved(); toast('Saved on this device'); Snd.play('save'); }
+    else{ toast('This browser would not let the page save'); Snd.play('warn'); }
+  }
+  function loadAll(s){
+    state=fix(s); buildNat(); buildComp(); buildMoist(); fillMeta(); $('exbanner').hidden=!state.example; update(); writeLS(LS_DRAFT,state);
+  }
+
+  /* ---------- summary ---------- */
+  function summary(){
+    const c=lastCompute||compute(state), mt=state.meta;
+    const L=[];
+    L.push('MDD compaction: '+(mt.sample||'Untitled sample'));
+    if(mt.job) L.push('Job: '+mt.job);
+    L.push((METHOD[mt.method]||'')+(mt.date?' · '+fmtDate(mt.date):'')+(mt.by?' · '+mt.by:''));
+    L.push('Mould '+(mt.vol||'?')+' cm³, '+(mt.mass||'?')+' g'+(mt.batch?' · Batch '+mt.batch+' g per point':''));
+    if(c.nat.w!==null) L.push('Sample moisture content '+c.nat.w.toFixed(1)+'%');
+    if(c.res) L.push('MDD '+c.res.mdd.toFixed(2)+' t/m³ · OMC '+roundHalf(c.res.omc).toFixed(1)+'% (unrounded '+c.res.omc.toFixed(1)+'%)'+(c.res.edge?' · peak not bracketed':''));
+    else L.push('MDD and OMC: not enough points yet');
+    L.push('');
+    L.push('Pt  Add %  Water g  Target  w %    Wet t/m³  Dry t/m³');
+    c.points.forEach((p,i)=>{ L.push(String(i+1).padEnd(4)+f(p.add,1).padEnd(7)+(p.water===null?'–':String(Math.round(p.water))).padEnd(9)+f(p.target,1).padEnd(8)+f(p.w,1).padEnd(7)+f(p.rho,3).padEnd(10)+f(p.rd,3)); });
+    return L.join('\n');
+  }
+  function doCopy(){
+    const text=summary();
+    const fallback=()=>{ const b=$('copybox'); $('copyfallback').hidden=false; b.value=text; b.focus(); b.select(); };
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(()=>{ $('copyfallback').hidden=true; toast('Summary copied'); Snd.play('copy'); },fallback);
+      }else fallback();
+    }catch(e){ fallback(); }
+  }
+
+  /* ---------- events ---------- */
+  function onEdit(e){
+    const t=e.target; if(!t||!t.dataset) return;
+    if(t.dataset.meta){ state.meta[t.dataset.meta]=t.value; }
+    else if(t.dataset.nat){ state.nat[t.dataset.nat]=t.value; }
+    else if(t.dataset.add!==undefined){ state.add[+t.dataset.add]=t.value; }
+    else if(t.dataset.ms!==undefined){ state.ms[+t.dataset.ms]=t.value; }
+    else if(t.dataset.tin){ const p=t.dataset.tin.split('.'); state.tins[+p[0]][p[1]]=(p[1]==='pt'?+t.value:t.value); }
+    else return;
+    if(e.type==='input'&&t.tagName==='INPUT') Snd.play('key');
+    else if(e.type==='change'&&t.tagName==='SELECT') Snd.play('click');
+    exampleOffC();
+    refresh();
+  }
+  function exampleOffC(){ if(state.example){ state.example=false; $('exbanner').hidden=true; } }
+  function toEnd(id){ requestAnimationFrame(()=>{ const s=$(id); if(s) s.scrollLeft=s.scrollWidth; }); }
+  document.addEventListener('input',onEdit);
+  document.addEventListener('change',onEdit);
+
+  let pendingNew=null, pendingDel=null;
+  document.addEventListener('click',e=>{
+    const b=e.target.closest&&e.target.closest('button[data-act]'); if(!b) return;
+    const act=b.dataset.act;
+    if(act.indexOf('f-')===0) return;
+    if(act==='new') Snd.play(pendingNew?'sweep':'warn');
+    else if(act==='del') Snd.play(pendingDel&&pendingDel.id===b.dataset.id?'remove':'warn');
+    else if(act==='add-pt'||act==='add-tin') Snd.play('add');
+    else if(act==='rm-pt'||act==='rm-tin') Snd.play('remove');
+    else if(act==='toggle-saved') Snd.play($('savedpanel').hidden?'open':'close');
+    else if(act!=='save'&&act!=='copy'&&act!=='plan'&&act!=='to-fdn') Snd.play('click');
+    if(act==='plan'){
+      const c=compute(state), est=num(state.meta.estomc), st0=num(state.meta.step), st=st0===null?2:st0, n=state.ms.length;
+      if(c.nat.w===null){ Snd.play('warn'); toast('Enter the sample moisture first'); return; }
+      if(est===null){ Snd.play('warn'); toast('Enter an estimated OMC'); $('meta-estomc').focus(); return; }
+      let low=0;
+      state.add=state.add.map((v,i)=>{ let a=roundHalf(est+(i-(n-1)/2)*st-c.nat.w); if(a<0){ low++; a=0; } return String(+a.toFixed(1)); });
+      exampleOffC(); buildComp(); refresh(); Snd.play('add');
+      toast(low?('Filled. '+low+(low===1?' point is':' points are')+' drier than the sample, so set to 0%'):'Filled added % for '+n+' points');
+      return;
+    }
+    if(act==='to-fdn'){
+      const c=lastCompute||compute(state);
+      if(!c.res||!App.fdn||!App.go) return;
+      App.fdn.useRef(c.res.mdd.toFixed(2), roundHalf(c.res.omc).toFixed(1), state.meta.sample||'');
+      Snd.play('sweep'); App.go('fdn');
+      toast('Sent MDD '+c.res.mdd.toFixed(2)+' and OMC '+roundHalf(c.res.omc).toFixed(1)+'% to the FDN test');
+      return;
+    }
+    if(act==='new'){
+      if(pendingNew){ clearTimeout(pendingNew); pendingNew=null; setBtnLabel(b,'New'); b.classList.remove('warn'); loadAll(blank()); toast('Started a new compaction'); }
+      else{ setBtnLabel(b,'Clear?'); b.classList.add('warn'); pendingNew=setTimeout(()=>{ pendingNew=null; setBtnLabel(b,'New'); b.classList.remove('warn'); },3000); }
+    }
+    else if(act==='save') saveCurrent();
+    else if(act==='toggle-saved'){ const p=$('savedpanel'); p.hidden=!p.hidden; if(!p.hidden) renderSaved(); }
+    else if(act==='copy') doCopy();
+    else if(act==='jump'){ const el=$(b.dataset.to); if(el) el.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'start'}); }
+    else if(act==='add-pt'){
+      if(state.ms.length>=MAXPT){ toast('Ten points is the limit'); return; }
+      state.ms.push(''); state.add.push('');
+      state.tins.push({pt:state.ms.length,id:'',wet:'',dry:'',tare:''});
+      buildComp(); buildMoist(); refresh(); toEnd('c-comp-scroll'); toEnd('c-tin-scroll');
+    }
+    else if(act==='rm-pt'){
+      if(state.ms.length<=MINPT){ toast('Keep at least three points'); return; }
+      state.ms.pop(); state.add.pop(); const n=state.ms.length;
+      // drop the removed point's empty tins; keep any with readings on the new last point
+      const blankTin=t=>!['id','wet','dry','tare'].some(k=>String(t[k]==null?'':t[k]).trim()!=='');
+      let moved=0;
+      state.tins=state.tins.filter(t=>!(+t.pt>n&&blankTin(t)));
+      state.tins.forEach(t=>{ if(+t.pt>n){ t.pt=n; moved++; } });
+      if(!state.tins.length) state.tins.push({pt:1,id:'',wet:'',dry:'',tare:''});
+      buildComp(); buildMoist(); refresh();
+      if(moved) toast('Moved '+moved+(moved===1?' tin':' tins')+' with readings to point '+n);
+    }
+    else if(act==='add-tin'){
+      const last=state.tins[state.tins.length-1];
+      state.tins.push({pt:last?+last.pt:1,id:'',wet:'',dry:'',tare:''});
+      buildMoist(); refresh(); toEnd('c-tin-scroll');
+      const el=$('mt-'+(state.tins.length-1)+'-id'); if(el) setTimeout(()=>el.focus({preventScroll:true}),30);
+    }
+    else if(act==='rm-tin'){
+      if(state.tins.length<=1){ toast('Keep at least one row'); return; }
+      state.tins.splice(+b.dataset.i,1); buildMoist(); refresh();
+    }
+    else if(act==='load'){
+      const it=getSaved().find(x=>x.id===b.dataset.id);
+      if(it){ const s=JSON.parse(JSON.stringify(it.data)); s.savedId=it.id; s.example=false; loadAll(s); toast('Loaded '+(s.meta.sample||'test')); window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'}); }
+    }
+    else if(act==='del'){
+      const id=b.dataset.id;
+      if(pendingDel&&pendingDel.id===id){
+        clearTimeout(pendingDel.t); pendingDel=null;
+        const list=getSaved().filter(x=>x.id!==id); writeLS(LS_SAVED,list);
+        if(state.savedId===id) state.savedId=null;
+        renderSaved(); toast('Deleted');
+      }else{
+        if(pendingDel){ clearTimeout(pendingDel.t); }
+        b.textContent='Delete?'; b.classList.add('warn');
+        pendingDel={id,t:setTimeout(()=>{ pendingDel=null; renderSaved(); },3000)};
+      }
+    }
+  });
+
+  if('ResizeObserver' in window){
+    new ResizeObserver(()=>{ const w=Math.floor($('chart').clientWidth||0); if(w&&w!==lastW&&lastChart) drawChart(lastChart); }).observe($('chart'));
+  }
+  App.onShow.compaction=()=>{ if(lastChart) drawChart(lastChart); };
+
+  if(!storageOK){ $('btn-save').hidden=true; $('btn-saved').hidden=true; $('c-draftnote').textContent='This browser will not keep a draft. Copy the summary before you close the page.'; }
+  buildNat(); buildComp(); buildMoist(); fillMeta();
+  attachHBar($('c-comp-scroll'),{unit:'Points',colW:PCOLW,labW:LABW,count:()=>state.ms.length});
+  attachHBar($('c-tin-scroll'),{unit:'Tins',colW:TCOLW,labW:LABW,count:()=>state.tins.length});
+  $('exbanner').hidden=!state.example;
+  renderSaved();
+  update();
+})();
+
+/* ======================= FDN TEST ======================= */
+(function(){
+  const LS_DRAFT='fdn-draft-v1', LS_SAVED='fdn-tests-v1', LS_XREF='fdn-xref-v1';
+  const MAXT=40, LABW=112, COLW=94;
+  const META=['job','date','by','material','gauge','depth','layer','dstd','mstd','mdd','omc','spec','ref'];
+  const TKEYS=['sid','fid','lot','time','loc1','loc2','loc3','loc4','wet','dry','gw','dc','mc','ow'];
+  const LOC_ROWS=[
+    {k:'fid',label:'Field ID',ph:'FD-101'},
+    {k:'lot',label:'Lot no.',ph:'4'},
+    {k:'time',label:'Time',type:'time'},
+    {k:'loc1',label:'Location 1',ph:'CH 1250'},
+    {k:'loc2',label:'Location 2',ph:'2.5 L'},
+    {k:'loc3',label:'Location 3',ph:'Layer 1'},
+    {k:'loc4',label:'Location 4',ph:''}];
+  const GAUGE_ROWS=[
+    {k:'wet',label:'Wet density',unit:'t/m³',im:'decimal'},
+    {k:'dry',label:'Dry density',unit:'t/m³',im:'decimal'},
+    {k:'gw',label:'Moisture',unit:'%',im:'decimal'},
+    {k:'dc',label:'Density count',unit:'',im:'numeric'},
+    {k:'mc',label:'Moisture count',unit:'',im:'numeric'},
+    {k:'ow',label:'Oven moisture',unit:'% · optional',im:'decimal',sep:true}];
+  const RES_ROWS=[
+    {k:'w',label:'Moisture used',unit:'%'},
+    {k:'dry',label:'Dry density',unit:'t/m³',res:true},
+    {k:'dr',label:'Density ratio',unit:'%',res:true,xr:true},
+    {k:'dv',label:'vs OMC',unit:'%',xr:true},
+    {k:'pass',label:'Result',xr:true,c:true}];
+  const emptyTest=()=>{ const o={}; TKEYS.forEach(k=>{ o[k]=''; }); return o; };
+  let xrefPref=true; try{ xrefPref=localStorage.getItem(LS_XREF)!=='off'; }catch(e){}
+
+  function blank(){
+    return {example:false, savedId:null,
+      meta:{job:'',date:today(),by:'',material:'',gauge:'',depth:'150',layer:'',dstd:'',mstd:'',mdd:'',omc:'',spec:'95',ref:'',xref:xrefPref},
+      tests:[emptyTest(),emptyTest(),emptyTest()]};
+  }
+  function example(){
+    let sn=0; const T=(fid,time,l1,l2,wet,dry,gw,dc,mc,ow)=>({sid:'S/00'+(1430+(sn++)),fid,lot:'4',time,loc1:l1,loc2:l2,loc3:'Layer 1',loc4:'',wet,dry,gw,dc,mc,ow:ow||''});
+    return {example:true, savedId:null,
+      meta:{job:'Example: subgrade, Lot 4',date:today(),by:'',material:'Subgrade',gauge:'38211',depth:'150',layer:'200',dstd:'2847',mstd:'681',mdd:'1.92',omc:'11.5',spec:'95',ref:'S-0142',xref:xrefPref},
+      tests:[
+        T('FD-101','08:40','CH 1250','2.5 L','2.112','1.913','10.4','1842','171'),
+        T('FD-102','08:52','CH 1300','1.0 R','2.085','1.875','11.2','1876','183'),
+        T('FD-103','09:05','CH 1350','3.0 L','2.046','1.822','12.3','1921','196'),
+        T('FD-104','09:17','CH 1400','0.5 R','2.130','1.921','10.9','1798','178'),
+        T('FD-105','09:29','CH 1450','2.0 L','2.098','1.911','9.8','1830','160'),
+        T('FD-106','09:41','CH 1500','1.5 R','2.071','1.856','11.6','1859','189','11.9')]};
+  }
+  function valid(s){ return s&&s.meta&&Array.isArray(s.tests)&&s.tests.length>=1; }
+  // also brings older sheets (one location box, one lot for the sheet) into the new shape
+  function fix(s){
+    const b=blank().meta; for(const k in b){ if(s.meta[k]===undefined) s.meta[k]=b[k]; }
+    const lot=s.meta.lot;
+    s.tests=s.tests.map(t=>{ const o=Object.assign(emptyTest(),t); if(t.loc!==undefined&&!o.loc1) o.loc1=t.loc; if(!o.lot&&lot) o.lot=lot; delete o.loc; return o; });
+    delete s.meta.lot;
+    s.meta.xref=s.meta.xref!==false;
+    return s;
+  }
+  const fixCopy=d=>fix(JSON.parse(JSON.stringify(d)));
+
+  let state=readLS(LS_DRAFT);
+  state=valid(state)?fix(state):example();
+  let lastC=null, lastXr=true, lastW=0, statKey=null, chimeT=null, pickCache=[];
+
+  function lotsText(tests){
+    const lots=[]; tests.forEach(t=>{ const v=String(t.lot||'').trim(); if(v&&lots.indexOf(v)<0) lots.push(v); });
+    return lots.length===0?'No lot yet':(lots.length===1?'Lot '+lots[0]:'Lots '+lots.join(', '));
+  }
+
+  /* ---------- tables: one column per test, read top to bottom ---------- */
+  function cols(){ return '<colgroup><col style="width:'+LABW+'px">'+('<col style="width:'+COLW+'px">').repeat(state.tests.length)+'</colgroup>'; }
+  function head(x,removable){
+    let h='<thead><tr><th class="rl corner" scope="col">Test</th>';
+    state.tests.forEach((t,i)=>{
+      h+='<th class="tc" scope="col"><span class="tn">'+(i+1)+'</span><small id="f-h'+x+'-'+i+'"></small>'
+        +(removable?'<button type="button" class="x" data-act="f-rm" data-i="'+i+'" aria-label="Remove test '+(i+1)+'">×</button>':'')+'</th>';
+    });
+    return h+'</tr></thead>';
+  }
+  function finish(id,h){ const t=$(id); t.innerHTML=h+'</tbody>'; t.style.width=(LABW+state.tests.length*COLW)+'px'; tagCols(t); }
+  function buildLoc(){
+    let h=cols()+head('l',true)+'<tbody>';
+    LOC_ROWS.forEach(r=>{
+      h+='<tr><th class="rl" scope="row">'+r.label+'</th>';
+      state.tests.forEach((t,i)=>{
+        h+='<td><input id="f-t-'+i+'-'+r.k+'" '+(r.type==='time'?'type="time" class="tm"':'type="text" class="txt"')+' data-ft="'+i+'.'+r.k+'" autocomplete="off"'
+          +' aria-label="Test '+(i+1)+' '+r.label.toLowerCase()+'"'+(r.ph&&i===0?' placeholder="'+esc(r.ph)+'"':'')+' value="'+esc(t[r.k])+'"></td>';
+      });
+      h+='</tr>';
+    });
+    finish('f-loc-table',h);
+  }
+  function buildGauge(){
+    let h=cols()+head('g',false)+'<tbody>';
+    GAUGE_ROWS.forEach(r=>{
+      h+='<tr'+(r.sep?' class="sep"':'')+'><th class="rl" scope="row">'+r.label+(r.unit?'<small>'+r.unit+'</small>':'')+'</th>';
+      state.tests.forEach((t,i)=>{
+        h+='<td><input id="f-t-'+i+'-'+r.k+'" data-ft="'+i+'.'+r.k+'" inputmode="'+r.im+'" autocomplete="off" aria-label="Test '+(i+1)+' '+r.label.toLowerCase()+'" value="'+esc(t[r.k])+'"></td>';
+      });
+      h+='</tr>';
+    });
+    finish('f-read-table',h);
+  }
+  function buildRes(){
+    let h=cols()+head('r',false)+'<tbody>';
+    RES_ROWS.forEach(r=>{
+      h+='<tr'+(r.xr?' class="xr"':'')+'><th class="rl" scope="row">'+r.label+(r.unit?'<small>'+r.unit+'</small>':'')+'</th>';
+      state.tests.forEach((t,i)=>{ h+='<td class="calc'+(r.res?' res':'')+(r.c?' c':'')+'" id="f-r'+r.k+'-'+i+'"></td>'; });
+      h+='</tr>';
+    });
+    finish('f-res-table',h);
+  }
+  function buildTables(){ buildLoc(); buildGauge(); buildRes(); }
+  function fillMeta(){ META.forEach(k=>{ const el=$('f-m-'+k); if(el) el.value=state.meta[k]==null?'':state.meta[k]; }); }
+
+  // the three tables scroll sideways together so a test's column stays lined up
+  const scrollers=['f-loc-scroll','f-gauge-scroll','f-res-scroll'].map(id=>$(id));
+  let syncing=false;
+  scrollers.forEach(sc=>sc.addEventListener('scroll',()=>{
+    if(syncing) return; syncing=true;
+    scrollers.forEach(o=>{ if(o!==sc) o.scrollLeft=sc.scrollLeft; });
+    requestAnimationFrame(()=>{ syncing=false; });
+  },{passive:true}));
+
+  /* ---------- reference picker ---------- */
+  function choices(){
+    const out=[];
+    try{
+      if(App.compaction){ const st=App.compaction.state(), c=compute(st); if(c.res) out.push({label:'Current sheet', sample:st.meta.sample||'Untitled sample', mdd:c.res.mdd, omc:c.res.omc}); }
+    }catch(e){}
+    const saved=readLS('mdd-lab-tests-v1');
+    if(Array.isArray(saved)) saved.slice().sort((a,b)=>b.savedAt-a.savedAt).forEach(it=>{
+      try{ const c=compute(it.data); if(c.res) out.push({label:'Saved', sample:it.data.meta.sample||'Untitled sample', mdd:c.res.mdd, omc:c.res.omc}); }catch(e){}
+    });
+    return out;
+  }
+  function buildPick(){
+    pickCache=choices();
+    let h='<option value="">'+(pickCache.length?'Choose a compaction…':'No compaction results yet')+'</option>';
+    pickCache.forEach((o,i)=>{ h+='<option value="'+i+'">'+esc(o.label+': '+o.sample+' · '+o.mdd.toFixed(2)+' t/m³ · '+roundHalf(o.omc).toFixed(1)+'%')+'</option>'; });
+    $('f-pick').innerHTML=h;
+  }
+  $('f-pick').addEventListener('focus',buildPick);
+  $('f-pick').addEventListener('pointerdown',()=>{ if(document.activeElement!==$('f-pick')) buildPick(); });
+  $('f-pick').addEventListener('change',e=>{
+    const o=pickCache[+e.target.value]; e.target.value='';
+    if(!o) return;
+    state.meta.mdd=o.mdd.toFixed(2); state.meta.omc=roundHalf(o.omc).toFixed(1); state.meta.ref=o.sample;
+    exampleOff(); fillMeta(); refresh(); toast('Filled from '+o.sample); Snd.play('add');
+  });
+
+  /* ---------- chart: density ratio (cross-reference on) or dry density (off) ---------- */
+  function drawF(c,xr){
+    const box=$('f-chart'); lastC=c; lastXr=xr;
+    const val=r=>xr?r.dr:r.dry;
+    const pts=c.rows.filter(r=>val(r)!==null);
+    if(!pts.length){
+      box.innerHTML='<div class="empty">'+(xr?(c.mdd?'Enter gauge readings to plot density ratios.':'Enter the MDD and gauge readings to plot density ratios.'):'Enter gauge readings to plot dry densities.')+'</div>';
+      return;
+    }
+    const spec=xr?c.spec:null;
+    const W=Math.max(280,Math.floor(box.clientWidth||320)); lastW=W;
+    const H=W<500?236:270, m={l:xr?46:52,r:spec!==null?50:16,t:24,b:40};
+    const vals=pts.map(val); if(spec!==null) vals.push(spec);
+    const pad=xr?1.5:0.03;
+    const lo=Math.min.apply(null,vals)-pad, hi=Math.max.apply(null,vals)+pad;
+    const step=Math.max(xr?0.5:0.01,niceStep(hi-lo,5));
+    const ys=Math.floor(lo/step+1e-9)*step, ye=Math.ceil(hi/step-1e-9)*step;
+    const n=c.rows.length, pw=W-m.l-m.r, ph=H-m.t-m.b;
+    const sx=i=>m.l+(i+0.5)/n*pw, sy=v=>H-m.b-(v-ys)/(ye-ys)*ph;
+    const dec=step<0.1?2:(step<1?1:0);
+    let s='<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+(xr?'Density ratio for each test against the specified minimum':'Dry density for each test')+'">';
+    s+='<g class="ax">';
+    for(let k=0,ny=Math.min(40,Math.round((ye-ys)/step));k<=ny;k++){
+      const y=ys+k*step, py=sy(y).toFixed(1);
+      s+='<line class="gridline" x1="'+m.l+'" y1="'+py+'" x2="'+(W-m.r)+'" y2="'+py+'"/><text x="'+(m.l-6)+'" y="'+(+py+4)+'" text-anchor="end">'+y.toFixed(dec)+'</text>';
+    }
+    const every=Math.max(1,Math.ceil(n/14));
+    for(let i=0;i<n;i+=every){ s+='<text x="'+sx(i).toFixed(1)+'" y="'+(H-m.b+16)+'" text-anchor="middle">'+(i+1)+'</text>'; }
+    s+='<line class="axline" x1="'+m.l+'" y1="'+(H-m.b)+'" x2="'+(W-m.r)+'" y2="'+(H-m.b)+'"/>';
+    s+='<text class="title" x="'+(m.l+pw/2)+'" y="'+(H-6)+'" text-anchor="middle">Test</text>';
+    s+='<text class="title" transform="translate(12 '+(m.t+ph/2)+') rotate(-90)" text-anchor="middle">'+(xr?'Density ratio (%)':'Dry density (t/m³)')+'</text></g>';
+    if(spec!==null){
+      const py=sy(spec);
+      pts.forEach(r=>{ s+='<line class="stem '+(r.pass?'pass':'fail')+'" x1="'+sx(r.i).toFixed(1)+'" y1="'+py.toFixed(1)+'" x2="'+sx(r.i).toFixed(1)+'" y2="'+sy(r.dr).toFixed(1)+'"/>'; });
+      s+='<line class="specline" x1="'+m.l+'" y1="'+py.toFixed(1)+'" x2="'+(W-m.r)+'" y2="'+py.toFixed(1)+'"/>';
+      s+='<text class="lbl" x="'+(W-m.r+5)+'" y="'+(py-3).toFixed(1)+'" text-anchor="start">Min</text>';
+      s+='<text class="lbl" x="'+(W-m.r+5)+'" y="'+(py+11).toFixed(1)+'" text-anchor="start">'+(+spec.toFixed(1))+'%</text>';
+    }
+    pts.forEach(r=>{
+      const v=val(r), cx=sx(r.i), cy=sy(v), cls=xr?(r.pass===false?'dotf':'dotp'):'dotn';
+      s+='<circle class="'+cls+'" cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="5.5"/>';
+      if(n<=12){ const below=xr&&r.pass===false; s+='<text class="lbl" x="'+cx.toFixed(1)+'" y="'+(below?cy+19:cy-10).toFixed(1)+'" text-anchor="middle">'+v.toFixed(xr?1:3)+'</text>'; }
+    });
+    s+='</svg>';
+    box.innerHTML=s;
+  }
+
+  /* ---------- update ---------- */
+  const chip=(cls,t)=>'<span class="chip '+cls+'">'+t+'</span>';
+  function vsOMC(dv){ if(dv===null) return '–'; if(Math.abs(dv)<0.05) return 'at OMC'; return Math.abs(dv).toFixed(1)+(dv<0?' dry':' wet'); }
+  const DSRC={gauge:'gauge',oven:'oven w',calc:'worked out'};
+  const FInt=Integration.make('f-int',(target,c)=>{
+    const mt=state.meta, d3=v=>{ const x=dens(v); return x===null?'':x.toFixed(3); }, s1=v=>{ const x=num(v); return x===null?'':x.toFixed(1); };
+    const groups=[];
+    groups.push({title:'Nuclear densometer settings',sub:'Same for every sample on this sheet',xkey:'s',
+      extra:'<label for="f-int-layer">Layer depth (mm)</label><input id="f-int-layer" class="num" data-fm="layer" inputmode="decimal" autocomplete="off">',
+      fill:el=>{ const i=el.querySelector('#f-int-layer'), v=mt.layer||''; if(i&&i.value!==v) i.value=v; },
+      items:[{label:'Nuclear densometer',val:mt.gauge},{label:'Layer depth',val:mt.layer},
+        {label:'Test depth',val:num(mt.depth)!==null?num(mt.depth)+'mm':''},{label:'Density spec',val:num(mt.spec)!==null?num(mt.spec)+'%':''},
+        {label:'Standard DC',val:mt.dstd},{label:'Standard MC',val:mt.mstd}]});
+    state.tests.forEach((t,i)=>{
+      groups.push({title:'Test '+(i+1)+(t.fid?' · '+t.fid:''),sub:'One sample in thebossapp',xkey:'t'+i,
+        extra:'<label for="f-int-sid-'+i+'">Sample number</label><input id="f-int-sid-'+i+'" type="text" class="txt" data-ft="'+i+'.sid" autocomplete="off" placeholder="S/061473">',
+        fill:el=>{ const x=el.querySelector('input'), v=t.sid||''; if(x&&x.value!==v) x.value=v; },
+        items:[{label:'Sample number',val:t.sid},{label:'Lot number',val:t.lot},
+          {label:'Location 1',val:t.loc1},{label:'Location 2',val:t.loc2},{label:'Location 3',val:t.loc3},{label:'Location 4',val:t.loc4},
+          {label:'DC',val:t.dc},{label:'MC',val:t.mc},{label:'Wet density',val:d3(t.wet)},{label:'Moisture percent',val:s1(t.gw)},{label:'Time sampled',val:t.time}]});
+    });
+    return {note:'Laid out in the order of the thebossapp Nuclear Densometers form, one test per sample. Tap a value to copy it, or Copy all for the whole group. Equipment and the spec dropdowns are picked in thebossapp. Dry density and density ratio are worked out there from the linked compaction sample.',groups};
+  });
+  function update(){
+    const c=fdnCompute(state); lastC=c; FInt.render(c);
+    const mt=state.meta, xr=mt.xref!==false, n=state.tests.length;
+    $('f-count').textContent=$('f-count2').textContent=n+(n===1?' test':' tests');
+    // column headers carry the field ID (or first location) so every table stays referenced
+    state.tests.forEach((t,i)=>{ const sub=String(t.fid||t.loc1||'').trim(); ['l','g','r'].forEach(x=>{ const el=$('f-h'+x+'-'+i); if(el) el.textContent=sub; }); });
+    // cross-reference on or off
+    $('f-xref').checked=xr;
+    $('f-xref-sub').textContent=xr?'On: shows density ratio and pass or fail against the lab MDD and OMC':'Off: records field density and moisture only';
+    $('f-sec-ref').hidden=!xr; $('f-jump-ref').hidden=!xr; $('f-legend').hidden=!xr;
+    document.querySelectorAll('#f-res-table tr.xr').forEach(tr=>{ tr.hidden=!xr; });
+
+    c.rows.forEach((r,i)=>{
+      $('f-rw-'+i).innerHTML=r.w===null?'–':r.w.toFixed(1)+(r.src==='oven'?'<small class="src">oven</small>':'');
+      const rd=$('f-rdry-'+i);
+      rd.innerHTML=r.odd?'check':(r.dry===null?'–':r.dry.toFixed(3)+'<small class="src">'+DSRC[r.dsrc]+'</small>');
+      rd.classList.toggle('bad',r.odd);
+      const rr=$('f-rdr-'+i); rr.textContent=fx(r.dr,1); rr.classList.toggle('bad',r.pass===false);
+      $('f-rdv-'+i).textContent=vsOMC(r.dv);
+      $('f-rpass-'+i).innerHTML=r.pass===null?(r.dr!==null?chip('na','No min'):'–'):(r.pass?chip('pass','Pass'):chip('fail','Fail'));
+    });
+    $('f-mdd-hint').textContent=c.mdd?(c.mdd.toFixed(3)+' t/m³ = '+Math.round(c.mdd*1000)+' kg/m³'):'Type t/m³ or kg/m³';
+    $('f-r-id').textContent=lotsText(state.tests)+(mt.job?' · '+mt.job:'');
+    $('f-r-sub').textContent=[mt.material,fmtDate(mt.date),mt.depth?mt.depth+' mm depth':'',mt.by?'Tested by '+mt.by:''].filter(Boolean).join(' · ');
+
+    const todo=c.rows.filter(r=>r.hasReading&&r.dry===null).length;
+    const lc=$('f-lot-chip');
+    let lcls='na', ltxt='Incomplete', lsub='';
+    if(!xr){
+      ltxt='Recording only';
+      lsub=c.dsum?(c.dsum.n+' of '+n+' tests worked out'):'Enter wet density and moisture, or the gauge dry density';
+    }else if(c.sum){
+      if(c.spec===null){ ltxt='No minimum set'; lsub=c.sum.n+' tests worked out'; }
+      else if(c.sum.pass===c.sum.n){ lcls='pass'; ltxt='All pass'; lsub=c.sum.n+' of '+c.sum.n+' tests at or above '+(+c.spec.toFixed(1))+'%'; }
+      else { lcls='fail'; ltxt=(c.sum.n-c.sum.pass)+' below minimum'; lsub=c.sum.pass+' of '+c.sum.n+' tests at or above '+(+c.spec.toFixed(1))+'%'; }
+    }else lsub=c.mdd?'Enter gauge readings for at least one test':'Enter the MDD to work out density ratios';
+    if(todo) lsub+=(lsub?' · ':'')+todo+(todo===1?' test':' tests')+' still to fill in';
+    lc.className='chip big '+lcls; lc.textContent=ltxt; $('f-lot-text').textContent=lsub;
+
+    const K=(k,lab,val,sub)=>{ $('f-k-'+k+'-lab').textContent=lab; $('f-k-'+k).innerHTML=val; $('f-k-'+k+'-sub').textContent=sub; };
+    if(xr){
+      if(c.sum){
+        const mr=c.rows[c.sum.minI];
+        K('min','Lowest density ratio',c.sum.min.toFixed(1)+'<span class="u">%</span>','Test '+(c.sum.minI+1)+(mr.fid?' · '+mr.fid:(mr.place?' · '+mr.place:'')));
+        K('mean','Mean density ratio',c.sum.mean.toFixed(1)+'<span class="u">%</span>','Over '+c.sum.n+(c.sum.n===1?' test':' tests'));
+        K('pass','Tests passing',c.sum.pass===null?'–':(c.sum.pass+'<span class="u">/ '+c.sum.n+'</span>'),c.spec!==null?'Minimum '+(+c.spec.toFixed(1))+'%':'Set a minimum to check');
+      }else{ K('min','Lowest density ratio','–',''); K('mean','Mean density ratio','–',''); K('pass','Tests passing','–',''); }
+    }else{
+      if(c.dsum){
+        K('min','Tests worked out',c.dsum.n+'<span class="u">/ '+n+'</span>','');
+        K('mean','Mean dry density',c.dsum.mean.toFixed(3),'t/m³ · '+Math.round(c.dsum.mean*1000)+' kg/m³');
+        K('pass','Mean moisture',c.dsum.meanW===null?'–':c.dsum.meanW.toFixed(1)+'<span class="u">%</span>','');
+      }else{ K('min','Tests worked out','–',''); K('mean','Mean dry density','–',''); K('pass','Mean moisture','–',''); }
+    }
+
+    const fl=[];
+    if(xr){
+      if(c.mddRaw===null) fl.push(['','Enter the MDD and OMC from the lab compaction, or pick one from Fill from a lab compaction.']);
+      else if(!c.mdd) fl.push(['bad','The MDD looks wrong. Type it in t/m³ (1.92) or kg/m³ (1920).']);
+      if(c.mdd&&c.spec===null) fl.push(['','Enter the minimum density ratio to check each test.']);
+      if(c.mdd&&c.omc===null) fl.push(['','Enter the OMC to see how far each test is from optimum.']);
+    }
+    c.rows.forEach(r=>{
+      const n1=r.i+1, who='Test '+n1+(r.fid?' ('+r.fid+')':'');
+      if(r.odd) fl.push(['bad',who+' gives a dry density that cannot be right. Check the densities and moisture.']);
+      else if(r.hasReading&&r.dry===null) fl.push(['',who+' needs a wet density and moisture, or the gauge dry density.']);
+      if(r.ddGap!==null&&Math.abs(r.ddGap)>=0.005) fl.push(['',who+': the gauge dry density '+r.gdry.toFixed(3)+' does not match wet density and moisture ('+(r.gdry-r.ddGap).toFixed(3)+'). Check the readings were copied correctly.']);
+      if(xr&&r.pass===false) fl.push(['bad',who+' is below the '+(+c.spec.toFixed(1))+'% minimum at '+r.dr.toFixed(1)+'%.']);
+      if(r.diff!==null&&Math.abs(r.diff)>=2) fl.push(['',who+': oven and gauge moisture differ by '+Math.abs(r.diff).toFixed(1)+'%. Check the gauge moisture correction.']);
+    });
+    $('f-flags').innerHTML=fl.map(x=>'<li class="'+x[0]+'">'+esc(x[1])+'</li>').join('');
+    drawF(c,xr);
+    const key=xr?c.rows.map(r=>r.pass===null?'-':(r.pass?'p':'f')).join(''):'';
+    if(statKey!==null&&key!==statKey&&App.acted&&xr){
+      let fxName=null;
+      for(let i=0;i<key.length;i++){ if(key[i]!==(statKey[i]||'-')&&key[i]!=='-'){ fxName=key[i]==='p'?'result':'fail'; } }
+      if(fxName){ clearTimeout(chimeT); chimeT=setTimeout(()=>Snd.play(fxName),650); }
+    }
+    statKey=key;
+  }
+
+  /* ---------- persistence ---------- */
+  let draftTimer=null;
+  function scheduleDraft(){ clearTimeout(draftTimer); draftTimer=setTimeout(()=>{ if(writeLS(LS_DRAFT,state)) $('f-draftnote').textContent='Draft autosaved at '+stamp(); },400); }
+  function refresh(){ update(); scheduleDraft(); }
+  App.fdn={useRef(mdd,omc,ref){ state.meta.mdd=mdd; state.meta.omc=omc; state.meta.ref=ref; state.meta.xref=true; exampleOff(); fillMeta(); statKey=null; refresh(); }};
+  function exampleOff(){ if(state.example){ state.example=false; $('f-exbanner').hidden=true; } }
+  function getSaved(){ const v=readLS(LS_SAVED); return Array.isArray(v)?v:[]; }
+  function renderSaved(){
+    const list=getSaved();
+    setBtnLabel($('f-btn-saved'),'Saved'+(list.length?' ('+list.length+')':''));
+    if(!list.length){ $('f-savedlist').innerHTML='<li><span class="muted small">Nothing saved yet. Tap Save to keep this sheet.</span></li>'; return; }
+    $('f-savedlist').innerHTML=list.slice().sort((a,b)=>b.savedAt-a.savedAt).map(it=>{
+      const d=fixCopy(it.data), c=fdnCompute(d), m=d.meta;
+      const res=m.xref&&c.sum?(c.sum.n+(c.sum.n===1?' test':' tests')+(c.sum.pass!==null?' · '+c.sum.pass+' pass':'')+' · lowest '+c.sum.min.toFixed(1)+'%')
+        :(c.dsum?(c.dsum.n+(c.dsum.n===1?' test':' tests')+' · mean dry density '+c.dsum.mean.toFixed(3)):'No results yet');
+      const bits=[fmtDate(m.date),res].filter(Boolean).join(' · ');
+      return '<li><div class="si"><strong>'+esc(lotsText(d.tests)+(m.job?' · '+m.job:''))+'</strong><span>'+esc(bits)+'</span></div>'
+        +'<div class="sa"><button type="button" data-act="f-load" data-id="'+esc(it.id)+'">Load</button>'
+        +'<button type="button" data-act="f-del" data-id="'+esc(it.id)+'">Delete</button></div></li>';
+    }).join('');
+  }
+  function saveCurrent(){
+    const list=getSaved();
+    const snap=JSON.parse(JSON.stringify(state)); snap.example=false;
+    let id=state.savedId;
+    if(!id||!list.some(x=>x.id===id)) id=Date.now().toString(36);
+    snap.savedId=id; state.savedId=id; exampleOff();
+    const idx=list.findIndex(x=>x.id===id);
+    const rec={id,savedAt:Date.now(),data:snap};
+    if(idx>=0) list[idx]=rec; else list.push(rec);
+    if(writeLS(LS_SAVED,list)){ writeLS(LS_DRAFT,state); renderSaved(); toast('Saved on this device'); Snd.play('save'); }
+    else{ toast('This browser would not let the page save'); Snd.play('warn'); }
+  }
+  function loadAll(s){
+    state=fix(s); statKey=null; buildTables(); fillMeta(); $('f-exbanner').hidden=!state.example; update(); writeLS(LS_DRAFT,state);
+  }
+
+  /* ---------- summary ---------- */
+  function summary(){
+    const c=lastC||fdnCompute(state), m=state.meta, xr=m.xref!==false, L=[];
+    L.push('FDN test: '+lotsText(state.tests)+(m.job?' · '+m.job:''));
+    const line2=[fmtDate(m.date),m.by?'Tested by '+m.by:'',m.gauge?'Gauge '+m.gauge:'',m.depth?m.depth+' mm depth':''].filter(Boolean).join(' · ');
+    if(line2) L.push(line2);
+    if(m.material) L.push('Material: '+m.material);
+    if(m.dstd||m.mstd) L.push('Standard counts: density '+(m.dstd||'?')+', moisture '+(m.mstd||'?'));
+    if(xr){
+      L.push('Reference: MDD '+(c.mdd?c.mdd.toFixed(2)+' t/m³':'?')+', OMC '+(c.omc!==null?c.omc.toFixed(1)+'%':'?')+(m.ref?' ('+m.ref+')':'')+' · Minimum density ratio '+(c.spec!==null?(+c.spec.toFixed(1))+'%':'not set'));
+      if(c.sum) L.push('Result: '+(c.sum.pass!==null?c.sum.pass+' of '+c.sum.n+' pass · ':'')+'lowest '+c.sum.min.toFixed(1)+'% (test '+(c.sum.minI+1)+') · mean '+c.sum.mean.toFixed(1)+'%');
+    }else if(c.dsum) L.push('Worked out: '+c.dsum.n+' tests · mean dry density '+c.dsum.mean.toFixed(3)+' t/m³'+(c.dsum.meanW!==null?' · mean moisture '+c.dsum.meanW.toFixed(1)+'%':''));
+    L.push('');
+    L.push('No  Field ID  Lot   Time   Location                   WD     DD     w %    DC     MC     '+(xr?'DR %   Result':''));
+    c.rows.forEach(r=>{
+      const t=state.tests[r.i];
+      let line=String(r.i+1).padEnd(4)+(r.fid||'–').slice(0,9).padEnd(10)+(r.lot||'–').slice(0,5).padEnd(6)+(r.time||'–').padEnd(7)+(r.place||'–').slice(0,26).padEnd(27)
+        +fx(r.wet,3).padEnd(7)+fx(r.dry,3).padEnd(7)+(r.w===null?'–':r.w.toFixed(1)+(r.src==='oven'?'o':'')).padEnd(7)
+        +String(t.dc||'–').padEnd(7)+String(t.mc||'–').padEnd(7);
+      if(xr) line+=fx(r.dr,1).padEnd(7)+(r.pass===null?'–':(r.pass?'Pass':'Fail'));
+      L.push(line);
+    });
+    if(c.rows.some(r=>r.src==='oven')) L.push('o = oven moisture used');
+    return L.join('\n');
+  }
+  function doCopy(){
+    const text=summary();
+    const fallback=()=>{ const b=$('f-copybox'); $('f-copyfallback').hidden=false; b.value=text; b.focus(); b.select(); };
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(()=>{ $('f-copyfallback').hidden=true; toast('Summary copied'); Snd.play('copy'); },fallback);
+      }else fallback();
+    }catch(e){ fallback(); }
+  }
+
+  /* ---------- events ---------- */
+  function onEdit(e){
+    const t=e.target; if(!t||!t.dataset) return;
+    if(t.dataset.fm){ state.meta[t.dataset.fm]=t.value; }
+    else if(t.dataset.ft){ const p=t.dataset.ft.split('.'); state.tests[+p[0]][p[1]]=t.value; }
+    else return;
+    if(e.type==='input'&&t.tagName==='INPUT') Snd.play('key');
+    exampleOff();
+    refresh();
+  }
+  document.addEventListener('input',onEdit);
+  document.addEventListener('change',e=>{ if(e.target&&(e.target.type==='date'||e.target.type==='time')) onEdit(e); });
+  $('f-xref').addEventListener('change',e=>{
+    state.meta.xref=e.target.checked; xrefPref=e.target.checked;
+    try{ localStorage.setItem(LS_XREF,xrefPref?'on':'off'); }catch(err){}
+    Snd.play(xrefPref?'open':'close'); statKey=null; exampleOff(); refresh();
+    if(xrefPref) buildPick();
+  });
+
+  function nextId(prev){
+    const m=/^(.*?)(\d+)$/.exec(String(prev||'').trim()); if(!m) return '';
+    const nxt=String(+m[2]+1); return m[1]+(nxt.length<m[2].length?nxt.padStart(m[2].length,'0'):nxt);
+  }
+  function scrollToEnd(){ requestAnimationFrame(()=>{ scrollers.forEach(s=>{ s.scrollLeft=s.scrollWidth; }); }); }
+
+  let pendingNew=null, pendingDel=null;
+  document.addEventListener('click',e=>{
+    const b=e.target.closest&&e.target.closest('button[data-act]'); if(!b) return;
+    const act=b.dataset.act; if(act.indexOf('f-')!==0) return;
+    if(act==='f-new'){
+      if(pendingNew){ clearTimeout(pendingNew); pendingNew=null; setBtnLabel(b,'New'); b.classList.remove('warn'); Snd.play('sweep'); loadAll(blank()); toast('Started a new FDN sheet'); }
+      else{ Snd.play('warn'); setBtnLabel(b,'Clear?'); b.classList.add('warn'); pendingNew=setTimeout(()=>{ pendingNew=null; setBtnLabel(b,'New'); b.classList.remove('warn'); },3000); }
+    }
+    else if(act==='f-save') saveCurrent();
+    else if(act==='f-toggle-saved'){ const p=$('f-savedpanel'); Snd.play(p.hidden?'open':'close'); p.hidden=!p.hidden; if(!p.hidden) renderSaved(); }
+    else if(act==='f-copy') doCopy();
+    else if(act==='f-add'){
+      if(state.tests.length>=MAXT){ toast('Forty tests is the limit'); return; }
+      const last=state.tests[state.tests.length-1], t=emptyTest();
+      if(last){ t.lot=last.lot; t.fid=nextId(last.fid); t.sid=nextId(last.sid); }
+      state.tests.push(t); Snd.play('add'); exampleOff(); buildTables(); refresh(); scrollToEnd();
+      const inGauge=!!b.closest('#f-sec-read'), i=state.tests.length-1;
+      const el=$('f-t-'+i+'-'+(inGauge?'wet':(t.fid?'time':'fid')));
+      if(el) setTimeout(()=>el.focus({preventScroll:true}),30);
+    }
+    else if(act==='f-rm'){
+      if(state.tests.length<=1){ toast('Keep at least one test'); return; }
+      const i=+b.dataset.i, gone=state.tests[i];
+      Snd.play('remove'); state.tests.splice(i,1); statKey=null; buildTables(); refresh();
+      toast('Removed test '+(i+1)+(gone&&gone.fid?' ('+gone.fid+')':''));
+    }
+    else if(act==='f-load'){
+      const it=getSaved().find(x=>x.id===b.dataset.id);
+      if(it){ Snd.play('click'); const s=JSON.parse(JSON.stringify(it.data)); s.savedId=it.id; s.example=false; loadAll(s); toast('Loaded '+lotsText(state.tests).toLowerCase()); window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'}); }
+    }
+    else if(act==='f-del'){
+      const id=b.dataset.id;
+      if(pendingDel&&pendingDel.id===id){
+        Snd.play('remove'); clearTimeout(pendingDel.t); pendingDel=null;
+        writeLS(LS_SAVED,getSaved().filter(x=>x.id!==id));
+        if(state.savedId===id) state.savedId=null;
+        renderSaved(); toast('Deleted');
+      }else{
+        Snd.play('warn'); if(pendingDel) clearTimeout(pendingDel.t);
+        b.textContent='Delete?'; b.classList.add('warn');
+        pendingDel={id,t:setTimeout(()=>{ pendingDel=null; renderSaved(); },3000)};
+      }
+    }
+  });
+
+  if('ResizeObserver' in window){
+    new ResizeObserver(()=>{ const w=Math.floor($('f-chart').clientWidth||0); if(w&&w!==lastW&&lastC) drawF(lastC,lastXr); }).observe($('f-chart'));
+  }
+  App.onShow.fdn=()=>{ buildPick(); if(lastC) drawF(lastC,lastXr); };
+
+  if(!storageOK){ $('f-btn-save').hidden=true; $('f-btn-saved').hidden=true; $('f-draftnote').textContent='This browser will not keep a draft. Copy the summary before you close the page.'; }
+  buildTables(); fillMeta(); buildPick();
+  scrollers.forEach(sc=>attachHBar(sc,{unit:'Tests',colW:COLW,labW:LABW,count:()=>state.tests.length}));
+  $('f-exbanner').hidden=!state.example;
+  renderSaved();
+  update();
+})();
+
+/* ======================= menus, settings, routing ======================= */
+(function(){
+  const VIEWS={fdn:'FDN test', compaction:'Lab compaction'};
+  const LS_VIEW='soil-app-view-v1';
+
+  function menuBtn(m){ return document.querySelector('[data-menu="'+m.id+'"]'); }
+  function closeMenus(except){
+    document.querySelectorAll('.menu').forEach(m=>{ if(m!==except&&!m.hidden){ m.hidden=true; const b=menuBtn(m); if(b) b.setAttribute('aria-expanded','false'); } });
+  }
+  function toggleMenu(id){
+    const m=$(id), b=menuBtn(m), open=m.hidden;
+    closeMenus(m);
+    m.hidden=!open; b.setAttribute('aria-expanded',open?'true':'false');
+    Snd.play(open?'open':'close');
+    if(open){ const first=m.querySelector('[aria-checked="true"],[aria-pressed="true"],button,input'); if(first) first.focus({preventScroll:true}); }
+  }
+
+  function syncSettings(){
+    $('set-sound').checked=Snd.isOn();
+    const cur=document.documentElement.getAttribute('data-skin')||'';
+    document.querySelectorAll('[data-skin-pick]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.skinPick===cur?'true':'false'));
+  }
+  function setSkin(v){
+    const root=document.documentElement;
+    if(v) root.setAttribute('data-skin',v); else root.removeAttribute('data-skin');
+    try{ localStorage.setItem('mdd-lab-skin-v1',v); }catch(e){}
+    syncSettings(); Snd.play('sweep');
+    const fn=App.onShow[App.view]; if(fn) fn();
+  }
+
+  function showView(v){
+    if(!VIEWS[v]) v='fdn';
+    App.view=v;
+    Object.keys(VIEWS).forEach(k=>{ $('view-'+k).hidden=k!==v; $('acts-'+k).hidden=k!==v; });
+    $('bar-current').textContent=VIEWS[v];
+    document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-checked',b.dataset.view===v?'true':'false'));
+    try{ localStorage.setItem(LS_VIEW,v); }catch(e){}
+    closeMenus();
+    const fn=App.onShow[v]; if(fn) requestAnimationFrame(fn);
+  }
+
+  App.go=v=>{ if(location.hash!=='#'+v){ try{ location.hash=v; }catch(err){} } if(App.view!==v) showView(v); window.scrollTo(0,0); };
+
+  document.addEventListener('click',e=>{
+    const mb=e.target.closest&&e.target.closest('[data-menu]');
+    if(mb){ toggleMenu(mb.dataset.menu); return; }
+    const vb=e.target.closest&&e.target.closest('[data-view]');
+    if(vb){
+      const v=vb.dataset.view; Snd.play('sweep');
+      if(location.hash!=='#'+v){ try{ location.hash=v; }catch(err){} }
+      if(App.view!==v) showView(v); else closeMenus();
+      window.scrollTo(0,0);
+      return;
+    }
+    const sb=e.target.closest&&e.target.closest('[data-skin-pick]');
+    if(sb){ setSkin(sb.dataset.skinPick); return; }
+    if(!(e.target.closest&&e.target.closest('.menu-wrap'))) closeMenus();
+  });
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){ const open=document.querySelector('.menu:not([hidden])'); if(open){ closeMenus(); const b=menuBtn(open); if(b) b.focus(); } }
+  });
+  $('set-sound').addEventListener('change',e=>{ Snd.set(e.target.checked); if(e.target.checked) Snd.play('click'); });
+  window.addEventListener('hashchange',()=>{ const h=location.hash.slice(1); if(VIEWS[h]&&h!==App.view) showView(h); });
+
+  // keep section jumps clear of the sticky bar
+  const bar=$('appbar');
+  const setBarH=()=>document.documentElement.style.setProperty('--barh',bar.offsetHeight+'px');
+  if('ResizeObserver' in window) new ResizeObserver(setBarH).observe(bar);
+  setBarH();
+
+  syncSettings();
+  let start=location.hash.slice(1);
+  if(!VIEWS[start]){ try{ start=localStorage.getItem(LS_VIEW)||''; }catch(e){ start=''; } }
+  showView(VIEWS[start]?start:'fdn');
+})();
+/* ======================= APP UPDATES (installed app only) ======================= */
+/* The installed app opens a small loader page. If a newer sheets page was downloaded here it runs that one,
+   otherwise the built-in one. A downloaded page that fails to start is dropped on the next launch. */
+(function(){
+  const box=$('set-upd'); if(!box) return;
+  if(!(window.__TAURI__||window.__TAURI_INTERNALS__||window.__STS_APP__)) return;
+  box.hidden=false;
+  const K_HTML='sts-update-html', K_URL='sts-update-url';
+  const m0=document.querySelector('meta[name="sts-build"]'), build=m0?m0.content:'dev';
+  let usingUpdate=false; try{ usingUpdate=!!localStorage.getItem(K_HTML); }catch(e){}
+  const msg=t=>{ $('upd-msg').textContent=t; };
+  $('upd-ver').textContent='Version '+build+(usingUpdate?' (downloaded update)':' (built in)');
+  try{ $('upd-url').value=localStorage.getItem(K_URL)||''; }catch(e){}
+  const restart=()=>{ location.href=new URL('index.html',location.href).href; };   // back through the loader
+  let busy=false;
+  $('upd-check').addEventListener('click',async()=>{
+    if(busy) return;
+    const url=$('upd-url').value.trim();
+    if(!/^https:\/\/\S+$/i.test(url)){ msg('Type the update address first. It starts with https://'); Snd.play('warn'); return; }
+    try{ localStorage.setItem(K_URL,url); }catch(e){}
+    busy=true; msg('Checking…'); Snd.play('click');
+    try{
+      let r; try{ r=await fetch(url+(url.indexOf('?')<0?'?':'&')+'t='+Date.now(),{cache:'no-store'}); }
+      catch(e){ msg('Could not reach the update address. Check your internet and the address.'); Snd.play('warn'); return; }
+      if(!r.ok){ msg('The update address answered '+r.status+'. Check the address.'); Snd.play('warn'); return; }
+      const t=await r.text(), mm=/<meta name="sts-build" content="([^"]+)"/.exec(t);
+      if(!mm||t.indexOf('id="view-fdn"')<0||t.indexOf('id="view-compaction"')<0){ msg('That address is not the Soil Test Sheets page.'); Snd.play('warn'); return; }
+      if(mm[1]===build){ msg('You already have the newest version ('+build+').'); Snd.play('result'); return; }
+      try{ localStorage.setItem(K_HTML,t); }catch(e){ msg('There was no room to keep the update on this device.'); Snd.play('warn'); return; }
+      msg('Updated to '+mm[1]+'. Restarting…'); Snd.play('save');
+      setTimeout(restart,900);
+    } finally { busy=false; }
+  });
+  $('upd-reset').addEventListener('click',()=>{
+    try{ localStorage.removeItem(K_HTML); localStorage.removeItem('sts-boot-pending'); }catch(e){}
+    msg('Back to the built-in version. Restarting…'); setTimeout(restart,600);
+  });
+})();
+try{ localStorage.removeItem('sts-boot-pending'); }catch(e){}   // reached the end of start-up: the page is healthy
+</script>
+
+</body>
+</html>
