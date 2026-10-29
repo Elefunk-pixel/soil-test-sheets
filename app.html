@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-47">
+<meta name="sts-build" content="2026.10.29-48">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -900,6 +900,12 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
   :root:root .wrap{max-width:1280px}
   :root:root .bar-inner{max-width:1280px}
 }
+.detail-actions{display:flex; flex-wrap:wrap; gap:8px; margin-top:4px}
+.detail-actions button{display:inline-flex; align-items:center; gap:7px; min-height:44px}
+.detail-actions svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+.sfilter{display:flex; flex-wrap:wrap; align-items:center; gap:6px 10px; font-size:12.5px; color:var(--muted); margin:2px 0 6px}
+.sfilter button{min-height:30px; padding:4px 10px; font-size:12px}
+@media (orientation:landscape) and (max-height:760px){ :root:root:root .detail-actions button{min-height:32px} }
 @media (prefers-reduced-motion:no-preference){ button{transition:border-color .15s, background-color .15s} }
 @media (prefers-reduced-motion:reduce){ input.switch::before{transition:none} }
 </style>
@@ -937,14 +943,10 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
 
     <div class="bar-actions" id="acts-fdn" role="toolbar" aria-label="FDN test actions">
       <button type="button" class="barbtn" id="f-btn-new" data-act="f-new"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span class="bl">New</span></button>
-      <button type="button" class="barbtn primary" id="f-btn-save" data-act="f-save"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg><span class="bl">Save</span></button>
-      <button type="button" class="barbtn" id="f-btn-saved" data-act="f-toggle-saved"><svg viewBox="0 0 24 24"><path d="M3 6.5h6l2 2h10V19H3z"/></svg><span class="bl">Saved</span></button>
       <button type="button" class="barbtn" id="f-btn-copy" data-act="f-copy"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span class="bl">Copy</span></button>
     </div>
     <div class="bar-actions" id="acts-compaction" role="toolbar" aria-label="Lab compaction actions" hidden>
       <button type="button" class="barbtn" id="btn-new" data-act="new"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span class="bl">New</span></button>
-      <button type="button" class="barbtn primary" id="btn-save" data-act="save"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg><span class="bl">Save</span></button>
-      <button type="button" class="barbtn" id="btn-saved" data-act="toggle-saved"><svg viewBox="0 0 24 24"><path d="M3 6.5h6l2 2h10V19H3z"/></svg><span class="bl">Saved</span></button>
       <button type="button" class="barbtn" id="btn-copy" data-act="copy"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span class="bl">Copy</span></button>
     </div>
 
@@ -1025,11 +1027,6 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
       <input type="checkbox" class="switch" id="f-xref" role="switch">
     </label>
     <div class="banner" id="f-exbanner" hidden>Example data is loaded so you can see how the sheet works. Edit any cell to make it yours, or tap New to start clean.</div>
-    <section class="saved" id="f-savedpanel" hidden aria-label="Saved FDN tests">
-      <h2>Saved FDN tests</h2>
-      <ul id="f-savedlist"></ul>
-      <div class="hint">Saved on this device and browser only.</div>
-    </section>
     <div id="f-copyfallback" hidden>
       <label class="hint" for="f-copybox">Your browser blocked copying. Select the text below and copy it.</label>
       <textarea id="f-copybox" rows="10" readonly></textarea>
@@ -1050,6 +1047,16 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
       <div class="f w2"><label for="f-m-dstd">Density std count</label><input id="f-m-dstd" class="num" data-fm="dstd" inputmode="numeric" autocomplete="off"></div>
       <div class="f w2"><label for="f-m-mstd">Moisture std count</label><input id="f-m-mstd" class="num" data-fm="mstd" inputmode="numeric" autocomplete="off"></div>
     </div>
+    <div class="detail-actions" role="toolbar" aria-label="Save this FDN test">
+      <button type="button" class="primary" id="f-btn-save" data-act="f-save"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg><span class="bl">Save</span></button>
+      <button type="button" id="f-btn-saved" data-act="f-toggle-saved"><svg viewBox="0 0 24 24"><path d="M3 6.5h6l2 2h10V19H3z"/></svg><span class="bl">Saved</span></button>
+    </div>
+    <section class="saved" id="f-savedpanel" hidden aria-label="Saved FDN tests">
+      <h2>Saved FDN tests</h2>
+      <div class="sfilter" id="f-savedfilter"></div>
+      <ul id="f-savedlist"></ul>
+      <div class="hint">Saved on this device and browser only.</div>
+    </section>
   </section>
 
   <section class="sec" id="f-sec-results" aria-label="FDN results">
@@ -1150,11 +1157,6 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
       <span class="draftnote" id="c-draftnote">Autosaves on this device as you type</span>
     </div>
     <div class="banner" id="exbanner" hidden>Example data is loaded so you can see how the sheet works. Edit any cell to make it yours, or tap New to start clean.</div>
-    <section class="saved" id="savedpanel" hidden aria-label="Saved compaction tests">
-      <h2>Saved compaction tests</h2>
-      <ul id="savedlist"></ul>
-      <div class="hint">Saved on this device and browser only.</div>
-    </section>
     <div id="copyfallback" hidden>
       <label class="hint" for="copybox">Your browser blocked copying. Select the text below and copy it.</label>
       <textarea id="copybox" rows="9" readonly></textarea>
@@ -1178,6 +1180,16 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
       <div class="f w2"><label for="meta-vol">Mould volume (cm³)</label><input id="meta-vol" class="num" data-meta="vol" inputmode="decimal" autocomplete="off"></div>
       <div class="f w2"><label for="meta-mass">Mould mass (g)</label><input id="meta-mass" class="num" data-meta="mass" inputmode="decimal" placeholder="e.g. 4210" autocomplete="off"></div>
     </div>
+    <div class="detail-actions" role="toolbar" aria-label="Save this compaction test">
+      <button type="button" class="primary" id="btn-save" data-act="save"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg><span class="bl">Save</span></button>
+      <button type="button" id="btn-saved" data-act="toggle-saved"><svg viewBox="0 0 24 24"><path d="M3 6.5h6l2 2h10V19H3z"/></svg><span class="bl">Saved</span></button>
+    </div>
+    <section class="saved" id="savedpanel" hidden aria-label="Saved compaction tests">
+      <h2>Saved compaction tests</h2>
+      <div class="sfilter" id="savedfilter"></div>
+      <ul id="savedlist"></ul>
+      <div class="hint">Saved on this device and browser only.</div>
+    </section>
   </section>
 
   <section class="sec" id="sec-results" aria-label="Results">
@@ -1398,6 +1410,20 @@ function fmtDate(iso){
 }
 const roundHalf=x=>Math.round(x*2)/2;
 function niceStep(range,target){ const raw=range/target; if(!(raw>0)) return 1; const p=Math.pow(10,Math.floor(Math.log10(raw))), fr=raw/p; return (fr<=1?1:(fr<=2?2:(fr<=5?5:10)))*p; }
+const SAVED_ALL={mdd:false,fdn:false};
+const relK=v=>String(v==null?'':v).trim().toLowerCase();
+const relHas=m=>['job','ours','client'].some(f=>relK(m[f])!=='');
+const relMatch=(cur,m)=>['job','ours','client'].every(f=>relK(cur[f])===''||relK(cur[f])===relK(m[f]));
+const relLabel=m=>['job','ours','client'].map(f=>String(m[f]||'').trim()).filter(Boolean).join(' · ');
+/* the Saved list only shows tests for the project and test requests typed in Test details (Show all lifts that) */
+function savedFilterUI(el,kind,cur,all,rel,actName){
+  if(!el) return;
+  if(!relHas(cur)||!all.length){ el.hidden=true; el.innerHTML=''; return; }
+  el.hidden=false;
+  const showing=SAVED_ALL[kind];
+  el.innerHTML=(showing?'Showing all '+all.length+' saved':'Showing '+rel.length+' of '+all.length+' for <b>'+esc(relLabel(cur))+'</b>')
+    +(all.length>rel.length||showing?' <button type="button" class="slim" data-act="'+actName+'">'+(showing?'Only this project':'Show all ('+all.length+')')+'</button>':'');
+}
 function setBtnLabel(b,t){ const s=b&&b.querySelector('.bl'); if(s) s.textContent=t; else if(b) b.textContent=t; }
 
 let toastTimer=null;
@@ -2110,9 +2136,10 @@ const Integration=(function(){
   function getSaved(){ const v=readLS(LS_SAVED); return Array.isArray(v)?v:[]; }
 
   function renderSaved(){
-    const list=getSaved();
+    const all=getSaved(), list=SAVED_ALL.mdd||!relHas(state.meta)?all:all.filter(it=>relMatch(state.meta,it.data.meta));
     setBtnLabel($('btn-saved'),'Saved'+(list.length?' ('+list.length+')':''));
-    if(!list.length){ $('savedlist').innerHTML='<li><span class="muted small">Nothing saved yet. Tap Save to keep this test.</span></li>'; return; }
+    savedFilterUI($('savedfilter'),'mdd',state.meta,all,list,'saved-all');
+    if(!list.length){ $('savedlist').innerHTML='<li><span class="muted small">'+(all.length?'Nothing saved for this project and test request yet. Tap Save to keep this test.':'Nothing saved yet. Tap Save to keep this test.')+'</span></li>'; return; }
     $('savedlist').innerHTML=list.slice().sort((a,b)=>b.savedAt-a.savedAt).map(it=>{
       const c=compute(it.data);
       const bits=[(METHOD[it.data.meta.method]||'').split(' (')[0],fmtDate(it.data.meta.date),c.res?('MDD '+c.res.mdd.toFixed(2)+' · OMC '+roundHalf(c.res.omc).toFixed(1)+'%'):'No result yet'].filter(Boolean).join(' · ');
@@ -2138,7 +2165,7 @@ const Integration=(function(){
     else{ toast('This browser would not let the page save'); Snd.play('warn'); }
   }
   function loadAll(s){
-    state=fix(s); buildNat(); buildComp(); buildMoist(); fillMeta(); $('exbanner').hidden=!state.example; update(); writeLS(LS_DRAFT,state);
+    state=fix(s); buildNat(); buildComp(); buildMoist(); fillMeta(); $('exbanner').hidden=!state.example; update(); writeLS(LS_DRAFT,state); renderSaved();
   }
 
   /* ---------- summary ---------- */
@@ -2171,7 +2198,7 @@ const Integration=(function(){
   /* ---------- events ---------- */
   function onEdit(e){
     const t=e.target; if(!t||!t.dataset) return;
-    if(t.dataset.meta){ state.meta[t.dataset.meta]=t.value; }
+    if(t.dataset.meta){ state.meta[t.dataset.meta]=t.value; if(/^(job|ours|client)$/.test(t.dataset.meta)) renderSaved(); }
     else if(t.dataset.nat){ state.nat[t.dataset.nat]=t.value; }
     else if(t.dataset.add!==undefined){ state.add[+t.dataset.add]=t.value; }
     else if(t.dataset.ms!==undefined){ state.ms[+t.dataset.ms]=t.value; }
@@ -2222,6 +2249,7 @@ const Integration=(function(){
     }
     else if(act==='save') saveCurrent();
     else if(act==='toggle-saved'){ const p=$('savedpanel'); p.hidden=!p.hidden; if(!p.hidden) renderSaved(); }
+    else if(act==='saved-all'){ SAVED_ALL.mdd=!SAVED_ALL.mdd; renderSaved(); }
     else if(act==='copy') doCopy();
     else if(act==='jump'){ const el=$(b.dataset.to); if(el) el.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'start'}); }
     else if(act==='add-pt'){
@@ -2635,9 +2663,10 @@ const Integration=(function(){
   function exampleOff(){ if(state.example){ state.example=false; $('f-exbanner').hidden=true; } }
   function getSaved(){ const v=readLS(LS_SAVED); return Array.isArray(v)?v:[]; }
   function renderSaved(){
-    const list=getSaved();
+    const all=getSaved(), list=SAVED_ALL.fdn||!relHas(state.meta)?all:all.filter(it=>relMatch(state.meta,it.data.meta));
     setBtnLabel($('f-btn-saved'),'Saved'+(list.length?' ('+list.length+')':''));
-    if(!list.length){ $('f-savedlist').innerHTML='<li><span class="muted small">Nothing saved yet. Tap Save to keep this sheet.</span></li>'; return; }
+    savedFilterUI($('f-savedfilter'),'fdn',state.meta,all,list,'f-saved-all');
+    if(!list.length){ $('f-savedlist').innerHTML='<li><span class="muted small">'+(all.length?'Nothing saved for this project and test request yet. Tap Save to keep this sheet.':'Nothing saved yet. Tap Save to keep this sheet.')+'</span></li>'; return; }
     $('f-savedlist').innerHTML=list.slice().sort((a,b)=>b.savedAt-a.savedAt).map(it=>{
       const d=fixCopy(it.data), c=fdnCompute(d), m=d.meta;
       const res=m.xref&&c.sum?(c.sum.n+(c.sum.n===1?' test':' tests')+(c.sum.pass!==null?' · '+c.sum.pass+' pass':'')+' · lowest '+c.sum.min.toFixed(1)+'%')
@@ -2661,7 +2690,7 @@ const Integration=(function(){
     else{ toast('This browser would not let the page save'); Snd.play('warn'); }
   }
   function loadAll(s){
-    state=fix(s); statKey=null; buildTables(); fillMeta(); $('f-exbanner').hidden=!state.example; update(); writeLS(LS_DRAFT,state);
+    state=fix(s); statKey=null; buildTables(); fillMeta(); $('f-exbanner').hidden=!state.example; update(); writeLS(LS_DRAFT,state); renderSaved();
   }
 
   /* ---------- summary ---------- */
@@ -2704,7 +2733,7 @@ const Integration=(function(){
   /* ---------- events ---------- */
   function onEdit(e){
     const t=e.target; if(!t||!t.dataset) return;
-    if(t.dataset.fm){ state.meta[t.dataset.fm]=t.value; }
+    if(t.dataset.fm){ state.meta[t.dataset.fm]=t.value; if(/^(job|ours|client)$/.test(t.dataset.fm)) renderSaved(); }
     else if(t.dataset.ft){ const p=t.dataset.ft.split('.'); state.tests[+p[0]][p[1]]=t.value; }
     else return;
     if(e.type==='input'&&t.tagName==='INPUT') Snd.play('key');
@@ -2754,6 +2783,7 @@ const Integration=(function(){
       else{ Snd.play('warn'); setBtnLabel(b,'Clear?'); b.classList.add('warn'); pendingNew=setTimeout(()=>{ pendingNew=null; setBtnLabel(b,'New'); b.classList.remove('warn'); },3000); }
     }
     else if(act==='f-save') saveCurrent();
+    else if(act==='f-saved-all'){ SAVED_ALL.fdn=!SAVED_ALL.fdn; renderSaved(); }
     else if(act==='f-toggle-saved'){ const p=$('f-savedpanel'); Snd.play(p.hidden?'open':'close'); p.hidden=!p.hidden; if(!p.hidden) renderSaved(); }
     else if(act==='f-copy') doCopy();
     else if(act==='f-add'){
