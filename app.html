@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-51">
+<meta name="sts-build" content="2026.10.29-52">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -1442,6 +1442,7 @@ function askDialog(o){
     const first=back.querySelector('button.primary')||back.querySelector('button'); if(first) first.focus({preventScroll:true});
   });
 }
+window.askDialog=askDialog;
 const SAVED_ALL={mdd:false,fdn:false};
 const relK=v=>String(v==null?'':v).trim().toLowerCase();
 const relHas=m=>['job','ours','client'].some(f=>relK(m[f])!=='');
@@ -3512,8 +3513,10 @@ window.STS_INSETS=function(){
     } finally { busy=false; }
   });
   $('upd-reset').addEventListener('click',()=>{
-    try{ localStorage.removeItem(K_HTML); localStorage.removeItem('sts-boot-pending'); }catch(e){}
-    msg('Back to the built-in version. Restarting…'); setTimeout(restart,600);
+    const go=()=>{ try{ localStorage.removeItem(K_HTML); localStorage.removeItem('sts-boot-pending'); }catch(e){}
+      msg('Back to the built-in version. Restarting…'); setTimeout(restart,600); };
+    if(!usingUpdate){ msg('You are already on the built-in version ('+build+').'); return; }
+    window.askDialog({title:'Use the built-in version?',msg:'This drops the downloaded update ('+build+') and restarts the app on the version that came with it. Your saved tests are not touched.',buttons:[{label:'Confirm',value:'ok',primary:true},{label:'Cancel',value:null}]}).then(v=>{ if(v==='ok') go(); });
   });
 })();
 try{ localStorage.removeItem('sts-boot-pending'); }catch(e){}   // reached the end of start-up: the page is healthy
