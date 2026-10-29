@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-61">
+<meta name="sts-build" content="2026.10.29-62">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -898,6 +898,18 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
   :root:root .bar-inner{max-width:1280px}
 }
 .ph-n{text-align:right}
+.ssort{display:flex; align-items:center; gap:8px; margin:0 0 8px}
+.ssort label{font-size:12px; color:var(--muted); font-weight:600}
+.ssort select{flex:1 1 auto; max-width:260px; min-height:36px; font-size:14px}
+/* the sample jump box wears each theme's button look */
+:root[data-skin="retro"] .jump-sel{border:2px solid; border-color:#fff #404040 #404040 #fff; background:#C0C0C0; color:#000; box-shadow:inset -1px -1px #808080, inset 1px 1px #dfdfdf; border-width:1px; min-height:30px}
+:root[data-skin="pixel"] .jump-sel{border:2px solid var(--ink); background:var(--surface); color:var(--ink); box-shadow:2px 2px 0 var(--ink); font-family:var(--font-mono); font-weight:600; min-height:30px; font-size:12.5px}
+:root[data-skin="y2k"] .jump-sel{background:linear-gradient(180deg,#FFFFFF 0%,#E4ECFF 48%,#C7D6F8 52%,#EAF0FF 100%); border:1px solid #7E92D1; border-radius:999px; color:var(--ink); box-shadow:inset 0 1px 0 #fff, 0 2px 5px -2px rgba(47,70,160,.5); font-weight:700; padding-inline:12px}
+:root[data-skin="hill"] .jump-sel{background:transparent; border:1px solid #4a4638; border-radius:0; color:var(--ink); font:400 12.5px/1 var(--font-body); letter-spacing:.14em; text-transform:uppercase; box-shadow:none}
+:root[data-skin="cream"] .jump-sel{background:#FBF3DC; border:2px solid #1B2A55; border-radius:3px; color:#1B2A55; font:800 12.5px/1 var(--font-display); letter-spacing:.1em; text-transform:uppercase; box-shadow:2px 2px 0 #1B2A55}
+:root[data-skin="matrix"] .jump-sel{background:transparent; border:1px solid #00B82E; border-radius:0; color:#00FF41; text-transform:uppercase; letter-spacing:.12em; text-shadow:0 0 6px rgba(0,255,65,.6); box-shadow:0 0 8px rgba(0,255,65,.15); font-size:12.5px}
+:root[data-skin="hill"] .jump-sel option,:root[data-skin="matrix"] .jump-sel option{background:#0b0b09; color:#e6dfcb; text-transform:none; letter-spacing:0}
+:root[data-skin="matrix"] .jump-sel option{background:#000; color:#00FF41}
 .jump-sel{margin-left:auto; flex:0 1 190px; min-width:92px; max-width:46%; min-height:40px; padding:4px 8px; font-size:13px; font-weight:600; border:1px solid var(--line); border-radius:8px; background:var(--surface); color:var(--ink)}
 :root[data-skin="retro"] .jump-sel,:root[data-skin="pixel"] .jump-sel,:root[data-skin="hill"] .jump-sel,:root[data-skin="matrix"] .jump-sel,:root[data-skin="cream"] .jump-sel{border-radius:0}
 .ph-brk{display:block; white-space:normal; max-width:190px; margin-left:auto; font-size:11.5px; font-weight:400; opacity:.85; margin-top:1px}
@@ -1072,6 +1084,7 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
     </div>
     <section class="saved" id="f-savedpanel" hidden aria-label="Saved FDN tests">
       <h2>Saved FDN tests</h2>
+      <div class="ssort"><label for="f-saved-sort">Sort</label><select id="f-saved-sort" data-sortsel aria-label="Sort saved list"><option value="new">Last saved, newest first</option><option value="old">Last saved, oldest first</option><option value="date">Test date, newest first</option><option value="az">Sample ID, A to Z</option></select></div>
       <div class="sfilter" id="f-savedfilter"></div>
       <ul id="f-savedlist"></ul>
       <div class="hint">Saved on this device and browser only.</div>
@@ -1205,6 +1218,7 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
     </div>
     <section class="saved" id="savedpanel" hidden aria-label="Saved compaction tests">
       <h2>Saved compaction tests</h2>
+      <div class="ssort"><label for="saved-sort">Sort</label><select id="saved-sort" data-sortsel aria-label="Sort saved list"><option value="new">Last saved, newest first</option><option value="old">Last saved, oldest first</option><option value="date">Test date, newest first</option><option value="az">Sample ID, A to Z</option></select></div>
       <div class="sfilter" id="savedfilter"></div>
       <ul id="savedlist"></ul>
       <div class="hint">Saved on this device and browser only.</div>
@@ -1471,6 +1485,18 @@ function savedFilterUI(el,kind,cur,all,rel,actName){
   el.innerHTML=(showing?'Showing all '+all.length+' saved':'Showing '+rel.length+' of '+all.length+' for <b>'+esc(relLabel(cur))+'</b>')
     +(all.length>rel.length||showing?' <button type="button" class="slim" data-act="'+actName+'">'+(showing?'Only this project':'Show all ('+all.length+')')+'</button>':'');
 }
+let SORT_MODE='new'; try{ SORT_MODE=localStorage.getItem('sts-saved-sort')||'new'; }catch(e){}
+function sortSaved(list,keyFn){
+  const a=list.slice(), m=SORT_MODE;
+  if(m==='old') a.sort((x,y)=>(x.savedAt||0)-(y.savedAt||0));
+  else if(m==='az') a.sort((x,y)=>String(keyFn(x)||'~').localeCompare(String(keyFn(y)||'~'),undefined,{numeric:true,sensitivity:'base'}));
+  else if(m==='date') a.sort((x,y)=>String((y.data.meta.date)||'').localeCompare(String(x.data.meta.date||''))||(y.savedAt||0)-(x.savedAt||0));
+  else a.sort((x,y)=>(y.savedAt||0)-(x.savedAt||0));
+  return a;
+}
+document.addEventListener('change',e=>{ const t=e.target; if(!t||!t.matches||!t.matches('[data-sortsel]')) return;
+  SORT_MODE=t.value; try{ localStorage.setItem('sts-saved-sort',SORT_MODE); }catch(err){}
+  document.dispatchEvent(new Event('sts-sort')); });
 function setBtnLabel(b,t){ const s=b&&b.querySelector('.bl'); if(s) s.textContent=t; else if(b) b.textContent=t; }
 
 let toastTimer=null;
@@ -2190,16 +2216,16 @@ const Integration=(function(){
   function renderJump(list){
     const j=$('jump'); if(!j) return;
     const cur=state.savedId&&list.some(x=>x.id===state.savedId)?state.savedId:'';
-    j.innerHTML='<option value="">'+(list.length?'Samples ('+list.length+')':'No saved samples')+'</option>'+list.slice().sort((a,b)=>b.savedAt-a.savedAt).map(it=>'<option value="'+esc(it.id)+'"'+(it.id===cur?' selected':'')+'>'+esc(it.data.meta.sample||'Untitled sample')+'</option>').join('');
+    j.innerHTML='<option value="">'+(list.length?'Samples ('+list.length+')':'No saved samples')+'</option>'+sortSaved(list,it=>it.data.meta.sample).map(it=>'<option value="'+esc(it.id)+'"'+(it.id===cur?' selected':'')+'>'+esc(it.data.meta.sample||'Untitled sample')+'</option>').join('');
     j.value=cur; j.disabled=!list.length;
   }
   function renderSaved(){
     const all=getSaved(), list=SAVED_ALL.mdd||!relHas(state.meta)?all:all.filter(it=>relMatch(state.meta,it.data.meta));
-    renderJump(list);
+    renderJump(list); { const so=$('saved-sort'); if(so) so.value=SORT_MODE; }
     setBtnLabel($('btn-saved'),'Saved'+(list.length?' ('+list.length+')':''));
     savedFilterUI($('savedfilter'),'mdd',state.meta,all,list,'saved-all');
     if(!list.length){ $('savedlist').innerHTML='<li><span class="muted small">'+(all.length?'Nothing saved for this project and test request yet. Tap Save to keep this test.':'Nothing saved yet. Tap Save to keep this test.')+'</span></li>'; return; }
-    $('savedlist').innerHTML=list.slice().sort((a,b)=>b.savedAt-a.savedAt).map(it=>{
+    $('savedlist').innerHTML=sortSaved(list,it=>it.data.meta.sample).map(it=>{
       const c=compute(it.data);
       const bits=[(METHOD[it.data.meta.method]||'').split(' (')[0],fmtDate(it.data.meta.date),c.res?('MDD '+c.res.mdd.toFixed(2)+' · OMC '+roundHalf(c.res.omc).toFixed(1)+'%'):'No result yet'].filter(Boolean).join(' · ');
       return '<li><div class="si"><strong>'+esc(it.data.meta.sample||'Untitled sample')+'</strong><span>'+esc(bits)+'</span></div>'
@@ -2384,6 +2410,7 @@ const Integration=(function(){
   $('exbanner').hidden=!state.example;
   renderSaved();
   update();
+  document.addEventListener('sts-sort',()=>renderSaved());
   $('jump').addEventListener('change',e=>{ const id=e.target.value; if(!id) return; const rec=getSaved().find(x=>x.id===id); if(!rec){ renderSaved(); return; }
     guardSheet(isDirty,saveCurrent,()=>{ const s=JSON.parse(JSON.stringify(rec.data)); s.savedId=rec.id; s.example=false; loadAll(s); toast('Loaded '+(s.meta.sample||'test')); },()=>renderSaved()); });
   window.STS_API=window.STS_API||{};
@@ -2740,16 +2767,16 @@ const Integration=(function(){
   function renderJump(list){
     const j=$('f-jump'); if(!j) return;
     const cur=state.savedId&&list.some(x=>x.id===state.savedId)?state.savedId:'';
-    j.innerHTML='<option value="">'+(list.length?'Sheets ('+list.length+')':'No saved sheets')+'</option>'+list.slice().sort((a,b)=>b.savedAt-a.savedAt).map(it=>{ const d=fixCopy(it.data); return '<option value="'+esc(it.id)+'"'+(it.id===cur?' selected':'')+'>'+esc(lotsText(d.tests)+(d.meta.sample?' · '+d.meta.sample:''))+'</option>'; }).join('');
+    j.innerHTML='<option value="">'+(list.length?'Sheets ('+list.length+')':'No saved sheets')+'</option>'+sortSaved(list,it=>lotsText(fixCopy(it.data).tests)).map(it=>{ const d=fixCopy(it.data); return '<option value="'+esc(it.id)+'"'+(it.id===cur?' selected':'')+'>'+esc(lotsText(d.tests)+(d.meta.sample?' · '+d.meta.sample:''))+'</option>'; }).join('');
     j.value=cur; j.disabled=!list.length;
   }
   function renderSaved(){
     const all=getSaved(), list=SAVED_ALL.fdn||!relHas(state.meta)?all:all.filter(it=>relMatch(state.meta,it.data.meta));
-    renderJump(list);
+    renderJump(list); { const so=$('f-saved-sort'); if(so) so.value=SORT_MODE; }
     setBtnLabel($('f-btn-saved'),'Saved'+(list.length?' ('+list.length+')':''));
     savedFilterUI($('f-savedfilter'),'fdn',state.meta,all,list,'f-saved-all');
     if(!list.length){ $('f-savedlist').innerHTML='<li><span class="muted small">'+(all.length?'Nothing saved for this project and test request yet. Tap Save to keep this sheet.':'Nothing saved yet. Tap Save to keep this sheet.')+'</span></li>'; return; }
-    $('f-savedlist').innerHTML=list.slice().sort((a,b)=>b.savedAt-a.savedAt).map(it=>{
+    $('f-savedlist').innerHTML=sortSaved(list,it=>lotsText(fixCopy(it.data).tests)).map(it=>{
       const d=fixCopy(it.data), c=fdnCompute(d), m=d.meta;
       const res=m.xref&&c.sum?(c.sum.n+(c.sum.n===1?' test':' tests')+(c.sum.pass!==null?' · '+c.sum.pass+' pass':'')+' · lowest '+c.sum.min.toFixed(1)+'%')
         :(c.dsum?(c.dsum.n+(c.dsum.n===1?' test':' tests')+' · mean dry density '+c.dsum.mean.toFixed(3)):'No results yet');
@@ -2926,6 +2953,7 @@ const Integration=(function(){
   $('f-exbanner').hidden=!state.example;
   renderSaved();
   update();
+  document.addEventListener('sts-sort',()=>renderSaved());
   $('f-jump').addEventListener('change',e=>{ const id=e.target.value; if(!id) return; const rec=getSaved().find(x=>x.id===id); if(!rec){ renderSaved(); return; }
     guardSheet(isDirty,saveCurrent,()=>{ Snd.play('click'); const s=JSON.parse(JSON.stringify(rec.data)); s.savedId=rec.id; s.example=false; loadAll(s); toast('Loaded '+lotsText(state.tests).toLowerCase()); },()=>renderSaved()); });
   window.STS_API=window.STS_API||{};
