@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-71">
+<meta name="sts-build" content="2026.10.29-72">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -1136,7 +1136,7 @@ td input.auto{font-style:italic; color:var(--muted)}
       <div class="jump">
         <button type="button" class="quiet" data-act="jump" data-to="f-sec-ref" id="f-jump-ref">Reference</button>
         <button type="button" class="quiet" data-act="jump" data-to="f-sec-setup">Test details</button>
-        <button type="button" class="quiet" data-act="jump" data-to="f-sec-loc">Locations</button>
+        <button type="button" class="quiet" data-act="jump" data-to="f-sec-loc">FDN details</button>
         <button type="button" class="quiet" data-act="jump" data-to="f-sec-read">Gauge readings</button>
         <button type="button" class="quiet" data-act="jump" data-to="f-sec-res">Test results</button>
         <button type="button" class="quiet" data-act="jump" data-to="f-sec-int">Integration</button>
@@ -1163,7 +1163,7 @@ td input.auto{font-style:italic; color:var(--muted)}
   </section>
 
   <section class="sec" id="f-sec-loc">
-    <div class="sechead"><h2>Locations</h2><span class="hint">One column per test</span></div>
+    <div class="sechead"><h2>FDN details</h2><span class="hint">One column per test</span></div>
     <div class="tblwrap split">
       <div class="tbar"><span class="tcount" id="f-count"></span>
         <span class="tbtns"><button type="button" class="slim" data-act="f-add">Add test</button></span></div>
@@ -2557,17 +2557,24 @@ const Integration=(function(){
     try{
       const saved=readLS('mdd-lab-tests-v1');
       if(Array.isArray(saved)) saved.slice().sort((a,b)=>a.savedAt-b.savedAt).forEach(it=>{
-        try{ const c=compute(it.data), nm=String(it.data.meta.sample||'').trim(); if(c.res&&nm) map[skey(nm)]={sample:nm,mdd:c.res.mdd,omc:c.res.omc}; }catch(e){}
+        try{ const c=compute(it.data), nm=String(it.data.meta.sample||'').trim(); if(!nm) return;
+          if(c.res) map[skey(nm)]={sample:nm,mdd:c.res.mdd,omc:c.res.omc,meta:it.data.meta};
+          else if(!map[skey(nm)]) map[skey(nm)]={sample:nm,mdd:null,omc:null,meta:it.data.meta}; }catch(e){}
       });
-      if(App.compaction){ const st=App.compaction.state(), c=compute(st), nm=String(st.meta.sample||'').trim(); if(c.res&&nm) map[skey(nm)]={sample:nm,mdd:c.res.mdd,omc:c.res.omc}; }
+      if(App.compaction){ const st=App.compaction.state(), c=compute(st), nm=String(st.meta.sample||'').trim(); if(c.res&&nm) map[skey(nm)]={sample:nm,mdd:c.res.mdd,omc:c.res.omc,meta:st.meta}; }
     }catch(e){}
     return map;
   }
   function csOptions(t){
-    const map=refList(), cur=String(t.cs||'').trim();
-    let h='<option value="">Sheet MDD</option>', seen=false;
-    Object.keys(map).sort().forEach(k=>{ const o=map[k]; if(skey(cur)===k) seen=true;
-      h+='<option value="'+esc(o.sample)+'"'+(skey(cur)===k?' selected':'')+'>'+esc(o.sample+' · '+o.mdd.toFixed(2)+' · '+roundHalf(o.omc).toFixed(1)+'%')+'</option>'; });
+    const map=refList(), cur=String(t.cs||'').trim(), keys=Object.keys(map).sort((x,y)=>String(map[x].sample).localeCompare(String(map[y].sample),undefined,{numeric:true}));
+    let seen=false;
+    const opt=k=>{ const o=map[k], on=skey(cur)===k; if(on) seen=true;
+      if(o.mdd===null) return '<option value="'+esc(o.sample)+'" disabled'+(on?' selected':'')+'>'+esc(o.sample+' · no result yet')+'</option>';
+      return '<option value="'+esc(o.sample)+'"'+(on?' selected':'')+'>'+esc(o.sample+' · '+o.mdd.toFixed(2)+' · '+roundHalf(o.omc).toFixed(1)+'%')+'</option>'; };
+    const same=keys.filter(k=>relHas(state.meta)&&relMatch(state.meta,map[k].meta||{})), other=keys.filter(k=>same.indexOf(k)<0);
+    let h='<option value="">Sheet MDD</option>';
+    if(same.length&&other.length) h+='<optgroup label="This test request">'+same.map(opt).join('')+'</optgroup><optgroup label="Other samples">'+other.map(opt).join('')+'</optgroup>';
+    else h+=keys.map(opt).join('');
     if(cur&&!seen) h+='<option value="'+esc(cur)+'" selected>'+esc(cur+(t.cmdd?' · '+t.cmdd+' (not found)':' (not found)'))+'</option>';
     return h;
   }
@@ -2577,7 +2584,7 @@ const Integration=(function(){
     state.tests.forEach(t=>{
       const cs=String(t.cs||'').trim(); if(!cs){ if(t.cmdd||t.comc){ t.cmdd=''; t.comc=''; } return; }
       map=map||refList(); const o=map[skey(cs)];
-      if(o){ t.cmdd=o.mdd.toFixed(2); t.comc=roundHalf(o.omc).toFixed(1); }
+      if(o&&o.mdd!==null){ t.cmdd=o.mdd.toFixed(2); t.comc=roundHalf(o.omc).toFixed(1); }
     });
   }
   function buildLoc(){
@@ -2899,7 +2906,7 @@ const Integration=(function(){
   }
   function onEdit(e){
     const t=e.target; if(!t||!t.dataset) return;
-    if(t.dataset.fm){ state.meta[t.dataset.fm]=t.value; if(/^(job|ours|client)$/.test(t.dataset.fm)) renderSaved(); }
+    if(t.dataset.fm){ state.meta[t.dataset.fm]=t.value; if(/^(job|ours|client)$/.test(t.dataset.fm)){ renderSaved(); document.querySelectorAll('select[data-cs]').forEach(el=>{ const tt=state.tests[+el.dataset.cs]; if(tt&&document.activeElement!==el) el.innerHTML=csOptions(tt); }); } }
     else if(t.dataset.ft){ const p=t.dataset.ft.split('.'), tt=state.tests[+p[0]]; tt[p[1]]=t.value;
       if(p[1]==='dry'){ delete tt.da; t.classList.remove('auto'); }
       else if(p[1]==='wet'||p[1]==='gw') autoDry(+p[0]); }
