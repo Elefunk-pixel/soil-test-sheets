@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-18">
+<meta name="sts-build" content="2026.10.29-19">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -618,11 +618,7 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
 #fs-ov .fs-t{flex:1; min-width:0}
 #fs-ov .fs-x{min-height:44px; padding:8px 14px; font-weight:700}
 #fs-ov .fs-rot{min-height:44px; padding:6px 12px; font-size:13px}
-.tblwrap.fs-live{position:fixed!important; z-index:200; margin:0!important; border:2px solid var(--accent)!important; border-radius:14px!important; max-width:none!important; overflow-x:hidden!important; overflow-y:auto!important; background:var(--surface); padding:0 0 16px; box-sizing:border-box; box-shadow:0 0 0 100vmax rgba(0,0,0,.55)}
-.tblwrap.fs-live{display:flex!important; flex-direction:column}
-.tblwrap.fs-live>*{flex:none}
-.tblwrap.fs-live>.fs-live-bar+*{margin-top:auto!important}
-.tblwrap.fs-live>*:last-child{margin-bottom:auto!important}
+.tblwrap.fs-live{position:fixed!important; top:50%!important; transform:translateY(-50%); height:auto!important; z-index:200; border:2px solid var(--accent)!important; border-radius:14px!important; max-width:none!important; overflow-x:hidden!important; overflow-y:auto!important; background:var(--surface); padding:0 0 4px; box-sizing:border-box; box-shadow:0 0 0 100vmax rgba(0,0,0,.55)!important}
 .tblwrap.fs-live>.fs-live-bar{position:sticky; left:0; top:0; z-index:5; display:flex; align-items:center; gap:10px; padding:8px 12px; background:var(--surface); border-bottom:1px solid var(--line); font:700 17px/1.2 var(--font-display); color:var(--ink)}
 .tblwrap.fs-live>.fs-live-bar span{flex:1; min-width:0}
 .tblwrap.fs-live .fs-live-bar button{min-height:44px; padding:8px 14px; font-weight:700}
@@ -2550,7 +2546,7 @@ window.STS_INSETS=function(){
   const z=parseFloat(document.documentElement.style.zoom)||1, app=document.documentElement.hasAttribute('data-app');
   const sat=parseFloat(document.documentElement.style.getPropertyValue('--sat'))||0;
   const pad=10;
-  return {z:z, W:Math.round(innerWidth/z), H:Math.round(innerHeight/z), t:Math.round(sat+pad+(app?4:0)), b:Math.round((app?52:0)+pad), l:pad, r:pad};
+  return {z:z, W:Math.round(innerWidth/z), H:Math.round(innerHeight/z), t:Math.round(Math.max(sat+pad+(app?4:0),30)), b:Math.round(Math.max((app?52:0)+pad,26)), l:pad, r:pad};
 };
 
 /* ======================= full-screen charts ======================= */
@@ -2600,8 +2596,8 @@ window.STS_INSETS=function(){
 (function(){
   const zf=()=>parseFloat(document.documentElement.style.zoom)||1;
   let cur=null;
-  function size(){ if(!cur) return; const I=STS_INSETS(); cur.style.left=I.l+'px'; cur.style.top=I.t+'px'; cur.style.width=(I.W-I.l-I.r)+'px'; cur.style.height=(I.H-I.t-I.b)+'px'; }
-  function close(){ if(!cur) return; const bar=cur.querySelector(':scope>.fs-live-bar'); if(bar) bar.remove(); cur.classList.remove('fs-live'); cur.style.width=''; cur.style.height=''; cur.style.left=''; cur.style.top=''; cur=null; document.body.style.overflow=''; }
+  function size(){ if(!cur) return; const I=STS_INSETS(); cur.style.left=I.l+'px'; cur.style.width=(I.W-I.l-I.r)+'px'; cur.style.maxHeight=(I.H-I.t-I.b)+'px'; cur.style.marginTop=((I.t-I.b)/2)+'px'; }
+  function close(){ if(!cur) return; const bar=cur.querySelector(':scope>.fs-live-bar'); if(bar) bar.remove(); cur.classList.remove('fs-live'); cur.style.width=''; cur.style.maxHeight=''; cur.style.marginTop=''; cur.style.left=''; cur=null; document.body.style.overflow=''; }
   function open(w,title){
     close(); cur=w; w.classList.add('fs-live');
     const bar=document.createElement('div'); bar.className='fs-live-bar'; bar.innerHTML='<span></span><button type="button" data-tfx>Close ✕</button>'; bar.firstChild.textContent=title;
