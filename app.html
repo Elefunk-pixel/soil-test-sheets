@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-62">
+<meta name="sts-build" content="2026.10.29-63">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -910,6 +910,13 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
 :root[data-skin="matrix"] .jump-sel{background:transparent; border:1px solid #00B82E; border-radius:0; color:#00FF41; text-transform:uppercase; letter-spacing:.12em; text-shadow:0 0 6px rgba(0,255,65,.6); box-shadow:0 0 8px rgba(0,255,65,.15); font-size:12.5px}
 :root[data-skin="hill"] .jump-sel option,:root[data-skin="matrix"] .jump-sel option{background:#0b0b09; color:#e6dfcb; text-transform:none; letter-spacing:0}
 :root[data-skin="matrix"] .jump-sel option{background:#000; color:#00FF41}
+.jump-sel{display:flex; align-items:center; justify-content:space-between; gap:6px; text-align:left; white-space:nowrap}
+.jump-sel .jl{overflow:hidden; text-overflow:ellipsis; min-width:0}
+.jump-sel .caret{width:14px; height:14px; flex:none; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+.jump-pop{box-shadow:0 12px 32px rgba(0,0,0,.35)}
+:root[data-skin="matrix"] .jump-pop .mi:hover small,:root[data-skin="matrix"] .jump-pop .mi[aria-checked="true"] small{color:#003a0f; text-shadow:none}
+:root[data-skin="matrix"] .jump-pop{border-radius:0}
+.jump-pop .mi b{word-break:break-word}
 .jump-sel{margin-left:auto; flex:0 1 190px; min-width:92px; max-width:46%; min-height:40px; padding:4px 8px; font-size:13px; font-weight:600; border:1px solid var(--line); border-radius:8px; background:var(--surface); color:var(--ink)}
 :root[data-skin="retro"] .jump-sel,:root[data-skin="pixel"] .jump-sel,:root[data-skin="hill"] .jump-sel,:root[data-skin="matrix"] .jump-sel,:root[data-skin="cream"] .jump-sel{border-radius:0}
 .ph-brk{display:block; white-space:normal; max-width:190px; margin-left:auto; font-size:11.5px; font-weight:400; opacity:.85; margin-top:1px}
@@ -972,13 +979,13 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
       <button type="button" class="barbtn" id="f-btn-new" data-act="f-new"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span class="bl">New</span></button>
       <button type="button" class="barbtn" id="f-tb-save" data-act="f-save"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg><span class="bl">Save</span></button>
       <button type="button" class="barbtn" id="f-btn-copy" data-act="f-copy"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span class="bl">Copy</span></button>
-      <select class="jump-sel" id="f-jump" aria-label="Jump to a saved sheet"></select>
+      <button type="button" class="jump-sel" id="f-jump" aria-haspopup="listbox" aria-expanded="false" aria-label="Jump to a saved sheet"><span class="jl"></span><svg class="caret" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
     </div>
     <div class="bar-actions" id="acts-compaction" role="toolbar" aria-label="Lab compaction actions" hidden>
       <button type="button" class="barbtn" id="btn-new" data-act="new"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span class="bl">New</span></button>
       <button type="button" class="barbtn" id="tb-save" data-act="save"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg><span class="bl">Save</span></button>
       <button type="button" class="barbtn" id="btn-copy" data-act="copy"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span class="bl">Copy</span></button>
-      <select class="jump-sel" id="jump" aria-label="Jump to a saved sample"></select>
+      <button type="button" class="jump-sel" id="jump" aria-haspopup="listbox" aria-expanded="false" aria-label="Jump to a saved sample"><span class="jl"></span><svg class="caret" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
     </div>
 
     <div class="bar-actions" id="acts-projects" role="toolbar" aria-label="Project actions" hidden>
@@ -1471,6 +1478,37 @@ function guardSheet(dirty,save,proceed,cancel){
   });
 }
 window.guardSheet=guardSheet;
+/* A pop-up list that wears the theme (a native <select> list cannot). */
+const JumpMenu=(function(){
+  let pop=null, owner=null, picks={};
+  function close(){ if(pop){ pop.remove(); pop=null; } if(owner){ owner.setAttribute('aria-expanded','false'); owner=null; } }
+  function open(btn){
+    close(); const it=btn._items||[]; if(!it.length) return;
+    pop=document.createElement('div'); pop.className='menu jump-pop'; pop.setAttribute('role','listbox');
+    pop.innerHTML=it.map(x=>'<button type="button" class="mi" role="option" data-id="'+esc(x.id)+'" aria-checked="'+(x.id===btn._cur)+'"><span><b>'+esc(x.label)+'</b>'+(x.sub?'<small>'+esc(x.sub)+'</small>':'')+'</span></button>').join('');
+    document.body.appendChild(pop); owner=btn; btn.setAttribute('aria-expanded','true');
+    const r=btn.getBoundingClientRect(), z=parseFloat(document.documentElement.style.zoom)||1, vw=innerWidth/z, vh=innerHeight/z;
+    const L=r.left/z, R=r.right/z, T=r.bottom/z;
+    pop.style.position='fixed'; pop.style.zIndex=96; pop.style.top=(T+6)+'px';
+    pop.style.minWidth=Math.max(200,R-L)+'px'; pop.style.maxWidth=(vw-16)+'px';
+    pop.style.maxHeight=Math.max(160,vh-T-24)+'px';
+    pop.style.left=Math.max(8,Math.min(L,vw-pop.offsetWidth-8))+'px';
+    const cur=pop.querySelector('[aria-checked="true"]'); if(cur) pop.scrollTop=Math.max(0,cur.offsetTop-40);
+  }
+  document.addEventListener('pointerdown',e=>{ if(!pop) return; if(pop.contains(e.target)||(owner&&owner.contains(e.target))) return; close(); },true);
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&pop){ e.stopPropagation(); close(); } },true);
+  document.addEventListener('click',e=>{
+    const mi=e.target.closest&&e.target.closest('.jump-pop .mi');
+    if(mi&&owner){ const id=mi.dataset.id, cb=picks[owner.id]; close(); if(cb) cb(id); return; }
+    const b=e.target.closest&&e.target.closest('.jump-sel'); if(b&&!b.disabled){ if(owner===b) close(); else open(b); }
+  });
+  window.addEventListener('resize',close); window.addEventListener('scroll',e=>{ if(pop&&!pop.contains(e.target)) close(); },true);
+  return {
+    bind(id,cb){ picks[id]=cb; },
+    set(id,items,cur,ph){ const b=document.getElementById(id); if(!b) return; b._items=items; b._cur=cur;
+      const c=items.find(x=>x.id===cur); b.querySelector('.jl').textContent=c?c.label:ph; b.disabled=!items.length; if(pop&&owner===b) close(); }
+  };
+})();
 const SAVED_ALL={mdd:false,fdn:false};
 const relK=v=>String(v==null?'':v).trim().toLowerCase();
 const relHas=m=>['job','ours','client'].some(f=>relK(m[f])!=='');
@@ -2214,10 +2252,8 @@ const Integration=(function(){
   function getSaved(){ const v=readLS(LS_SAVED); return Array.isArray(v)?v:[]; }
 
   function renderJump(list){
-    const j=$('jump'); if(!j) return;
     const cur=state.savedId&&list.some(x=>x.id===state.savedId)?state.savedId:'';
-    j.innerHTML='<option value="">'+(list.length?'Samples ('+list.length+')':'No saved samples')+'</option>'+sortSaved(list,it=>it.data.meta.sample).map(it=>'<option value="'+esc(it.id)+'"'+(it.id===cur?' selected':'')+'>'+esc(it.data.meta.sample||'Untitled sample')+'</option>').join('');
-    j.value=cur; j.disabled=!list.length;
+    JumpMenu.set('jump',sortSaved(list,it=>it.data.meta.sample).map(it=>{ const c=compute(it.data); return {id:it.id,label:it.data.meta.sample||'Untitled sample',sub:[fmtDate(it.data.meta.date),c.res?('MDD '+c.res.mdd.toFixed(2)):''].filter(Boolean).join(' · ')}; }),cur,list.length?'Samples ('+list.length+')':'No saved samples');
   }
   function renderSaved(){
     const all=getSaved(), list=SAVED_ALL.mdd||!relHas(state.meta)?all:all.filter(it=>relMatch(state.meta,it.data.meta));
@@ -2411,7 +2447,7 @@ const Integration=(function(){
   renderSaved();
   update();
   document.addEventListener('sts-sort',()=>renderSaved());
-  $('jump').addEventListener('change',e=>{ const id=e.target.value; if(!id) return; const rec=getSaved().find(x=>x.id===id); if(!rec){ renderSaved(); return; }
+  JumpMenu.bind('jump',id=>{ if(!id) return; const rec=getSaved().find(x=>x.id===id); if(!rec){ renderSaved(); return; }
     guardSheet(isDirty,saveCurrent,()=>{ const s=JSON.parse(JSON.stringify(rec.data)); s.savedId=rec.id; s.example=false; loadAll(s); toast('Loaded '+(s.meta.sample||'test')); },()=>renderSaved()); });
   window.STS_API=window.STS_API||{};
   window.STS_API.mdd={view:'compaction', list:getSaved,
@@ -2765,10 +2801,8 @@ const Integration=(function(){
   function exampleOff(){ if(state.example){ state.example=false; $('f-exbanner').hidden=true; } }
   function getSaved(){ const v=readLS(LS_SAVED); return Array.isArray(v)?v:[]; }
   function renderJump(list){
-    const j=$('f-jump'); if(!j) return;
     const cur=state.savedId&&list.some(x=>x.id===state.savedId)?state.savedId:'';
-    j.innerHTML='<option value="">'+(list.length?'Sheets ('+list.length+')':'No saved sheets')+'</option>'+sortSaved(list,it=>lotsText(fixCopy(it.data).tests)).map(it=>{ const d=fixCopy(it.data); return '<option value="'+esc(it.id)+'"'+(it.id===cur?' selected':'')+'>'+esc(lotsText(d.tests)+(d.meta.sample?' · '+d.meta.sample:''))+'</option>'; }).join('');
-    j.value=cur; j.disabled=!list.length;
+    JumpMenu.set('f-jump',sortSaved(list,it=>lotsText(fixCopy(it.data).tests)).map(it=>{ const d=fixCopy(it.data); return {id:it.id,label:lotsText(d.tests)+(d.meta.sample?' · '+d.meta.sample:''),sub:fmtDate(d.meta.date)}; }),cur,list.length?'Sheets ('+list.length+')':'No saved sheets');
   }
   function renderSaved(){
     const all=getSaved(), list=SAVED_ALL.fdn||!relHas(state.meta)?all:all.filter(it=>relMatch(state.meta,it.data.meta));
@@ -2954,7 +2988,7 @@ const Integration=(function(){
   renderSaved();
   update();
   document.addEventListener('sts-sort',()=>renderSaved());
-  $('f-jump').addEventListener('change',e=>{ const id=e.target.value; if(!id) return; const rec=getSaved().find(x=>x.id===id); if(!rec){ renderSaved(); return; }
+  JumpMenu.bind('f-jump',id=>{ if(!id) return; const rec=getSaved().find(x=>x.id===id); if(!rec){ renderSaved(); return; }
     guardSheet(isDirty,saveCurrent,()=>{ Snd.play('click'); const s=JSON.parse(JSON.stringify(rec.data)); s.savedId=rec.id; s.example=false; loadAll(s); toast('Loaded '+lotsText(state.tests).toLowerCase()); },()=>renderSaved()); });
   window.STS_API=window.STS_API||{};
   window.STS_API.fdn={view:'fdn', list:getSaved,
@@ -3459,7 +3493,7 @@ window.STS_INSETS=function(){
 
   function menuBtn(m){ return document.querySelector('[data-menu="'+m.id+'"]'); }
   function closeMenus(except){
-    document.querySelectorAll('.menu').forEach(m=>{ if(m!==except&&!m.hidden){ m.hidden=true; const b=menuBtn(m); if(b) b.setAttribute('aria-expanded','false'); } });
+    document.querySelectorAll('.menu:not(.jump-pop)').forEach(m=>{ if(m!==except&&!m.hidden){ m.hidden=true; const b=menuBtn(m); if(b) b.setAttribute('aria-expanded','false'); } });
   }
   function fitMenu(m){
     if(!m||m.hidden) return;
@@ -3470,7 +3504,7 @@ window.STS_INSETS=function(){
     const r2=m.getBoundingClientRect();
     if(r2.bottom>room+1){ const k=(room-r2.top)/(r2.bottom-r2.top); m.style.maxHeight=Math.max(120,Math.floor(parseFloat(m.style.maxHeight)*k))+'px'; }
   }
-  const fitOpen=()=>document.querySelectorAll('.menu').forEach(fitMenu);
+  const fitOpen=()=>document.querySelectorAll('.menu:not(.jump-pop)').forEach(fitMenu);
   window.addEventListener('resize',fitOpen); window.addEventListener('orientationchange',()=>setTimeout(fitOpen,150));
   function toggleMenu(id){
     const m=$(id), b=menuBtn(m), open=m.hidden;
@@ -3523,7 +3557,7 @@ window.STS_INSETS=function(){
     if(!(e.target.closest&&e.target.closest('.menu-wrap'))) closeMenus();
   });
   document.addEventListener('keydown',e=>{
-    if(e.key==='Escape'){ const open=document.querySelector('.menu:not([hidden])'); if(open){ closeMenus(); const b=menuBtn(open); if(b) b.focus(); } }
+    if(e.key==='Escape'){ const open=document.querySelector('.menu:not(.jump-pop):not([hidden])'); if(open){ closeMenus(); const b=menuBtn(open); if(b) b.focus(); } }
   });
   $('set-sound').addEventListener('change',e=>{ Snd.set(e.target.checked); if(e.target.checked) Snd.play('click'); });
   window.addEventListener('hashchange',()=>{ const h=location.hash.slice(1); if(VIEWS[h]&&h!==App.view) showView(h); });
