@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-35">
+<meta name="sts-build" content="2026.10.29-36">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -1346,7 +1346,7 @@ const Snd=(function(){
     if(ctx.state==='suspended'){ try{ ctx.resume(); }catch(e){} }
     return ctx;
   }
-  function voice(){ const s=document.documentElement.getAttribute('data-skin'); return s==='hill'?'hill':s==='matrix'?'matrix':(s==='retro'?'retro':(s==='pixel'?'chip':'soft')); }
+  function voice(){ const s=document.documentElement.getAttribute('data-skin'); return s==='y2k'?'y2k':s==='hill'?'hill':s==='matrix'?'matrix':(s==='retro'?'retro':(s==='pixel'?'chip':'soft')); }
   function tone(f,d,o){
     o=o||{}; const c=ensure(); if(!c) return;
     const v=voice(), t0=c.currentTime+(o.at||0)+0.005, mult=v==='matrix'?1.5:1;
@@ -1382,6 +1382,44 @@ const Snd=(function(){
     });
   }
   function drone(f,d,vol,at,to){ tone(f,d,{vol:vol||1,at:at||0,to:to}); tone(f*1.0595,d,{vol:(vol||1)*.7,at:at||0,to:to&&to*1.0595}); }
+  // Y2K voice: glassy bells with a shimmering echo, like sparkles
+  let eco=null;
+  function echoBus(c){
+    if(eco&&eco.c===c) return eco.in;
+    const inn=c.createGain(), dly=c.createDelay(1), fb=c.createGain(), lp=c.createBiquadFilter(), wet=c.createGain();
+    dly.delayTime.value=.19; fb.gain.value=.38; lp.type='lowpass'; lp.frequency.value=4800; wet.gain.value=.42;
+    inn.connect(c.destination); inn.connect(dly); dly.connect(lp); lp.connect(fb); fb.connect(dly); lp.connect(wet); wet.connect(c.destination);
+    eco={c,in:inn}; return inn;
+  }
+  function sparkle(f,d,vol,at){
+    const c=ensure(); if(!c) return; d=d||.5; vol=vol||1;
+    const bus=echoBus(c), t0=c.currentTime+(at||0)+0.005;
+    [[1,1],[2.01,.45],[3.98,.22],[5.4,.1]].forEach((p,i)=>{
+      const o=c.createOscillator(), g=c.createGain(), pan=c.createStereoPanner?c.createStereoPanner():null;
+      o.type='sine'; o.frequency.value=f*p[0]; if(i===0) o.detune.value=(Math.random()-.5)*8;
+      const v=.14*vol*p[1];
+      g.gain.setValueAtTime(0.0001,t0); g.gain.exponentialRampToValueAtTime(v,t0+.004); g.gain.exponentialRampToValueAtTime(0.0001,t0+d/(1+i*.55));
+      o.connect(g); if(pan){ pan.pan.value=(Math.random()-.5)*.8; g.connect(pan); pan.connect(bus); } else g.connect(bus);
+      o.start(t0); o.stop(t0+d+.05);
+    });
+  }
+  const PENTA=[1046.5,1174.7,1318.5,1568,1760,2093,2349.3,2637,3136,3520];
+  const run=(notes,gap,d,vol,at)=>notes.forEach((f,i)=>sparkle(f,d,vol,(at||0)+i*gap));
+  const YFX={
+    click(){ sparkle(2093,.22,.8); sparkle(3136,.2,.55,.045); },
+    key(){ const n=Date.now(); if(n-lastKey<55) return; lastKey=n; sparkle(PENTA[5+Math.floor(Math.random()*5)],.14,.45); },
+    add(){ run([1318.5,1760,2637],.06,.4,.9); },
+    remove(){ run([2349.3,1568,1046.5],.07,.45,.8); },
+    save(){ run([1046.5,1318.5,1568,2093,2637,3136,4186],.06,.7,1); sparkle(2093,1.2,.8,.5); sparkle(3136,1.3,.6,.52); },
+    copy(){ sparkle(3136,.18,.7); sparkle(4186,.22,.6,.07); },
+    warn(){ sparkle(1568,.4,.9); sparkle(1174.7,.55,.9,.12); },
+    sweep(){ run(PENTA.concat([4186]),.035,.35,.6); },
+    toggle(){ sparkle(2637,.12,.55); },
+    open(){ run([1760,2637],.06,.3,.7); },
+    close(){ run([2349.3,1568],.06,.3,.6); },
+    result(){ run([1318.5,1568,1760,2093,2637,3136,3520,4186],.075,.8,.95); sparkle(2093,1.6,.7,.7); sparkle(2637,1.6,.6,.7); sparkle(3136,1.6,.5,.7); },
+    fail(){ sparkle(1568,.5,.9); sparkle(1318.5,.6,.9,.14); sparkle(987.8,.9,.9,.3); }
+  };
   const HFX={
     click(){ noise(.05,.12,900,1.2); clang(180,.18,.05); },
     key(){ const n=Date.now(); if(n-lastKey<45) return; lastKey=n; noise(.02,.07,3200,2); },
@@ -1413,8 +1451,8 @@ const Snd=(function(){
     fail(){ tone(392,.14,{vol:1.1}); tone(311,.24,{at:.13,vol:1.1}); }
   };
   return {
-    note(f){ if(voice()==='hill'){ clang(f/2,1.4,.08); tone(f,1.1,{vol:.7}); } else tone(f,.9,{vol:1.6}); },
-    play(name){ if(!on) return; const f=(voice()==='hill'&&HFX[name])||FX[name]; if(f) f(); },
+    note(f){ if(voice()==='y2k') sparkle(f*2,1.2,1.4); else if(voice()==='hill'){ clang(f/2,1.4,.08); tone(f,1.1,{vol:.7}); } else tone(f,.9,{vol:1.6}); },
+    play(name){ if(!on) return; const vv=voice(), f=(vv==='y2k'&&YFX[name])||(vv==='hill'&&HFX[name])||FX[name]; if(f) f(); },
     isOn(){ return on; },
     set(v){ on=v; try{ localStorage.setItem('mdd-lab-sound-v1',v?'on':'off'); }catch(e){} }
   };
