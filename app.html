@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-57">
+<meta name="sts-build" content="2026.10.29-58">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -65,7 +65,7 @@ window.addEventListener("resize",side);window.addEventListener("orientationchang
 :root[data-skin="matrix"] h1,:root[data-skin="matrix"] h2{font-weight:400; text-transform:uppercase; letter-spacing:.06em}
 :root[data-skin="matrix"] h2{font-size:24px}
 :root[data-skin="matrix"] h1,:root[data-skin="matrix"] h2,:root[data-skin="matrix"] .kpi .val{text-shadow:0 0 10px rgba(0,255,65,.55)}
-:root[data-skin="matrix"] .chartbox .fit{filter:drop-shadow(0 0 4px rgba(0,255,65,.8))}
+:root[data-skin="matrix"] .chartbox .fit{}
 :root[data-skin="matrix"] .appbar{box-shadow:0 1px 0 #00FF41, 0 0 18px rgba(0,255,65,.18)}
 
 :root[data-skin="retro"]{
@@ -723,9 +723,9 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
 }
 :root[data-skin="hill"], :root[data-skin="hill"] html{background:radial-gradient(ellipse 120% 90% at 50% 18%,#26261f 0%,#13130f 52%,#050504 100%) fixed}
 :root[data-skin="hill"] body{background:transparent; font-size:14.5px; letter-spacing:.012em}
-:root[data-skin="hill"] body::before{content:""; position:fixed; inset:-20%; z-index:-1; pointer-events:none;
+:root[data-skin="hill"] body::before{content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
   background:radial-gradient(ellipse 60% 40% at 25% 70%,rgba(170,170,150,.16),transparent 70%),radial-gradient(ellipse 55% 35% at 78% 30%,rgba(150,155,140,.13),transparent 70%),radial-gradient(ellipse 80% 30% at 50% 100%,rgba(120,120,105,.2),transparent 75%)}
-:root[data-skin="hill"] body::after{content:""; position:fixed; inset:-50%; z-index:80; pointer-events:none; opacity:.085; mix-blend-mode:screen; background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 .92 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/240px 240px}
+:root[data-skin="hill"] body::after{content:""; position:fixed; inset:0; z-index:80; pointer-events:none; opacity:.07; background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 .92 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/240px 240px}
 :root[data-skin="hill"] .appbar{background:linear-gradient(180deg,#0d0c0a,#080807); border-bottom:1px solid #4a1b16; box-shadow:0 1px 0 #000, 0 8px 22px -10px rgba(0,0,0,.9)}
 :root[data-skin="hill"] .wrap{gap:16px}
 :root[data-skin="hill"] .titlebar{background:transparent; border:0; border-bottom:1px solid var(--line); border-radius:0; padding:8px 2px 12px; gap:3px; box-shadow:none}
@@ -779,8 +779,6 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
 @media (prefers-reduced-motion:no-preference){
   @keyframes sh-fog{from{transform:translate3d(-3%,0,0)}to{transform:translate3d(3%,-2%,0)}}
   @keyframes sh-grain{0%{transform:translate(0,0)}20%{transform:translate(-7%,5%)}40%{transform:translate(6%,-8%)}60%{transform:translate(-4%,-3%)}80%{transform:translate(8%,6%)}100%{transform:translate(0,0)}}
-  :root[data-skin="hill"] body::before{animation:sh-fog 40s ease-in-out infinite alternate}
-  :root[data-skin="hill"] body::after{animation:sh-grain .8s steps(1) infinite}
 }
 
 /* ---- Cream, red and blue: a printed field ledger. Cream stock, navy ink, red rubber stamp ---- */
@@ -859,7 +857,6 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
 @media (prefers-reduced-motion:no-preference){
   @keyframes mx-blink{50%{opacity:0}} @keyframes mx-flick{0%,100%{opacity:1}50%{opacity:.965}}
   :root[data-skin="matrix"] .sechead h2::after{content:"_"; color:#00FF41; animation:mx-blink 1s steps(1) infinite}
-  :root[data-skin="matrix"] body{animation:mx-flick .16s steps(1) infinite}
 }
 
 /* ---- Old computer: window controls, tooltip toast ---- */
@@ -3271,7 +3268,9 @@ window.STS_INSETS=function(){
 
 /* ======================= Matrix rain (Matrix look only) ======================= */
 (function(){
-  let cv=null, ctx=null, cols=[], timer=null, W=0, H=0, fs=16, last=0;
+  let cv=null, ctx=null, cols=[], timer=null, W=0, H=0, fs=18, last=0, lastScroll=0;
+  addEventListener('scroll',()=>{ lastScroll=performance.now(); },{capture:true,passive:true});
+  addEventListener('touchmove',()=>{ lastScroll=performance.now(); },{capture:true,passive:true});
   const CH='ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0123456789'.split('');
   const on=()=>document.documentElement.getAttribute('data-skin')==='matrix';
   const still=()=>window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
@@ -3283,7 +3282,7 @@ window.STS_INSETS=function(){
   }
   function frame(t){
     timer=requestAnimationFrame(frame);
-    if(document.hidden||t-last<60) return; last=t;
+    if(document.hidden||t-last<85||t-lastScroll<250) return; last=t;
     ctx.fillStyle='rgba(0,0,0,.09)'; ctx.fillRect(0,0,W,H);
     ctx.font=fs+'px "Share Tech Mono",monospace';
     for(let i=0;i<cols.length;i++){
