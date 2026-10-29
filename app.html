@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-31">
+<meta name="sts-build" content="2026.10.29-33">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -307,6 +307,10 @@ button.warn{border-color:var(--warn); color:var(--warn)}
 :root[data-skin="pixel"] .pk{border-radius:0; border:3px solid #0B1544; box-shadow:0 4px 0 #0B1544}
 .setrow{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px; border-radius:7px}
 .setrow b{display:block; font:600 15px/1.2 var(--font-body)}
+.setrow.bk{flex-wrap:wrap}
+.setrow.bk .ub{display:flex; flex-wrap:wrap; gap:6px; width:100%}
+.setrow.bk textarea{width:100%; font:12px/1.3 ui-monospace,Menlo,Consolas,monospace; border-radius:6px; padding:6px; box-sizing:border-box}
+.setrow.bk .um{width:100%; font-size:12.5px; color:var(--muted)}
 .setrow small{display:block; font:400 12.5px/1.3 var(--font-body); color:var(--muted); margin-top:3px}
 input.switch{appearance:none; -webkit-appearance:none; flex:none; width:44px; height:26px; padding:0; border-radius:13px; border:1px solid var(--input-line);
   background:var(--surface-2); position:relative; cursor:pointer; margin:0}
@@ -884,6 +888,14 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
         <div class="piano" id="piano" hidden role="group" aria-label="Piano">
           <div class="pk-h">Secret piano</div>
           <div class="pk-row"><button type="button" class="pk" data-note="523.25" aria-label="C"><i>C</i></button><button type="button" class="pk" data-note="587.33" aria-label="D"><i>D</i></button><button type="button" class="pk" data-note="659.25" aria-label="E"><i>E</i></button><button type="button" class="pk" data-note="783.99" aria-label="G"><i>G</i></button><button type="button" class="pk" data-note="880" aria-label="A"><i>A</i></button></div>
+        </div>
+        <div class="setrow bk" id="set-bk">
+          <span><b>Backup &amp; transfer</b><small>Move your tests and projects between devices</small></span>
+          <div class="ub"><button type="button" class="slim" id="bk-export">Export file</button><button type="button" class="slim" id="bk-copy">Copy</button><button type="button" class="slim" id="bk-import">Import file</button><button type="button" class="slim" id="bk-paste">Paste</button></div>
+          <input type="file" id="bk-file" accept=".json,application/json,text/plain" hidden>
+          <textarea id="bk-text" rows="4" placeholder="Paste a backup here, then tap Import" aria-label="Paste backup" hidden></textarea>
+          <div class="ub" id="bk-pastebar" hidden><button type="button" class="slim" id="bk-go">Import pasted backup</button></div>
+          <span class="um" id="bk-msg" role="status" aria-live="polite"></span>
         </div>
         <div class="setrow upd" id="set-upd" hidden>
           <span><b>App updates</b><small id="upd-ver"></small></span>
@@ -2838,6 +2850,88 @@ window.STS_INSETS=function(){
   new MutationObserver(sync).observe(document.documentElement,{attributes:true,attributeFilter:['data-skin']});
   window.addEventListener('resize',()=>{ if(cv) size(); });
   sync();
+})();
+
+
+/* ======================= backup & transfer ======================= */
+(function(){
+  const K={mdd:'mdd-lab-tests-v1',fdn:'fdn-tests-v1',hier:'sts-hier-v1'};
+  const $=id=>document.getElementById(id);
+  const msg=t=>{ const m=$('bk-msg'); if(m) m.textContent=t; };
+  function build(){
+    return {app:'soil-test-sheets',v:1,at:new Date().toISOString(),
+      mdd:readLS(K.mdd)||[],fdn:readLS(K.fdn)||[],hier:readLS(K.hier)||null};
+  }
+  const counts=b=>(b.mdd||[]).length+' compaction, '+(b.fdn||[]).length+' FDN, '+((b.hier&&b.hier.projects)||[]).length+' projects';
+  function stamp(){ const d=new Date(),p=n=>String(n).padStart(2,'0'); return d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'-'+p(d.getHours())+p(d.getMinutes()); }
+  function mergeList(local,inc){
+    const out=(local||[]).slice(); let added=0,updated=0;
+    (inc||[]).forEach(it=>{ if(!it||!it.id||!it.data) return;
+      const i=out.findIndex(x=>x.id===it.id);
+      if(i<0){ out.push(it); added++; }
+      else if((it.savedAt||0)>(out[i].savedAt||0)){ out[i]=it; updated++; } });
+    return {out,added,updated};
+  }
+  function mergeHier(loc,inc){
+    const H=(loc&&Array.isArray(loc.projects))?loc:{v:1,projects:[],links:{},active:null};
+    if(!H.links) H.links={};
+    if(!inc||!Array.isArray(inc.projects)) return H;
+    inc.projects.forEach(ip=>{
+      let p=H.projects.find(x=>x.id===ip.id);
+      if(!p){ H.projects.push(ip); return; }
+      (ip.reqs||[]).forEach(ir=>{
+        let r=p.reqs.find(x=>x.id===ir.id);
+        if(!r){ p.reqs.push(ir); return; }
+        (ir.clients||[]).forEach(ic=>{ if(!r.clients.some(x=>x.id===ic.id)) r.clients.push(ic); });
+      });
+    });
+    Object.keys(inc.links||{}).forEach(k=>{ if(!H.links[k]) H.links[k]=inc.links[k]; });
+    return H;
+  }
+  function doImport(text){
+    let b; try{ b=JSON.parse(text); }catch(e){ msg('That is not a valid backup.'); return; }
+    if(!b||b.app!=='soil-test-sheets'){ msg('That file is not a Soil Test Sheets backup.'); return; }
+    const a=mergeList(readLS(K.mdd),b.mdd), f=mergeList(readLS(K.fdn),b.fdn);
+    const h=mergeHier(readLS(K.hier),b.hier);
+    if(!(writeLS(K.mdd,a.out)&&writeLS(K.fdn,f.out)&&writeLS(K.hier,h))){ msg('The device would not let the app save the import.'); return; }
+    msg('Imported: '+(a.added+f.added)+' new, '+(a.updated+f.updated)+' updated. Reloading…');
+    setTimeout(()=>location.reload(),900);
+  }
+  function download(){
+    const b=build(), json=JSON.stringify(b), name='soil-tests-'+stamp()+'.json';
+    try{
+      const file=new File([json],name,{type:'application/json'});
+      if(navigator.canShare&&navigator.canShare({files:[file]})&&navigator.share){
+        navigator.share({files:[file],title:name}).then(()=>msg('Shared '+counts(b)+'.')).catch(e=>{ if(e&&e.name!=='AbortError') saveBlob(json,name,b); }); return; }
+    }catch(e){}
+    saveBlob(json,name,b);
+  }
+  function saveBlob(json,name,b){
+    try{
+      const u=URL.createObjectURL(new Blob([json],{type:'application/json'})), a=document.createElement('a');
+      a.href=u; a.download=name; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>URL.revokeObjectURL(u),4000); msg('Saved '+name+' ('+counts(b)+'). If nothing downloaded, use Copy instead.');
+    }catch(e){ msg('Download is not available here. Use Copy instead.'); }
+  }
+  function copy(){
+    const b=build(), json=JSON.stringify(b);
+    const done=()=>msg('Copied '+counts(b)+'. Paste it on the other device.');
+    const fallback=()=>{ const t=$('bk-text'); t.hidden=false; t.value=json; t.focus(); t.select();
+      try{ document.execCommand('copy'); done(); }catch(e){ msg('Select all in the box and copy it by hand.'); } };
+    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(json).then(done,fallback); else fallback();
+  }
+  document.addEventListener('click',e=>{
+    const id=e.target.closest&&e.target.closest('#set-bk button'); if(!id) return;
+    const x=id.id;
+    if(x==='bk-export') download();
+    else if(x==='bk-copy') copy();
+    else if(x==='bk-import') $('bk-file').click();
+    else if(x==='bk-paste'){ const t=$('bk-text'); t.hidden=false; t.value=''; $('bk-pastebar').hidden=false; t.focus(); msg(''); }
+    else if(x==='bk-go') doImport($('bk-text').value.trim());
+  });
+  const fi=document.getElementById('bk-file');
+  if(fi) fi.addEventListener('change',()=>{ const f=fi.files&&fi.files[0]; if(!f) return;
+    const r=new FileReader(); r.onload=()=>doImport(String(r.result||'')); r.onerror=()=>msg('Could not read that file.'); r.readAsText(f); fi.value=''; });
 })();
 
 /* ======================= menus, settings, routing ======================= */
