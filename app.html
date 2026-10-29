@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-45">
+<meta name="sts-build" content="2026.10.29-46">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -2121,13 +2121,17 @@ const Integration=(function(){
   function saveCurrent(){
     const list=getSaved();
     const snap=JSON.parse(JSON.stringify(state)); snap.example=false;
-    let id=state.savedId;
-    if(!id||!list.some(x=>x.id===id)) id=Date.now().toString(36);
+    let id=state.savedId, asNew=false;
+    const prev=id?list.find(x=>x.id===id):null;
+    // a different sample ID means a different test: keep the old one as it was and save this as a new one
+    const sid=v=>String(v==null?'':v).trim().toLowerCase();
+    if(prev&&sid(prev.data.meta.sample)!==sid(state.meta.sample)){ id=null; asNew=true; }
+    if(!id||!list.some(x=>x.id===id)) id=Date.now().toString(36)+Math.random().toString(36).slice(2,4);
     snap.savedId=id; state.savedId=id; state.example=false; $('exbanner').hidden=true;
     const idx=list.findIndex(x=>x.id===id);
     const rec={id,savedAt:Date.now(),data:snap};
     if(idx>=0) list[idx]=rec; else list.push(rec);
-    if(writeLS(LS_SAVED,list)){ writeLS(LS_DRAFT,state); renderSaved(); toast('Saved on this device'); Snd.play('save'); if(window.STS_HIER_ONSAVE) STS_HIER_ONSAVE('mdd',id); }
+    if(writeLS(LS_SAVED,list)){ writeLS(LS_DRAFT,state); renderSaved(); toast(asNew?'Saved as a new test (sample '+(state.meta.sample||'blank')+')':'Saved on this device'); Snd.play('save'); if(window.STS_HIER_ONSAVE) STS_HIER_ONSAVE('mdd',id); }
     else{ toast('This browser would not let the page save'); Snd.play('warn'); }
   }
   function loadAll(s){
