@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-66">
+<meta name="sts-build" content="2026.10.29-67">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -916,6 +916,7 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
 }
 .jump-sel{display:flex; align-items:center; justify-content:space-between; gap:6px; text-align:left; white-space:nowrap}
 .jump-sel .jl{overflow:hidden; text-overflow:ellipsis; min-width:0; flex:1 1 auto}
+.jump-wrap[hidden]{display:none}
 .jump-wrap{margin-left:auto; display:flex; align-items:center; gap:6px; flex:0 1 auto; min-width:0}
 .jump-wrap .jk{flex:none; font-size:12px; font-weight:600; color:var(--muted); letter-spacing:.02em}
 :root[data-skin="matrix"] .jump-wrap .jk{color:#00B82E}
@@ -1515,7 +1516,7 @@ const JumpMenu=(function(){
   return {
     bind(id,cb){ picks[id]=cb; },
     set(id,items,cur,ph){ const b=document.getElementById(id); if(!b) return; b._items=items; b._cur=cur;
-      const c=items.find(x=>x.id===cur); b.querySelector('.jl').textContent=c?c.label:ph; b.disabled=!items.length; if(pop&&owner===b) close(); }
+      const c=items.find(x=>x.id===cur); b.querySelector('.jl').textContent=c?c.label:ph; b.disabled=!items.length; const w=b.closest('.jump-wrap'); if(w) w.hidden=!items.length; if(pop&&owner===b) close(); }
   };
 })();
 const SAVED_ALL={mdd:false,fdn:false};
