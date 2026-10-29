@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-56">
+<meta name="sts-build" content="2026.10.29-57">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -901,7 +901,7 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
   :root:root .bar-inner{max-width:1280px}
 }
 .ph-n{text-align:right}
-.ph-brk{display:block; white-space:normal; max-width:150px; margin-left:auto; font-size:11.5px; font-weight:400; opacity:.85; margin-top:1px}
+.ph-brk{display:block; white-space:normal; max-width:190px; margin-left:auto; font-size:11.5px; font-weight:400; opacity:.85; margin-top:1px}
 .ph-dup{display:flex; align-items:center; gap:10px; justify-content:space-between; flex-wrap:wrap; border:1px solid var(--line); border-radius:8px; padding:8px 12px; margin-bottom:10px; background:var(--surface); font-size:14px}
 .mdl-back{position:fixed; inset:0; z-index:95; background:rgba(0,0,0,.55); display:flex; align-items:center; justify-content:center; padding:16px}
 .mdl{background:var(--surface); color:var(--ink); border:1px solid var(--line); border-radius:12px; max-width:420px; width:100%; padding:18px 18px 16px; box-shadow:0 18px 50px rgba(0,0,0,.45)}
@@ -2976,8 +2976,10 @@ function hierMergeDupes(H,dry){
   }
   function locOf(key){ return validLoc(H.links[key]); }
   function testsAt(all,loc){ return all.filter(t=>{ const l=locOf(t.key); return l&&l.p===loc.p&&l.r===loc.r&&(l.c||null)===(loc.c||null); }); }
-  function brk(all,pred,kids,kind){ const c={mdd:0,fdn:0}; all.forEach(t=>{ const l=locOf(t.key); if(l&&pred(l)) c[t.type]++; });
-    const o=[]; if(kids!==undefined) o.push(kids+' '+kind+(kids===1?'':'s')); if(c.mdd) o.push(c.mdd+' MDD'); if(c.fdn) o.push(c.fdn+' FDN'); return o.length?'<small class="ph-brk">'+o.join(' · ')+'</small>':''; }
+  function brk(all,pred,kids,kind,made){ const c={mdd:0,fdn:0}; let last=0; all.forEach(t=>{ const l=locOf(t.key); if(l&&pred(l)){ c[t.type]++; if((t.savedAt||0)>last) last=t.savedAt; } });
+    const o=[]; if(kids!==undefined) o.push(kids+' '+kind+(kids===1?'':'s')); if(c.mdd) o.push(c.mdd+' MDD'); if(c.fdn) o.push(c.fdn+' FDN'); const dt=ts=>new Date(ts).toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'});
+    if(last) o.push('last '+dt(last)); else if(made) o.push('made '+dt(made));
+    return o.length?'<small class="ph-brk">'+o.join(' · ')+'</small>':''; }
   function countUnder(all,pred){ return all.filter(t=>{ const l=locOf(t.key); return l&&pred(l); }).length; }
 
   function moveOptions(sel){
@@ -3023,7 +3025,7 @@ function hierMergeDupes(H,dry){
       H.projects.forEach(p=>{
         const n=countUnder(all,l=>l.p===p.id);
         h+='<section class="ph-proj"><div class="ph-h"><button type="button" class="slim ph-tog" data-act="p-tog" data-pid="'+p.id+'" aria-label="Expand or collapse">'+(p.open===false?'▸':'▾')+'</button>'
-          +'<div class="ph-t"><b>'+esc(p.no||p.name||'Untitled project')+'</b><span>'+esc(p.no&&p.name?p.name:'')+'</span></div><span class="ph-n">'+n+(n===1?' test':' tests')+brk(all,l=>l.p===p.id,p.reqs.length,'request')+'</span>'
+          +'<div class="ph-t"><b>'+esc(p.no||p.name||'Untitled project')+'</b><span>'+esc(p.no&&p.name?p.name:'')+'</span></div><span class="ph-n">'+n+(n===1?' test':' tests')+brk(all,l=>l.p===p.id,p.reqs.length,'request',p.made)+'</span>'
           +'<div class="ph-a"><button type="button" class="slim" data-act="p-addreq" data-pid="'+p.id+'">+ Our request</button>'
           +'<button type="button" class="slim" data-act="p-ren" data-pid="'+p.id+'">Edit</button>'+delBtn('p:'+p.id)+'</div></div>';
         if(isEdit('proj','ren',p.id)) h+=form('proj');
@@ -3034,7 +3036,7 @@ function hierMergeDupes(H,dry){
           p.reqs.forEach(r=>{
             const nr=countUnder(all,l=>l.r===r.id&&l.p===p.id);
             const loc={p:p.id,r:r.id,c:null}, direct=testsAt(all,loc);
-            h+='<div class="ph-req'+(isActive(p.id,r.id,null)?' ph-act':'')+'"><div class="ph-h"><button type="button" class="slim ph-tog" data-act="p-rtog" data-pid="'+p.id+'" data-rid="'+r.id+'" aria-label="Expand or collapse this request" aria-expanded="'+(r.open!==false)+'">'+(r.open===false?'▸':'▾')+'</button><div class="ph-t"><span class="ph-kind">Our request (parent)</span><b>'+esc(r.no||'(no number)')+'</b><span>'+esc(r.note||'')+'</span></div><span class="ph-n">'+nr+(nr===1?' test':' tests')+brk(all,l=>l.r===r.id&&l.p===p.id,r.clients.length,'client request')+'</span>'
+            h+='<div class="ph-req'+(isActive(p.id,r.id,null)?' ph-act':'')+'"><div class="ph-h"><button type="button" class="slim ph-tog" data-act="p-rtog" data-pid="'+p.id+'" data-rid="'+r.id+'" aria-label="Expand or collapse this request" aria-expanded="'+(r.open!==false)+'">'+(r.open===false?'▸':'▾')+'</button><div class="ph-t"><span class="ph-kind">Our request (parent)</span><b>'+esc(r.no||'(no number)')+'</b><span>'+esc(r.note||'')+'</span></div><span class="ph-n">'+nr+(nr===1?' test':' tests')+brk(all,l=>l.r===r.id&&l.p===p.id,r.clients.length,'client request',r.made)+'</span>'
               +'<div class="ph-a"><button type="button" class="slim" data-act="p-active" data-pid="'+p.id+'" data-rid="'+r.id+'">'+(isActive(p.id,r.id,null)?'Active ✓':'Set active')+'</button>'
               +'<button type="button" class="slim" data-act="p-addcli" data-pid="'+p.id+'" data-rid="'+r.id+'">+ Client request</button>'
               +'<button type="button" class="slim" data-act="p-ren" data-pid="'+p.id+'" data-rid="'+r.id+'">Edit</button>'+delBtn('r:'+r.id)+'</div></div>';
@@ -3044,7 +3046,7 @@ function hierMergeDupes(H,dry){
             if(direct.length) h+='<div>'+direct.map(t=>testRow(t,loc)).join('')+'</div>';
             r.clients.forEach(c=>{
               const cl={p:p.id,r:r.id,c:c.id}, ts=testsAt(all,cl);
-              h+='<div class="ph-cli'+(isActive(p.id,r.id,c.id)?' ph-act':'')+'"><div class="ph-h"><button type="button" class="slim ph-tog" data-act="p-ctog" data-pid="'+p.id+'" data-rid="'+r.id+'" data-cid="'+c.id+'" aria-label="Expand or collapse this client request" aria-expanded="'+(c.open!==false)+'">'+(c.open===false?'▸':'▾')+'</button><div class="ph-t"><span class="ph-kind">Client request</span><b>'+esc(c.no||'(no number)')+'</b><span>'+esc(c.note||'')+'</span></div><span class="ph-n">'+ts.length+(ts.length===1?' test':' tests')+brk(all,l=>l.c===c.id&&l.r===r.id&&l.p===p.id)+'</span>'
+              h+='<div class="ph-cli'+(isActive(p.id,r.id,c.id)?' ph-act':'')+'"><div class="ph-h"><button type="button" class="slim ph-tog" data-act="p-ctog" data-pid="'+p.id+'" data-rid="'+r.id+'" data-cid="'+c.id+'" aria-label="Expand or collapse this client request" aria-expanded="'+(c.open!==false)+'">'+(c.open===false?'▸':'▾')+'</button><div class="ph-t"><span class="ph-kind">Client request</span><b>'+esc(c.no||'(no number)')+'</b><span>'+esc(c.note||'')+'</span></div><span class="ph-n">'+ts.length+(ts.length===1?' test':' tests')+brk(all,l=>l.c===c.id&&l.r===r.id&&l.p===p.id,undefined,'',c.made)+'</span>'
                 +'<div class="ph-a"><button type="button" class="slim" data-act="p-active" data-pid="'+p.id+'" data-rid="'+r.id+'" data-cid="'+c.id+'">'+(isActive(p.id,r.id,c.id)?'Active ✓':'Set active')+'</button>'
                 +'<button type="button" class="slim" data-act="p-ren" data-pid="'+p.id+'" data-rid="'+r.id+'" data-cid="'+c.id+'">Edit</button>'+delBtn('c:'+c.id)+'</div></div>';
               if(isEdit('cli','ren',p.id,r.id,c.id)) h+=form('cli');
@@ -3108,17 +3110,17 @@ function hierMergeDupes(H,dry){
       if(e0.kind==='proj'){
         const dup=e0.mode==='add'&&H.projects.find(x=>hierKey(x.no,x.name)===hierKey(v1,v2));
         if(dup){ dup.open=true; edit=null; persist(); render(); toast('That project is already in the list'); return; }
-        if(e0.mode==='add') H.projects.unshift({id:uid(),no:v1,name:v2,open:true,reqs:[]});
+        if(e0.mode==='add') H.projects.unshift({id:uid(),made:Date.now(),no:v1,name:v2,open:true,reqs:[]});
         else{ const p=findP(e0.pid); if(p){ p.no=v1; p.name=v2; } }
       } else if(e0.kind==='req'){
         const p=findP(e0.pid); if(!p) return;
         if(e0.mode==='add'&&v1&&p.reqs.some(x=>hierKey(x.no)===hierKey(v1))){ edit=null; render(); toast('That request is already under this project'); return; }
-        if(e0.mode==='add') p.reqs.push({id:uid(),no:v1,note:v2,clients:[]});
+        if(e0.mode==='add') p.reqs.push({id:uid(),made:Date.now(),no:v1,note:v2,clients:[]});
         else{ const r=findR(p,e0.rid); if(r){ r.no=v1; r.note=v2; } }
       } else {
         const r=findR(findP(e0.pid),e0.rid); if(!r) return;
         if(e0.mode==='add'&&v1&&r.clients.some(x=>hierKey(x.no)===hierKey(v1))){ edit=null; render(); toast('That client request is already under this request'); return; }
-        if(e0.mode==='add') r.clients.push({id:uid(),no:v1,note:v2});
+        if(e0.mode==='add') r.clients.push({id:uid(),made:Date.now(),no:v1,note:v2});
         else{ const c=findC(r,e0.cid); if(c){ c.no=v1; c.note=v2; } }
       }
       edit=null; persist(); render(); Snd.play('save'); toast('Saved');
