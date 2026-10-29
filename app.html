@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-48">
+<meta name="sts-build" content="2026.10.29-49">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -900,6 +900,19 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
   :root:root .wrap{max-width:1280px}
   :root:root .bar-inner{max-width:1280px}
 }
+.mdl-back{position:fixed; inset:0; z-index:95; background:rgba(0,0,0,.55); display:flex; align-items:center; justify-content:center; padding:16px}
+.mdl{background:var(--surface); color:var(--ink); border:1px solid var(--line); border-radius:12px; max-width:420px; width:100%; padding:18px 18px 16px; box-shadow:0 18px 50px rgba(0,0,0,.45)}
+.mdl h3{margin:0 0 6px; font:700 18px/1.2 var(--font-display)}
+.mdl p{margin:0 0 14px; color:var(--muted); font-size:14.5px; line-height:1.4}
+.mdl-btns{display:flex; flex-direction:column; gap:8px}
+.mdl-btns button{min-height:44px; justify-content:center}
+@media (min-width:520px){ .mdl-btns{flex-direction:row-reverse} .mdl-btns button{flex:1 1 0} }
+:root[data-skin="retro"] .mdl,:root[data-skin="pixel"] .mdl,:root[data-skin="hill"] .mdl,:root[data-skin="matrix"] .mdl,:root[data-skin="cream"] .mdl{border-radius:0}
+:root[data-skin="retro"] .mdl{border:2px solid; border-color:#fff #404040 #404040 #fff; background:#C0C0C0}
+:root[data-skin="matrix"] .mdl{border-color:#00FF41; box-shadow:0 0 24px rgba(0,255,65,.4)}
+:root[data-skin="hill"] .mdl{border-color:#4a1b16}
+:root[data-skin="pixel"] .mdl{border:3px solid #fff}
+:root[data-skin="y2k"] .mdl{border-radius:22px}
 .detail-actions{display:flex; flex-wrap:wrap; gap:8px; margin-top:4px}
 .detail-actions button{display:inline-flex; align-items:center; gap:7px; min-height:44px}
 .detail-actions svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
@@ -1410,6 +1423,22 @@ function fmtDate(iso){
 }
 const roundHalf=x=>Math.round(x*2)/2;
 function niceStep(range,target){ const raw=range/target; if(!(raw>0)) return 1; const p=Math.pow(10,Math.floor(Math.log10(raw))), fr=raw/p; return (fr<=1?1:(fr<=2?2:(fr<=5?5:10)))*p; }
+/* A small question box. ask({title,msg,buttons:[{label,value,primary}]}) resolves with the chosen value, or null if dismissed. */
+function askDialog(o){
+  return new Promise(res=>{
+    const back=document.createElement('div'); back.className='mdl-back';
+    const btns=o.buttons.map((b,i)=>'<button type="button" data-v="'+i+'"'+(b.primary?' class="primary"':'')+'>'+esc(b.label)+'</button>').join('');
+    back.innerHTML='<div class="mdl" role="alertdialog" aria-modal="true" aria-labelledby="mdl-t" aria-describedby="mdl-m"><h3 id="mdl-t">'+esc(o.title)+'</h3><p id="mdl-m">'+esc(o.msg)+'</p><div class="mdl-btns">'+btns+'</div></div>';
+    const prevFocus=document.activeElement;
+    const done=v=>{ document.removeEventListener('keydown',key,true); back.remove(); try{ if(prevFocus&&prevFocus.focus) prevFocus.focus({preventScroll:true}); }catch(e){} res(v); };
+    const key=e=>{ if(e.key==='Escape'){ e.preventDefault(); e.stopPropagation(); done(null); }
+      else if(e.key==='Tab'){ const bs=[...back.querySelectorAll('button')], i=bs.indexOf(document.activeElement); e.preventDefault(); bs[(i+(e.shiftKey?-1:1)+bs.length)%bs.length].focus(); } };
+    back.addEventListener('click',e=>{ const b=e.target.closest('button[data-v]'); if(b) done(o.buttons[+b.dataset.v].value); else if(e.target===back) done(null); });
+    document.addEventListener('keydown',key,true);
+    document.body.appendChild(back);
+    const first=back.querySelector('button.primary')||back.querySelector('button'); if(first) first.focus({preventScroll:true});
+  });
+}
 const SAVED_ALL={mdd:false,fdn:false};
 const relK=v=>String(v==null?'':v).trim().toLowerCase();
 const relHas=m=>['job','ours','client'].some(f=>relK(m[f])!=='');
@@ -2161,8 +2190,8 @@ const Integration=(function(){
     const idx=list.findIndex(x=>x.id===id);
     const rec={id,savedAt:Date.now(),data:snap};
     if(idx>=0) list[idx]=rec; else list.push(rec);
-    if(writeLS(LS_SAVED,list)){ writeLS(LS_DRAFT,state); renderSaved(); toast(asNew?'Saved as a new test (sample '+(state.meta.sample||'blank')+')':'Saved on this device'); Snd.play('save'); if(window.STS_HIER_ONSAVE) STS_HIER_ONSAVE('mdd',id); }
-    else{ toast('This browser would not let the page save'); Snd.play('warn'); }
+    if(writeLS(LS_SAVED,list)){ writeLS(LS_DRAFT,state); renderSaved(); toast(asNew?'Saved as a new test (sample '+(state.meta.sample||'blank')+')':'Saved on this device'); Snd.play('save'); if(window.STS_HIER_ONSAVE) STS_HIER_ONSAVE('mdd',id); return true; }
+    else{ toast('This browser would not let the page save'); Snd.play('warn'); return false; }
   }
   function loadAll(s){
     state=fix(s); buildNat(); buildComp(); buildMoist(); fillMeta(); $('exbanner').hidden=!state.example; update(); writeLS(LS_DRAFT,state); renderSaved();
@@ -2214,13 +2243,21 @@ const Integration=(function(){
   document.addEventListener('input',onEdit);
   document.addEventListener('change',onEdit);
 
+  // true when the sheet holds something that is not in the Saved list as it stands
+  function isDirty(){
+    const strip=d=>{ const o=JSON.parse(JSON.stringify(d)); delete o.savedId; delete o.example; return JSON.stringify(o); };
+    if(state.example) return false;
+    if(strip(state)===strip(blank())) return false;
+    const rec=state.savedId?getSaved().find(x=>x.id===state.savedId):null;
+    if(!rec) return true;
+    try{ return strip(state)!==strip(fix(JSON.parse(JSON.stringify(rec.data)))); }catch(e){ return true; }
+  }
   let pendingNew=null, pendingDel=null;
   document.addEventListener('click',e=>{
     const b=e.target.closest&&e.target.closest('button[data-act]'); if(!b) return;
     const act=b.dataset.act;
     if(act.indexOf('f-')===0) return;
-    if(act==='new') Snd.play(pendingNew?'sweep':'warn');
-    else if(act==='del') Snd.play(pendingDel&&pendingDel.id===b.dataset.id?'remove':'warn');
+    if(act==='del') Snd.play(pendingDel&&pendingDel.id===b.dataset.id?'remove':'warn');
     else if(act==='add-pt'||act==='add-tin') Snd.play('add');
     else if(act==='rm-pt'||act==='rm-tin') Snd.play('remove');
     else if(act==='toggle-saved') Snd.play($('savedpanel').hidden?'open':'close');
@@ -2244,8 +2281,13 @@ const Integration=(function(){
       return;
     }
     if(act==='new'){
-      if(pendingNew){ clearTimeout(pendingNew); pendingNew=null; setBtnLabel(b,'New'); b.classList.remove('warn'); loadAll(blank()); toast('Started a new compaction'); }
-      else{ setBtnLabel(b,'Clear?'); b.classList.add('warn'); pendingNew=setTimeout(()=>{ pendingNew=null; setBtnLabel(b,'New'); b.classList.remove('warn'); },3000); }
+      const go=()=>{ loadAll(blank()); toast('Started a new compaction'); Snd.play('sweep'); };
+      if(!isDirty()){ go(); return; }
+      Snd.play('warn');
+      askDialog({title:'Start a new sheet?',msg:'This sheet has changes that are not saved yet.',buttons:[{label:'Save and start new',value:'save',primary:true},{label:'Don\'t save',value:'drop'},{label:'Cancel',value:null}]}).then(v=>{
+        if(v==='save'){ if(saveCurrent()) go(); }
+        else if(v==='drop') go();
+      });
     }
     else if(act==='save') saveCurrent();
     else if(act==='toggle-saved'){ const p=$('savedpanel'); p.hidden=!p.hidden; if(!p.hidden) renderSaved(); }
@@ -2686,8 +2728,8 @@ const Integration=(function(){
     const idx=list.findIndex(x=>x.id===id);
     const rec={id,savedAt:Date.now(),data:snap};
     if(idx>=0) list[idx]=rec; else list.push(rec);
-    if(writeLS(LS_SAVED,list)){ writeLS(LS_DRAFT,state); renderSaved(); toast('Saved on this device'); Snd.play('save'); if(window.STS_HIER_ONSAVE) STS_HIER_ONSAVE('fdn',id); }
-    else{ toast('This browser would not let the page save'); Snd.play('warn'); }
+    if(writeLS(LS_SAVED,list)){ writeLS(LS_DRAFT,state); renderSaved(); toast('Saved on this device'); Snd.play('save'); if(window.STS_HIER_ONSAVE) STS_HIER_ONSAVE('fdn',id); return true; }
+    else{ toast('This browser would not let the page save'); Snd.play('warn'); return false; }
   }
   function loadAll(s){
     state=fix(s); statKey=null; buildTables(); fillMeta(); $('f-exbanner').hidden=!state.example; update(); writeLS(LS_DRAFT,state); renderSaved();
@@ -2774,13 +2816,26 @@ const Integration=(function(){
   }
   function scrollToEnd(){ requestAnimationFrame(()=>{ scrollers.forEach(s=>{ s.scrollLeft=s.scrollWidth; }); }); }
 
+  function isDirty(){
+    const strip=d=>{ const o=JSON.parse(JSON.stringify(d)); delete o.savedId; delete o.example; return JSON.stringify(o); };
+    if(state.example) return false;
+    if(strip(state)===strip(blank())) return false;
+    const rec=state.savedId?getSaved().find(x=>x.id===state.savedId):null;
+    if(!rec) return true;
+    try{ return strip(state)!==strip(fixCopy(rec.data)); }catch(e){ return true; }
+  }
   let pendingNew=null, pendingDel=null;
   document.addEventListener('click',e=>{
     const b=e.target.closest&&e.target.closest('button[data-act]'); if(!b) return;
     const act=b.dataset.act; if(act.indexOf('f-')!==0) return;
     if(act==='f-new'){
-      if(pendingNew){ clearTimeout(pendingNew); pendingNew=null; setBtnLabel(b,'New'); b.classList.remove('warn'); Snd.play('sweep'); loadAll(blank()); toast('Started a new FDN sheet'); }
-      else{ Snd.play('warn'); setBtnLabel(b,'Clear?'); b.classList.add('warn'); pendingNew=setTimeout(()=>{ pendingNew=null; setBtnLabel(b,'New'); b.classList.remove('warn'); },3000); }
+      const go=()=>{ Snd.play('sweep'); loadAll(blank()); toast('Started a new FDN sheet'); };
+      if(!isDirty()){ go(); return; }
+      Snd.play('warn');
+      askDialog({title:'Start a new sheet?',msg:'This sheet has changes that are not saved yet.',buttons:[{label:'Save and start new',value:'save',primary:true},{label:'Don\'t save',value:'drop'},{label:'Cancel',value:null}]}).then(v=>{
+        if(v==='save'){ if(saveCurrent()) go(); }
+        else if(v==='drop') go();
+      });
     }
     else if(act==='f-save') saveCurrent();
     else if(act==='f-saved-all'){ SAVED_ALL.fdn=!SAVED_ALL.fdn; renderSaved(); }
