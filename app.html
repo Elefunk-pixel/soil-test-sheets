@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-43">
+<meta name="sts-build" content="2026.10.29-45">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -18,7 +18,7 @@
 function side(){try{var R=document.documentElement;if(!R.hasAttribute("data-app")){R.style.removeProperty("--sal");R.style.removeProperty("--sar");return;}
 var d=document.createElement("div");d.style.cssText="position:fixed;top:0;visibility:hidden;padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)";document.body.appendChild(d);var cs=getComputedStyle(d),l=parseFloat(cs.paddingLeft)||0,r=parseFloat(cs.paddingRight)||0;d.remove();
 var land=window.innerWidth>window.innerHeight,t=(screen.orientation&&screen.orientation.type)||"";
-if(land&&l<8&&r<8){if(t.indexOf("secondary")>=0)l=48;else r=48;}
+if(land&&l<8&&r<8&&Math.min(screen.width,screen.height)<600){if(t.indexOf("secondary")>=0)l=48;else r=48;}
 R.style.setProperty("--sal",l+"px");R.style.setProperty("--sar",r+"px");}catch(e){}}
 window.addEventListener("resize",side);window.addEventListener("orientationchange",function(){setTimeout(side,60)});document.addEventListener("DOMContentLoaded",side);
 })()}catch(e){}</script>
@@ -896,6 +896,10 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
   :root:root:root .f label{min-height:0}
   :root:root:root .grid>.f>label{min-height:1.3em}
 }
+@media (orientation:landscape) and (min-width:900px){
+  :root:root .wrap{max-width:1280px}
+  :root:root .bar-inner{max-width:1280px}
+}
 @media (prefers-reduced-motion:no-preference){ button{transition:border-color .15s, background-color .15s} }
 @media (prefers-reduced-motion:reduce){ input.switch::before{transition:none} }
 </style>
@@ -1680,6 +1684,18 @@ document.addEventListener('keydown',e=>{
 });
 function stamp(){ return new Date().toLocaleTimeString('en-AU',{hour:'numeric',minute:'2-digit'}); }
 
+/* When the screen is wider than the table, share the spare room between the test columns (up to double width)
+   instead of letting the row-label column swell. Landscape also gets a slimmer label column. */
+const fcRO=(typeof ResizeObserver!=='undefined')?new ResizeObserver(es=>es.forEach(e=>{ const t=e.target.querySelector&&e.target.querySelector('table.tx'); if(t) fillCols(t); })):null;
+function fillCols(table){
+  const lw0=+table.dataset.lw, cw0=+table.dataset.cw, sc=table.parentElement; if(!lw0||!cw0||!sc) return;
+  const n=table.querySelectorAll('colgroup col').length-1; if(n<1) return;
+  const land=window.innerWidth>window.innerHeight, lw=land?Math.round(lw0*.86):lw0;
+  const avail=sc.clientWidth, cw=Math.max(cw0,Math.min(Math.floor(cw0*2),Math.floor((avail-lw)/n)));
+  const cols=table.querySelectorAll('colgroup col'); cols[0].style.width=lw+'px';
+  for(let i=1;i<cols.length;i++) cols[i].style.width=cw+'px';
+  table.style.minWidth='0'; table.style.width=(lw+n*cw)+'px'; sc.dataset.colw=cw; sc.dataset.labw=lw;
+}
 /* Top-to-bottom table: one column per record (test, point or tin), one row per field. */
 function txBuild(table,o){
   let h='<colgroup><col style="width:'+o.labW+'px">'+('<col style="width:'+o.colW+'px">').repeat(o.n)+'</colgroup>';
@@ -1695,12 +1711,15 @@ function txBuild(table,o){
   table.classList.add('tx');
   table.innerHTML=h+'</tbody>';
   table.style.width=(o.labW+o.n*o.colW)+'px';
+  table.dataset.lw=o.labW; table.dataset.cw=o.colW;
+  fillCols(table); if(fcRO&&table.parentElement&&!table.parentElement.__fc){ table.parentElement.__fc=1; fcRO.observe(table.parentElement); }
   tagCols(table);
 }
 
 /* Visible scroll bar for a sideways-scrolling table: arrows, draggable thumb, tap-to-jump track,
    and a readout of which columns are in view. Phones hide native scroll bars, so this is drawn by the page. */
 function attachHBar(sc,o){
+  const CW=()=>+sc.dataset.colw||o.colW, LW=()=>+sc.dataset.labw||o.labW;
   const bar=document.createElement('div'); bar.className='hbar'; bar.hidden=true;
   const chev=d=>'<svg viewBox="0 0 24 24"><path d="'+d+'"/></svg>';
   bar.innerHTML='<button type="button" class="hb-btn" aria-label="Scroll '+o.unit.toLowerCase()+' left">'+chev('M15 6l-6 6 6 6')+'</button>'
@@ -1717,12 +1736,12 @@ function attachHBar(sc,o){
     bl.disabled=sc.scrollLeft<=1; br.disabled=sc.scrollLeft>=max-1;
     const n=o.count();
     // a column counts as in view once at least half of it shows beside the row labels
-    const first=Math.min(n,Math.round(sc.scrollLeft/o.colW)+1);
-    const last=Math.max(first,Math.min(n,Math.floor((sc.scrollLeft+cw-o.labW-o.colW/2)/o.colW)+1));
+    const first=Math.min(n,Math.round(sc.scrollLeft/CW())+1);
+    const last=Math.max(first,Math.min(n,Math.floor((sc.scrollLeft+cw-LW()-CW()/2)/CW())+1));
     info.textContent=o.unit+' '+(first===last?first:first+'–'+last)+' of '+n;
   }
   const go=(left,smooth)=>sc.scrollTo({left:Math.max(0,left),behavior:smooth&&!reduceMotion?'smooth':'auto'});
-  const step=d=>{ go((Math.round(sc.scrollLeft/o.colW)+d)*o.colW,true); Snd.play('toggle'); };
+  const step=d=>{ go((Math.round(sc.scrollLeft/CW())+d)*CW(),true); Snd.play('toggle'); };
   bl.addEventListener('click',()=>step(-1));
   br.addEventListener('click',()=>step(1));
   let drag=null;
@@ -2342,7 +2361,7 @@ const Integration=(function(){
     });
     return h+'</tr></thead>';
   }
-  function finish(id,h){ const t=$(id); t.innerHTML=h+'</tbody>'; t.style.width=(LABW+state.tests.length*COLW)+'px'; tagCols(t); }
+  function finish(id,h){ const t=$(id); t.innerHTML=h+'</tbody>'; t.style.width=(LABW+state.tests.length*COLW)+'px'; t.dataset.lw=LABW; t.dataset.cw=COLW; fillCols(t); if(fcRO&&t.parentElement&&!t.parentElement.__fc){ t.parentElement.__fc=1; fcRO.observe(t.parentElement); } tagCols(t); }
   function buildLoc(){
     let h=cols()+head('l',true)+'<tbody>';
     LOC_ROWS.forEach(r=>{
@@ -2978,7 +2997,7 @@ window.STS_INSETS=function(){
   const z=parseFloat(document.documentElement.style.zoom)||1, app=document.documentElement.hasAttribute('data-app');
   const sat=parseFloat(document.documentElement.style.getPropertyValue('--sat'))||0;
   const pad=10;
-  return {z:z, W:Math.round(innerWidth/z), H:Math.round(innerHeight/z), t:Math.round(Math.max(sat+pad+(app?4:0),30)), b:Math.round(Math.max((app&&innerHeight>=innerWidth?52:0)+pad,26)), l:Math.round(Math.max(pad,(parseFloat(document.documentElement.style.getPropertyValue('--sal'))||0)+pad)), r:Math.round(Math.max(pad,(parseFloat(document.documentElement.style.getPropertyValue('--sar'))||0)+pad))};
+  return {z:z, W:Math.round(innerWidth/z), H:Math.round(innerHeight/z), t:Math.round(Math.max(sat+pad+(app?4:0),30)), b:Math.round(Math.max((app&&(innerHeight>=innerWidth||Math.min(screen.width,screen.height)>=600)?52:0)+pad,26)), l:Math.round(Math.max(pad,(parseFloat(document.documentElement.style.getPropertyValue('--sal'))||0)+pad)), r:Math.round(Math.max(pad,(parseFloat(document.documentElement.style.getPropertyValue('--sar'))||0)+pad))};
 };
 
 /* ======================= full-screen charts ======================= */
