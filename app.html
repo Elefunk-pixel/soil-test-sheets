@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-46">
+<meta name="sts-build" content="2026.10.29-47">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -1351,15 +1351,18 @@ function fdnCompute(s){
     if(dry!==null&&!(isFinite(dry)&&dry>0)) dry=null;
     const odd=dry!==null&&(dry<0.3||dry>4); if(odd) dry=null;
     const ddGap=(gdry!==null&&wet!==null&&gw!==null)?gdry-wet/(1+gw/100):null;
-    const dr=(dry!==null&&mddOK)?dry/mdd*100:null;
-    const dv=(w!==null&&omc!==null)?w-omc:null;
+    // a test can name its own lab compaction sample, and then uses that sample's MDD and OMC
+    const tm=dens(t.cmdd), useT=String(t.cs||'').trim()!==''&&tm!==null&&tm>0.3&&tm<4;
+    const mddT=useT?tm:mdd, mddOKT=useT||mddOK, tom=num(t.comc), omcT=(useT&&tom!==null)?tom:omc;
+    const dr=(dry!==null&&mddOKT)?dry/mddT*100:null;
+    const dv=(w!==null&&omcT!==null)?w-omcT:null;
     // judged at the precision shown (0.1%), so 99.98 reads and passes as 100.0
     const pass=(dr!==null&&spec!==null)?Math.round(dr*10)/10>=spec-1e-9:null;
     const any=['sid','fid','lot','time','loc1','loc2','loc3','loc4','wet','dry','gw','ow','dc','mc'].some(k=>filled(t[k]));
     const hasReading=['wet','dry','gw','ow'].some(k=>filled(t[k]));
     const diff=(ow!==null&&gw!==null)?ow-gw:null;
     const place=[t.loc1,t.loc2,t.loc3,t.loc4].map(v=>String(v==null?'':v).trim()).filter(Boolean).join(' ');
-    return {i,fid:String(t.fid||'').trim(),lot:String(t.lot||'').trim(),time:t.time||'',place,wet,gdry,gw,ow,w,src,dry,dsrc,odd,ddGap,dr,dv,pass,any,hasReading,diff,dc:num(t.dc),mc:num(t.mc)};
+    return {i,mddUsed:mddOKT?mddT:null,omcUsed:omcT,cs:String(t.cs||'').trim(),fid:String(t.fid||'').trim(),lot:String(t.lot||'').trim(),time:t.time||'',place,wet,gdry,gw,ow,w,src,dry,dsrc,odd,ddGap,dr,dv,pass,any,hasReading,diff,dc:num(t.dc),mc:num(t.mc)};
   });
   const done=rows.filter(r=>r.dr!==null);
   let sum=null;
@@ -2292,7 +2295,7 @@ const Integration=(function(){
   const LS_DRAFT='fdn-draft-v1', LS_SAVED='fdn-tests-v1', LS_XREF='fdn-xref-v1';
   const MAXT=40, LABW=108, COLW=94;
   const META=['ours','client','job','date','by','material','gauge','depth','layer','dstd','mstd','mdd','omc','spec','ref'];
-  const TKEYS=['sid','fid','lot','time','loc1','loc2','loc3','loc4','wet','dry','gw','dc','mc','ow'];
+  const TKEYS=['sid','fid','lot','time','loc1','loc2','loc3','loc4','wet','dry','gw','dc','mc','ow','cs','cmdd','comc'];
   const LOC_ROWS=[
     {k:'fid',label:'Field ID',ph:'FD-101'},
     {k:'lot',label:'Lot no.',ph:'4'},
@@ -2311,6 +2314,7 @@ const Integration=(function(){
   const RES_ROWS=[
     {k:'w',label:'Moisture used',unit:'%'},
     {k:'dry',label:'Dry density',unit:'t/m³',res:true},
+    {k:'mref',label:'MDD used',unit:'t/m³',xr:true},
     {k:'dr',label:'Density ratio',unit:'%',res:true,xr:true},
     {k:'dv',label:'vs OMC',unit:'%',xr:true},
     {k:'pass',label:'Result',xr:true,c:true}];
@@ -2366,6 +2370,36 @@ const Integration=(function(){
     return h+'</tr></thead>';
   }
   function finish(id,h){ const t=$(id); t.innerHTML=h+'</tbody>'; t.style.width=(LABW+state.tests.length*COLW)+'px'; t.dataset.lw=LABW; t.dataset.cw=COLW; fillCols(t); if(fcRO&&t.parentElement&&!t.parentElement.__fc){ t.parentElement.__fc=1; fcRO.observe(t.parentElement); } tagCols(t); }
+  /* ---------- each test can point at one lab compaction sample, which brings that sample's own MDD and OMC ---------- */
+  const skey=v=>String(v==null?'':v).trim().toLowerCase();
+  function refList(){
+    const map={};
+    try{
+      const saved=readLS('mdd-lab-tests-v1');
+      if(Array.isArray(saved)) saved.slice().sort((a,b)=>a.savedAt-b.savedAt).forEach(it=>{
+        try{ const c=compute(it.data), nm=String(it.data.meta.sample||'').trim(); if(c.res&&nm) map[skey(nm)]={sample:nm,mdd:c.res.mdd,omc:c.res.omc}; }catch(e){}
+      });
+      if(App.compaction){ const st=App.compaction.state(), c=compute(st), nm=String(st.meta.sample||'').trim(); if(c.res&&nm) map[skey(nm)]={sample:nm,mdd:c.res.mdd,omc:c.res.omc}; }
+    }catch(e){}
+    return map;
+  }
+  function csOptions(t){
+    const map=refList(), cur=String(t.cs||'').trim();
+    let h='<option value="">Sheet MDD</option>', seen=false;
+    Object.keys(map).sort().forEach(k=>{ const o=map[k]; if(skey(cur)===k) seen=true;
+      h+='<option value="'+esc(o.sample)+'"'+(skey(cur)===k?' selected':'')+'>'+esc(o.sample+' · '+o.mdd.toFixed(2)+' · '+roundHalf(o.omc).toFixed(1)+'%')+'</option>'; });
+    if(cur&&!seen) h+='<option value="'+esc(cur)+'" selected>'+esc(cur+(t.cmdd?' · '+t.cmdd+' (not found)':' (not found)'))+'</option>';
+    return h;
+  }
+  // keep each test's MDD and OMC in step with its lab compaction sample (live where the sample is saved, last known otherwise)
+  function resolveRefs(){
+    let map=null;
+    state.tests.forEach(t=>{
+      const cs=String(t.cs||'').trim(); if(!cs){ if(t.cmdd||t.comc){ t.cmdd=''; t.comc=''; } return; }
+      map=map||refList(); const o=map[skey(cs)];
+      if(o){ t.cmdd=o.mdd.toFixed(2); t.comc=roundHalf(o.omc).toFixed(1); }
+    });
+  }
   function buildLoc(){
     let h=cols()+head('l',true)+'<tbody>';
     LOC_ROWS.forEach(r=>{
@@ -2376,6 +2410,9 @@ const Integration=(function(){
       });
       h+='</tr>';
     });
+    h+='<tr class="xr cs"><th class="rl" scope="row">Compaction sample</th>';
+    state.tests.forEach((t,i)=>{ h+='<td><select id="f-t-'+i+'-cs" data-cs="'+i+'" aria-label="Test '+(i+1)+' lab compaction sample">'+csOptions(t)+'</select></td>'; });
+    h+='</tr>';
     finish('f-loc-table',h);
   }
   function buildGauge(){
@@ -2443,7 +2480,7 @@ const Integration=(function(){
     const val=r=>xr?r.dr:r.dry;
     const pts=c.rows.filter(r=>val(r)!==null);
     if(!pts.length){
-      box.innerHTML='<div class="empty">'+(xr?(c.mdd?'Enter gauge readings to plot density ratios.':'Enter the MDD and gauge readings to plot density ratios.'):'Enter gauge readings to plot dry densities.')+'</div>';
+      box.innerHTML='<div class="empty">'+(xr?((c.mdd||c.rows.some(r=>r.mddUsed))?'Enter gauge readings to plot density ratios.':'Enter the MDD and gauge readings to plot density ratios.'):'Enter gauge readings to plot dry densities.')+'</div>';
       return;
     }
     const spec=xr?c.spec:null;
@@ -2508,6 +2545,7 @@ const Integration=(function(){
     return {note:'Laid out in the order of the thebossapp Nuclear Densometers form, one test per sample. Tap a value to copy it, or Copy all for the whole group. Equipment and the spec dropdowns are picked in thebossapp. Dry density and density ratio are worked out there from the linked compaction sample.',groups};
   });
   function update(){
+    resolveRefs();
     const c=fdnCompute(state); lastC=c; FInt.render(c);
     const mt=state.meta, xr=mt.xref!==false, n=state.tests.length;
     $('f-count').textContent=$('f-count2').textContent=n+(n===1?' test':' tests');
@@ -2517,13 +2555,14 @@ const Integration=(function(){
     $('f-xref').checked=xr;
     $('f-xref-sub').textContent=xr?'On: shows density ratio and pass or fail against the lab MDD and OMC':'Off: records field density and moisture only';
     $('f-sec-ref').hidden=!xr; $('f-jump-ref').hidden=!xr; $('f-legend').hidden=!xr;
-    document.querySelectorAll('#f-res-table tr.xr').forEach(tr=>{ tr.hidden=!xr; });
+    document.querySelectorAll('#f-res-table tr.xr, #f-loc-table tr.xr').forEach(tr=>{ tr.hidden=!xr; });
 
     c.rows.forEach((r,i)=>{
       $('f-rw-'+i).innerHTML=r.w===null?'–':r.w.toFixed(1)+(r.src==='oven'?'<small class="src">oven</small>':'');
       const rd=$('f-rdry-'+i);
       rd.innerHTML=r.odd?'check':(r.dry===null?'–':r.dry.toFixed(3)+'<small class="src">'+DSRC[r.dsrc]+'</small>');
       rd.classList.toggle('bad',r.odd);
+      const rm=$('f-rmref-'+i); if(rm) rm.innerHTML=r.mddUsed===null?'–':r.mddUsed.toFixed(2)+(r.cs?'<small class="src">'+esc(r.cs)+'</small>':'');
       const rr=$('f-rdr-'+i); rr.textContent=fx(r.dr,1); rr.classList.toggle('bad',r.pass===false);
       $('f-rdv-'+i).textContent=vsOMC(r.dv);
       $('f-rpass-'+i).innerHTML=r.pass===null?(r.dr!==null?chip('na','No min'):'–'):(r.pass?chip('pass','Pass'):chip('fail','Fail'));
@@ -2564,7 +2603,7 @@ const Integration=(function(){
 
     const fl=[];
     if(xr){
-      if(c.mddRaw===null) fl.push(['','Enter the MDD and OMC from the lab compaction, or pick one from Fill from a lab compaction.']);
+      if(c.mddRaw===null&&!c.rows.some(r=>r.cs)) fl.push(['','Enter the MDD and OMC from the lab compaction, or pick one from Fill from a lab compaction.']);
       else if(!c.mdd) fl.push(['bad','The MDD looks wrong. Type it in t/m³ (1.92) or kg/m³ (1920).']);
       if(c.mdd&&c.spec===null) fl.push(['','Enter the minimum density ratio to check each test.']);
       if(c.mdd&&c.omc===null) fl.push(['','Enter the OMC to see how far each test is from optimum.']);
@@ -2649,6 +2688,7 @@ const Integration=(function(){
       L.push(line);
     });
     if(c.rows.some(r=>r.src==='oven')) L.push('o = oven moisture used');
+    if(xr&&c.rows.some(r=>r.cs)){ L.push(''); L.push('Lab compaction sample used: '+c.rows.map(r=>'Test '+(r.i+1)+' '+(r.cs?r.cs+' (MDD '+(r.mddUsed!==null?r.mddUsed.toFixed(2):'?')+', OMC '+(r.omcUsed!==null?r.omcUsed.toFixed(1):'?')+'%)':'sheet MDD')).join('; ')); }
     return L.join('\n');
   }
   function doCopy(){
@@ -2673,6 +2713,15 @@ const Integration=(function(){
   }
   document.addEventListener('input',onEdit);
   document.addEventListener('change',e=>{ if(e.target&&(e.target.type==='date'||e.target.type==='time')) onEdit(e); });
+  document.addEventListener('change',e=>{
+    const el=e.target; if(!el||el.dataset===undefined||el.dataset.cs===undefined||el.tagName!=='SELECT') return;
+    const i=+el.dataset.cs, t=state.tests[i]; if(!t) return;
+    t.cs=el.value; t.cmdd=''; t.comc=''; resolveRefs(); exampleOff(); statKey=null; refresh();
+    toast(t.cs?('Test '+(i+1)+' uses '+t.cs+(t.cmdd?' (MDD '+t.cmdd+', OMC '+t.comc+'%)':'')):('Test '+(i+1)+' uses the sheet MDD and OMC')); Snd.play(t.cs?'add':'toggle');
+  });
+  // the list of compaction samples is rebuilt each time it is opened, so new results appear
+  document.addEventListener('pointerdown',e=>{ const el=e.target; if(el&&el.dataset&&el.dataset.cs!==undefined&&el.tagName==='SELECT'&&document.activeElement!==el){ const t=state.tests[+el.dataset.cs]; if(t) el.innerHTML=csOptions(t); } },true);
+  document.addEventListener('focusin',e=>{ const el=e.target; if(el&&el.dataset&&el.dataset.cs!==undefined&&el.tagName==='SELECT'){ const t=state.tests[+el.dataset.cs]; if(t&&el.options.length<=2) el.innerHTML=csOptions(t); } });
   // times are typed as digits (1430 or 14:30 or 9.05) and tidied to hh:mm when you leave the box
   document.addEventListener('focusout',e=>{
     const t=e.target; if(!t||!t.dataset||!/\.time$/.test(t.dataset.ft||'')) return;
@@ -2710,7 +2759,7 @@ const Integration=(function(){
     else if(act==='f-add'){
       if(state.tests.length>=MAXT){ toast('Forty tests is the limit'); return; }
       const last=state.tests[state.tests.length-1], t=emptyTest();
-      if(last){ t.lot=last.lot; t.fid=nextId(last.fid); t.sid=nextId(last.sid); }
+      if(last){ t.lot=last.lot; t.fid=nextId(last.fid); t.sid=nextId(last.sid); t.cs=last.cs; t.cmdd=last.cmdd; t.comc=last.comc; }
       state.tests.push(t); Snd.play('add'); exampleOff(); buildTables(); refresh(); scrollToEnd();
       const inGauge=!!b.closest('#f-sec-read'), i=state.tests.length-1;
       const el=$('f-t-'+i+'-'+(inGauge?'wet':(t.fid?'time':'fid')));
@@ -2744,7 +2793,7 @@ const Integration=(function(){
   if('ResizeObserver' in window){
     new ResizeObserver(()=>{ const w=Math.floor($('f-chart').clientWidth||0); if(w&&w!==lastW&&lastC) drawF(lastC,lastXr); }).observe($('f-chart'));
   }
-  App.onShow.fdn=()=>{ buildPick(); if(lastC) drawF(lastC,lastXr); };
+  App.onShow.fdn=()=>{ buildPick(); document.querySelectorAll('select[data-cs]').forEach(el=>{ const t=state.tests[+el.dataset.cs]; if(t) el.innerHTML=csOptions(t); }); refresh(); if(lastC) drawF(lastC,lastXr); };
 
   if(!storageOK){ $('f-btn-save').hidden=true; $('f-btn-saved').hidden=true; $('f-draftnote').textContent='This browser will not keep a draft. Copy the summary before you close the page.'; }
   buildTables(); fillMeta(); buildPick();
