@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-27">
+<meta name="sts-build" content="2026.10.29-28">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
 <body>
 
-<script>try{(function(){function z(){try{var w=window.innerWidth;var k=1+Math.min(1,Math.max(0,(w-400)/500))*0.25;document.documentElement.style.zoom=k>1.005?k.toFixed(3):"";}catch(e){}}var t;window.addEventListener("resize",function(){clearTimeout(t);t=setTimeout(z,120);});document.addEventListener("DOMContentLoaded",z);})()}catch(e){}</script>
+<script>try{(function(){function z(){try{var w=Math.min(window.innerWidth,window.innerHeight);var k=1+Math.min(1,Math.max(0,(w-400)/400))*0.2;document.documentElement.style.zoom=k>1.005?k.toFixed(3):"";}catch(e){}}window.addEventListener("resize",z);window.addEventListener("orientationchange",z);document.addEventListener("DOMContentLoaded",z);})()}catch(e){}</script>
 <script>try{document.addEventListener("DOMContentLoaded",function(){try{if(!document.documentElement.hasAttribute("data-app"))return;var d=document.createElement("div");d.style.cssText="position:fixed;top:0;padding-top:env(safe-area-inset-top,0px);visibility:hidden";document.body.appendChild(d);var v=parseFloat(getComputedStyle(d).paddingTop)||0;d.remove();if(v<8)document.documentElement.style.setProperty("--sat","34px");}catch(e){}});}catch(e){}</script>
 <script>try{if(window.__TAURI__||window.__TAURI_INTERNALS__||(window.top!==window&&window.top.__STS_LOADER__)||/index\.html/.test(location.pathname))document.documentElement.setAttribute('data-app','')}catch(e){}</script>
 <script>try{var __s=localStorage.getItem('mdd-lab-skin-v1');if(__s)document.documentElement.setAttribute('data-skin',__s)}catch(e){}</script>
@@ -687,6 +687,16 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
 :root:root table.tx .gtag{font-size:9px; margin-bottom:1px; letter-spacing:.1em}
 :root:root table.tx td{padding-top:3px; padding-bottom:3px}
 :root:root .hb-info{display:none}
+@media (min-width:640px) and (max-height:520px){
+  .bar-actions{order:3; flex:1 1 0; min-width:0; margin-left:4px; padding-left:8px; border-left:1px solid var(--line)}
+  .bar-inner{flex-wrap:nowrap}
+  .brand .bt{display:none}
+  .bar-current{flex:0 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .barbtn{padding:5px 8px; font-size:13px}
+  .barbtn .bl{display:inline}
+  .appbar{padding-block:2px}
+  .view{padding-top:12px}
+}
 .ph-req{background:var(--surface); color:var(--ink)}
 .ph-cli{background:var(--surface-2); color:var(--ink)}
 .ph-kind{color:var(--accent2,var(--accent))}
