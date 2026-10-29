@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-67">
+<meta name="sts-build" content="2026.10.29-68">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
 <body>
 
-<script>try{(function(){function z(){try{var w=Math.min(window.innerWidth,window.innerHeight);var k=window.innerWidth>window.innerHeight?1:1+Math.min(1,Math.max(0,(w-400)/400))*0.2;document.documentElement.style.zoom=k>1.005?k.toFixed(3):"";}catch(e){}}window.addEventListener("resize",z);window.addEventListener("orientationchange",z);document.addEventListener("DOMContentLoaded",z);})()}catch(e){}</script>
+<script>try{(function(){function z(){try{var w=Math.min(window.innerWidth,window.innerHeight);var k=window.innerWidth>window.innerHeight?1:1+Math.min(1,Math.max(0,(w-400)/400))*0.2;document.documentElement.style.zoom=k>1.005?k.toFixed(3):"";document.documentElement.style.setProperty("--zk",k>1.005?k.toFixed(3):"1");}catch(e){}}window.addEventListener("resize",z);window.addEventListener("orientationchange",z);document.addEventListener("DOMContentLoaded",z);})()}catch(e){}</script>
 <script>try{document.addEventListener("DOMContentLoaded",function(){try{if(!document.documentElement.hasAttribute("data-app"))return;var d=document.createElement("div");d.style.cssText="position:fixed;top:0;padding-top:env(safe-area-inset-top,0px);visibility:hidden";document.body.appendChild(d);var v=parseFloat(getComputedStyle(d).paddingTop)||0;d.remove();if(v<8)document.documentElement.style.setProperty("--sat","34px");}catch(e){}});}catch(e){}</script>
 <script>try{(function(){
 /* In the Android app the page can sit under the side navigation bar when the phone is turned sideways.
@@ -151,7 +151,7 @@ window.addEventListener("resize",side);window.addEventListener("orientationchang
 @keyframes hflick{0%,92%,96%,100%{opacity:1}93%{opacity:.55}95%{opacity:.85}}
 
 *{box-sizing:border-box}
-body{background:var(--bg); color:var(--ink); font:16px/1.45 var(--font-body); padding-block:var(--sat, env(safe-area-inset-top, 0px)) 72px}
+body{min-height:calc(100vh / var(--zk, 1)); background:var(--bg); color:var(--ink); font:16px/1.45 var(--font-body); padding-block:var(--sat, env(safe-area-inset-top, 0px)) 72px}
 html::before{content:""; position:fixed; inset:0 0 auto; height:var(--sat, env(safe-area-inset-top, 0px)); z-index:16; pointer-events:none; background:var(--surface)}
 .view{padding-top:26px; padding-left:max(16px, var(--sal, env(safe-area-inset-left, 0px))); padding-right:max(16px, var(--sar, env(safe-area-inset-right, 0px)))}
 .wrap{max-width:900px; margin:0 auto; display:flex; flex-direction:column; gap:52px}
