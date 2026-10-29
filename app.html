@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-17">
+<meta name="sts-build" content="2026.10.29-18">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -619,6 +619,10 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
 #fs-ov .fs-x{min-height:44px; padding:8px 14px; font-weight:700}
 #fs-ov .fs-rot{min-height:44px; padding:6px 12px; font-size:13px}
 .tblwrap.fs-live{position:fixed!important; z-index:200; margin:0!important; border:2px solid var(--accent)!important; border-radius:14px!important; max-width:none!important; overflow-x:hidden!important; overflow-y:auto!important; background:var(--surface); padding:0 0 16px; box-sizing:border-box; box-shadow:0 0 0 100vmax rgba(0,0,0,.55)}
+.tblwrap.fs-live{display:flex!important; flex-direction:column}
+.tblwrap.fs-live>*{flex:none}
+.tblwrap.fs-live>.fs-live-bar+*{margin-top:auto!important}
+.tblwrap.fs-live>*:last-child{margin-bottom:auto!important}
 .tblwrap.fs-live>.fs-live-bar{position:sticky; left:0; top:0; z-index:5; display:flex; align-items:center; gap:10px; padding:8px 12px; background:var(--surface); border-bottom:1px solid var(--line); font:700 17px/1.2 var(--font-display); color:var(--ink)}
 .tblwrap.fs-live>.fs-live-bar span{flex:1; min-width:0}
 .tblwrap.fs-live .fs-live-bar button{min-height:44px; padding:8px 14px; font-weight:700}
