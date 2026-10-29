@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-15">
+<meta name="sts-build" content="2026.10.29-16">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -618,6 +618,11 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
 #fs-ov .fs-t{flex:1; min-width:0}
 #fs-ov .fs-x{min-height:44px; padding:8px 14px; font-weight:700}
 #fs-ov .fs-rot{min-height:44px; padding:6px 12px; font-size:13px}
+.tblwrap.fs-live{position:fixed!important; left:0; top:0; z-index:200; margin:0!important; border-radius:0!important; max-width:none!important; overflow:auto!important; background:var(--bg); padding:0 0 24px; box-sizing:border-box}
+.tblwrap.fs-live>.fs-live-bar{position:sticky; left:0; top:0; z-index:5; display:flex; align-items:center; gap:10px; padding:8px 12px; background:var(--surface); border-bottom:1px solid var(--line); font:700 17px/1.2 var(--font-display); color:var(--ink)}
+.tblwrap.fs-live>.fs-live-bar span{flex:1; min-width:0}
+.tblwrap.fs-live .tscroll{overflow:visible!important}
+.tblwrap.fs-live .fs-live-bar button{min-height:44px; padding:8px 14px; font-weight:700}
 .ph-req{background:var(--surface); color:var(--ink)}
 .ph-cli{background:var(--surface-2); color:var(--ink)}
 .ph-kind{color:var(--accent2,var(--accent))}
@@ -2576,6 +2581,29 @@ const Integration=(function(){
   document.addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
   window.addEventListener('resize',()=>{ rot=null; layout(); });
   window.addEventListener('popstate',close);
+})();
+
+
+/* ======================= full-screen tables ======================= */
+(function(){
+  const zf=()=>parseFloat(document.documentElement.style.zoom)||1;
+  let cur=null;
+  function size(){ if(!cur) return; const z=zf(); cur.style.width=Math.round(innerWidth/z)+'px'; cur.style.height=Math.round(innerHeight/z)+'px'; }
+  function close(){ if(!cur) return; const bar=cur.querySelector(':scope>.fs-live-bar'); if(bar) bar.remove(); cur.classList.remove('fs-live'); cur.style.width=''; cur.style.height=''; cur=null; document.body.style.overflow=''; }
+  function open(w,title){
+    close(); cur=w; w.classList.add('fs-live');
+    const bar=document.createElement('div'); bar.className='fs-live-bar'; bar.innerHTML='<span></span><button type="button" data-tfx>Close ✕</button>'; bar.firstChild.textContent=title;
+    w.insertBefore(bar,w.firstChild); document.body.style.overflow='hidden'; size(); w.scrollTop=0;
+  }
+  document.querySelectorAll('.tblwrap').forEach(w=>{
+    const sec=w.closest('.sec'), h=sec&&sec.querySelector('h2'), t=(h?h.textContent:'Table');
+    const bar=document.createElement('div'); bar.className='fsbar'; bar.innerHTML='<button type="button" class="fsbtn" data-tfs>⤢ Full screen</button>';
+    bar.firstChild.dataset.t=t; w.parentNode.insertBefore(bar,w);
+    bar.firstChild.addEventListener('click',()=>open(w,t));
+  });
+  document.addEventListener('click',e=>{ if(e.target.closest&&e.target.closest('[data-tfx]')) close(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
+  window.addEventListener('resize',size);
 })();
 
 /* ======================= menus, settings, routing ======================= */
