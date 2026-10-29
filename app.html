@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-58">
+<meta name="sts-build" content="2026.10.29-59">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -1442,6 +1442,15 @@ function askDialog(o){
   });
 }
 window.askDialog=askDialog;
+/* Before replacing the sheet on screen: if it holds unsaved changes, ask first. */
+function guardSheet(dirty,save,proceed){
+  if(!dirty()){ proceed(); return; }
+  Snd.play('warn');
+  askDialog({title:'Replace this sheet?',msg:'This sheet has changes that are not saved yet.',buttons:[{label:'Save and load',value:'save',primary:true},{label:'Don\'t save',value:'drop'},{label:'Cancel',value:null}]}).then(v=>{
+    if(v==='save'){ if(save()) proceed(); } else if(v==='drop') proceed();
+  });
+}
+window.guardSheet=guardSheet;
 const SAVED_ALL={mdd:false,fdn:false};
 const relK=v=>String(v==null?'':v).trim().toLowerCase();
 const relHas=m=>['job','ours','client'].some(f=>relK(m[f])!=='');
@@ -2333,7 +2342,7 @@ const Integration=(function(){
     }
     else if(act==='load'){
       const it=getSaved().find(x=>x.id===b.dataset.id);
-      if(it){ const s=JSON.parse(JSON.stringify(it.data)); s.savedId=it.id; s.example=false; loadAll(s); toast('Loaded '+(s.meta.sample||'test')); window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'}); }
+      if(it) guardSheet(isDirty,saveCurrent,()=>{ const s=JSON.parse(JSON.stringify(it.data)); s.savedId=it.id; s.example=false; loadAll(s); toast('Loaded '+(s.meta.sample||'test')); window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'}); });
     }
     else if(act==='del'){
       const id=b.dataset.id;
@@ -2366,7 +2375,7 @@ const Integration=(function(){
   window.STS_API.mdd={view:'compaction', list:getSaved,
     label:it=>it.data.meta.sample||'Untitled sample',
     sub:it=>fmtDate(it.data.meta.date),
-    load:id=>{ const it=getSaved().find(x=>x.id===id); if(!it) return false; const s=JSON.parse(JSON.stringify(it.data)); s.savedId=it.id; s.example=false; loadAll(s); return true; }};
+    load:id=>{ const it=getSaved().find(x=>x.id===id); if(!it) return false; guardSheet(isDirty,saveCurrent,()=>{ const s=JSON.parse(JSON.stringify(it.data)); s.savedId=it.id; s.example=false; loadAll(s); }); return true; }};
 })();
 
 /* ======================= FDN TEST ======================= */
@@ -2867,7 +2876,7 @@ const Integration=(function(){
     }
     else if(act==='f-load'){
       const it=getSaved().find(x=>x.id===b.dataset.id);
-      if(it){ Snd.play('click'); const s=JSON.parse(JSON.stringify(it.data)); s.savedId=it.id; s.example=false; loadAll(s); toast('Loaded '+lotsText(state.tests).toLowerCase()); window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'}); }
+      if(it) guardSheet(isDirty,saveCurrent,()=>{ Snd.play('click'); const s=JSON.parse(JSON.stringify(it.data)); s.savedId=it.id; s.example=false; loadAll(s); toast('Loaded '+lotsText(state.tests).toLowerCase()); window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'}); });
     }
     else if(act==='f-del'){
       const id=b.dataset.id;
@@ -2899,7 +2908,7 @@ const Integration=(function(){
   window.STS_API.fdn={view:'fdn', list:getSaved,
     label:it=>{ const d=fixCopy(it.data); return lotsText(d.tests)+(d.meta.job?' · '+d.meta.job:''); },
     sub:it=>fmtDate(fixCopy(it.data).meta.date),
-    load:id=>{ const it=getSaved().find(x=>x.id===id); if(!it) return false; const s=JSON.parse(JSON.stringify(it.data)); s.savedId=it.id; s.example=false; loadAll(s); return true; }};
+    load:id=>{ const it=getSaved().find(x=>x.id===id); if(!it) return false; guardSheet(isDirty,saveCurrent,()=>{ const s=JSON.parse(JSON.stringify(it.data)); s.savedId=it.id; s.example=false; loadAll(s); }); return true; }};
 })();
 
 
