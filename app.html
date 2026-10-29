@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-70">
+<meta name="sts-build" content="2026.10.29-71">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -921,6 +921,7 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
 .sec-tog{margin-left:auto; min-height:28px; padding:2px 10px; font-size:12px; flex:none}
 :root[data-skin="retro"] .sechead .sec-tog{min-height:20px; padding:0 8px; font-size:11px}
 :root[data-skin="y2k"] .sechead .sec-tog{min-height:24px}
+td input.auto{font-style:italic; color:var(--muted)}
 .jump-wrap[hidden]{display:none}
 .jump-wrap{margin-left:auto; display:flex; align-items:center; gap:6px; flex:0 1 auto; min-width:0}
 .jump-wrap .jk{flex:none; font-size:12px; font-weight:600; color:var(--muted); letter-spacing:.02em}
@@ -2599,7 +2600,7 @@ const Integration=(function(){
     GAUGE_ROWS.forEach(r=>{
       h+='<tr'+(r.sep?' class="sep"':'')+'><th class="rl" scope="row">'+r.label+(r.unit?'<small>'+r.unit+'</small>':'')+'</th>';
       state.tests.forEach((t,i)=>{
-        h+='<td><input id="f-t-'+i+'-'+r.k+'" data-ft="'+i+'.'+r.k+'" inputmode="'+r.im+'" autocomplete="off" aria-label="Test '+(i+1)+' '+r.label.toLowerCase()+'" value="'+esc(t[r.k])+'"></td>';
+        h+='<td><input id="f-t-'+i+'-'+r.k+'" data-ft="'+i+'.'+r.k+'"'+(r.k==='dry'&&t.da===true?' class="auto"':'')+' inputmode="'+r.im+'" autocomplete="off" aria-label="Test '+(i+1)+' '+r.label.toLowerCase()+(r.k==='dry'?' (worked out from wet density and moisture until you type one)':'')+'" value="'+esc(t[r.k])+'"></td>';
       });
       h+='</tr>';
     });
@@ -2887,10 +2888,21 @@ const Integration=(function(){
   }
 
   /* ---------- events ---------- */
+  /* Dry density follows wet density and moisture until you type your own */
+  function autoDry(i){
+    const tt=state.tests[i]; if(!tt) return;
+    if(String(tt.dry==null?'':tt.dry).trim()!==''&&tt.da!==true) return;
+    const wet=dens(tt.wet), gw=num(tt.gw); let v='';
+    if(wet!==null&&wet>0&&gw!==null&&gw>-50) v=(wet/(1+gw/100)).toFixed(3);
+    if(v){ tt.dry=v; tt.da=true; } else if(tt.da===true){ tt.dry=''; delete tt.da; }
+    const el=document.getElementById('f-t-'+i+'-dry'); if(el){ el.value=tt.dry||''; el.classList.toggle('auto',tt.da===true); }
+  }
   function onEdit(e){
     const t=e.target; if(!t||!t.dataset) return;
     if(t.dataset.fm){ state.meta[t.dataset.fm]=t.value; if(/^(job|ours|client)$/.test(t.dataset.fm)) renderSaved(); }
-    else if(t.dataset.ft){ const p=t.dataset.ft.split('.'); state.tests[+p[0]][p[1]]=t.value; }
+    else if(t.dataset.ft){ const p=t.dataset.ft.split('.'), tt=state.tests[+p[0]]; tt[p[1]]=t.value;
+      if(p[1]==='dry'){ delete tt.da; t.classList.remove('auto'); }
+      else if(p[1]==='wet'||p[1]==='gw') autoDry(+p[0]); }
     else return;
     if(e.type==='input'&&t.tagName==='INPUT') Snd.play('key');
     exampleOff();
