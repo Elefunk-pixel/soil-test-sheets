@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-26">
+<meta name="sts-build" content="2026.10.29-27">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -50,6 +50,7 @@
   --font-mono:'Share Tech Mono','IBM Plex Mono',ui-monospace,Menlo,monospace;
   color-scheme:dark;
 }
+:root[data-skin="matrix"] body{background:transparent}
 :root[data-skin="matrix"] h1,:root[data-skin="matrix"] h2{font-weight:400; text-transform:uppercase; letter-spacing:.06em}
 :root[data-skin="matrix"] h2{font-size:24px}
 :root[data-skin="matrix"] h1,:root[data-skin="matrix"] h2,:root[data-skin="matrix"] .kpi .val{text-shadow:0 0 10px rgba(0,255,65,.55)}
@@ -2676,6 +2677,47 @@ window.STS_INSETS=function(){
   document.addEventListener('click',e=>{ if(e.target.closest&&e.target.closest('[data-tfx]')) close(); });
   document.addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
   window.addEventListener('resize',size);
+})();
+
+
+/* ======================= Matrix rain (Matrix look only) ======================= */
+(function(){
+  let cv=null, ctx=null, cols=[], timer=null, W=0, H=0, fs=16, last=0;
+  const CH='ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0123456789'.split('');
+  const on=()=>document.documentElement.getAttribute('data-skin')==='matrix';
+  const still=()=>window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function size(){
+    if(!cv) return; const z=parseFloat(document.documentElement.style.zoom)||1;
+    W=Math.ceil(innerWidth/z); H=Math.ceil(innerHeight/z); cv.width=W; cv.height=H;
+    const n=Math.ceil(W/fs); cols=[]; for(let i=0;i<n;i++) cols.push(Math.random()*-H/fs*1.5);
+    ctx.fillStyle='#000'; ctx.fillRect(0,0,W,H);
+  }
+  function frame(t){
+    timer=requestAnimationFrame(frame);
+    if(document.hidden||t-last<60) return; last=t;
+    ctx.fillStyle='rgba(0,0,0,.09)'; ctx.fillRect(0,0,W,H);
+    ctx.font=fs+'px "Share Tech Mono",monospace';
+    for(let i=0;i<cols.length;i++){
+      const y=cols[i]*fs;
+      if(y>0){
+        ctx.fillStyle='#CFFFD8'; ctx.fillText(CH[Math.floor(Math.random()*CH.length)],i*fs,y);
+        if(y>fs){ ctx.fillStyle='#00FF41'; ctx.fillText(CH[Math.floor(Math.random()*CH.length)],i*fs,y-fs); }
+      }
+      cols[i]+=1;
+      if(cols[i]*fs>H&&Math.random()>.975) cols[i]=Math.random()*-20;
+    }
+  }
+  function start(){
+    if(cv||!on()||still()) return;
+    cv=document.createElement('canvas'); cv.id='mx-rain'; cv.setAttribute('aria-hidden','true');
+    cv.style.cssText='position:fixed;left:0;top:0;z-index:-1;pointer-events:none;opacity:.4';
+    document.body.insertBefore(cv,document.body.firstChild); ctx=cv.getContext('2d'); size(); timer=requestAnimationFrame(frame);
+  }
+  function stop(){ if(timer) cancelAnimationFrame(timer); timer=null; if(cv){ cv.remove(); cv=null; ctx=null; } }
+  function sync(){ if(on()) start(); else stop(); }
+  new MutationObserver(sync).observe(document.documentElement,{attributes:true,attributeFilter:['data-skin']});
+  window.addEventListener('resize',()=>{ if(cv) size(); });
+  sync();
 })();
 
 /* ======================= menus, settings, routing ======================= */
