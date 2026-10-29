@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-68">
+<meta name="sts-build" content="2026.10.29-69">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -916,6 +916,11 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
 }
 .jump-sel{display:flex; align-items:center; justify-content:space-between; gap:6px; text-align:left; white-space:nowrap}
 .jump-sel .jl{overflow:hidden; text-overflow:ellipsis; min-width:0; flex:1 1 auto}
+.sec.collapsed > :not(.sechead):not(.jump):not(.results){display:none!important}
+.sec.collapsed > .results > :not(.jump){display:none!important}
+.sec-tog{margin-left:auto; min-height:28px; padding:2px 10px; font-size:12px; flex:none}
+:root[data-skin="retro"] .sechead .sec-tog{min-height:20px; padding:0 8px; font-size:11px}
+:root[data-skin="y2k"] .sechead .sec-tog{min-height:24px}
 .jump-wrap[hidden]{display:none}
 .jump-wrap{margin-left:auto; display:flex; align-items:center; gap:6px; flex:0 1 auto; min-width:0}
 .jump-wrap .jk{flex:none; font-size:12px; font-weight:600; color:var(--muted); letter-spacing:.02em}
@@ -3370,6 +3375,31 @@ window.STS_INSETS=function(){
   window.addEventListener('resize',size);
 })();
 
+
+/* ======================= hide / show each section ======================= */
+(function(){
+  const K='sts-sec-hidden';
+  let hid=[]; try{ hid=JSON.parse(localStorage.getItem(K)||'[]'); if(!Array.isArray(hid)) hid=[]; }catch(e){ hid=[]; }
+  const save=()=>{ try{ localStorage.setItem(K,JSON.stringify(hid)); }catch(e){} };
+  const secs=[...document.querySelectorAll('section.sec[id]')].filter(x=>!/setup/.test(x.id)&&x.querySelector(':scope > .sechead'));
+  function paint(sec,btn){
+    const h=hid.indexOf(sec.id)>=0; sec.classList.toggle('collapsed',h);
+    btn.textContent=h?'Show':'Hide'; btn.setAttribute('aria-expanded',String(!h));
+    btn.setAttribute('aria-label',(h?'Show ':'Hide ')+(sec.querySelector('h2')||{}).textContent);
+  }
+  secs.forEach(sec=>{
+    const head=sec.querySelector(':scope > .sechead'), b=document.createElement('button');
+    b.type='button'; b.className='slim sec-tog'; b.dataset.sec=sec.id; head.appendChild(b); paint(sec,b);
+  });
+  function setHidden(id,h){ const i=hid.indexOf(id); if(h&&i<0) hid.push(id); else if(!h&&i>=0) hid.splice(i,1); save();
+    const sec=document.getElementById(id), b=sec&&sec.querySelector('.sec-tog'); if(b) paint(sec,b);
+    if(!h) setTimeout(()=>window.dispatchEvent(new Event('resize')),30); }
+  document.addEventListener('click',e=>{
+    const b=e.target.closest&&e.target.closest('.sec-tog'); if(b){ setHidden(b.dataset.sec,hid.indexOf(b.dataset.sec)<0); if(window.Snd) Snd.play('click'); return; }
+    const j=e.target.closest&&e.target.closest('[data-act="jump"]'); if(j&&hid.indexOf(j.dataset.to)>=0) setHidden(j.dataset.to,false);
+  },true);
+  window.STS_SECTIONS={show:id=>setHidden(id,false)};
+})();
 
 /* ======================= Matrix rain (Matrix look only) ======================= */
 (function(){
