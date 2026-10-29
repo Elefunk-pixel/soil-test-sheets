@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-63">
+<meta name="sts-build" content="2026.10.29-65">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -910,14 +910,19 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
 :root[data-skin="matrix"] .jump-sel{background:transparent; border:1px solid #00B82E; border-radius:0; color:#00FF41; text-transform:uppercase; letter-spacing:.12em; text-shadow:0 0 6px rgba(0,255,65,.6); box-shadow:0 0 8px rgba(0,255,65,.15); font-size:12.5px}
 :root[data-skin="hill"] .jump-sel option,:root[data-skin="matrix"] .jump-sel option{background:#0b0b09; color:#e6dfcb; text-transform:none; letter-spacing:0}
 :root[data-skin="matrix"] .jump-sel option{background:#000; color:#00FF41}
+@media (max-width:480px){
+  #acts-compaction .barbtn:not([data-act="save"]) .bl,#acts-fdn .barbtn:not([data-act="f-save"]) .bl{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+  #acts-compaction .barbtn,#acts-fdn .barbtn{padding-inline:9px}
+}
 .jump-sel{display:flex; align-items:center; justify-content:space-between; gap:6px; text-align:left; white-space:nowrap}
-.jump-sel .jl{overflow:hidden; text-overflow:ellipsis; min-width:0}
+.jump-sel .jl{overflow:hidden; text-overflow:ellipsis; min-width:0; flex:1 1 auto}
+.jump-sel .jk{flex:none; font-size:11px; font-weight:600; opacity:.7; letter-spacing:.02em}
 .jump-sel .caret{width:14px; height:14px; flex:none; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
 .jump-pop{box-shadow:0 12px 32px rgba(0,0,0,.35)}
 :root[data-skin="matrix"] .jump-pop .mi:hover small,:root[data-skin="matrix"] .jump-pop .mi[aria-checked="true"] small{color:#003a0f; text-shadow:none}
 :root[data-skin="matrix"] .jump-pop{border-radius:0}
 .jump-pop .mi b{word-break:break-word}
-.jump-sel{margin-left:auto; flex:0 1 190px; min-width:92px; max-width:46%; min-height:40px; padding:4px 8px; font-size:13px; font-weight:600; border:1px solid var(--line); border-radius:8px; background:var(--surface); color:var(--ink)}
+.jump-sel{margin-left:auto; flex:0 1 190px; min-width:92px; max-width:46%; min-height:30px; height:32px; padding:2px 8px; font-size:13px; line-height:1.1; font-weight:600; border:1px solid var(--line); border-radius:8px; background:var(--surface); color:var(--ink)}
 :root[data-skin="retro"] .jump-sel,:root[data-skin="pixel"] .jump-sel,:root[data-skin="hill"] .jump-sel,:root[data-skin="matrix"] .jump-sel,:root[data-skin="cream"] .jump-sel{border-radius:0}
 .ph-brk{display:block; white-space:normal; max-width:190px; margin-left:auto; font-size:11.5px; font-weight:400; opacity:.85; margin-top:1px}
 .ph-dup{display:flex; align-items:center; gap:10px; justify-content:space-between; flex-wrap:wrap; border:1px solid var(--line); border-radius:8px; padding:8px 12px; margin-bottom:10px; background:var(--surface); font-size:14px}
@@ -979,13 +984,13 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
       <button type="button" class="barbtn" id="f-btn-new" data-act="f-new"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span class="bl">New</span></button>
       <button type="button" class="barbtn" id="f-tb-save" data-act="f-save"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg><span class="bl">Save</span></button>
       <button type="button" class="barbtn" id="f-btn-copy" data-act="f-copy"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span class="bl">Copy</span></button>
-      <button type="button" class="jump-sel" id="f-jump" aria-haspopup="listbox" aria-expanded="false" aria-label="Jump to a saved sheet"><span class="jl"></span><svg class="caret" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+      <button type="button" class="jump-sel" id="f-jump" aria-haspopup="listbox" aria-expanded="false" aria-label="Jump to a saved sheet"><span class="jk">Sheets:</span><span class="jl"></span><svg class="caret" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
     </div>
     <div class="bar-actions" id="acts-compaction" role="toolbar" aria-label="Lab compaction actions" hidden>
       <button type="button" class="barbtn" id="btn-new" data-act="new"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span class="bl">New</span></button>
       <button type="button" class="barbtn" id="tb-save" data-act="save"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg><span class="bl">Save</span></button>
       <button type="button" class="barbtn" id="btn-copy" data-act="copy"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span class="bl">Copy</span></button>
-      <button type="button" class="jump-sel" id="jump" aria-haspopup="listbox" aria-expanded="false" aria-label="Jump to a saved sample"><span class="jl"></span><svg class="caret" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+      <button type="button" class="jump-sel" id="jump" aria-haspopup="listbox" aria-expanded="false" aria-label="Jump to a saved sample"><span class="jk">Samples:</span><span class="jl"></span><svg class="caret" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
     </div>
 
     <div class="bar-actions" id="acts-projects" role="toolbar" aria-label="Project actions" hidden>
@@ -2253,7 +2258,7 @@ const Integration=(function(){
 
   function renderJump(list){
     const cur=state.savedId&&list.some(x=>x.id===state.savedId)?state.savedId:'';
-    JumpMenu.set('jump',sortSaved(list,it=>it.data.meta.sample).map(it=>{ const c=compute(it.data); return {id:it.id,label:it.data.meta.sample||'Untitled sample',sub:[fmtDate(it.data.meta.date),c.res?('MDD '+c.res.mdd.toFixed(2)):''].filter(Boolean).join(' · ')}; }),cur,list.length?'Samples ('+list.length+')':'No saved samples');
+    JumpMenu.set('jump',sortSaved(list,it=>it.data.meta.sample).map(it=>{ const c=compute(it.data); return {id:it.id,label:it.data.meta.sample||'Untitled sample',sub:[fmtDate(it.data.meta.date),c.res?('MDD '+c.res.mdd.toFixed(2)):''].filter(Boolean).join(' · ')}; }),cur,list.length?list.length+' saved':'none yet');
   }
   function renderSaved(){
     const all=getSaved(), list=SAVED_ALL.mdd||!relHas(state.meta)?all:all.filter(it=>relMatch(state.meta,it.data.meta));
@@ -2802,7 +2807,7 @@ const Integration=(function(){
   function getSaved(){ const v=readLS(LS_SAVED); return Array.isArray(v)?v:[]; }
   function renderJump(list){
     const cur=state.savedId&&list.some(x=>x.id===state.savedId)?state.savedId:'';
-    JumpMenu.set('f-jump',sortSaved(list,it=>lotsText(fixCopy(it.data).tests)).map(it=>{ const d=fixCopy(it.data); return {id:it.id,label:lotsText(d.tests)+(d.meta.sample?' · '+d.meta.sample:''),sub:fmtDate(d.meta.date)}; }),cur,list.length?'Sheets ('+list.length+')':'No saved sheets');
+    JumpMenu.set('f-jump',sortSaved(list,it=>lotsText(fixCopy(it.data).tests)).map(it=>{ const d=fixCopy(it.data); return {id:it.id,label:lotsText(d.tests)+(d.meta.sample?' · '+d.meta.sample:''),sub:fmtDate(d.meta.date)}; }),cur,list.length?list.length+' saved':'none yet');
   }
   function renderSaved(){
     const all=getSaved(), list=SAVED_ALL.fdn||!relHas(state.meta)?all:all.filter(it=>relMatch(state.meta,it.data.meta));
