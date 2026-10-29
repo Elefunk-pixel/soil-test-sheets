@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-73">
+<meta name="sts-build" content="2026.10.29-75">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -1504,7 +1504,7 @@ const JumpMenu=(function(){
     let lastG=null;
     pop.innerHTML=it.map(x=>{ let g=''; if(x.group&&x.group!==lastG){ g='<div class="menu-h">'+esc(x.group)+'</div>'; } lastG=x.group||lastG;
       return g+'<button type="button" class="mi" role="option" data-id="'+esc(x.id)+'"'+(x.disabled?' disabled':'')+' aria-checked="'+(x.id===btn._cur)+'"><span><b>'+esc(x.label)+'</b>'+(x.sub?'<small>'+esc(x.sub)+'</small>':'')+'</span></button>'; }).join('');
-    document.body.appendChild(pop); owner=btn; btn.setAttribute('aria-expanded','true');
+    document.body.appendChild(pop); owner=btn; btn.setAttribute('aria-expanded','true'); openY=nowY(); openW=innerWidth; openAt=performance.now();
     const r=btn.getBoundingClientRect(), z=parseFloat(document.documentElement.style.zoom)||1, vw=innerWidth/z, vh=innerHeight/z;
     const L=r.left/z, R=r.right/z, T=r.bottom/z;
     pop.style.position='fixed'; pop.style.zIndex=96; pop.style.top=(T+6)+'px';
@@ -1520,7 +1520,11 @@ const JumpMenu=(function(){
     if(mi&&owner){ const id=mi.dataset.id, ob=owner, cb=picks[ob.dataset.jm||ob.id]; close(); if(cb) cb(id,ob); return; }
     const b=e.target.closest&&e.target.closest('.jump-sel'); if(b&&!b.disabled){ if(owner===b) close(); else open(b); }
   });
-  window.addEventListener('resize',close); window.addEventListener('scroll',e=>{ if(pop&&!pop.contains(e.target)) close(); },true);
+  /* only a real scroll or a turn of the screen closes the list; small layout shifts do not */
+  let openY=0, openW=0, openAt=0;
+  const nowY=()=>window.pageYOffset||document.documentElement.scrollTop||0;
+  window.addEventListener('resize',()=>{ if(pop&&Math.abs(innerWidth-openW)>40) close(); });
+  window.addEventListener('scroll',e=>{ if(!pop||pop.contains(e.target)) return; if(performance.now()-openAt<400) return; if(Math.abs(nowY()-openY)>30||(e.target!==document&&e.target.nodeType===1)) close(); },true);
   return {
     bind(id,cb){ picks[id]=cb; },
     set(id,items,cur,ph){ const b=document.getElementById(id); if(!b) return; b._items=items; b._cur=cur;
@@ -2572,7 +2576,7 @@ const Integration=(function(){
   function paintCs(el){
     const t=state.tests[+el.dataset.cs]; if(!t) return;
     const map=refList(), cur=String(t.cs||'').trim(), keys=Object.keys(map).sort((x,y)=>String(map[x].sample).localeCompare(String(map[y].sample),undefined,{numeric:true}));
-    const mk=k=>{ const o=map[k]; return o.mdd===null?{id:o.sample,label:o.sample,sub:'no result yet',disabled:true}:{id:o.sample,label:o.sample,sub:'MDD '+o.mdd.toFixed(2)+' · OMC '+roundHalf(o.omc).toFixed(1)+'%'+(o.natw!=null?' · moisture '+o.natw.toFixed(1)+'%':'')}; };
+    const mk=k=>{ const o=map[k]; return o.mdd===null?{id:o.sample,label:o.sample,sub:'no result yet · MDD comes in once it has one'}:{id:o.sample,label:o.sample,sub:'MDD '+o.mdd.toFixed(2)+' · OMC '+roundHalf(o.omc).toFixed(1)+'%'+(o.natw!=null?' · moisture '+o.natw.toFixed(1)+'%':'')}; };
     const same=keys.filter(k=>relHas(state.meta)&&relMatch(state.meta,map[k].meta||{})), other=keys.filter(k=>same.indexOf(k)<0);
     const items=[{id:'',label:'Sheet MDD',sub:'Use the MDD and OMC on this sheet'}];
     const tag=(arr,g)=>arr.forEach(k=>{ const x=mk(k); if(g) x.group=g; items.push(x); });
@@ -2932,7 +2936,7 @@ const Integration=(function(){
   JumpMenu.bind('cs',(val,el)=>{
     const i=+el.dataset.cs, t=state.tests[i]; if(!t) return;
     t.cs=val; t.cmdd=''; t.comc=''; resolveRefs(); paintCs(el); exampleOff(); statKey=null; refresh();
-    toast(t.cs?('Test '+(i+1)+' uses '+t.cs+(t.cmdd?' (MDD '+t.cmdd+', OMC '+t.comc+'%)':'')):('Test '+(i+1)+' uses the sheet MDD and OMC')); Snd.play(t.cs?'add':'toggle');
+    toast(t.cs?('Test '+(i+1)+' uses '+t.cs+(t.cmdd?' (MDD '+t.cmdd+', OMC '+t.comc+'%)':' (no result yet, sheet MDD used until it has one)')):('Test '+(i+1)+' uses the sheet MDD and OMC')); Snd.play(t.cs?'add':'toggle');
   });
   // times are typed as digits (1430 or 14:30 or 9.05) and tidied to hh:mm when you leave the box
   document.addEventListener('focusout',e=>{
