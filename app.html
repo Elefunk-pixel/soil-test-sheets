@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-72">
+<meta name="sts-build" content="2026.10.29-73">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -930,6 +930,8 @@ td input.auto{font-style:italic; color:var(--muted)}
 :root[data-skin="cream"] .jump-wrap .jk{color:#B3262E; text-transform:uppercase; letter-spacing:.08em; font-size:11px}
 .jump-sel .caret{width:14px; height:14px; flex:none; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
 .jump-pop{box-shadow:0 12px 32px rgba(0,0,0,.35)}
+.jump-pop .mi:disabled{opacity:.5}
+td .jump-sel.cs-btn{width:100%; max-width:none; flex:1 1 auto; margin:0; min-height:36px; height:auto; padding:4px 6px; font-size:12.5px; font-family:inherit; text-align:left}
 :root[data-skin="matrix"] .jump-pop .mi:hover small,:root[data-skin="matrix"] .jump-pop .mi[aria-checked="true"] small{color:#003a0f; text-shadow:none}
 :root[data-skin="matrix"] .jump-pop{border-radius:0}
 .jump-pop .mi b{word-break:break-word}
@@ -1497,9 +1499,11 @@ const JumpMenu=(function(){
   let pop=null, owner=null, picks={};
   function close(){ if(pop){ pop.remove(); pop=null; } if(owner){ owner.setAttribute('aria-expanded','false'); owner=null; } }
   function open(btn){
-    close(); const it=btn._items||[]; if(!it.length) return;
+    close(); if(btn._refresh) btn._refresh(); const it=btn._items||[]; if(!it.length) return;
     pop=document.createElement('div'); pop.className='menu jump-pop'; pop.setAttribute('role','listbox');
-    pop.innerHTML=it.map(x=>'<button type="button" class="mi" role="option" data-id="'+esc(x.id)+'" aria-checked="'+(x.id===btn._cur)+'"><span><b>'+esc(x.label)+'</b>'+(x.sub?'<small>'+esc(x.sub)+'</small>':'')+'</span></button>').join('');
+    let lastG=null;
+    pop.innerHTML=it.map(x=>{ let g=''; if(x.group&&x.group!==lastG){ g='<div class="menu-h">'+esc(x.group)+'</div>'; } lastG=x.group||lastG;
+      return g+'<button type="button" class="mi" role="option" data-id="'+esc(x.id)+'"'+(x.disabled?' disabled':'')+' aria-checked="'+(x.id===btn._cur)+'"><span><b>'+esc(x.label)+'</b>'+(x.sub?'<small>'+esc(x.sub)+'</small>':'')+'</span></button>'; }).join('');
     document.body.appendChild(pop); owner=btn; btn.setAttribute('aria-expanded','true');
     const r=btn.getBoundingClientRect(), z=parseFloat(document.documentElement.style.zoom)||1, vw=innerWidth/z, vh=innerHeight/z;
     const L=r.left/z, R=r.right/z, T=r.bottom/z;
@@ -1513,7 +1517,7 @@ const JumpMenu=(function(){
   document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&pop){ e.stopPropagation(); close(); } },true);
   document.addEventListener('click',e=>{
     const mi=e.target.closest&&e.target.closest('.jump-pop .mi');
-    if(mi&&owner){ const id=mi.dataset.id, cb=picks[owner.id]; close(); if(cb) cb(id); return; }
+    if(mi&&owner){ const id=mi.dataset.id, ob=owner, cb=picks[ob.dataset.jm||ob.id]; close(); if(cb) cb(id,ob); return; }
     const b=e.target.closest&&e.target.closest('.jump-sel'); if(b&&!b.disabled){ if(owner===b) close(); else open(b); }
   });
   window.addEventListener('resize',close); window.addEventListener('scroll',e=>{ if(pop&&!pop.contains(e.target)) close(); },true);
@@ -2558,35 +2562,42 @@ const Integration=(function(){
       const saved=readLS('mdd-lab-tests-v1');
       if(Array.isArray(saved)) saved.slice().sort((a,b)=>a.savedAt-b.savedAt).forEach(it=>{
         try{ const c=compute(it.data), nm=String(it.data.meta.sample||'').trim(); if(!nm) return;
-          if(c.res) map[skey(nm)]={sample:nm,mdd:c.res.mdd,omc:c.res.omc,meta:it.data.meta};
-          else if(!map[skey(nm)]) map[skey(nm)]={sample:nm,mdd:null,omc:null,meta:it.data.meta}; }catch(e){}
+          if(c.res) map[skey(nm)]={sample:nm,mdd:c.res.mdd,omc:c.res.omc,natw:c.nat.w,meta:it.data.meta};
+          else if(!map[skey(nm)]) map[skey(nm)]={sample:nm,mdd:null,omc:null,natw:null,meta:it.data.meta}; }catch(e){}
       });
-      if(App.compaction){ const st=App.compaction.state(), c=compute(st), nm=String(st.meta.sample||'').trim(); if(c.res&&nm) map[skey(nm)]={sample:nm,mdd:c.res.mdd,omc:c.res.omc,meta:st.meta}; }
+      if(App.compaction){ const st=App.compaction.state(), c=compute(st), nm=String(st.meta.sample||'').trim(); if(c.res&&nm) map[skey(nm)]={sample:nm,mdd:c.res.mdd,omc:c.res.omc,natw:c.nat.w,meta:st.meta}; }
     }catch(e){}
     return map;
   }
-  function csOptions(t){
+  function paintCs(el){
+    const t=state.tests[+el.dataset.cs]; if(!t) return;
     const map=refList(), cur=String(t.cs||'').trim(), keys=Object.keys(map).sort((x,y)=>String(map[x].sample).localeCompare(String(map[y].sample),undefined,{numeric:true}));
-    let seen=false;
-    const opt=k=>{ const o=map[k], on=skey(cur)===k; if(on) seen=true;
-      if(o.mdd===null) return '<option value="'+esc(o.sample)+'" disabled'+(on?' selected':'')+'>'+esc(o.sample+' · no result yet')+'</option>';
-      return '<option value="'+esc(o.sample)+'"'+(on?' selected':'')+'>'+esc(o.sample+' · '+o.mdd.toFixed(2)+' · '+roundHalf(o.omc).toFixed(1)+'%')+'</option>'; };
+    const mk=k=>{ const o=map[k]; return o.mdd===null?{id:o.sample,label:o.sample,sub:'no result yet',disabled:true}:{id:o.sample,label:o.sample,sub:'MDD '+o.mdd.toFixed(2)+' · OMC '+roundHalf(o.omc).toFixed(1)+'%'+(o.natw!=null?' · moisture '+o.natw.toFixed(1)+'%':'')}; };
     const same=keys.filter(k=>relHas(state.meta)&&relMatch(state.meta,map[k].meta||{})), other=keys.filter(k=>same.indexOf(k)<0);
-    let h='<option value="">Sheet MDD</option>';
-    if(same.length&&other.length) h+='<optgroup label="This test request">'+same.map(opt).join('')+'</optgroup><optgroup label="Other samples">'+other.map(opt).join('')+'</optgroup>';
-    else h+=keys.map(opt).join('');
-    if(cur&&!seen) h+='<option value="'+esc(cur)+'" selected>'+esc(cur+(t.cmdd?' · '+t.cmdd+' (not found)':' (not found)'))+'</option>';
-    return h;
+    const items=[{id:'',label:'Sheet MDD',sub:'Use the MDD and OMC on this sheet'}];
+    const tag=(arr,g)=>arr.forEach(k=>{ const x=mk(k); if(g) x.group=g; items.push(x); });
+    if(same.length&&other.length){ tag(same,'This test request'); tag(other,'Other samples'); } else tag(keys,null);
+    let seen=!cur||keys.some(k=>k===skey(cur));
+    if(!seen) items.push({id:cur,label:cur,sub:t.cmdd?'MDD '+t.cmdd+' (not found)':'not found'});
+    const hit=items.find(x=>skey(x.id)===skey(cur));
+    JumpMenu.set(el.id,items,hit?hit.id:'',cur||'Sheet MDD');
+    el._refresh=()=>paintCs(el);
   }
+  const paintAllCs=()=>document.querySelectorAll('button[data-cs]').forEach(paintCs);
   // keep each test's MDD and OMC in step with its lab compaction sample (live where the sample is saved, last known otherwise)
   function resolveRefs(){
     let map=null;
-    state.tests.forEach(t=>{
-      const cs=String(t.cs||'').trim(); if(!cs){ if(t.cmdd||t.comc){ t.cmdd=''; t.comc=''; } return; }
+    state.tests.forEach((t,i)=>{
+      const cs=String(t.cs||'').trim();
+      if(!cs){ if(t.cmdd||t.comc){ t.cmdd=''; t.comc=''; } if(t.oa===true){ t.ow=''; delete t.oa; syncOw(i); } return; }
       map=map||refList(); const o=map[skey(cs)];
-      if(o&&o.mdd!==null){ t.cmdd=o.mdd.toFixed(2); t.comc=roundHalf(o.omc).toFixed(1); }
+      if(o&&o.mdd!==null){ t.cmdd=o.mdd.toFixed(2); t.comc=roundHalf(o.omc).toFixed(1);
+        // oven moisture follows the sample moisture of the chosen compaction sample, unless you typed your own
+        const manual=String(t.ow==null?'':t.ow).trim()!==''&&t.oa!==true;
+        if(!manual){ if(o.natw!=null){ t.ow=o.natw.toFixed(1); t.oa=true; } else if(t.oa===true){ t.ow=''; delete t.oa; } syncOw(i); } }
     });
   }
+  function syncOw(i){ const t=state.tests[i], el=document.getElementById('f-t-'+i+'-ow'); if(el){ el.value=t.ow||''; el.classList.toggle('auto',t.oa===true); } }
   function buildLoc(){
     let h=cols()+head('l',true)+'<tbody>';
     LOC_ROWS.forEach(r=>{
@@ -2598,16 +2609,16 @@ const Integration=(function(){
       h+='</tr>';
     });
     h+='<tr class="xr cs"><th class="rl" scope="row">Compaction sample</th>';
-    state.tests.forEach((t,i)=>{ h+='<td><select id="f-t-'+i+'-cs" data-cs="'+i+'" aria-label="Test '+(i+1)+' lab compaction sample">'+csOptions(t)+'</select></td>'; });
+    state.tests.forEach((t,i)=>{ h+='<td><button type="button" class="jump-sel cs-btn" id="f-t-'+i+'-cs" data-cs="'+i+'" data-jm="cs" aria-haspopup="listbox" aria-expanded="false" aria-label="Test '+(i+1)+' lab compaction sample"><span class="jl"></span><svg class="caret" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button></td>'; });
     h+='</tr>';
-    finish('f-loc-table',h);
+    finish('f-loc-table',h); paintAllCs();
   }
   function buildGauge(){
     let h=cols()+head('g',false)+'<tbody>';
     GAUGE_ROWS.forEach(r=>{
       h+='<tr'+(r.sep?' class="sep"':'')+'><th class="rl" scope="row">'+r.label+(r.unit?'<small>'+r.unit+'</small>':'')+'</th>';
       state.tests.forEach((t,i)=>{
-        h+='<td><input id="f-t-'+i+'-'+r.k+'" data-ft="'+i+'.'+r.k+'"'+(r.k==='dry'&&t.da===true?' class="auto"':'')+' inputmode="'+r.im+'" autocomplete="off" aria-label="Test '+(i+1)+' '+r.label.toLowerCase()+(r.k==='dry'?' (worked out from wet density and moisture until you type one)':'')+'" value="'+esc(t[r.k])+'"></td>';
+        h+='<td><input id="f-t-'+i+'-'+r.k+'" data-ft="'+i+'.'+r.k+'"'+((r.k==='dry'&&t.da===true)||(r.k==='ow'&&t.oa===true)?' class="auto"':'')+' inputmode="'+r.im+'" autocomplete="off" aria-label="Test '+(i+1)+' '+r.label.toLowerCase()+(r.k==='dry'?' (worked out from wet density and moisture until you type one)':'')+'" value="'+esc(t[r.k])+'"></td>';
       });
       h+='</tr>';
     });
@@ -2906,8 +2917,9 @@ const Integration=(function(){
   }
   function onEdit(e){
     const t=e.target; if(!t||!t.dataset) return;
-    if(t.dataset.fm){ state.meta[t.dataset.fm]=t.value; if(/^(job|ours|client)$/.test(t.dataset.fm)){ renderSaved(); document.querySelectorAll('select[data-cs]').forEach(el=>{ const tt=state.tests[+el.dataset.cs]; if(tt&&document.activeElement!==el) el.innerHTML=csOptions(tt); }); } }
+    if(t.dataset.fm){ state.meta[t.dataset.fm]=t.value; if(/^(job|ours|client)$/.test(t.dataset.fm)){ renderSaved(); paintAllCs(); } }
     else if(t.dataset.ft){ const p=t.dataset.ft.split('.'), tt=state.tests[+p[0]]; tt[p[1]]=t.value;
+      if(p[1]==='ow'){ delete tt.oa; t.classList.remove('auto'); }
       if(p[1]==='dry'){ delete tt.da; t.classList.remove('auto'); }
       else if(p[1]==='wet'||p[1]==='gw') autoDry(+p[0]); }
     else return;
@@ -2917,15 +2929,11 @@ const Integration=(function(){
   }
   document.addEventListener('input',onEdit);
   document.addEventListener('change',e=>{ if(e.target&&(e.target.type==='date'||e.target.type==='time')) onEdit(e); });
-  document.addEventListener('change',e=>{
-    const el=e.target; if(!el||el.dataset===undefined||el.dataset.cs===undefined||el.tagName!=='SELECT') return;
+  JumpMenu.bind('cs',(val,el)=>{
     const i=+el.dataset.cs, t=state.tests[i]; if(!t) return;
-    t.cs=el.value; t.cmdd=''; t.comc=''; resolveRefs(); exampleOff(); statKey=null; refresh();
+    t.cs=val; t.cmdd=''; t.comc=''; resolveRefs(); paintCs(el); exampleOff(); statKey=null; refresh();
     toast(t.cs?('Test '+(i+1)+' uses '+t.cs+(t.cmdd?' (MDD '+t.cmdd+', OMC '+t.comc+'%)':'')):('Test '+(i+1)+' uses the sheet MDD and OMC')); Snd.play(t.cs?'add':'toggle');
   });
-  // the list of compaction samples is rebuilt each time it is opened, so new results appear
-  document.addEventListener('pointerdown',e=>{ const el=e.target; if(el&&el.dataset&&el.dataset.cs!==undefined&&el.tagName==='SELECT'&&document.activeElement!==el){ const t=state.tests[+el.dataset.cs]; if(t) el.innerHTML=csOptions(t); } },true);
-  document.addEventListener('focusin',e=>{ const el=e.target; if(el&&el.dataset&&el.dataset.cs!==undefined&&el.tagName==='SELECT'){ const t=state.tests[+el.dataset.cs]; if(t&&el.options.length<=2) el.innerHTML=csOptions(t); } });
   // times are typed as digits (1430 or 14:30 or 9.05) and tidied to hh:mm when you leave the box
   document.addEventListener('focusout',e=>{
     const t=e.target; if(!t||!t.dataset||!/\.time$/.test(t.dataset.ft||'')) return;
@@ -3011,7 +3019,7 @@ const Integration=(function(){
   if('ResizeObserver' in window){
     new ResizeObserver(()=>{ const w=Math.floor($('f-chart').clientWidth||0); if(w&&w!==lastW&&lastC) drawF(lastC,lastXr); }).observe($('f-chart'));
   }
-  App.onShow.fdn=()=>{ buildPick(); document.querySelectorAll('select[data-cs]').forEach(el=>{ const t=state.tests[+el.dataset.cs]; if(t) el.innerHTML=csOptions(t); }); refresh(); if(lastC) drawF(lastC,lastXr); };
+  App.onShow.fdn=()=>{ buildPick(); paintAllCs(); refresh(); if(lastC) drawF(lastC,lastXr); };
 
   if(!storageOK){ $('f-tb-save').hidden=true; $('f-btn-save').hidden=true; $('f-btn-saved').hidden=true; $('f-draftnote').textContent='This browser will not keep a draft. Copy the summary before you close the page.'; }
   buildTables(); fillMeta(); buildPick();
