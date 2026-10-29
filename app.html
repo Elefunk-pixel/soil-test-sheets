@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-49">
+<meta name="sts-build" content="2026.10.29-50">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -1240,14 +1240,16 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
   <section class="sec" id="sec-nat">
     <div class="sechead"><h2>Sample moisture and mix plan</h2><span class="hint">One tin, whole sample</span></div>
     <div class="tblwrap fit"><table id="nat-table" aria-label="Sample moisture content, single tin"></table></div>
-    <h3 class="subh">Mix plan</h3>
+    <details class="how mixplan" id="mixplan"><summary>Mix plan (optional)</summary>
     <div class="grid">
-      <div class="f"><label for="meta-batch">Batch per point (g)</label><input id="meta-batch" class="num" data-meta="batch" inputmode="decimal" autocomplete="off" placeholder="e.g. 2500"></div>
+      <div class="f"><label for="meta-batch">Batch per point (g), if all the same</label><input id="meta-batch" class="num" data-meta="batch" inputmode="decimal" autocomplete="off" placeholder="e.g. 2500"></div>
       <div class="f"><label for="meta-estomc">Estimated OMC (%)</label><input id="meta-estomc" class="num" data-meta="estomc" inputmode="decimal" autocomplete="off"></div>
       <div class="f"><label for="meta-step">Step between points (%)</label><input id="meta-step" class="num" data-meta="step" inputmode="decimal" autocomplete="off"></div>
       <div class="f fbtn"><button type="button" id="btn-plan" data-act="plan">Fill added %</button></div>
     </div>
     <div class="hint" id="plan-hint"></div>
+    <div class="hint">Each point can also be weighed on its own: type its weight in the Soil weighed row of the points table. A blank point uses the batch above.</div>
+    </details>
     <details class="how"><summary>About this section</summary>
       <div class="hint">The sample moisture is not part of the curve. With an estimated OMC, Fill added % spreads the points evenly either side of it and works out how much water each one needs. You can still change any added % by hand.</div>
       <div class="formula">w = (tin + wet − tin + dry) ÷ (tin + dry − tin) × 100<br>added % for a point = its target w − sample w</div>
@@ -1333,12 +1335,12 @@ function compute(s){
     const odd=rd!==null&&(rd<0.3||rd>4);
     if(odd) rd=null;
     // one batch weight for every point (older sheets kept one per point)
-    const bw=num(s.meta.batch!==undefined?s.meta.batch:(s.bw?s.bw[i]:null)), add=num(s.add?s.add[i]:null);
+    const own=num(s.bwp?s.bwp[i]:null), bw=own!==null?own:num(s.meta.batch!==undefined?s.meta.batch:(s.bw?s.bw[i]:null)), add=num(s.add?s.add[i]:null);
     const target=(add!==null&&nat.w!==null)?nat.w+add:null;
     const water=(bw!==null&&add!==null)?(nat.w!==null?bw/(1+nat.w/100):bw)*add/100:null;
     const off=(w!==null&&target!==null)?w-target:null;
     const cwd=(rho!==null&&add!==null)?rho/(1+add/100):null;   // wet density with the added water taken back off
-    return {i,ms,wm,rho,cwd,w,n:ws.length,rd,odd,bw,add,target,water,off};
+    return {i,ms,wm,rho,cwd,w,n:ws.length,rd,odd,bw,own:own!==null,add,target,water,off};
   });
   const pts=points.filter(p=>p.rd!==null);
   let res=null;
@@ -1888,7 +1890,7 @@ const Integration=(function(){
     return {example:false, savedId:null,
       meta:{ours:'',client:'',job:'',sample:'',date:today(),by:'',method:'std',vol:'1000',mass:'',batch:'',estomc:'',step:'2'},
       nat:{id:'',wet:'',dry:'',tare:''},
-      add:['','','','',''],
+      add:['','','','',''], bwp:['','','','',''],
       ms:['','','','',''],
       tins:[1,2,3,4,5].map(p=>({pt:p,id:'',wet:'',dry:'',tare:''}))};
   }
@@ -1896,7 +1898,7 @@ const Integration=(function(){
     return {example:true, savedId:null,
       meta:{job:'Example: subgrade, Lot 4',sample:'S-0142',date:today(),by:'',method:'std',vol:'1000',mass:'4210',batch:'2500',estomc:'11.5',step:'2'},
       nat:{id:'N01',wet:'219.3',dry:'211.5',tare:'21.5'},
-      add:['3.5','5.5','7.5','9.5','11.5'],
+      add:['3.5','5.5','7.5','9.5','11.5'], bwp:['','','','',''],
       ms:['6168','6280','6364','6351','6312'],
       tins:[
         {pt:1,id:'A12',wet:'217.2',dry:'203.4',tare:'21.4'},
@@ -1914,6 +1916,8 @@ const Integration=(function(){
     delete s.bw;
     if(!Array.isArray(s.add)) s.add=[];
     while(s.add.length<s.ms.length) s.add.push(''); s.add.length=s.ms.length;
+    if(!Array.isArray(s.bwp)) s.bwp=[];
+    while(s.bwp.length<s.ms.length) s.bwp.push(''); s.bwp.length=s.ms.length;
     return s;
   }
 
@@ -1934,7 +1938,8 @@ const Integration=(function(){
     txBuild($('comp-table'),{n:state.ms.length,labW:LABW,colW:PCOLW,corner:'Point',
       head:i=>'<span class="tn">'+(i+1)+'</span>',
       rows:[
-        {tag:'Mixing',label:'Added',unit:'%',cell:i=>inp('padd-'+i,'data-add="'+i+'"',P(i)+' moisture to add, percent',state.add[i])},
+        {tag:'Mixing',label:'Soil weighed',unit:'g',cell:i=>inp('pbw-'+i,'data-bwp="'+i+'"',P(i)+' soil weighed for this point, grams',state.bwp[i],' inputmode="decimal"')},
+        {label:'Added',unit:'%',cell:i=>inp('padd-'+i,'data-add="'+i+'"',P(i)+' moisture to add, percent',state.add[i])},
         {label:'Water to add',unit:'g',cell:i=>calc('pwa-'+i,'res')},
         {tag:'Mould',label:'Mould + wet soil',unit:'g',sep:true,cell:i=>inp('ms-'+i,'data-ms="'+i+'"',P(i)+' mould plus wet soil mass, grams',state.ms[i])},
         {label:'Wet density',unit:'t/m³',cell:i=>calc('rho-'+i)},
@@ -2050,7 +2055,7 @@ const Integration=(function(){
       {label:'Wet mass (g)',val:state.nat.wet,cell:'L26'},{label:'Dry mass (g)',val:state.nat.dry,cell:'Moistures sheet D2'}]});
     c.points.forEach((p,i)=>{
       groups.push({title:'Point '+(i+1),sub:'Mass of sample, water and mould',xkey:'p'+i,items:[
-        {label:'Mass of sample (g)',val:mt.batch,cell:cl(i,40)},
+        {label:'Mass of sample (g)',val:state.bwp[i]&&String(state.bwp[i]).trim()!==''?state.bwp[i]:mt.batch,cell:cl(i,40)},
         {label:'Water added (%)',val:state.add[i]!==''&&state.add[i]!=null?String(state.add[i]).trim()+'%':'',cell:cl(i,41)},
         {label:'Water added (g)',val:f1(p.water),cell:'auto (row 42)'},
         {label:'Mass of mould and wet soil (g)',val:state.ms[i],cell:i<5?COL[i]+'43':'no column on sheet'}]});
@@ -2078,13 +2083,15 @@ const Integration=(function(){
       const rc=$('rd-'+i); rc.textContent=p.odd?'check':f(p.rd,3); rc.classList.toggle('bad',p.odd);
     });
     // totals strip under the table
-    { const bw=num(state.meta.batch), n=state.ms.length, tw=c.points.reduce((a,p)=>a+(p.water||0),0), any=c.points.some(p=>p.water!==null);
+    { const n=state.ms.length, tw=c.points.reduce((a,p)=>a+(p.water||0),0), any=c.points.some(p=>p.water!==null);
+      const bws=c.points.filter(p=>p.bw!==null), soil=bws.reduce((a,p)=>a+p.bw,0), same=bws.length&&bws.every(p=>p.bw===bws[0].bw);
       let ft='';
-      if(bw===null) ft='Enter the batch per point in the mix plan to work out the water.';
+      if(!bws.length) ft='Weigh each point in the Soil weighed row, or set a batch in the mix plan, to work out the water.';
       else{
         ft='<span>Total water <b>'+(any?Math.round(tw).toLocaleString('en-AU')+' g':'–')+'</b></span>';
-        ft+='<span>Soil needed <b>'+(+(bw*n/1000).toFixed(2))+' kg</b> ('+n+' × '+(+bw.toFixed(0))+' g)</span>';
+        ft+='<span>Soil '+(bws.length<n?'weighed':'needed')+' <b>'+(+(soil/1000).toFixed(2))+' kg</b> ('+(same?bws.length+' × '+(+bws[0].bw.toFixed(0))+' g':bws.length+' points')+')</span>';
       }
+      c.points.forEach((p,i)=>{ const e=$('pbw-'+i); if(e) e.placeholder=state.meta.batch||''; });
       $('comp-foot').innerHTML=ft; }
     // mix plan preview
     { const est=num(state.meta.estomc), step=num(state.meta.step), n=state.ms.length;
@@ -2230,6 +2237,7 @@ const Integration=(function(){
     if(t.dataset.meta){ state.meta[t.dataset.meta]=t.value; if(/^(job|ours|client)$/.test(t.dataset.meta)) renderSaved(); }
     else if(t.dataset.nat){ state.nat[t.dataset.nat]=t.value; }
     else if(t.dataset.add!==undefined){ state.add[+t.dataset.add]=t.value; }
+    else if(t.dataset.bwp!==undefined){ state.bwp[+t.dataset.bwp]=t.value; }
     else if(t.dataset.ms!==undefined){ state.ms[+t.dataset.ms]=t.value; }
     else if(t.dataset.tin){ const p=t.dataset.tin.split('.'); state.tins[+p[0]][p[1]]=(p[1]==='pt'?+t.value:t.value); }
     else return;
@@ -2293,16 +2301,16 @@ const Integration=(function(){
     else if(act==='toggle-saved'){ const p=$('savedpanel'); p.hidden=!p.hidden; if(!p.hidden) renderSaved(); }
     else if(act==='saved-all'){ SAVED_ALL.mdd=!SAVED_ALL.mdd; renderSaved(); }
     else if(act==='copy') doCopy();
-    else if(act==='jump'){ const el=$(b.dataset.to); if(el) el.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'start'}); }
+    else if(act==='jump'){ if(b.dataset.to==='sec-nat'){ const mp=$('mixplan'); if(mp) mp.open=true; } const el=$(b.dataset.to); if(el) el.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'start'}); }
     else if(act==='add-pt'){
       if(state.ms.length>=MAXPT){ toast('Ten points is the limit'); return; }
-      state.ms.push(''); state.add.push('');
+      state.ms.push(''); state.add.push(''); state.bwp.push('');
       state.tins.push({pt:state.ms.length,id:'',wet:'',dry:'',tare:''});
       buildComp(); buildMoist(); refresh(); toEnd('c-comp-scroll'); toEnd('c-tin-scroll');
     }
     else if(act==='rm-pt'){
       if(state.ms.length<=MINPT){ toast('Keep at least three points'); return; }
-      state.ms.pop(); state.add.pop(); const n=state.ms.length;
+      state.ms.pop(); state.add.pop(); state.bwp.pop(); const n=state.ms.length;
       // drop the removed point's empty tins; keep any with readings on the new last point
       const blankTin=t=>!['id','wet','dry','tare'].some(k=>String(t[k]==null?'':t[k]).trim()!=='');
       let moved=0;
