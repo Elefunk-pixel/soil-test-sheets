@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-53">
+<meta name="sts-build" content="2026.10.29-54">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -3040,11 +3040,11 @@ function hierMergeDupes(H,dry){
             if(direct.length) h+='<div>'+direct.map(t=>testRow(t,loc)).join('')+'</div>';
             r.clients.forEach(c=>{
               const cl={p:p.id,r:r.id,c:c.id}, ts=testsAt(all,cl);
-              h+='<div class="ph-cli'+(isActive(p.id,r.id,c.id)?' ph-act':'')+'"><div class="ph-h"><div class="ph-t"><span class="ph-kind">Client request</span><b>'+esc(c.no||'(no number)')+'</b><span>'+esc(c.note||'')+'</span></div><span class="ph-n">'+ts.length+(ts.length===1?' test':' tests')+'</span>'
+              h+='<div class="ph-cli'+(isActive(p.id,r.id,c.id)?' ph-act':'')+'"><div class="ph-h"><button type="button" class="slim ph-tog" data-act="p-ctog" data-pid="'+p.id+'" data-rid="'+r.id+'" data-cid="'+c.id+'" aria-label="Expand or collapse this client request" aria-expanded="'+(c.open!==false)+'">'+(c.open===false?'▸':'▾')+'</button><div class="ph-t"><span class="ph-kind">Client request</span><b>'+esc(c.no||'(no number)')+'</b><span>'+esc(c.note||'')+'</span></div><span class="ph-n">'+ts.length+(ts.length===1?' test':' tests')+'</span>'
                 +'<div class="ph-a"><button type="button" class="slim" data-act="p-active" data-pid="'+p.id+'" data-rid="'+r.id+'" data-cid="'+c.id+'">'+(isActive(p.id,r.id,c.id)?'Active ✓':'Set active')+'</button>'
                 +'<button type="button" class="slim" data-act="p-ren" data-pid="'+p.id+'" data-rid="'+r.id+'" data-cid="'+c.id+'">Edit</button>'+delBtn('c:'+c.id)+'</div></div>';
               if(isEdit('cli','ren',p.id,r.id,c.id)) h+=form('cli');
-              h+=ts.length?ts.map(t=>testRow(t,cl)).join(''):'<div class="ph-empty">No tests filed here yet.</div>';
+              if(c.open!==false) h+=ts.length?ts.map(t=>testRow(t,cl)).join(''):'<div class="ph-empty">No tests filed here yet.</div>';
               h+='</div>';
             });
             }
@@ -3085,6 +3085,7 @@ function hierMergeDupes(H,dry){
     const act=b.dataset.act, pid=b.dataset.pid, rid=b.dataset.rid, cid=b.dataset.cid;
     if(act==='p-addproj'){ edit={kind:'proj',mode:'add',pid:null,rid:null,cid:null,v1:'',v2:''}; render(); window.scrollTo(0,0); }
     else if(act==='p-merge'){ const n=hierMergeDupes(H); persist(); render(); toast('Merged '+n+(n===1?' duplicate':' duplicates')+'. Tests kept.'); }
+    else if(act==='p-ctog'){ const c=findC(findR(findP(pid),rid),cid); if(c){ c.open=c.open===false; persist(); render(); } }
     else if(act==='p-rtog'){ const r=findR(findP(pid),rid); if(r){ r.open=r.open===false; persist(); render(); } }
     else if(act==='p-tog'){ const p=findP(pid); if(p){ p.open=p.open===false; persist(); render(); } }
     else if(act==='p-addreq'){ const p=findP(pid); if(p){ p.open=true; edit={kind:'req',mode:'add',pid,rid:null,cid:null,v1:'',v2:''}; render(); } }
