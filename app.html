@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-39">
+<meta name="sts-build" content="2026.10.29-40">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -141,8 +141,8 @@
 @keyframes hflick{0%,92%,96%,100%{opacity:1}93%{opacity:.55}95%{opacity:.85}}
 
 *{box-sizing:border-box}
-body{background:var(--bg); color:var(--ink); font:16px/1.45 var(--font-body); padding-block:0 72px}
-body::before{content:""; position:fixed; inset:0 0 auto; height:var(--sat, env(safe-area-inset-top, 0px)); z-index:16; background:var(--surface)}
+body{background:var(--bg); color:var(--ink); font:16px/1.45 var(--font-body); padding-block:var(--sat, env(safe-area-inset-top, 0px)) 72px}
+html::before{content:""; position:fixed; inset:0 0 auto; height:var(--sat, env(safe-area-inset-top, 0px)); z-index:16; pointer-events:none; background:var(--surface)}
 .view{padding-top:26px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px))}
 .wrap{max-width:900px; margin:0 auto; display:flex; flex-direction:column; gap:52px}
 h1,h2{font-family:var(--font-display); margin:0; text-wrap:balance; letter-spacing:.005em}
