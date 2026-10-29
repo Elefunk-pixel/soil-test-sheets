@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-23">
+<meta name="sts-build" content="2026.10.29-24">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -638,6 +638,45 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
 :root[data-skin="pixel"]{--hbg:#0B1544; --hink:#FFE9B8}
 :root[data-skin="hill"]{--hbg:#1E1913; --hink:#D7CDB1}
 :root[data-skin="cream"]{--hbg:color-mix(in srgb,var(--surface-2) 88%,#3a2a10); --hink:var(--accent)}
+
+/* ---- Retro rework: slim Windows-98 style windows on a teal desktop ---- */
+:root[data-skin="retro"] body{background:#008080; font-size:14px}
+:root[data-skin="retro"] .wrap{gap:16px}
+:root[data-skin="retro"] .view{padding-top:12px; padding-bottom:28px}
+:root[data-skin="retro"] .titlebar{background:#C0C0C0; border:2px solid; border-color:#fff #404040 #404040 #fff; box-shadow:inset -1px -1px #808080, inset 1px 1px #dfdfdf; padding:2px 2px 8px; display:flex; flex-direction:column; gap:6px}
+:root[data-skin="retro"] .titlebar>*:not(h1){margin:0 8px; color:#000}
+:root[data-skin="retro"] .titlebar .eyebrow{display:none}
+:root[data-skin="retro"] h1{background:linear-gradient(90deg,#000080,#1084d0); color:#fff; font-size:15px; font-weight:700; line-height:1.2; padding:3px 8px; margin:0; text-transform:none; letter-spacing:0}
+:root[data-skin="retro"] .draftnote{font-size:12px}
+:root[data-skin="retro"] .sec{background:#C0C0C0; border:2px solid; border-color:#fff #404040 #404040 #fff; box-shadow:inset -1px -1px #808080, inset 1px 1px #dfdfdf; padding:2px 2px 10px; gap:8px}
+:root[data-skin="retro"] .sec>*:not(.sechead){margin-left:8px; margin-right:8px}
+:root[data-skin="retro"] .sechead{margin:0; padding:0; gap:0; flex-wrap:nowrap}
+:root[data-skin="retro"] .sechead{background:linear-gradient(90deg,#000080,#1084d0); align-items:center}
+:root[data-skin="retro"] .sechead h2{background:transparent; color:#fff; font-size:13px; font-weight:700; line-height:1.2; padding:3px 8px; margin:0; text-transform:none; letter-spacing:0}
+:root[data-skin="retro"] .sechead .hint{background:transparent; color:#dfefff; font-size:11px; padding:3px 8px}
+:root[data-skin="retro"] .appbar{border-bottom:1px solid #404040}
+:root[data-skin="retro"] .barbtn{min-height:30px; padding:4px 9px; font-size:13px}
+:root[data-skin="retro"] :where(button){font-size:13px}
+:root[data-skin="retro"] button{border-width:1px; min-height:28px}
+:root[data-skin="retro"] .barbtn,:root[data-skin="retro"] button.slim{min-height:28px}
+:root[data-skin="retro"] :where(input:not([type="checkbox"]),select,textarea){border-width:1px; border-color:#808080 #fff #fff #808080; box-shadow:inset 1px 1px #404040; font-size:14px}
+:root[data-skin="retro"] input,:root[data-skin="retro"] select{min-height:32px; padding-top:4px; padding-bottom:4px}
+:root[data-skin="retro"] .f label{font-size:10.5px; color:#000; letter-spacing:.04em}
+:root[data-skin="retro"] .grid{gap:8px}
+:root[data-skin="retro"] :where(.results,.saved,.banner,.xref){border-width:1px}
+:root[data-skin="retro"] .sec>.results{border:0; box-shadow:none; background:transparent; padding:6px 0}
+:root[data-skin="retro"] .banner{background:#FFFFE1; border:1px solid #000; color:#000; font-size:13px; padding:8px 10px}
+:root[data-skin="retro"] .kpi .val{font-size:24px}
+:root:root:root[data-skin="retro"] .kpis3 .kpi{border-radius:0}
+:root[data-skin="retro"] .menu{border-width:1px}
+:root[data-skin="retro"] table.tx td{padding:3px 2px}
+:root[data-skin="retro"] .ph-proj,:root[data-skin="retro"] .ph-req,:root[data-skin="retro"] .ph-cli,:root[data-skin="retro"] .ph-top{border-radius:0; border:1px solid #404040; box-shadow:none}
+:root[data-skin="retro"] .ph-proj{background:#C0C0C0}
+:root[data-skin="retro"] .ph-req{background:#D4D0C8}
+:root[data-skin="retro"] .ph-cli{background:#E8E6E0; border-style:solid}
+:root[data-skin="retro"] .ph-kind{color:#000080}
+:root[data-skin="retro"] #view-projects .sec>*{margin-left:0; margin-right:0}
+:root[data-skin="retro"] #view-projects .sec{gap:10px}
 .ph-req{background:var(--surface); color:var(--ink)}
 .ph-cli{background:var(--surface-2); color:var(--ink)}
 .ph-kind{color:var(--accent2,var(--accent))}
