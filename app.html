@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-50">
+<meta name="sts-build" content="2026.10.29-51">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -900,6 +900,7 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
   :root:root .wrap{max-width:1280px}
   :root:root .bar-inner{max-width:1280px}
 }
+.ph-dup{display:flex; align-items:center; gap:10px; justify-content:space-between; flex-wrap:wrap; border:1px solid var(--line); border-radius:8px; padding:8px 12px; margin-bottom:10px; background:var(--surface); font-size:14px}
 .mdl-back{position:fixed; inset:0; z-index:95; background:rgba(0,0,0,.55); display:flex; align-items:center; justify-content:center; padding:16px}
 .mdl{background:var(--surface); color:var(--ink); border:1px solid var(--line); border-radius:12px; max-width:420px; width:100%; padding:18px 18px 16px; box-shadow:0 18px 50px rgba(0,0,0,.45)}
 .mdl h3{margin:0 0 6px; font:700 18px/1.2 var(--font-display)}
@@ -2902,6 +2903,44 @@ const Integration=(function(){
 })();
 
 
+/* Same number = same job. Folds projects, requests and client requests that share a number into one, keeping every test link. */
+function hierKey(x,alt){ return String(x||alt||'').toLowerCase().replace(/[^a-z0-9]/g,''); }
+function hierMergeDupes(H,dry){
+  let n=0; const pm={}, rm={}, cm={};
+  const out=[];
+  H.projects.forEach(p=>{
+    const k=hierKey(p.no,p.name); const keep=k?out.find(q=>hierKey(q.no,q.name)===k):null;
+    if(!keep){ out.push(p); return; }
+    n++; pm[p.id]=keep.id;
+    if(!keep.name&&p.name) keep.name=p.name;
+    (p.reqs||[]).forEach(r=>{
+      const rk=hierKey(r.no), kr=rk?keep.reqs.find(x=>hierKey(x.no)===rk):null;
+      if(!kr){ keep.reqs.push(r); return; }
+      rm[r.id]=kr.id; if(!kr.note&&r.note) kr.note=r.note;
+      (r.clients||[]).forEach(c=>{
+        const ck=hierKey(c.no), kc=ck?kr.clients.find(x=>hierKey(x.no)===ck):null;
+        if(!kc) kr.clients.push(c); else cm[c.id]=kc.id;
+      });
+    });
+  });
+  // requests / clients that repeat inside one project
+  out.forEach(p=>{
+    const seen=[]; p.reqs.forEach(r=>{
+      const rk=hierKey(r.no), kr=rk?seen.find(x=>hierKey(x.no)===rk):null;
+      if(!kr){ seen.push(r); return; }
+      n++; rm[r.id]=kr.id;
+      (r.clients||[]).forEach(c=>{ const ck=hierKey(c.no), kc=ck?kr.clients.find(x=>hierKey(x.no)===ck):null; if(!kc) kr.clients.push(c); else cm[c.id]=kc.id; });
+    });
+    p.reqs=seen;
+    p.reqs.forEach(r=>{ const sc=[]; r.clients.forEach(c=>{ const ck=hierKey(c.no), kc=ck?sc.find(x=>hierKey(x.no)===ck):null; if(!kc) sc.push(c); else{ n++; cm[c.id]=kc.id; } }); r.clients=sc; });
+  });
+  if(dry||!n) return n;
+  H.projects=out;
+  const fixL=l=>{ if(!l) return l; const o={p:pm[l.p]||l.p,r:rm[l.r]||l.r,c:l.c?(cm[l.c]||l.c):null}; return o; };
+  Object.keys(H.links||{}).forEach(k=>{ H.links[k]=fixL(H.links[k]); });
+  if(H.active) H.active=fixL(H.active);
+  return n;
+}
 /* ======================= PROJECTS (hierarchy) ======================= */
 (function(){
   const LS='sts-hier-v1';
@@ -2973,6 +3012,8 @@ const Integration=(function(){
       tree.innerHTML='<div class="banner">No projects yet. Tap <b>Add project</b> at the top to start: project number and name, then our request, then the client’s request.</div>';
     } else {
       let h='';
+      const dn=hierMergeDupes(H,true);
+      if(dn) h+='<div class="ph-dup"><span>'+dn+(dn===1?' entry repeats':' entries repeat')+' a number you already have.</span><button type="button" class="slim" data-act="p-merge">Merge duplicates</button></div>';
       if(edit&&edit.kind==='proj'&&edit.mode==='add') h+=form('proj');
       H.projects.forEach(p=>{
         const n=countUnder(all,l=>l.p===p.id);
@@ -3040,6 +3081,7 @@ const Integration=(function(){
     const b=e.target.closest&&e.target.closest('button[data-act^="p-"]'); if(!b) return;
     const act=b.dataset.act, pid=b.dataset.pid, rid=b.dataset.rid, cid=b.dataset.cid;
     if(act==='p-addproj'){ edit={kind:'proj',mode:'add',pid:null,rid:null,cid:null,v1:'',v2:''}; render(); window.scrollTo(0,0); }
+    else if(act==='p-merge'){ const n=hierMergeDupes(H); persist(); render(); toast('Merged '+n+(n===1?' duplicate':' duplicates')+'. Tests kept.'); }
     else if(act==='p-tog'){ const p=findP(pid); if(p){ p.open=p.open===false; persist(); render(); } }
     else if(act==='p-addreq'){ const p=findP(pid); if(p){ p.open=true; edit={kind:'req',mode:'add',pid,rid:null,cid:null,v1:'',v2:''}; render(); } }
     else if(act==='p-addcli'){ edit={kind:'cli',mode:'add',pid,rid,cid:null,v1:'',v2:''}; render(); }
@@ -3055,14 +3097,18 @@ const Integration=(function(){
       const v1=($('ph-f1').value||'').trim(), v2=($('ph-f2').value||'').trim(), e0=edit;
       if(!v1&&!v2){ toast('Enter a number or a name first'); return; }
       if(e0.kind==='proj'){
+        const dup=e0.mode==='add'&&H.projects.find(x=>hierKey(x.no,x.name)===hierKey(v1,v2));
+        if(dup){ dup.open=true; edit=null; persist(); render(); toast('That project is already in the list'); return; }
         if(e0.mode==='add') H.projects.unshift({id:uid(),no:v1,name:v2,open:true,reqs:[]});
         else{ const p=findP(e0.pid); if(p){ p.no=v1; p.name=v2; } }
       } else if(e0.kind==='req'){
         const p=findP(e0.pid); if(!p) return;
+        if(e0.mode==='add'&&v1&&p.reqs.some(x=>hierKey(x.no)===hierKey(v1))){ edit=null; render(); toast('That request is already under this project'); return; }
         if(e0.mode==='add') p.reqs.push({id:uid(),no:v1,note:v2,clients:[]});
         else{ const r=findR(p,e0.rid); if(r){ r.no=v1; r.note=v2; } }
       } else {
         const r=findR(findP(e0.pid),e0.rid); if(!r) return;
+        if(e0.mode==='add'&&v1&&r.clients.some(x=>hierKey(x.no)===hierKey(v1))){ edit=null; render(); toast('That client request is already under this request'); return; }
         if(e0.mode==='add') r.clients.push({id:uid(),no:v1,note:v2});
         else{ const c=findC(r,e0.cid); if(c){ c.no=v1; c.note=v2; } }
       }
@@ -3286,6 +3332,7 @@ window.STS_INSETS=function(){
       });
     });
     Object.keys(inc.links||{}).forEach(k=>{ if(!H.links[k]) H.links[k]=inc.links[k]; });
+    hierMergeDupes(H);
     return H;
   }
   function doImport(text){
