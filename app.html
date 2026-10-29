@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-16">
+<meta name="sts-build" content="2026.10.29-17">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -605,7 +605,7 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
 }
 .fsbar{display:flex; justify-content:flex-end; margin-bottom:-6px}
 :root:root .fsbtn{min-height:30px; padding:4px 12px; font-size:12px; line-height:1.2; font-weight:600; letter-spacing:0; text-transform:none; box-shadow:none}
-#fs-ov{position:fixed; left:0; top:0; z-index:200; background:var(--bg); color:var(--ink); overflow:hidden}
+#fs-ov{position:fixed; left:0; top:0; z-index:200; background:var(--bg); color:var(--ink); overflow:hidden; border:2px solid var(--accent); border-radius:14px; box-shadow:0 0 0 100vmax rgba(0,0,0,.55); box-sizing:border-box}
 #fs-ov[hidden]{display:none}
 #fs-ov .fs-stage{position:absolute; left:0; top:0; display:flex; flex-direction:column; gap:10px; padding:10px 14px; box-sizing:border-box; transform-origin:0 0}
 #fs-ov .fs-t{font:700 18px/1.2 var(--font-display)}
@@ -618,10 +618,9 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
 #fs-ov .fs-t{flex:1; min-width:0}
 #fs-ov .fs-x{min-height:44px; padding:8px 14px; font-weight:700}
 #fs-ov .fs-rot{min-height:44px; padding:6px 12px; font-size:13px}
-.tblwrap.fs-live{position:fixed!important; left:0; top:0; z-index:200; margin:0!important; border-radius:0!important; max-width:none!important; overflow:auto!important; background:var(--bg); padding:0 0 24px; box-sizing:border-box}
+.tblwrap.fs-live{position:fixed!important; z-index:200; margin:0!important; border:2px solid var(--accent)!important; border-radius:14px!important; max-width:none!important; overflow-x:hidden!important; overflow-y:auto!important; background:var(--surface); padding:0 0 16px; box-sizing:border-box; box-shadow:0 0 0 100vmax rgba(0,0,0,.55)}
 .tblwrap.fs-live>.fs-live-bar{position:sticky; left:0; top:0; z-index:5; display:flex; align-items:center; gap:10px; padding:8px 12px; background:var(--surface); border-bottom:1px solid var(--line); font:700 17px/1.2 var(--font-display); color:var(--ink)}
 .tblwrap.fs-live>.fs-live-bar span{flex:1; min-width:0}
-.tblwrap.fs-live .tscroll{overflow:visible!important}
 .tblwrap.fs-live .fs-live-bar button{min-height:44px; padding:8px 14px; font-weight:700}
 .ph-req{background:var(--surface); color:var(--ink)}
 .ph-cli{background:var(--surface-2); color:var(--ink)}
@@ -2541,14 +2540,23 @@ const Integration=(function(){
 })();
 
 
+
+/* ======================= full-screen helpers ======================= */
+window.STS_INSETS=function(){
+  const z=parseFloat(document.documentElement.style.zoom)||1, app=document.documentElement.hasAttribute('data-app');
+  const sat=parseFloat(document.documentElement.style.getPropertyValue('--sat'))||0;
+  const pad=10;
+  return {z:z, W:Math.round(innerWidth/z), H:Math.round(innerHeight/z), t:Math.round(sat+pad+(app?4:0)), b:Math.round((app?52:0)+pad), l:pad, r:pad};
+};
+
 /* ======================= full-screen charts ======================= */
 (function(){
   let ov=null, src=null, obs=null, rot=null;
   function zf(){ return parseFloat(document.documentElement.style.zoom)||1; }
   function layout(){
     if(!ov) return;
-    const z=zf(), W=Math.round(window.innerWidth/z), H=Math.round(window.innerHeight/z);
-    ov.style.width=W+'px'; ov.style.height=H+'px';
+    const I=STS_INSETS(), W=I.W-I.l-I.r, H=I.H-I.t-I.b;
+    ov.style.left=I.l+'px'; ov.style.top=I.t+'px'; ov.style.width=W+'px'; ov.style.height=H+'px';
     const st=ov.querySelector('.fs-stage'), r=rot===null?H>W:rot;
     if(r){ st.style.width=H+'px'; st.style.height=W+'px'; st.style.transform='translateX('+W+'px) rotate(90deg)'; }
     else { st.style.width=W+'px'; st.style.height=H+'px'; st.style.transform='none'; }
@@ -2588,8 +2596,8 @@ const Integration=(function(){
 (function(){
   const zf=()=>parseFloat(document.documentElement.style.zoom)||1;
   let cur=null;
-  function size(){ if(!cur) return; const z=zf(); cur.style.width=Math.round(innerWidth/z)+'px'; cur.style.height=Math.round(innerHeight/z)+'px'; }
-  function close(){ if(!cur) return; const bar=cur.querySelector(':scope>.fs-live-bar'); if(bar) bar.remove(); cur.classList.remove('fs-live'); cur.style.width=''; cur.style.height=''; cur=null; document.body.style.overflow=''; }
+  function size(){ if(!cur) return; const I=STS_INSETS(); cur.style.left=I.l+'px'; cur.style.top=I.t+'px'; cur.style.width=(I.W-I.l-I.r)+'px'; cur.style.height=(I.H-I.t-I.b)+'px'; }
+  function close(){ if(!cur) return; const bar=cur.querySelector(':scope>.fs-live-bar'); if(bar) bar.remove(); cur.classList.remove('fs-live'); cur.style.width=''; cur.style.height=''; cur.style.left=''; cur.style.top=''; cur=null; document.body.style.overflow=''; }
   function open(w,title){
     close(); cur=w; w.classList.add('fs-live');
     const bar=document.createElement('div'); bar.className='fs-live-bar'; bar.innerHTML='<span></span><button type="button" data-tfx>Close ✕</button>'; bar.firstChild.textContent=title;
