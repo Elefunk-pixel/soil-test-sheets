@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-24">
+<meta name="sts-build" content="2026.10.29-25">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -677,6 +677,14 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
 :root[data-skin="retro"] .ph-kind{color:#000080}
 :root[data-skin="retro"] #view-projects .sec>*{margin-left:0; margin-right:0}
 :root[data-skin="retro"] #view-projects .sec{gap:10px}
+:root:root table.tx th.rl{font-size:10px; padding:4px 6px 4px 7px; line-height:1.15; letter-spacing:.015em}
+:root:root table.tx th.rl small{font-size:9.5px; margin-top:1px; display:inline; margin-left:4px}
+:root:root table.tx thead th.tc{padding:4px 3px 3px}
+:root:root table.tx th.tc .tn{font-size:14px; padding:0 14px}
+:root:root table.tx th.tc small{font-size:10px; min-height:0; line-height:1.2}
+:root:root table.tx th.tc button.x{width:20px; min-height:20px; font-size:14px}
+:root:root table.tx .gtag{font-size:9px; margin-bottom:1px; letter-spacing:.1em}
+:root:root table.tx td{padding-top:3px; padding-bottom:3px}
 .ph-req{background:var(--surface); color:var(--ink)}
 .ph-cli{background:var(--surface-2); color:var(--ink)}
 .ph-kind{color:var(--accent2,var(--accent))}
@@ -1472,7 +1480,7 @@ const Integration=(function(){
 
   /* ---------- tables ---------- */
   /* ---------- tables, read top to bottom: one column per point / tin ---------- */
-  const LABW=102, PCOLW=82, TCOLW=82;
+  const LABW=112, PCOLW=82, TCOLW=82;
   const inp=(id,data,label,val,extra)=>'<td><input id="'+id+'" '+data+' autocomplete="off" aria-label="'+label+'" value="'+esc(val)+'"'+(extra||' inputmode="decimal"')+'></td>';
   const calc=(id,cls)=>'<td class="calc'+(cls?' '+cls:'')+'" id="'+id+'"></td>';
   function buildComp(){
@@ -1890,7 +1898,7 @@ const Integration=(function(){
 /* ======================= FDN TEST ======================= */
 (function(){
   const LS_DRAFT='fdn-draft-v1', LS_SAVED='fdn-tests-v1', LS_XREF='fdn-xref-v1';
-  const MAXT=40, LABW=98, COLW=94;
+  const MAXT=40, LABW=108, COLW=94;
   const META=['ours','client','job','date','by','material','gauge','depth','layer','dstd','mstd','mdd','omc','spec','ref'];
   const TKEYS=['sid','fid','lot','time','loc1','loc2','loc3','loc4','wet','dry','gw','dc','mc','ow'];
   const LOC_ROWS=[
