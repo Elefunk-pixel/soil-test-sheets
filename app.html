@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-60">
+<meta name="sts-build" content="2026.10.29-61">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -898,6 +898,8 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
   :root:root .bar-inner{max-width:1280px}
 }
 .ph-n{text-align:right}
+.jump-sel{margin-left:auto; flex:0 1 190px; min-width:92px; max-width:46%; min-height:40px; padding:4px 8px; font-size:13px; font-weight:600; border:1px solid var(--line); border-radius:8px; background:var(--surface); color:var(--ink)}
+:root[data-skin="retro"] .jump-sel,:root[data-skin="pixel"] .jump-sel,:root[data-skin="hill"] .jump-sel,:root[data-skin="matrix"] .jump-sel,:root[data-skin="cream"] .jump-sel{border-radius:0}
 .ph-brk{display:block; white-space:normal; max-width:190px; margin-left:auto; font-size:11.5px; font-weight:400; opacity:.85; margin-top:1px}
 .ph-dup{display:flex; align-items:center; gap:10px; justify-content:space-between; flex-wrap:wrap; border:1px solid var(--line); border-radius:8px; padding:8px 12px; margin-bottom:10px; background:var(--surface); font-size:14px}
 .mdl-back{position:fixed; inset:0; z-index:95; background:rgba(0,0,0,.55); display:flex; align-items:center; justify-content:center; padding:16px}
@@ -958,11 +960,13 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
       <button type="button" class="barbtn" id="f-btn-new" data-act="f-new"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span class="bl">New</span></button>
       <button type="button" class="barbtn" id="f-tb-save" data-act="f-save"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg><span class="bl">Save</span></button>
       <button type="button" class="barbtn" id="f-btn-copy" data-act="f-copy"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span class="bl">Copy</span></button>
+      <select class="jump-sel" id="f-jump" aria-label="Jump to a saved sheet"></select>
     </div>
     <div class="bar-actions" id="acts-compaction" role="toolbar" aria-label="Lab compaction actions" hidden>
       <button type="button" class="barbtn" id="btn-new" data-act="new"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span class="bl">New</span></button>
       <button type="button" class="barbtn" id="tb-save" data-act="save"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg><span class="bl">Save</span></button>
       <button type="button" class="barbtn" id="btn-copy" data-act="copy"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span class="bl">Copy</span></button>
+      <select class="jump-sel" id="jump" aria-label="Jump to a saved sample"></select>
     </div>
 
     <div class="bar-actions" id="acts-projects" role="toolbar" aria-label="Project actions" hidden>
@@ -1445,11 +1449,11 @@ function askDialog(o){
 }
 window.askDialog=askDialog;
 /* Before replacing the sheet on screen: if it holds unsaved changes, ask first. */
-function guardSheet(dirty,save,proceed){
+function guardSheet(dirty,save,proceed,cancel){
   if(!dirty()){ proceed(); return; }
   Snd.play('warn');
   askDialog({title:'Replace this sheet?',msg:'This sheet has changes that are not saved yet.',buttons:[{label:'Save and load',value:'save',primary:true},{label:'Don\'t save',value:'drop'},{label:'Cancel',value:null}]}).then(v=>{
-    if(v==='save'){ if(save()) proceed(); } else if(v==='drop') proceed();
+    if(v==='save'){ if(save()) proceed(); else if(cancel) cancel(); } else if(v==='drop') proceed(); else if(cancel) cancel();
   });
 }
 window.guardSheet=guardSheet;
@@ -2183,8 +2187,15 @@ const Integration=(function(){
   function refresh(){ update(); scheduleDraft(); }
   function getSaved(){ const v=readLS(LS_SAVED); return Array.isArray(v)?v:[]; }
 
+  function renderJump(list){
+    const j=$('jump'); if(!j) return;
+    const cur=state.savedId&&list.some(x=>x.id===state.savedId)?state.savedId:'';
+    j.innerHTML='<option value="">'+(list.length?'Samples ('+list.length+')':'No saved samples')+'</option>'+list.slice().sort((a,b)=>b.savedAt-a.savedAt).map(it=>'<option value="'+esc(it.id)+'"'+(it.id===cur?' selected':'')+'>'+esc(it.data.meta.sample||'Untitled sample')+'</option>').join('');
+    j.value=cur; j.disabled=!list.length;
+  }
   function renderSaved(){
     const all=getSaved(), list=SAVED_ALL.mdd||!relHas(state.meta)?all:all.filter(it=>relMatch(state.meta,it.data.meta));
+    renderJump(list);
     setBtnLabel($('btn-saved'),'Saved'+(list.length?' ('+list.length+')':''));
     savedFilterUI($('savedfilter'),'mdd',state.meta,all,list,'saved-all');
     if(!list.length){ $('savedlist').innerHTML='<li><span class="muted small">'+(all.length?'Nothing saved for this project and test request yet. Tap Save to keep this test.':'Nothing saved yet. Tap Save to keep this test.')+'</span></li>'; return; }
@@ -2373,6 +2384,8 @@ const Integration=(function(){
   $('exbanner').hidden=!state.example;
   renderSaved();
   update();
+  $('jump').addEventListener('change',e=>{ const id=e.target.value; if(!id) return; const rec=getSaved().find(x=>x.id===id); if(!rec){ renderSaved(); return; }
+    guardSheet(isDirty,saveCurrent,()=>{ const s=JSON.parse(JSON.stringify(rec.data)); s.savedId=rec.id; s.example=false; loadAll(s); toast('Loaded '+(s.meta.sample||'test')); },()=>renderSaved()); });
   window.STS_API=window.STS_API||{};
   window.STS_API.mdd={view:'compaction', list:getSaved,
     label:it=>it.data.meta.sample||'Untitled sample',
@@ -2724,8 +2737,15 @@ const Integration=(function(){
   App.fdn={useRef(mdd,omc,ref){ state.meta.mdd=mdd; state.meta.omc=omc; state.meta.ref=ref; state.meta.xref=true; exampleOff(); fillMeta(); statKey=null; refresh(); }};
   function exampleOff(){ if(state.example){ state.example=false; $('f-exbanner').hidden=true; } }
   function getSaved(){ const v=readLS(LS_SAVED); return Array.isArray(v)?v:[]; }
+  function renderJump(list){
+    const j=$('f-jump'); if(!j) return;
+    const cur=state.savedId&&list.some(x=>x.id===state.savedId)?state.savedId:'';
+    j.innerHTML='<option value="">'+(list.length?'Sheets ('+list.length+')':'No saved sheets')+'</option>'+list.slice().sort((a,b)=>b.savedAt-a.savedAt).map(it=>{ const d=fixCopy(it.data); return '<option value="'+esc(it.id)+'"'+(it.id===cur?' selected':'')+'>'+esc(lotsText(d.tests)+(d.meta.sample?' · '+d.meta.sample:''))+'</option>'; }).join('');
+    j.value=cur; j.disabled=!list.length;
+  }
   function renderSaved(){
     const all=getSaved(), list=SAVED_ALL.fdn||!relHas(state.meta)?all:all.filter(it=>relMatch(state.meta,it.data.meta));
+    renderJump(list);
     setBtnLabel($('f-btn-saved'),'Saved'+(list.length?' ('+list.length+')':''));
     savedFilterUI($('f-savedfilter'),'fdn',state.meta,all,list,'f-saved-all');
     if(!list.length){ $('f-savedlist').innerHTML='<li><span class="muted small">'+(all.length?'Nothing saved for this project and test request yet. Tap Save to keep this sheet.':'Nothing saved yet. Tap Save to keep this sheet.')+'</span></li>'; return; }
@@ -2906,6 +2926,8 @@ const Integration=(function(){
   $('f-exbanner').hidden=!state.example;
   renderSaved();
   update();
+  $('f-jump').addEventListener('change',e=>{ const id=e.target.value; if(!id) return; const rec=getSaved().find(x=>x.id===id); if(!rec){ renderSaved(); return; }
+    guardSheet(isDirty,saveCurrent,()=>{ Snd.play('click'); const s=JSON.parse(JSON.stringify(rec.data)); s.savedId=rec.id; s.example=false; loadAll(s); toast('Loaded '+lotsText(state.tests).toLowerCase()); },()=>renderSaved()); });
   window.STS_API=window.STS_API||{};
   window.STS_API.fdn={view:'fdn', list:getSaved,
     label:it=>{ const d=fixCopy(it.data); return lotsText(d.tests)+(d.meta.job?' · '+d.meta.job:''); },
