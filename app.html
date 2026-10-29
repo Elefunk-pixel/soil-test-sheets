@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-65">
+<meta name="sts-build" content="2026.10.29-66">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -916,13 +916,17 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
 }
 .jump-sel{display:flex; align-items:center; justify-content:space-between; gap:6px; text-align:left; white-space:nowrap}
 .jump-sel .jl{overflow:hidden; text-overflow:ellipsis; min-width:0; flex:1 1 auto}
-.jump-sel .jk{flex:none; font-size:11px; font-weight:600; opacity:.7; letter-spacing:.02em}
+.jump-wrap{margin-left:auto; display:flex; align-items:center; gap:6px; flex:0 1 auto; min-width:0}
+.jump-wrap .jk{flex:none; font-size:12px; font-weight:600; color:var(--muted); letter-spacing:.02em}
+:root[data-skin="matrix"] .jump-wrap .jk{color:#00B82E}
+:root[data-skin="hill"] .jump-wrap .jk{text-transform:uppercase; letter-spacing:.12em; font-size:11px}
+:root[data-skin="cream"] .jump-wrap .jk{color:#B3262E; text-transform:uppercase; letter-spacing:.08em; font-size:11px}
 .jump-sel .caret{width:14px; height:14px; flex:none; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
 .jump-pop{box-shadow:0 12px 32px rgba(0,0,0,.35)}
 :root[data-skin="matrix"] .jump-pop .mi:hover small,:root[data-skin="matrix"] .jump-pop .mi[aria-checked="true"] small{color:#003a0f; text-shadow:none}
 :root[data-skin="matrix"] .jump-pop{border-radius:0}
 .jump-pop .mi b{word-break:break-word}
-.jump-sel{margin-left:auto; flex:0 1 190px; min-width:92px; max-width:46%; min-height:30px; height:32px; padding:2px 8px; font-size:13px; line-height:1.1; font-weight:600; border:1px solid var(--line); border-radius:8px; background:var(--surface); color:var(--ink)}
+.jump-sel{margin-left:0; flex:0 1 96px; min-width:60px; width:96px; max-width:110px; min-height:30px; height:32px; padding:2px 8px; font-size:13px; line-height:1.1; font-weight:600; border:1px solid var(--line); border-radius:8px; background:var(--surface); color:var(--ink)}
 :root[data-skin="retro"] .jump-sel,:root[data-skin="pixel"] .jump-sel,:root[data-skin="hill"] .jump-sel,:root[data-skin="matrix"] .jump-sel,:root[data-skin="cream"] .jump-sel{border-radius:0}
 .ph-brk{display:block; white-space:normal; max-width:190px; margin-left:auto; font-size:11.5px; font-weight:400; opacity:.85; margin-top:1px}
 .ph-dup{display:flex; align-items:center; gap:10px; justify-content:space-between; flex-wrap:wrap; border:1px solid var(--line); border-radius:8px; padding:8px 12px; margin-bottom:10px; background:var(--surface); font-size:14px}
@@ -984,13 +988,13 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
       <button type="button" class="barbtn" id="f-btn-new" data-act="f-new"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span class="bl">New</span></button>
       <button type="button" class="barbtn" id="f-tb-save" data-act="f-save"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg><span class="bl">Save</span></button>
       <button type="button" class="barbtn" id="f-btn-copy" data-act="f-copy"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span class="bl">Copy</span></button>
-      <button type="button" class="jump-sel" id="f-jump" aria-haspopup="listbox" aria-expanded="false" aria-label="Jump to a saved sheet"><span class="jk">Sheets:</span><span class="jl"></span><svg class="caret" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+      <span class="jump-wrap"><span class="jk" id="f-jk">Sheets:</span><button type="button" class="jump-sel" id="f-jump" aria-haspopup="listbox" aria-expanded="false" aria-label="Jump to a saved sheet"><span class="jl"></span><svg class="caret" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button></span>
     </div>
     <div class="bar-actions" id="acts-compaction" role="toolbar" aria-label="Lab compaction actions" hidden>
       <button type="button" class="barbtn" id="btn-new" data-act="new"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span class="bl">New</span></button>
       <button type="button" class="barbtn" id="tb-save" data-act="save"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg><span class="bl">Save</span></button>
       <button type="button" class="barbtn" id="btn-copy" data-act="copy"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span class="bl">Copy</span></button>
-      <button type="button" class="jump-sel" id="jump" aria-haspopup="listbox" aria-expanded="false" aria-label="Jump to a saved sample"><span class="jk">Samples:</span><span class="jl"></span><svg class="caret" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+      <span class="jump-wrap"><span class="jk" id="jk">Samples:</span><button type="button" class="jump-sel" id="jump" aria-haspopup="listbox" aria-expanded="false" aria-label="Jump to a saved sample"><span class="jl"></span><svg class="caret" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button></span>
     </div>
 
     <div class="bar-actions" id="acts-projects" role="toolbar" aria-label="Project actions" hidden>
