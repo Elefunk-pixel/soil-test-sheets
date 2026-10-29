@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-33">
+<meta name="sts-build" content="2026.10.29-34">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -289,6 +289,7 @@ button.warn{border-color:var(--warn); color:var(--warn)}
 .menu{position:absolute; top:calc(100% + 8px); left:0; z-index:30; min-width:260px; max-width:calc(100vw - 32px);
   background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:6px;
   box-shadow:0 12px 32px color-mix(in srgb, var(--ink) 18%, transparent); display:flex; flex-direction:column; gap:2px}
+.menu{overflow-y:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch}
 .menu.right{left:auto; right:0; min-width:min(280px, calc(100vw - 32px))}
 .menu-h{font:600 11px/1.2 var(--font-body); letter-spacing:.08em; text-transform:uppercase; color:var(--muted); padding:8px 10px 4px}
 .mi{display:flex; align-items:flex-start; gap:12px; width:100%; text-align:left; border:0; background:transparent; padding:10px; border-radius:7px; min-height:0; font:inherit; color:var(--ink)}
@@ -2943,11 +2944,23 @@ window.STS_INSETS=function(){
   function closeMenus(except){
     document.querySelectorAll('.menu').forEach(m=>{ if(m!==except&&!m.hidden){ m.hidden=true; const b=menuBtn(m); if(b) b.setAttribute('aria-expanded','false'); } });
   }
+  function fitMenu(m){
+    if(!m||m.hidden) return;
+    m.style.maxHeight='';
+    const r=m.getBoundingClientRect(), room=innerHeight-8, avail=room-r.top;
+    if(r.bottom<=room) return;
+    m.style.maxHeight=Math.max(120,avail)+'px';
+    const r2=m.getBoundingClientRect();
+    if(r2.bottom>room+1){ const k=(room-r2.top)/(r2.bottom-r2.top); m.style.maxHeight=Math.max(120,Math.floor(parseFloat(m.style.maxHeight)*k))+'px'; }
+  }
+  const fitOpen=()=>document.querySelectorAll('.menu').forEach(fitMenu);
+  window.addEventListener('resize',fitOpen); window.addEventListener('orientationchange',()=>setTimeout(fitOpen,150));
   function toggleMenu(id){
     const m=$(id), b=menuBtn(m), open=m.hidden;
     closeMenus(m);
     m.hidden=!open; b.setAttribute('aria-expanded',open?'true':'false');
     Snd.play(open?'open':'close');
+    if(open){ fitMenu(m); m.scrollTop=0; }
     if(open){ const first=m.querySelector('[aria-checked="true"],[aria-pressed="true"],button,input'); if(first) first.focus({preventScroll:true}); }
   }
 
