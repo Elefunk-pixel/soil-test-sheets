@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-42">
+<meta name="sts-build" content="2026.10.29-43">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -12,6 +12,16 @@
 
 <script>try{(function(){function z(){try{var w=Math.min(window.innerWidth,window.innerHeight);var k=window.innerWidth>window.innerHeight?1:1+Math.min(1,Math.max(0,(w-400)/400))*0.2;document.documentElement.style.zoom=k>1.005?k.toFixed(3):"";}catch(e){}}window.addEventListener("resize",z);window.addEventListener("orientationchange",z);document.addEventListener("DOMContentLoaded",z);})()}catch(e){}</script>
 <script>try{document.addEventListener("DOMContentLoaded",function(){try{if(!document.documentElement.hasAttribute("data-app"))return;var d=document.createElement("div");d.style.cssText="position:fixed;top:0;padding-top:env(safe-area-inset-top,0px);visibility:hidden";document.body.appendChild(d);var v=parseFloat(getComputedStyle(d).paddingTop)||0;d.remove();if(v<8)document.documentElement.style.setProperty("--sat","34px");}catch(e){}});}catch(e){}</script>
+<script>try{(function(){
+/* In the Android app the page can sit under the side navigation bar when the phone is turned sideways.
+   The WebView reports no side insets, so measure them (or assume a 48px bar) and publish --sal / --sar. */
+function side(){try{var R=document.documentElement;if(!R.hasAttribute("data-app")){R.style.removeProperty("--sal");R.style.removeProperty("--sar");return;}
+var d=document.createElement("div");d.style.cssText="position:fixed;top:0;visibility:hidden;padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)";document.body.appendChild(d);var cs=getComputedStyle(d),l=parseFloat(cs.paddingLeft)||0,r=parseFloat(cs.paddingRight)||0;d.remove();
+var land=window.innerWidth>window.innerHeight,t=(screen.orientation&&screen.orientation.type)||"";
+if(land&&l<8&&r<8){if(t.indexOf("secondary")>=0)l=48;else r=48;}
+R.style.setProperty("--sal",l+"px");R.style.setProperty("--sar",r+"px");}catch(e){}}
+window.addEventListener("resize",side);window.addEventListener("orientationchange",function(){setTimeout(side,60)});document.addEventListener("DOMContentLoaded",side);
+})()}catch(e){}</script>
 <script>try{if(window.__TAURI__||window.__TAURI_INTERNALS__||(window.top!==window&&window.top.__STS_LOADER__)||/index\.html/.test(location.pathname))document.documentElement.setAttribute('data-app','')}catch(e){}</script>
 <script>try{var __s=localStorage.getItem('mdd-lab-skin-v1');if(__s)document.documentElement.setAttribute('data-skin',__s)}catch(e){}</script>
 <style>
@@ -143,7 +153,7 @@
 *{box-sizing:border-box}
 body{background:var(--bg); color:var(--ink); font:16px/1.45 var(--font-body); padding-block:var(--sat, env(safe-area-inset-top, 0px)) 72px}
 html::before{content:""; position:fixed; inset:0 0 auto; height:var(--sat, env(safe-area-inset-top, 0px)); z-index:16; pointer-events:none; background:var(--surface)}
-.view{padding-top:26px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.view{padding-top:26px; padding-left:max(16px, var(--sal, env(safe-area-inset-left, 0px))); padding-right:max(16px, var(--sar, env(safe-area-inset-right, 0px)))}
 .wrap{max-width:900px; margin:0 auto; display:flex; flex-direction:column; gap:52px}
 h1,h2{font-family:var(--font-display); margin:0; text-wrap:balance; letter-spacing:.005em}
 h1{font-size:30px; line-height:1.05; font-weight:700}
@@ -189,7 +199,7 @@ button.warn{border-color:var(--warn); color:var(--warn)}
 .appbar{position:sticky; top:var(--sat, env(safe-area-inset-top, 0px)); z-index:15; background:var(--surface);
   border-bottom:1px solid var(--line); box-shadow:0 2px 10px color-mix(in srgb, var(--ink) 7%, transparent)}
 .bar-inner{max-width:1100px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; gap:8px 8px;
-  padding-block:8px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px))}
+  padding-block:8px; padding-left:max(16px, var(--sal, env(safe-area-inset-left, 0px))); padding-right:max(16px, var(--sar, env(safe-area-inset-right, 0px)))}
 .brand{order:0; display:inline-flex; align-items:center; gap:8px; font:700 17px/1 var(--font-display); letter-spacing:.02em; color:var(--ink); white-space:nowrap}
 .brand svg{width:24px; height:24px; flex:none}
 .brand .bt{display:none}
@@ -2968,7 +2978,7 @@ window.STS_INSETS=function(){
   const z=parseFloat(document.documentElement.style.zoom)||1, app=document.documentElement.hasAttribute('data-app');
   const sat=parseFloat(document.documentElement.style.getPropertyValue('--sat'))||0;
   const pad=10;
-  return {z:z, W:Math.round(innerWidth/z), H:Math.round(innerHeight/z), t:Math.round(Math.max(sat+pad+(app?4:0),30)), b:Math.round(Math.max((app?52:0)+pad,26)), l:pad, r:pad};
+  return {z:z, W:Math.round(innerWidth/z), H:Math.round(innerHeight/z), t:Math.round(Math.max(sat+pad+(app?4:0),30)), b:Math.round(Math.max((app&&innerHeight>=innerWidth?52:0)+pad,26)), l:Math.round(Math.max(pad,(parseFloat(document.documentElement.style.getPropertyValue('--sal'))||0)+pad)), r:Math.round(Math.max(pad,(parseFloat(document.documentElement.style.getPropertyValue('--sar'))||0)+pad))};
 };
 
 /* ======================= full-screen charts ======================= */
