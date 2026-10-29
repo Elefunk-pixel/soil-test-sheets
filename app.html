@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-52">
+<meta name="sts-build" content="2026.10.29-53">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -3030,11 +3030,12 @@ function hierMergeDupes(H,dry){
           p.reqs.forEach(r=>{
             const nr=countUnder(all,l=>l.r===r.id&&l.p===p.id);
             const loc={p:p.id,r:r.id,c:null}, direct=testsAt(all,loc);
-            h+='<div class="ph-req'+(isActive(p.id,r.id,null)?' ph-act':'')+'"><div class="ph-h"><div class="ph-t"><span class="ph-kind">Our request (parent)</span><b>'+esc(r.no||'(no number)')+'</b><span>'+esc(r.note||'')+'</span></div><span class="ph-n">'+nr+(nr===1?' test':' tests')+'</span>'
+            h+='<div class="ph-req'+(isActive(p.id,r.id,null)?' ph-act':'')+'"><div class="ph-h"><button type="button" class="slim ph-tog" data-act="p-rtog" data-pid="'+p.id+'" data-rid="'+r.id+'" aria-label="Expand or collapse this request" aria-expanded="'+(r.open!==false)+'">'+(r.open===false?'▸':'▾')+'</button><div class="ph-t"><span class="ph-kind">Our request (parent)</span><b>'+esc(r.no||'(no number)')+'</b><span>'+esc(r.note||'')+'</span></div><span class="ph-n">'+nr+(nr===1?' test':' tests')+'</span>'
               +'<div class="ph-a"><button type="button" class="slim" data-act="p-active" data-pid="'+p.id+'" data-rid="'+r.id+'">'+(isActive(p.id,r.id,null)?'Active ✓':'Set active')+'</button>'
               +'<button type="button" class="slim" data-act="p-addcli" data-pid="'+p.id+'" data-rid="'+r.id+'">+ Client request</button>'
               +'<button type="button" class="slim" data-act="p-ren" data-pid="'+p.id+'" data-rid="'+r.id+'">Edit</button>'+delBtn('r:'+r.id)+'</div></div>';
             if(isEdit('req','ren',p.id,r.id)) h+=form('req');
+            if(r.open!==false||isEdit('cli','add',p.id,r.id)){
             if(isEdit('cli','add',p.id,r.id)) h+=form('cli');
             if(direct.length) h+='<div>'+direct.map(t=>testRow(t,loc)).join('')+'</div>';
             r.clients.forEach(c=>{
@@ -3046,6 +3047,7 @@ function hierMergeDupes(H,dry){
               h+=ts.length?ts.map(t=>testRow(t,cl)).join(''):'<div class="ph-empty">No tests filed here yet.</div>';
               h+='</div>';
             });
+            }
             h+='</div>';
           });
           h+='</div>';
@@ -3083,6 +3085,7 @@ function hierMergeDupes(H,dry){
     const act=b.dataset.act, pid=b.dataset.pid, rid=b.dataset.rid, cid=b.dataset.cid;
     if(act==='p-addproj'){ edit={kind:'proj',mode:'add',pid:null,rid:null,cid:null,v1:'',v2:''}; render(); window.scrollTo(0,0); }
     else if(act==='p-merge'){ const n=hierMergeDupes(H); persist(); render(); toast('Merged '+n+(n===1?' duplicate':' duplicates')+'. Tests kept.'); }
+    else if(act==='p-rtog'){ const r=findR(findP(pid),rid); if(r){ r.open=r.open===false; persist(); render(); } }
     else if(act==='p-tog'){ const p=findP(pid); if(p){ p.open=p.open===false; persist(); render(); } }
     else if(act==='p-addreq'){ const p=findP(pid); if(p){ p.open=true; edit={kind:'req',mode:'add',pid,rid:null,cid:null,v1:'',v2:''}; render(); } }
     else if(act==='p-addcli'){ edit={kind:'cli',mode:'add',pid,rid,cid:null,v1:'',v2:''}; render(); }
