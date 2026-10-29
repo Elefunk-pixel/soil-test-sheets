@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-59">
+<meta name="sts-build" content="2026.10.29-60">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -956,10 +956,12 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
 
     <div class="bar-actions" id="acts-fdn" role="toolbar" aria-label="FDN test actions">
       <button type="button" class="barbtn" id="f-btn-new" data-act="f-new"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span class="bl">New</span></button>
+      <button type="button" class="barbtn" id="f-tb-save" data-act="f-save"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg><span class="bl">Save</span></button>
       <button type="button" class="barbtn" id="f-btn-copy" data-act="f-copy"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span class="bl">Copy</span></button>
     </div>
     <div class="bar-actions" id="acts-compaction" role="toolbar" aria-label="Lab compaction actions" hidden>
       <button type="button" class="barbtn" id="btn-new" data-act="new"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span class="bl">New</span></button>
+      <button type="button" class="barbtn" id="tb-save" data-act="save"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg><span class="bl">Save</span></button>
       <button type="button" class="barbtn" id="btn-copy" data-act="copy"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span class="bl">Copy</span></button>
     </div>
 
@@ -2364,7 +2366,7 @@ const Integration=(function(){
   }
   App.onShow.compaction=()=>{ if(lastChart) drawChart(lastChart); };
 
-  if(!storageOK){ $('btn-save').hidden=true; $('btn-saved').hidden=true; $('c-draftnote').textContent='This browser will not keep a draft. Copy the summary before you close the page.'; }
+  if(!storageOK){ $('tb-save').hidden=true; $('btn-save').hidden=true; $('btn-saved').hidden=true; $('c-draftnote').textContent='This browser will not keep a draft. Copy the summary before you close the page.'; }
   buildNat(); buildComp(); buildMoist(); fillMeta();
   attachHBar($('c-comp-scroll'),{unit:'Points',colW:PCOLW,labW:LABW,count:()=>state.ms.length});
   attachHBar($('c-tin-scroll'),{unit:'Tins',colW:TCOLW,labW:LABW,count:()=>state.tins.length});
@@ -2898,7 +2900,7 @@ const Integration=(function(){
   }
   App.onShow.fdn=()=>{ buildPick(); document.querySelectorAll('select[data-cs]').forEach(el=>{ const t=state.tests[+el.dataset.cs]; if(t) el.innerHTML=csOptions(t); }); refresh(); if(lastC) drawF(lastC,lastXr); };
 
-  if(!storageOK){ $('f-btn-save').hidden=true; $('f-btn-saved').hidden=true; $('f-draftnote').textContent='This browser will not keep a draft. Copy the summary before you close the page.'; }
+  if(!storageOK){ $('f-tb-save').hidden=true; $('f-btn-save').hidden=true; $('f-btn-saved').hidden=true; $('f-draftnote').textContent='This browser will not keep a draft. Copy the summary before you close the page.'; }
   buildTables(); fillMeta(); buildPick();
   scrollers.forEach(sc=>attachHBar(sc,{unit:'Tests',colW:COLW,labW:LABW,count:()=>state.tests.length}));
   $('f-exbanner').hidden=!state.example;
