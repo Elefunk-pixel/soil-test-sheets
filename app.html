@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-29">
+<meta name="sts-build" content="2026.10.29-30">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -698,6 +698,70 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
   .appbar{padding-block:2px}
   .view{padding-top:12px}
 }
+
+/* ---- pixel: slimmer, tidier ---- */
+:root[data-skin="pixel"] body{font-size:14px}
+:root[data-skin="pixel"] .wrap{gap:16px}
+:root[data-skin="pixel"] .view{padding-top:12px; padding-bottom:28px}
+:root[data-skin="pixel"] .titlebar{padding:8px 12px; border-width:2px; box-shadow:3px 3px 0 rgba(8,16,56,.5); gap:2px}
+:root[data-skin="pixel"] h1{font-size:14px; line-height:1.3}
+:root[data-skin="pixel"] .titlebar .eyebrow{font-size:9.5px}
+:root[data-skin="pixel"] .draftnote{font-size:11px}
+:root[data-skin="pixel"] .sec{border-width:2px; box-shadow:3px 3px 0 rgba(8,16,56,.5); padding:0 10px 10px; gap:10px}
+:root[data-skin="pixel"] .sechead{margin:0 -10px; padding:6px 10px; border-bottom-width:2px}
+:root[data-skin="pixel"] .sechead h2{font-size:12px; line-height:1.3}
+:root[data-skin="pixel"] .sechead .hint{font-size:10px; padding-right:60px}
+:root[data-skin="pixel"] :where(.results,.saved,.banner,.xref,.menu){border-width:2px; box-shadow:3px 3px 0 rgba(8,16,56,.4)}
+:root[data-skin="pixel"] .sec>.results{border:0; box-shadow:none; padding:0}
+:root[data-skin="pixel"] .sec>.results .kpi,:root[data-skin="pixel"] .tblwrap{box-shadow:none}
+:root[data-skin="pixel"] .appbar{border-bottom-width:3px; box-shadow:0 3px 0 #0B1544}
+:root[data-skin="pixel"] .barbtn{min-height:30px; padding:4px 9px; font-size:12.5px}
+:root[data-skin="pixel"] button{border-width:2px; box-shadow:2px 2px 0 var(--ink); min-height:28px; font-size:12.5px}
+:root[data-skin="pixel"] button:active{transform:translate(2px,2px); box-shadow:none}
+:root[data-skin="pixel"] button.quiet,:root[data-skin="pixel"] .barbtn.ghost,:root[data-skin="pixel"] td button.x{box-shadow:none}
+:root[data-skin="pixel"] :where(input:not([type="checkbox"]),select,textarea){border-width:2px; font-size:13.5px}
+:root[data-skin="pixel"] input,:root[data-skin="pixel"] select{min-height:32px; padding-top:4px; padding-bottom:4px}
+:root[data-skin="pixel"] .f label{font-size:9.5px; letter-spacing:.06em}
+:root[data-skin="pixel"] .grid{gap:8px}
+:root[data-skin="pixel"] .banner{font-size:12.5px; padding:8px 10px}
+:root[data-skin="pixel"] .kpi .val{font-size:22px}
+:root[data-skin="pixel"] :root:root .kpi .lab .ab{font-size:15px}
+:root[data-skin="pixel"] :root:root .kpi .lab .fn{font-size:10px}
+:root[data-skin="pixel"] .ph-proj,:root[data-skin="pixel"] .ph-req,:root[data-skin="pixel"] .ph-cli,:root[data-skin="pixel"] .ph-top{border-radius:0; border-width:2px; box-shadow:none}
+:root[data-skin="pixel"] table.tx td{padding:3px 2px}
+:root[data-skin="pixel"] .menu .mi small{font-size:10.5px}
+
+/* ---- hill: slimmer, tidier ---- */
+:root[data-skin="hill"] body{font-size:14px}
+:root[data-skin="hill"] .wrap{gap:16px}
+:root[data-skin="hill"] .view{padding-top:12px; padding-bottom:28px}
+:root[data-skin="hill"] .titlebar{padding:8px 12px; border-width:2px; box-shadow:3px 3px 0 rgba(8,16,56,.5); gap:2px}
+:root[data-skin="hill"] h1{font-size:14px; line-height:1.3}
+:root[data-skin="hill"] .titlebar .eyebrow{font-size:9.5px}
+:root[data-skin="hill"] .draftnote{font-size:11px}
+:root[data-skin="hill"] .sec{border-width:2px; box-shadow:3px 3px 0 rgba(8,16,56,.5); padding:0 10px 10px; gap:10px}
+:root[data-skin="hill"] .sechead{margin:0 -10px; padding:6px 10px; border-bottom-width:2px}
+:root[data-skin="hill"] .sechead h2{font-size:12px; line-height:1.3}
+:root[data-skin="hill"] .sechead .hint{font-size:10px; padding-right:60px}
+:root[data-skin="hill"] :where(.results,.saved,.banner,.xref,.menu){border-width:2px; box-shadow:3px 3px 0 rgba(8,16,56,.4)}
+:root[data-skin="hill"] .sec>.results{border:0; box-shadow:none; padding:0}
+:root[data-skin="hill"] .sec>.results .kpi,:root[data-skin="hill"] .tblwrap{box-shadow:none}
+:root[data-skin="hill"] .appbar{border-bottom-width:3px; box-shadow:0 3px 0 #0B1544}
+:root[data-skin="hill"] .barbtn{min-height:30px; padding:4px 9px; font-size:12.5px}
+:root[data-skin="hill"] button{border-width:2px; box-shadow:2px 2px 0 var(--ink); min-height:28px; font-size:12.5px}
+:root[data-skin="hill"] button:active{transform:translate(2px,2px); box-shadow:none}
+:root[data-skin="hill"] button.quiet,:root[data-skin="hill"] .barbtn.ghost,:root[data-skin="hill"] td button.x{box-shadow:none}
+:root[data-skin="hill"] :where(input:not([type="checkbox"]),select,textarea){border-width:2px; font-size:13.5px}
+:root[data-skin="hill"] input,:root[data-skin="hill"] select{min-height:32px; padding-top:4px; padding-bottom:4px}
+:root[data-skin="hill"] .f label{font-size:9.5px; letter-spacing:.06em}
+:root[data-skin="hill"] .grid{gap:8px}
+:root[data-skin="hill"] .banner{font-size:12.5px; padding:8px 10px}
+:root[data-skin="hill"] .kpi .val{font-size:22px}
+:root[data-skin="hill"] :root:root .kpi .lab .ab{font-size:15px}
+:root[data-skin="hill"] :root:root .kpi .lab .fn{font-size:10px}
+:root[data-skin="hill"] .ph-proj,:root[data-skin="hill"] .ph-req,:root[data-skin="hill"] .ph-cli,:root[data-skin="hill"] .ph-top{border-radius:0; border-width:2px; box-shadow:none}
+:root[data-skin="hill"] table.tx td{padding:3px 2px}
+:root[data-skin="hill"] .menu .mi small{font-size:10.5px}
 .ph-req{background:var(--surface); color:var(--ink)}
 .ph-cli{background:var(--surface-2); color:var(--ink)}
 .ph-kind{color:var(--accent2,var(--accent))}
