@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.11.03-77">
+<meta name="sts-build" content="2026.11.03-78">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -3290,9 +3290,32 @@ function hierMergeDupes(H,dry){
     }
   });
 
+  /* find (or create) the project / request / client request that a sheet's own job, request and client fields name */
+  function locFromMeta(meta){
+    const job=String(meta.job||'').trim(), ours=String(meta.ours||'').trim(), client=String(meta.client||'').trim();
+    if(!job||!ours) return null;
+    const jk=hierKey(job), cut=job.indexOf(' · '), jno=cut>0?job.slice(0,cut).trim():job, jname=cut>0?job.slice(cut+3).trim():'';
+    let p=H.projects.find(x=>hierKey(pLab(x))===jk||(x.no&&hierKey(x.no)===hierKey(jno))||(!x.no&&hierKey(x.name)===jk));
+    let made=false;
+    if(!p){ p={id:uid(),made:Date.now(),no:jno,name:jname,open:true,reqs:[]}; H.projects.unshift(p); made=true; }
+    let r=p.reqs.find(x=>hierKey(x.no)===hierKey(ours));
+    if(!r){ r={id:uid(),made:Date.now(),no:ours,note:'',clients:[]}; p.reqs.push(r); made=true; }
+    let c=null;
+    if(client){ c=r.clients.find(x=>hierKey(x.no)===hierKey(client));
+      if(!c){ c={id:uid(),made:Date.now(),no:client,note:''}; r.clients.push(c); made=true; } }
+    return {p:p.id,r:r.id,c:c?c.id:null,made};
+  }
   window.STS_HIER_ONSAVE=function(type,id){
-    const key=type+':'+id;
-    if(locOf(key)) return;            // already filed: keep where it is
+    const key=type+':'+id, a=API()[type];
+    const rec=a&&a.list().find(x=>x.id===id), meta=rec&&rec.data&&rec.data.meta;
+    const cur=locOf(key), d=meta?locFromMeta(meta):null;
+    if(d){
+      const same=cur&&cur.p===d.p&&cur.r===d.r&&(cur.c||null)===(d.c||null);
+      if(!same){ H.links[key]={p:d.p,r:d.r,c:d.c}; persist(); toast('Filed under '+pathLab(d)+(d.made?' (added to Projects)':'')); }
+      else if(d.made) persist();
+      return;
+    }
+    if(cur) return;                   // already filed: keep where it is
     const act=validLoc(H.active); if(!act) return;
     H.links[key]=act; persist();
     toast('Filed under '+pathLab(act));
