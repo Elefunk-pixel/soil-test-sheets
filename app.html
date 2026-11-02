@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.10.29-75">
+<meta name="sts-build" content="2026.11.03-76">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -930,6 +930,7 @@ td input.auto{font-style:italic; color:var(--muted)}
 :root[data-skin="cream"] .jump-wrap .jk{color:#B3262E; text-transform:uppercase; letter-spacing:.08em; font-size:11px}
 .jump-sel .caret{width:14px; height:14px; flex:none; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
 .jump-pop{box-shadow:0 12px 32px rgba(0,0,0,.35)}
+td .mk-btn{width:100%; min-height:34px; font-size:12.5px}
 .jump-pop .mi:disabled{opacity:.5}
 td .jump-sel.cs-btn{width:100%; max-width:none; flex:1 1 auto; margin:0; min-height:36px; height:auto; padding:4px 6px; font-size:12.5px; font-family:inherit; text-align:left}
 :root[data-skin="matrix"] .jump-pop .mi:hover small,:root[data-skin="matrix"] .jump-pop .mi[aria-checked="true"] small{color:#003a0f; text-shadow:none}
@@ -2472,7 +2473,11 @@ const Integration=(function(){
   JumpMenu.bind('jump',id=>{ if(!id) return; const rec=getSaved().find(x=>x.id===id); if(!rec){ renderSaved(); return; }
     guardSheet(isDirty,saveCurrent,()=>{ const s=JSON.parse(JSON.stringify(rec.data)); s.savedId=rec.id; s.example=false; loadAll(s); toast('Loaded '+(s.meta.sample||'test')); },()=>renderSaved()); });
   window.STS_API=window.STS_API||{};
-  window.STS_API.mdd={view:'compaction', list:getSaved,
+  /* start a fresh compaction sheet that carries the project and requests across (asks first if this one is unsaved) */
+  function startFrom(meta,done){
+    guardSheet(isDirty,saveCurrent,()=>{ const s=blank(); ['job','ours','client'].forEach(k=>{ s.meta[k]=String(meta[k]||''); }); s.example=false; loadAll(s); if(done) done(); });
+  }
+  window.STS_API.mdd={view:'compaction', list:getSaved, startFrom,
     label:it=>it.data.meta.sample||'Untitled sample',
     sub:it=>fmtDate(it.data.meta.date),
     load:id=>{ const it=getSaved().find(x=>x.id===id); if(!it) return false; guardSheet(isDirty,saveCurrent,()=>{ const s=JSON.parse(JSON.stringify(it.data)); s.savedId=it.id; s.example=false; loadAll(s); }); return true; }};
@@ -2614,6 +2619,9 @@ const Integration=(function(){
     });
     h+='<tr class="xr cs"><th class="rl" scope="row">Compaction sample</th>';
     state.tests.forEach((t,i)=>{ h+='<td><button type="button" class="jump-sel cs-btn" id="f-t-'+i+'-cs" data-cs="'+i+'" data-jm="cs" aria-haspopup="listbox" aria-expanded="false" aria-label="Test '+(i+1)+' lab compaction sample"><span class="jl"></span><svg class="caret" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button></td>'; });
+    h+='</tr>';
+    h+='<tr class="xr mk"><th class="rl" scope="row">Lab compaction</th>';
+    state.tests.forEach((t,i)=>{ h+='<td><button type="button" class="slim mk-btn" data-act="f-mkcomp" data-i="'+i+'" aria-label="Make a lab compaction test for test '+(i+1)+'">Make test</button></td>'; });
     h+='</tr>';
     finish('f-loc-table',h); paintAllCs();
   }
@@ -2994,6 +3002,11 @@ const Integration=(function(){
       const inGauge=!!b.closest('#f-sec-read'), i=state.tests.length-1;
       const el=$('f-t-'+i+'-'+(inGauge?'wet':(t.fid?'time':'fid')));
       if(el) setTimeout(()=>el.focus({preventScroll:true}),30);
+    }
+    else if(act==='f-mkcomp'){
+      const m=state.meta, api=window.STS_API&&window.STS_API.mdd; if(!api) return;
+      const n=+b.dataset.i+1;
+      api.startFrom({job:m.job,ours:m.ours,client:m.client},()=>{ App.go('compaction'); toast('New lab compaction for test '+n+' · '+([m.job,m.ours,m.client].filter(Boolean).join(' › ')||'no project set')+'. Pick it under Compaction sample once saved.'); Snd.play('add'); });
     }
     else if(act==='f-rm'){
       if(state.tests.length<=1){ toast('Keep at least one test'); return; }
