@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.11.03-78">
+<meta name="sts-build" content="2026.11.07-79">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -922,6 +922,12 @@ textarea{width:100%; font:13px/1.45 var(--font-mono); color:var(--ink); backgrou
 :root[data-skin="retro"] .sechead .sec-tog{min-height:20px; padding:0 8px; font-size:11px}
 :root[data-skin="y2k"] .sechead .sec-tog{min-height:24px}
 td input.auto{font-style:italic; color:var(--muted)}
+.pmcell{position:relative}
+.pmcell input{padding-right:30px}
+.pm{position:absolute; right:3px; top:50%; transform:translateY(-50%); min-height:0; height:26px; width:26px; padding:0; font-size:15px; line-height:1; border-radius:6px; justify-content:center}
+.dryb{color:#2F6BFF; font-weight:700; white-space:nowrap}
+:root[data-skin="matrix"] .dryb{color:#7CFF9E}
+:root[data-skin="hill"] .dryb{color:#9fb0c8}
 .jump-wrap[hidden]{display:none}
 .jump-wrap{margin-left:auto; display:flex; align-items:center; gap:6px; flex:0 1 auto; min-width:0}
 .jump-wrap .jk{flex:none; font-size:12px; font-weight:600; color:var(--muted); letter-spacing:.02em}
@@ -1295,7 +1301,7 @@ td .jump-sel.cs-btn{width:100%; max-width:none; flex:1 1 auto; margin:0; min-hei
     <div class="hint">Each point can also be weighed on its own: type its weight in the Soil weighed row of the points table. A blank point uses the batch above.</div>
     </details>
     <details class="how"><summary>About this section</summary>
-      <div class="hint">The sample moisture is not part of the curve. With an estimated OMC, Fill added % spreads the points evenly either side of it and works out how much water each one needs. You can still change any added % by hand.</div>
+      <div class="hint">The sample moisture is not part of the curve. With an estimated OMC, Fill added % spreads the points evenly either side of it and works out how much water each one needs. A minus number, or the ± button beside it, means dry back: the point shows how many grams to dry off. You can still change any added % by hand.</div>
       <div class="formula">w = (tin + wet − tin + dry) ÷ (tin + dry − tin) × 100<br>added % for a point = its target w − sample w</div>
     </details>
   </section>
@@ -2042,8 +2048,8 @@ const Integration=(function(){
       head:i=>'<span class="tn">'+(i+1)+'</span>',
       rows:[
         {tag:'Mixing',label:'Soil weighed',unit:'g',cell:i=>inp('pbw-'+i,'data-bwp="'+i+'"',P(i)+' soil weighed for this point, grams',state.bwp[i],' inputmode="decimal"')},
-        {label:'Added',unit:'%',cell:i=>inp('padd-'+i,'data-add="'+i+'"',P(i)+' moisture to add, percent',state.add[i])},
-        {label:'Water to add',unit:'g',cell:i=>calc('pwa-'+i,'res')},
+        {label:'Added',unit:'%',cell:i=>'<td class="pmcell"><input id="padd-'+i+'" data-add="'+i+'" autocomplete="off" aria-label="'+P(i)+' moisture to add, percent. A minus number means dry back." value="'+esc(state.add[i])+'" inputmode="decimal"><button type="button" class="pm" data-pm="'+i+'" aria-label="'+P(i)+' switch between add and dry back" title="Add or dry back">±</button></td>'},
+        {label:'Water to add',unit:'g · − dry back',cell:i=>calc('pwa-'+i,'res')},
         {tag:'Mould',label:'Mould + wet soil',unit:'g',sep:true,cell:i=>inp('ms-'+i,'data-ms="'+i+'"',P(i)+' mould plus wet soil mass, grams',state.ms[i])},
         {label:'Wet density',unit:'t/m³',cell:i=>calc('rho-'+i)},
         {label:'Converted wet density',unit:'t/m³',cell:i=>calc('cwd-'+i)},
@@ -2177,7 +2183,8 @@ const Integration=(function(){
     $('tin-count').textContent=state.tins.length+(state.tins.length===1?' tin':' tins');
     $('wbasis').textContent=c.nat.w!==null?('Uses the sample moisture content of '+c.nat.w.toFixed(1)+'%. 1 g of water is 1 mL.'):'No sample moisture content yet, so the batch is treated as dry soil. 1 g of water is 1 mL.';
     c.points.forEach((p,i)=>{
-      $('pwa-'+i).innerHTML=p.water===null?'–':Math.round(p.water)+(p.target!==null?'<small class="src tg">→ '+p.target.toFixed(1)+'%</small>':'');
+      $('pwa-'+i).innerHTML=p.water===null?'–':(p.water<-0.5?'<b class="dryb">Dry back '+Math.round(-p.water)+'</b>':Math.round(p.water))+(p.target!==null?'<small class="src tg">→ '+p.target.toFixed(1)+'%</small>':'');
+      $('pwa-'+i).classList.toggle('bad',p.target!==null&&p.target<0);
       $('rho-'+i).textContent=f(p.rho,3);
       $('cwd-'+i).textContent=f(p.cwd,3);
       const wc=$('w-'+i);
@@ -2186,12 +2193,12 @@ const Integration=(function(){
       const rc=$('rd-'+i); rc.textContent=p.odd?'check':f(p.rd,3); rc.classList.toggle('bad',p.odd);
     });
     // totals strip under the table
-    { const n=state.ms.length, tw=c.points.reduce((a,p)=>a+(p.water||0),0), any=c.points.some(p=>p.water!==null);
+    { const n=state.ms.length, tw=c.points.reduce((a,p)=>a+(p.water>0?p.water:0),0), db=c.points.reduce((a,p)=>a+(p.water<0?-p.water:0),0), any=c.points.some(p=>p.water!==null);
       const bws=c.points.filter(p=>p.bw!==null), soil=bws.reduce((a,p)=>a+p.bw,0), same=bws.length&&bws.every(p=>p.bw===bws[0].bw);
       let ft='';
       if(!bws.length) ft='Weigh each point in the Soil weighed row, or set a batch in the mix plan, to work out the water.';
       else{
-        ft='<span>Total water <b>'+(any?Math.round(tw).toLocaleString('en-AU')+' g':'–')+'</b></span>';
+        ft='<span>Total water <b>'+(any?Math.round(tw).toLocaleString('en-AU')+' g':'–')+'</b></span>'+(db>0.5?'<span>Dry back <b>'+Math.round(db).toLocaleString('en-AU')+' g</b> in total</span>':'');
         ft+='<span>Soil '+(bws.length<n?'weighed':'needed')+' <b>'+(+(soil/1000).toFixed(2))+' kg</b> ('+(same?bws.length+' × '+(+bws[0].bw.toFixed(0))+' g':bws.length+' points')+')</span>';
       }
       c.points.forEach((p,i)=>{ const e=$('pbw-'+i); if(e) e.placeholder=state.meta.batch||''; });
@@ -2241,6 +2248,7 @@ const Integration=(function(){
     if(cpk){ $('k-mwd').innerHTML=cpk.cwd.toFixed(3)+'<span class="u">t/m³</span>'; $('k-mwd-sub').textContent='Peak added moisture '+cpk.add.toFixed(1)+'% (point '+(cpk.i+1)+')'; }
     else{ $('k-mwd').textContent='–'; $('k-mwd-sub').textContent='Needs added moisture and a wet density'; }
     const fl=[];
+    c.points.forEach((p,i)=>{ if(p.target!==null&&p.target<0) fl.push(['bad','Point '+(i+1)+': drying back by '+Math.abs(p.add).toFixed(1)+'% goes below zero moisture. The soil only holds '+c.nat.w.toFixed(1)+'% to start with.']); });
     if(c.nat.w===null&&c.points.some(p=>p.water!==null)) fl.push(['','Water to add is worked out on the batch as dry soil. Enter the sample moisture content to correct for the natural moisture.']);
     if(c.nat.bad) fl.push(['bad','Sample moisture: tin + dry must be heavier than the tin, and tin + wet must not be lighter than tin + dry.']);
     c.rows.forEach((r,i)=>{ if(r.bad) fl.push(['bad','Tin '+(i+1)+': tin + dry must be heavier than the tin, and tin + wet must not be lighter than tin + dry.']); });
@@ -2939,6 +2947,14 @@ const Integration=(function(){
     exampleOff();
     refresh();
   }
+  // ± beside Added %: flips between adding water and drying back
+  document.addEventListener('click',e=>{
+    const b=e.target.closest&&e.target.closest('button[data-pm]'); if(!b) return;
+    const i=+b.dataset.pm, inpEl=document.getElementById('padd-'+i); if(!inpEl) return;
+    let v=String(inpEl.value||'').trim(); v=v.charAt(0)==='-'?v.slice(1):'-'+v;
+    inpEl.value=v; inpEl.dispatchEvent(new Event('input',{bubbles:true})); inpEl.focus({preventScroll:true});
+    Snd.play('key');
+  });
   document.addEventListener('input',onEdit);
   document.addEventListener('change',e=>{ if(e.target&&(e.target.type==='date'||e.target.type==='time')) onEdit(e); });
   JumpMenu.bind('cs',(val,el)=>{
