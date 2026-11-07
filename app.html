@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Soil Test Sheets</title>
-<meta name="sts-build" content="2026.11.07-79">
+<meta name="sts-build" content="2026.11.07-80">
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important}body{margin:0}</style>
 </head>
@@ -1315,7 +1315,7 @@ td .jump-sel.cs-btn{width:100%; max-width:none; flex:1 1 auto; margin:0; min-hei
       <div class="tfoot" id="comp-foot"></div>
     </div>
     <details class="how"><summary>How this table is worked out</summary>
-      <div class="formula">water to add = dry soil × added % ÷ 100<br>dry soil = batch ÷ (1 + sample w ÷ 100)<br>target w = sample w + added %<br>wet density = (mould + wet soil − mould) ÷ volume<br>dry density = wet density ÷ (1 + w ÷ 100)</div>
+      <div class="formula">water to add = dry soil × added % ÷ 100<br>dry soil = batch ÷ (1 + sample w ÷ 100)<br>target w = sample w + added %<br>soil after = batch + water to add (minus the dry back)<br>wet density = (mould + wet soil − mould) ÷ volume<br>dry density = wet density ÷ (1 + w ÷ 100)</div>
       <div class="hint" id="wbasis"></div>
       <div class="hint">Moisture is the mean of that point's tins in the moisture table below.</div>
     </details>
@@ -2050,6 +2050,7 @@ const Integration=(function(){
         {tag:'Mixing',label:'Soil weighed',unit:'g',cell:i=>inp('pbw-'+i,'data-bwp="'+i+'"',P(i)+' soil weighed for this point, grams',state.bwp[i],' inputmode="decimal"')},
         {label:'Added',unit:'%',cell:i=>'<td class="pmcell"><input id="padd-'+i+'" data-add="'+i+'" autocomplete="off" aria-label="'+P(i)+' moisture to add, percent. A minus number means dry back." value="'+esc(state.add[i])+'" inputmode="decimal"><button type="button" class="pm" data-pm="'+i+'" aria-label="'+P(i)+' switch between add and dry back" title="Add or dry back">±</button></td>'},
         {label:'Water to add',unit:'g · − dry back',cell:i=>calc('pwa-'+i,'res')},
+        {label:'Soil after',unit:'g · wet',cell:i=>calc('pws-'+i,'res')},
         {tag:'Mould',label:'Mould + wet soil',unit:'g',sep:true,cell:i=>inp('ms-'+i,'data-ms="'+i+'"',P(i)+' mould plus wet soil mass, grams',state.ms[i])},
         {label:'Wet density',unit:'t/m³',cell:i=>calc('rho-'+i)},
         {label:'Converted wet density',unit:'t/m³',cell:i=>calc('cwd-'+i)},
@@ -2185,6 +2186,7 @@ const Integration=(function(){
     c.points.forEach((p,i)=>{
       $('pwa-'+i).innerHTML=p.water===null?'–':(p.water<-0.5?'<b class="dryb">Dry back '+Math.round(-p.water)+'</b>':Math.round(p.water))+(p.target!==null?'<small class="src tg">→ '+p.target.toFixed(1)+'%</small>':'');
       $('pwa-'+i).classList.toggle('bad',p.target!==null&&p.target<0);
+      $('pws-'+i).textContent=(p.bw!==null&&p.water!==null)?Math.round(p.bw+p.water).toLocaleString('en-AU'):'–';
       $('rho-'+i).textContent=f(p.rho,3);
       $('cwd-'+i).textContent=f(p.cwd,3);
       const wc=$('w-'+i);
@@ -2199,6 +2201,7 @@ const Integration=(function(){
       if(!bws.length) ft='Weigh each point in the Soil weighed row, or set a batch in the mix plan, to work out the water.';
       else{
         ft='<span>Total water <b>'+(any?Math.round(tw).toLocaleString('en-AU')+' g':'–')+'</b></span>'+(db>0.5?'<span>Dry back <b>'+Math.round(db).toLocaleString('en-AU')+' g</b> in total</span>':'');
+        { const aft=c.points.filter(p=>p.bw!==null&&p.water!==null).reduce((a,p)=>a+p.bw+p.water,0); if(any) ft+='<span>Soil after <b>'+(+(aft/1000).toFixed(2))+' kg</b> all points</span>'; }
         ft+='<span>Soil '+(bws.length<n?'weighed':'needed')+' <b>'+(+(soil/1000).toFixed(2))+' kg</b> ('+(same?bws.length+' × '+(+bws[0].bw.toFixed(0))+' g':bws.length+' points')+')</span>';
       }
       c.points.forEach((p,i)=>{ const e=$('pbw-'+i); if(e) e.placeholder=state.meta.batch||''; });
